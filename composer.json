@@ -1,6 +1,12 @@
 {
+    "autoload": {
+        "psr-4": {
+            "SiteDl\\": "src/"
+        }
+    },
     "require": {
         "paquettg/php-html-parser": "^1.7",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "symfony/console": "^3.2"
     }
 }
