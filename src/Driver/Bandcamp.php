@@ -1,20 +1,30 @@
 <?php
-require_once 'vendor/autoload.php';
+namespace SiteDl\Driver;
 
-$url = "https://volaband.bandcamp.com/album/inmazes";
-$domain = "bandcamp.com";
-$folder = "volaband" . DIRECTORY_SEPARATOR . 'inmazes';
-$path = __DIR__ . DIRECTORY_SEPARATOR . $domain . DIRECTORY_SEPARATOR . $folder;
-if (!file_exists($path)) {
-    mkdir($path, 0644, true);
-}
-$client = new GuzzleHttp\Client();
-$res = $client->request('GET', $url);
-$body = (string)$res->getBody();
+class Bandcamp extends \SiteDl\DriverAbstract
+{
+    private $aMatches = [];
 
-preg_match('~trackinfo: (\[.+?\]),~s', $body, $result);
-foreach(json_decode($result[1], true) as $content) {
-    $src = $content['file']['mp3-128'];
-    $name = $content['title'];
-    file_put_contents($path . DIRECTORY_SEPARATOR . $name . '.mp3', file_get_contents('https:' . $src));
+    public function canHandle()
+    {
+        return preg_match('~^https?://(?<artist>.+)\.bandcamp\.com/album/(?<album>.+)$~', $this->sUrl, $this->aMatches);
+    }
+
+    public function getDownloadables()
+    {
+        $oRes = $this->getClient()->request('GET', $this->sUrl);
+        $sBody = (string)$oRes->getBody();
+        $aReturn = [];
+        preg_match('~trackinfo: (\[.+?\]),~s', $sBody, $aResult);
+        $sFolder = $this->getFolder() . DIRECTORY_SEPARATOR;
+        foreach(json_decode($aResult[1], true) as $aContent) {
+            $aReturn[$sFolder . $aContent['title'] . '.mp3'] = 'https:' . $aContent['file']['mp3-128'];
+        }
+        return $aReturn;
+    }
+
+    private function getFolder()
+    {
+        return implode(DIRECTORY_SEPARATOR, ['bandcamp.com', $this->aMatches['artist'], $this->aMatches['album']]);
+    }
 }

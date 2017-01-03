@@ -1,26 +1,40 @@
 <?php
-namespace FemtoPixel\Parser\Driver;
+namespace SiteDl\Driver;
 
-$url = "http://www.porncomix.info/week-with-peg-goof-troop/";
-$domain = "porncomix.info";
-$folder = "week-with-peg-goof-troop";
-$path = __DIR__ . DIRECTORY_SEPARATOR . $domain . DIRECTORY_SEPARATOR . $folder;
-if (!file_exists($path)) {
-    mkdir($path, 0644, true);
-}
-$client = new \GuzzleHttp\Client();
-$res = $client->request('GET', $url);
-$body = (string)$res->getBody();
+class Porncomix extends \SiteDl\DriverAbstract
+{
+    private $aMatches = [];
+    const DOMAIN = 'porncomix.info';
 
-$dom = new \PHPHtmlParser\Dom;
-$dom->load($body);
-$contents = $dom->find('#gallery-1 dt a');
-foreach($contents as $link) {
-    /** @var \DOMElement $link */
-    $res = (string)$client->request('GET', $link->getAttribute('href'))->getBody();
-    $dom->load($res);
-    /** @var \DOMElement $img */
-    $img = $dom->find('.single-post .attachment-image img');
-    $src = $img->getAttribute('src');
-    file_put_contents($path . DIRECTORY_SEPARATOR . basename($src), file_get_contents($src));
+    public function canHandle()
+    {
+        return preg_match(
+            '~^http://www\.' . strtr(self::DOMAIN, ['.' => '\.']) . '/(?<album>[^/]+)/$~',
+            $this->sUrl,
+            $this->aMatches
+        );
+    }
+
+    public function getDownloadables()
+    {
+        $oRes = $this->getClient()->request('GET', $this->sUrl);
+        $aReturn = [];
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#gallery-1 dt a') as $oLink) {
+            /**
+             * @var \DOMElement $oLink
+             * @var \DOMElement $oImg
+             */
+            $oImg = $this->getDomParser()
+                ->load((string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody())
+                ->find('.single-post .attachment-image img');
+            $sFilename = $oImg->getAttribute('src');
+            $aReturn[$this->getFolder(). DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
+        }
+        return $aReturn;
+    }
+
+    private function getFolder()
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+    }
 }
