@@ -43,6 +43,7 @@ class Command extends \Symfony\Component\Console\Command\Command
             }
         }
         foreach ($aUrl as $sUrl) {
+            $sUrl = trim($sUrl);
             $output->writeln('Parsing ' . $sUrl);
             $mResult = $oParser->parse($sUrl);
             $mResult ? $this->download($mResult, $output) : $output->writeln('Error while parsing ' . $sUrl);
