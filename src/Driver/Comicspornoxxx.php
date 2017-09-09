@@ -18,20 +18,25 @@ class Comicspornoxxx extends \SiteDl\DriverAbstract
     public function getDownloadables()
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $oLink = $this->getDomParser()->load((string)$oRes->getBody())->find('.su-box-style-default .su-button-center a')[0];
-        $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
+        /**
+         * @var \DOMElement $oLink
+         */
+        $oLink = $this->getDomParser()->load((string)$oRes->getBody())->find('.entry-content .su-button-center a')[0];
+        $sUrl = $oLink->getAttribute('href');
+        $oRes = $this->getClient()->request('GET', $sUrl);
+        preg_match('~^https?://(?<domain>[^/]+)/~', $sUrl, $aDomains);
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail a') as $oLink) {
             /**
              * @var \DOMElement $oLink
              */
-            $sLink = 'https://cloud-1.sharealo.org/' . $oLink->getAttribute('href');
+            $sLink = 'https://' . $aDomains['domain'] . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#center .text-center img') as $oImg) {
                 /**
                  * @var \DOMElement $oImg
                  */
-                $sFilename = 'https://cloud-1.sharealo.org/' . $oImg->getAttribute('src');
+                $sFilename = 'https://' . $aDomains['domain'] . $oImg->getAttribute('src');
                 $aReturn[$this->getFolder(). DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
             }
         }
