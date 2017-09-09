@@ -44,9 +44,11 @@ class Command extends \Symfony\Component\Console\Command\Command
         }
         foreach ($aUrl as $sUrl) {
             $sUrl = trim($sUrl);
-            $output->writeln('Parsing ' . $sUrl);
+            $output->writeln('<comment>Parsing ' . $sUrl . '</comment>');
             $mResult = $oParser->parse($sUrl);
-            $mResult ? $this->download($mResult, $output) : $output->writeln('Error while parsing ' . $sUrl);
+            $mResult
+                ? $this->download($mResult, $output)
+                : $output->writeln('<error>Error while parsing ' . $sUrl . '</error>');
         }
     }
 
@@ -58,7 +60,7 @@ class Command extends \Symfony\Component\Console\Command\Command
             if (!file_exists(dirname($sFileName))) {
                 mkdir(dirname($sFileName), 0644, true);
             }
-            $output->writeln('Downloading ' . $sResource . ' : ' . $sFileName);
+            $output->writeln('<info>Downloading ' . $sResource . ' : ' . $sFileName . '</info>');
             file_put_contents($sFileName, file_get_contents($sResource));
         }
     }
