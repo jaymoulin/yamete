@@ -1,14 +1,12 @@
 FROM php:7.0-cli
 COPY . /root
 WORKDIR /root
+ENV PATH="/root:$PATH"
 
-RUN apt-get update && apt-get install git zip -y && \
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
-php composer-setup.php && \
-php -r "unlink('composer-setup.php');" && \
+RUN apt-get update && apt-get install git zip wget -y && \
+wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet && \
 php composer.phar install && \
-PATH="/root:$PATH"
+apt-get remove wget -y
 
 VOLUME ['/root/downloads']
 
