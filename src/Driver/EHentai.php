@@ -1,15 +1,15 @@
 <?php
 namespace SiteDl\Driver;
 
-class SimplyHentai extends \SiteDl\DriverAbstract
+class EHentai extends \SiteDl\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'simply-hentai.com';
+    const DOMAIN = 'e-hentai.org';
 
     public function canHandle()
     {
         return preg_match(
-            '~^https?://(?<domain>[^.]+\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/(?<album>[^?]+))~',
+            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/g/([^/]+)/(?<album>[^/]+)/~',
             $this->sUrl,
             $this->aMatches
         );
@@ -17,17 +17,17 @@ class SimplyHentai extends \SiteDl\DriverAbstract
 
     public function getDownloadables()
     {
-        $oRes = $this->getClient()->request('GET', 'http://' . $this->aMatches['domain'] . '/all-pages');
+        $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.image-preview') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gdtm a') as $oLink) {
             /**
              * @var \DOMElement $oLink
              * @var \DOMElement $oImg
              */
             $oImg = $this->getDomParser()
                 ->load((string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody())
-                ->find('.next-link picture img');
+                ->find('#i3 img');
             $sFilename = $oImg->getAttribute('src');
             $aReturn[$this->getFolder(). DIRECTORY_SEPARATOR . str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename)] = $sFilename;
         }
