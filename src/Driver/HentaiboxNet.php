@@ -1,7 +1,7 @@
 <?php
 namespace SiteDl\Driver;
 
-class HentqiboxNet extends \SiteDl\DriverAbstract
+class HentaiboxNet extends \SiteDl\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaibox.net';
