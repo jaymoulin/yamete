@@ -9,7 +9,7 @@ class SimplyHentai extends \SiteDl\DriverAbstract
     public function canHandle()
     {
         return preg_match(
-            '~^https?://(?<domain>[^.]\.' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<album>[^/]+)/?.*~',
+            '~^https?://(?<domain>[^.]+\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/([^?]+))~',
             $this->sUrl,
             $this->aMatches
         );
@@ -17,7 +17,7 @@ class SimplyHentai extends \SiteDl\DriverAbstract
 
     public function getDownloadables()
     {
-        $oRes = $this->getClient()->request('GET', 'http://' . $this->aMatches['domain'] . '/' . $this->aMatches['album'] . '/all-pages');
+        $oRes = $this->getClient()->request('GET', 'http://' . $this->aMatches['domain'] . '/all-pages');
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.image-preview') as $oLink) {
             /**
