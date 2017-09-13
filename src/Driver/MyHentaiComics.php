@@ -1,11 +1,12 @@
 <?php
+
 namespace SiteDl\Driver;
 
 class MyHentaiComics extends \SiteDl\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'myhentaicomics.com';
-    
+
     public function canHandle()
     {
         return preg_match(
@@ -25,10 +26,14 @@ class MyHentaiComics extends \SiteDl\DriverAbstract
              * @var \DOMElement $oImg
              */
             $oImg = $this->getDomParser()
-                ->load((string)$this->getClient()->request('GET', 'http://' . self::DOMAIN . $oLink->getAttribute('href'))->getBody())
+                ->load(
+                    (string)$this->getClient()->request('GET', 'http://' . self::DOMAIN . $oLink->getAttribute('href'))
+                        ->getBody()
+                )
                 ->find('.g-resize');
-            $sFilename = 'http://' . self::DOMAIN . substr($oImg->getAttribute('src'), 0, strpos($oImg->getAttribute('src'), '?'));
-            $aReturn[$this->getFolder(). DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
+            $sFilename = 'http://' . self::DOMAIN
+                . substr($oImg->getAttribute('src'), 0, strpos($oImg->getAttribute('src'), '?'));
+            $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
         return $aReturn;
     }

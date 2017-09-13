@@ -1,4 +1,5 @@
 <?php
+
 namespace SiteDl\Driver;
 
 class EightMuses extends \SiteDl\DriverAbstract
@@ -31,7 +32,9 @@ class EightMuses extends \SiteDl\DriverAbstract
                         ->request('GET', 'https://www.' . self::DOMAIN . $oLink->getAttribute('href'))->getBody()
                 )->find('#imageName');
             $sFilename = 'https://cdn.ampproject.org/i/s/www.8muses.com/data/fu/small/' . $oImg->getAttribute('value');
-            $aReturn[$this->getFolder(). DIRECTORY_SEPARATOR . str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename)] = $sFilename;
+            $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
+                . str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
+            $aReturn[$sPath] = $sFilename;
         }
         return $aReturn;
     }

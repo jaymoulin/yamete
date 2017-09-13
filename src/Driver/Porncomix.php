@@ -1,4 +1,5 @@
 <?php
+
 namespace SiteDl\Driver;
 
 class Porncomix extends \SiteDl\DriverAbstract
@@ -28,7 +29,7 @@ class Porncomix extends \SiteDl\DriverAbstract
                 ->load((string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody())
                 ->find('.single-post .attachment-image img');
             $sFilename = $oImg->getAttribute('src');
-            $aReturn[$this->getFolder(). DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
+            $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
         return $aReturn;
     }

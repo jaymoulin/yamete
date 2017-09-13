@@ -1,4 +1,5 @@
 <?php
+
 namespace SiteDl\Driver;
 
 class HentaiboxNet extends \SiteDl\DriverAbstract
@@ -9,7 +10,8 @@ class HentaiboxNet extends \SiteDl\DriverAbstract
     public function canHandle()
     {
         return preg_match(
-            '~^http://www\.' . strtr(self::DOMAIN, ['.' => '\.']) . '/hentai\-manga/[0-9]{2}_[0-9]{2}_(?<album>[^/])/(00)?$~',
+            '~^http://www\.' . strtr(self::DOMAIN, ['.' => '\.'])
+                . '/hentai\-manga/[0-9]{2}_[0-9]{2}_(?<album>[^/])/(00)?$~',
             $this->sUrl,
             $this->aMatches
         );
@@ -26,12 +28,12 @@ class HentaiboxNet extends \SiteDl\DriverAbstract
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('select["name=np2"] option') as $oOption) {
             /** @var \DOMElement $oOption */
             $sFilename = $this->getDomParser()->load(
-                    (string)$this->getClient()
+                (string)$this->getClient()
                     ->request(
                         'GET',
                         str_replace('/00', $oOption->getAttribute('value'), $this->sUrl)
                     )->getBody()
-                )
+            )
                 ->find('td > center > a > img')
                 ->getAttribute('src');
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;

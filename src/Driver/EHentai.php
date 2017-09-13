@@ -1,4 +1,5 @@
 <?php
+
 namespace SiteDl\Driver;
 
 class EHentai extends \SiteDl\DriverAbstract
@@ -29,7 +30,9 @@ class EHentai extends \SiteDl\DriverAbstract
                 ->load((string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody())
                 ->find('#i3 img');
             $sFilename = $oImg->getAttribute('src');
-            $aReturn[$this->getFolder(). DIRECTORY_SEPARATOR . str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename)] = $sFilename;
+            $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
+                . str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
+            $aReturn[$sPath] = $sFilename;
         }
         return $aReturn;
     }

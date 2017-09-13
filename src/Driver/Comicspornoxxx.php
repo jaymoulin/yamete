@@ -1,4 +1,5 @@
 <?php
+
 namespace SiteDl\Driver;
 
 class Comicspornoxxx extends \SiteDl\DriverAbstract
@@ -37,7 +38,7 @@ class Comicspornoxxx extends \SiteDl\DriverAbstract
                  * @var \DOMElement $oImg
                  */
                 $sFilename = 'https://' . $aDomains['domain'] . $oImg->getAttribute('src');
-                $aReturn[$this->getFolder(). DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
+                $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
             }
         }
         return $aReturn;

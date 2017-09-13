@@ -1,4 +1,5 @@
 <?php
+
 namespace SiteDl\Driver;
 
 class PorncomixSite extends \SiteDl\DriverAbstract
@@ -24,7 +25,7 @@ class PorncomixSite extends \SiteDl\DriverAbstract
              * @var \DOMElement $oLink
              */
             $sFilename = $oLink->getAttribute('href');
-            $aReturn[$this->getFolder(). DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
+            $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
         return $aReturn;
     }

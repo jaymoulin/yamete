@@ -1,4 +1,5 @@
 <?php
+
 namespace SiteDl;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,8 +23,7 @@ class Command extends \Symfony\Component\Console\Command\Command
                 'd',
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Optional array of drivers to add'
-            )
-        ;
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -38,7 +38,7 @@ class Command extends \Symfony\Component\Console\Command\Command
         }
         $oParser = new Parser();
         if ($input->hasOption(self::DRIVERS)) {
-            foreach ((array) $input->getOption(self::DRIVERS) as $sDriver) {
+            foreach ((array)$input->getOption(self::DRIVERS) as $sDriver) {
                 $oParser->addDriverDirectory($sDriver);
             }
         }

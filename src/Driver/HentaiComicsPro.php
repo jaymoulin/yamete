@@ -10,7 +10,8 @@ class HentaiComicsPro extends \SiteDl\DriverAbstract
     public function canHandle()
     {
         return preg_match(
-            '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/[^/]+/galleries/(?<album>[^/?]+)/?~',
+            '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-'])
+                . '/[^/]+/galleries/(?<album>[^/?]+)/?~',
             $this->sUrl,
             $this->aMatches
         );

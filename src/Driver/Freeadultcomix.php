@@ -1,4 +1,5 @@
 <?php
+
 namespace SiteDl\Driver;
 
 class Freeadultcomix extends \SiteDl\DriverAbstract
