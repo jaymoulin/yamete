@@ -7,6 +7,7 @@
     "require": {
         "paquettg/php-html-parser": "^1.7",
         "guzzlehttp/guzzle": "^6.2",
+        "tunaabutbul/cloudflare-middleware": "dev-master",
         "symfony/console": "^3.2",
         "crodas/class-info": "^0.2.3"
     }
