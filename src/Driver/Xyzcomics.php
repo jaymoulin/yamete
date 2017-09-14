@@ -2,15 +2,15 @@
 
 namespace SiteDl\Driver;
 
-class PorncomixOnline extends \SiteDl\DriverAbstract
+class Xyzcomics extends \SiteDl\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'porncomixonline.net';
+    const DOMAIN = 'xyzcomics.com';
 
     public function canHandle()
     {
         return preg_match(
-            '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.']) . '/(?<album>[^/]+)/$~',
+            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.']) . '/(?<album>[^/]+)/$~',
             $this->sUrl,
             $this->aMatches
         );
@@ -20,12 +20,15 @@ class PorncomixOnline extends \SiteDl\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.unite-gallery img') as $oImg) {
+        $i = 0;
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry p a img') as $oImg) {
             /**
              * @var \DOMElement $oImg
              */
-            $sFilename = $oImg->getAttribute('data-image');
-            $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
+            $sFilename = str_replace('small', 'big', $oImg->getAttribute('src'));
+            $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT) . '-'
+                . basename($sFilename);
+            $aReturn[$sPath] = $sFilename;
         }
         return $aReturn;
     }
