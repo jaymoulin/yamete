@@ -655,12 +655,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tunaabutbul/cloudflare-middleware.git",
-                "reference": "b8cbfed2f2423a9408623f7c19e11880d0729562"
+                "reference": "7c4cdd92101204859bc261c27339cd6621c928ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tunaabutbul/cloudflare-middleware/zipball/b8cbfed2f2423a9408623f7c19e11880d0729562",
-                "reference": "b8cbfed2f2423a9408623f7c19e11880d0729562",
+                "url": "https://api.github.com/repos/tunaabutbul/cloudflare-middleware/zipball/7c4cdd92101204859bc261c27339cd6621c928ad",
+                "reference": "7c4cdd92101204859bc261c27339cd6621c928ad",
                 "shasum": ""
             },
             "require": {
@@ -688,7 +688,7 @@
                 "cloudflare",
                 "middleware"
             ],
-            "time": "2017-08-20T07:17:02+00:00"
+            "time": "2017-09-14T10:04:09+00:00"
         }
     ],
     "packages-dev": [],
