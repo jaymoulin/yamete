@@ -1,9 +1,9 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
 
-class HentaiFox extends \SiteDl\DriverAbstract
+class HentaiFox extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaifox.com';

@@ -1,8 +1,8 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
-class EightMuses extends \SiteDl\DriverAbstract
+class EightMuses extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = '8muses.com';

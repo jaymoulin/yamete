@@ -1,8 +1,8 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
-class Comicspornoxxx extends \SiteDl\DriverAbstract
+class Comicspornoxxx extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'comicspornoxxx.com';

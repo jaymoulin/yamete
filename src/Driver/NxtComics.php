@@ -1,8 +1,8 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
-class NxtComics extends \SiteDl\DriverAbstract
+class NxtComics extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'nxt-comics.com';

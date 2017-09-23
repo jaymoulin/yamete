@@ -2,7 +2,7 @@
 <?php
 require_once 'vendor/autoload.php';
 
-$oCommand = new SiteDl\Command;
+$oCommand = new Yamete\Command;
 
 $oApplication = new \Symfony\Component\Console\Application;
 $oApplication->add($oCommand);

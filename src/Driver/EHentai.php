@@ -1,8 +1,8 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
-class EHentai extends \SiteDl\DriverAbstract
+class EHentai extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'e-hentai.org';

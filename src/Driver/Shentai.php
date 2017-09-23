@@ -1,8 +1,8 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
-class Shentai extends \SiteDl\DriverAbstract
+class Shentai extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'shentai.xyz';

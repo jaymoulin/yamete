@@ -1,8 +1,8 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
-class Freeadultcomix extends \SiteDl\DriverAbstract
+class Freeadultcomix extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'freeadultcomix.com';

@@ -1,8 +1,8 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
-class HentaiFromHell extends \SiteDl\DriverAbstract
+class HentaiFromHell extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaifromhell.org';

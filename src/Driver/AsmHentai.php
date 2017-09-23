@@ -1,8 +1,8 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
-class AsmHentai extends \SiteDl\DriverAbstract
+class AsmHentai extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'asmhentai.com';

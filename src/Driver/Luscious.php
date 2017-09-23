@@ -1,8 +1,8 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
-class Luscious extends \SiteDl\DriverAbstract
+class Luscious extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'luscious.net';

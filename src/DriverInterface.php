@@ -1,6 +1,6 @@
 <?php
 
-namespace SiteDl;
+namespace Yamete;
 
 interface DriverInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace SiteDl;
+namespace Yamete;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

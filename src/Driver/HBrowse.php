@@ -1,8 +1,8 @@
 <?php
 
-namespace SiteDl\Driver;
+namespace Yamete\Driver;
 
-class HBrowse extends \SiteDl\DriverAbstract
+class HBrowse extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hbrowse.com';
