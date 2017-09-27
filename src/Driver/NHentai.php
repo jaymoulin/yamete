@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use GuzzleRetry\GuzzleRetryMiddleware;
+
 class NHentai extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -18,6 +20,12 @@ class NHentai extends \Yamete\DriverAbstract
 
     public function getDownloadables()
     {
+        $oClient = $this->getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
+        /**
+         * @var \GuzzleHttp\HandlerStack $oHandler
+         */
+        $oHandler = $oClient->getConfig('handler');
+        $oHandler->push(GuzzleRetryMiddleware::factory());
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;

@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use Tuna\CloudflareMiddleware;
+
 class HentaiFromHell extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -18,10 +20,13 @@ class HentaiFromHell extends \Yamete\DriverAbstract
 
     public function getDownloadables()
     {
-        $oRes = $this->getClient([
-            'cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__)),
-            'handler' => \Tuna\CloudflareMiddleware::create(),
-        ])->request('GET', $this->sUrl);
+        $oClient = $this->getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
+        /**
+         * @var \GuzzleHttp\HandlerStack $oHandler
+         */
+        $oHandler = $oClient->getConfig('handler');
+        $oHandler->push(CloudflareMiddleware::create());
+        $oRes = $oClient->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('center a') as $oLink) {
@@ -29,13 +34,15 @@ class HentaiFromHell extends \Yamete\DriverAbstract
              * @var \DOMElement $oLink
              */
             $sLink = $oLink->getAttribute('href');
-            preg_match('~^https?://(?<domain>' . strtr(self::DOMAIN, ['.' => '\.']) . ')~', $sLink, $aDomains);
+            preg_match('~^https?://(?<domain>[^/]+)~', $sLink, $aDomains);
             $oRes = $this->getClient()->request('GET', $sLink);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#overflow-wrapper img') as $oImg) {
                 /**
                  * @var \DOMElement $oImg
                  */
-                $sFilename = 'http://' . $aDomains[1] . $oImg->getAttribute('src');
+                $sLink = $oImg->getAttribute('src');
+                $bHasHost = preg_match('~^https?://(?<domain>[^/]+)~', $sLink);
+                $sFilename = $bHasHost ? $sLink : 'http://' . $sLink;
                 $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sPath] = $sFilename;

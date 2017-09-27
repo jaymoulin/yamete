@@ -23,6 +23,9 @@ class HentaiComicsPro extends \Yamete\DriverAbstract
         $aReturn = [];
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.part-select option') as $oLink) {
+            /**
+             * @var \DOMElement $oLink
+             */
             $sUrl = 'http://www.' . self::DOMAIN . $oLink->getAttribute('value');
             foreach ($this->getDomParser()->load($sUrl)->find('.portfolio-normal-width figure a') as $oImg) {
                 /**

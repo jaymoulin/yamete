@@ -23,6 +23,9 @@ class HBrowse extends \Yamete\DriverAbstract
         $i = 0;
         $sAccessor = '#main .listTable .listMiddle a';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sAccessor) as $oLink) { //chapters
+            /**
+             * @var \DOMElement $oLink
+             */
             $sLink = $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             $oBody = $this->getDomParser()->load((string)$oRes->getBody());

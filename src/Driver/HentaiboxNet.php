@@ -26,16 +26,19 @@ class HentaiboxNet extends \Yamete\DriverAbstract
 
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('select["name=np2"] option') as $oOption) {
-            /** @var \DOMElement $oOption */
-            $sFilename = $this->getDomParser()->load(
+            /**
+             * @var \DOMElement $oOption
+             * @var \DOMElement[] $aImg
+             */
+            $aImg = $this->getDomParser()->load(
                 (string)$this->getClient()
                     ->request(
                         'GET',
                         str_replace('/00', $oOption->getAttribute('value'), $this->sUrl)
                     )->getBody()
             )
-                ->find('td > center > a > img')
-                ->getAttribute('src');
+                ->find('td > center > a > img');
+            $sFilename = $aImg[0]->getAttribute('src');
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
         return $aReturn;
