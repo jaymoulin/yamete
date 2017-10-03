@@ -1,4 +1,7 @@
 FROM dpvduncan/rpi-alpine
+
+MAINTAINER Jay MOULIN <jaymoulin@gmail.com>
+
 COPY . /root
 WORKDIR /root
 ENV PATH="/root:$PATH"

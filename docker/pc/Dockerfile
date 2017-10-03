@@ -1,4 +1,7 @@
 FROM php:7.0-fpm-alpine
+
+MAINTAINER Jay MOULIN <jaymoulin@gmail.com>
+
 COPY . /root
 WORKDIR /root
 ENV PATH="/root:$PATH"
