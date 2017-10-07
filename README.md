@@ -84,5 +84,17 @@ Here's is the list of supported sites for now:
  * shentai.xyz
  * simply-hentai.com
  * xyzcomics.com
+ * hentaifantasy.it
+ * hentaicomicsbr.net
+ * hentaivn.net
+ * hentaimanga.info
+ * yaoimangaonline.com
+ * milfcomix.com
+ * vercomicsporno.com
+ * hitomi.la
+ * tsumino.com
+ * comicsmanics.com
+ * hentaifr.net
+ * myreadingmanga.info
  
 You must pass the URL to the album for the program to download it!
