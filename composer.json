@@ -1,6 +1,6 @@
 {
     "name": "jaymoulin/yamete",
-    "description": "Yamete - Easy site downloader",
+    "description": "Yamete - Hentai downloader in PHP CLI - Easy site downloader PHP system",
     "autoload": {
         "psr-4": {
             "Yamete\\": "src/"
