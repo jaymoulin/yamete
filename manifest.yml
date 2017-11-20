@@ -1,12 +1,29 @@
 image: jaymoulin/yamete:$FULLVERSION
 manifests:
   -
-    image: jaymoulin/yamete:rpi-$VERSION
+    image: jaymoulin/yamete:$VERSION-armhf-latest-stable
     platform:
       architecture: arm
+      variant: v7
       os: linux
   -
-    image: jaymoulin/yamete:pc-$VERSION
+    image: jaymoulin/yamete:$VERSION-aarch64-latest-stable
+    platform:
+      architecture: arm
+      variant: v8
+      os: linux
+  -
+    image: jaymoulin/yamete:$VERSION-arm64-latest-stable
+    platform:
+      architecture: arm64
+      os: linux
+  -
+    image: jaymoulin/yamete:$VERSION-amd64-latest-stable
     platform:
       architecture: amd64
+      os: linux
+  -
+    image: jaymoulin/yamete:$VERSION-i386-latest-stable
+    platform:
+      architecture: 386
       os: linux
