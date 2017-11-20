@@ -1,3 +1,5 @@
 vendor
 build
 downloads
+Dockerfile
+manifest.yaml

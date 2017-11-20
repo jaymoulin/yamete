@@ -1,0 +1,12 @@
+image: jaymoulin/yamete:$FULLVERSION
+manifests:
+  -
+    image: jaymoulin/yamete:rpi-$VERSION
+    platform:
+      architecture: arm
+      os: linux
+  -
+    image: jaymoulin/yamete:pc-$VERSION
+    platform:
+      architecture: amd64
+      os: linux
