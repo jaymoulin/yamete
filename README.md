@@ -50,13 +50,7 @@ with *\</path/to/downloads>* the path where downloaded assets will be downloaded
 To build this image locally 
 
 ```
-docker build -t jaymoulin/yamete -f docker/pc/Dockerfile .
-```
-
-or for Raspberry PI (or ARM architecture)
-
-```
-docker build -t jaymoulin/yamete:rpi -f docker/rpi/Dockerfile .
+docker build -t jaymoulin/yamete -f docker/Dockerfile .
 ```
 
 Supported sites
