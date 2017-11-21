@@ -1,6 +1,6 @@
 FROM alpine
 
-MAINTAINER Jay MOULIN <jaymoulin@gmail.com>
+LABEL maintainer="Jay MOULIN <jaymoulin@gmail.com> <http://twitter.com/moulinjay>"
 
 ENV PATH="/root:$PATH"
 
