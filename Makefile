@@ -1,3 +1,5 @@
+VERSION ?= 0.1.4
+CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs = armhf-latest-stable aarch64-latest-stable arm64-latest-stable amd64-latest-stable i386-latest-stable
 .PHONY: all build publish latest
@@ -5,7 +7,7 @@ all: build publish
 build:
 	$(foreach arch,$(archs), \
 		cat docker/Dockerfile | sed "s/FROM alpine/FROM multiarch\/alpine:${arch}/g" > Dockerfile; \
-		docker build -t jaymoulin/yamete:${VERSION}-$(arch) .;\
+		docker build -t jaymoulin/yamete:${VERSION}-$(arch) ${CACHE} .;\
 	)
 publish:
 	docker push jaymoulin/yamete
