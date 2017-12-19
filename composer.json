@@ -13,7 +13,8 @@
         "symfony/console": "^3.2",
         "crodas/class-info": "^0.2.3",
         "caseyamcl/guzzle_retry_middleware": "^1.0",
-        "setasign/fpdf": "^1.8"
+        "setasign/fpdf": "^1.8",
+        "ext-zip": "^1.13"
     },
     "require-dev": {
         "phpmd/phpmd": "^2.4",

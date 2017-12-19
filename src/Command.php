@@ -13,6 +13,7 @@ class Command extends \Symfony\Component\Console\Command\Command
     const LIST_FILE = 'list';
     const DRIVERS = 'drivers';
     const PDF = 'pdf';
+    const ZIP = 'zip';
 
     protected function configure()
     {
@@ -21,6 +22,7 @@ class Command extends \Symfony\Component\Console\Command\Command
             ->addOption(self::URL, 'u', InputOption::VALUE_OPTIONAL, 'Url to download from')
             ->addOption(self::LIST_FILE, 'l', InputOption::VALUE_OPTIONAL, 'List file with multiple urls')
             ->addOption(self::PDF, 'p', InputOption::VALUE_NONE, 'Optional to create a PDF')
+            ->addOption(self::ZIP, 'z', InputOption::VALUE_NONE, 'Optional to create a zip file')
             ->addOption(
                 self::DRIVERS,
                 'd',
@@ -61,12 +63,35 @@ class Command extends \Symfony\Component\Console\Command\Command
             }
             $this->download($oResult, $output);
             $output->writeln("<info>Download $sUrl success!</info>");
+            !($input->getOption(self::ZIP) && !$input->getOption(self::PDF)) ?: $this->zip($oResult, $output);
             !$input->getOption(self::PDF) ?: $this->pdf($oResult, $output);
         }
         if ($iNbUrl > 1 && $output->isVerbose()) {
             $progress->finish();
             $output->writeln('');
         }
+    }
+
+    private function zip(ResultIterator $oResult, OutputInterface $output)
+    {
+        $output->writeln('<comment>Creating zip archive</comment>');
+        $zip = new \ZipArchive();
+        $isOpened = false;
+        $baseName = null;
+        foreach ($oResult as $sFileName => $sResource) {
+            $baseName = dirname($sFileName);
+            if (!$isOpened) {
+                $isOpened = true;
+                $zip->open($baseName . '.zip', \ZipArchive::CREATE);
+            }
+            $zip->addFile($sFileName);
+        }
+        $zip->close();
+        foreach ($oResult as $sFileName => $sResource) {
+            unlink($sFileName);
+        }
+        rmdir($baseName);
+        $output->writeln("<info>Zip created $baseName.pdf</info>");
     }
 
     private function pdf(ResultIterator $oResult, OutputInterface $output)

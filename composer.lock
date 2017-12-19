@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3678ac427de10c4ad425f69239bd1dd6",
+    "content-hash": "014f61636e8fc19146336935a32e8031",
     "packages": [
         {
             "name": "caseyamcl/guzzle_retry_middleware",
@@ -3485,6 +3485,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-zip": "^1.13"
+    },
     "platform-dev": []
 }
