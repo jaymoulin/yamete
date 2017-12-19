@@ -60,7 +60,7 @@ class Command extends \Symfony\Component\Console\Command\Command
                 continue;
             }
             $this->download($oResult, $output);
-            $output->writeln("<comment>Download $sUrl success!</comment>");
+            $output->writeln("<info>Download $sUrl success!</info>");
             !$input->getOption(self::PDF) ?: $this->pdf($oResult, $output);
         }
         if ($iNbUrl > 1 && $output->isVerbose()) {
