@@ -25,7 +25,8 @@ OR
 `-l` or `--list` : the path to a file containing all URLs to download from on each line
 
 ### Optional parameter
-`-d` or `--drivers`: the path to custom drivers to handle some URL
+ - `-d` or `--drivers`: the path to custom drivers to handle some URL
+ - `-p` or `--pdf`: Add this parameter to download a single PDF file instead of multiple images
 
 ### Downloads
 

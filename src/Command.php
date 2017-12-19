@@ -11,6 +11,7 @@ class Command extends \Symfony\Component\Console\Command\Command
     const URL = 'url';
     const LIST_FILE = 'list';
     const DRIVERS = 'drivers';
+    const PDF = 'pdf';
 
     protected function configure()
     {
@@ -18,6 +19,7 @@ class Command extends \Symfony\Component\Console\Command\Command
             ->setDescription("Download a URL resources")
             ->addOption(self::URL, 'u', InputOption::VALUE_OPTIONAL, 'Url to download from')
             ->addOption(self::LIST_FILE, 'l', InputOption::VALUE_OPTIONAL, 'List file with multiple urls')
+            ->addOption(self::PDF, 'p', InputOption::VALUE_NONE, 'Optional to create a PDF')
             ->addOption(
                 self::DRIVERS,
                 'd',
@@ -44,23 +46,37 @@ class Command extends \Symfony\Component\Console\Command\Command
         }
         foreach ($aUrl as $sUrl) {
             $sUrl = trim($sUrl);
-            $output->writeln('<comment>Parsing ' . $sUrl . '</comment>');
-            $mResult = $oParser->parse($sUrl);
-            $mResult
-                ? $this->download($mResult, $output)
-                : $output->writeln('<error>Error while parsing ' . $sUrl . '</error>');
+            $output->writeln("<comment>Parsing $sUrl</comment>");
+            $oResult = $oParser->parse($sUrl);
+            if (!$oResult) {
+                $output->writeln("<error>Error while parsing $sUrl</error>");
+                continue;
+            }
+            $this->download($oResult, $output);
+            !$input->hasOption(self::PDF) ?: $this->pdf($oResult, $output);
         }
     }
 
-    private function download(array $mResult, OutputInterface $output)
+    private function pdf(ResultIterator $oResult, OutputInterface $output)
     {
-        foreach ($mResult as $sFileName => $sResource) {
-            $sFileName = is_numeric($sFileName) ? basename($sResource) : $sFileName;
-            $sFileName = implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'downloads', $sFileName]);
-            if (!file_exists(dirname($sFileName))) {
-                mkdir(dirname($sFileName), 0644, true);
-            }
-            $output->writeln('<info>Downloading ' . $sResource . ' : ' . $sFileName . '</info>');
+        $output->writeln('<comment>Converting to PDF</comment>');
+        $pdf = new PDF();
+        $pdf->setMargins(0, 0);
+        $pdf->createFromList($oResult);
+        $baseName = null;
+        foreach ($oResult as $sFileName => $sResource) {
+            $baseName = dirname($sFileName);
+            unlink($sFileName);
+        }
+        rmdir($baseName);
+        $pdf->Output('F', $baseName . '.pdf');
+        $output->writeln("<info>PDF created $baseName.pdf</info>");
+    }
+
+    private function download(ResultIterator $oResult, OutputInterface $output)
+    {
+        foreach ($oResult as $sFileName => $sResource) {
+            $output->writeln("<info>Downloading $sResource : $sFileName</info>");
             file_put_contents($sFileName, file_get_contents($sResource));
         }
     }

@@ -42,14 +42,14 @@ class Parser
 
     /**
      * @param string $sUrl Url to parse
-     * @return bool|string[]
+     * @return bool|ResultIterator
      */
     public function parse($sUrl)
     {
         foreach ($this->aDrivers as $oDriver) {
             $oDriver->setUrl($sUrl);
             if ($oDriver->canHandle()) {
-                return $oDriver->getDownloadables();
+                return new ResultIterator(new \ArrayIterator($oDriver->getDownloadables()));
             }
         }
         return false;
