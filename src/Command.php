@@ -5,6 +5,7 @@ namespace Yamete;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 class Command extends \Symfony\Component\Console\Command\Command
 {
@@ -31,29 +32,40 @@ class Command extends \Symfony\Component\Console\Command\Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $aUrl = [];
-        if ($input->hasOption(self::LIST_FILE) && is_file($input->getOption(self::LIST_FILE))) {
+        if (is_file($input->getOption(self::LIST_FILE))) {
             $aUrl = file($input->getOption(self::LIST_FILE));
-        } elseif ($input->hasOption(self::URL)) {
+        } elseif ($input->getOption(self::URL)) {
             $aUrl[] = $input->getOption(self::URL);
         } else {
             throw new \Exception('Required parameter : ' . implode(' or ', [self::URL, self::LIST_FILE]));
         }
         $oParser = new Parser();
-        if ($input->hasOption(self::DRIVERS)) {
+        if ($input->getOption(self::DRIVERS)) {
             foreach ((array)$input->getOption(self::DRIVERS) as $sDriver) {
                 $oParser->addDriverDirectory($sDriver);
             }
+        }
+        $iNbUrl = count($aUrl);
+        if ($iNbUrl > 1 && $output->isVerbose()) {
+            $progress = new ProgressBar($output, $iNbUrl);
+            $progress->start();
         }
         foreach ($aUrl as $sUrl) {
             $sUrl = trim($sUrl);
             $output->writeln("<comment>Parsing $sUrl</comment>");
             $oResult = $oParser->parse($sUrl);
+            $iNbUrl > 1 && $output->isVerbose() && $progress->advance();
             if (!$oResult) {
                 $output->writeln("<error>Error while parsing $sUrl</error>");
                 continue;
             }
             $this->download($oResult, $output);
-            !$input->hasOption(self::PDF) ?: $this->pdf($oResult, $output);
+            $output->writeln("<comment>Download $sUrl success!</comment>");
+            !$input->getOption(self::PDF) ?: $this->pdf($oResult, $output);
+        }
+        if ($iNbUrl > 1 && $output->isVerbose()) {
+            $progress->finish();
+            $output->writeln('');
         }
     }
 
@@ -75,9 +87,21 @@ class Command extends \Symfony\Component\Console\Command\Command
 
     private function download(ResultIterator $oResult, OutputInterface $output)
     {
+        if ($output->isVerbose()) {
+            $progress = new ProgressBar($output, count($oResult));
+            $progress->start();
+        }
         foreach ($oResult as $sFileName => $sResource) {
-            $output->writeln("<info>Downloading $sResource : $sFileName</info>");
+            $output->writeln(
+                PHP_EOL . "<info>Downloading $sResource : $sFileName</info>",
+                OutputInterface::VERBOSITY_VERY_VERBOSE
+            );
             file_put_contents($sFileName, file_get_contents($sResource));
+            $output->isVerbose() && $progress->advance();
+        }
+        if ($output->isVerbose()) {
+            $progress->finish();
+            $output->writeln('');
         }
     }
 }

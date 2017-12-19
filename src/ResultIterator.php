@@ -2,8 +2,12 @@
 
 namespace Yamete;
 
-
-class ResultIterator extends \IteratorIterator
+/**
+ * Class ResultIterator
+ * @package Yamete
+ * @method \ArrayIterator getInnerIterator
+ */
+class ResultIterator extends \IteratorIterator implements \Countable
 {
     public function key()
     {
@@ -20,4 +24,8 @@ class ResultIterator extends \IteratorIterator
         return $sFileName;
     }
 
+    public function count()
+    {
+        return count($this->getInnerIterator());
+    }
 }
