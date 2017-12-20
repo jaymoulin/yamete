@@ -21,7 +21,7 @@ class HentaiVN extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        $sAccessor = '.listing .chuong_td a';
+        $sAccessor = '.listing td a';
         $oList = $this->getDomParser()->load((string)$oRes->getBody())->find($sAccessor);
         $iChapters = count($oList);
         foreach ($oList as $oLink) { //chapters
