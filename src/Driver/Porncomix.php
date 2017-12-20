@@ -20,7 +20,7 @@ class Porncomix extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#gallery-1 dt a') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery dt a') as $oLink) {
             /**
              * @var \DOMElement $oLink
              * @var \DOMElement $oImg
