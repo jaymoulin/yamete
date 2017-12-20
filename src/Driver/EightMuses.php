@@ -21,17 +21,18 @@ class EightMuses extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.image-box') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.c-tile') as $oLink) {
             /**
              * @var \DOMElement $oLink
-             * @var \DOMElement $oImg
              */
-            $oImg = $this->getDomParser()
+            $oParser = $this->getDomParser()
                 ->load(
                     (string)$this->getClient()
                         ->request('GET', 'https://www.' . self::DOMAIN . $oLink->getAttribute('href'))->getBody()
-                )->find('#imageName');
-            $sFilename = 'https://cdn.ampproject.org/i/s/www.8muses.com/data/fu/small/' . $oImg->getAttribute('value');
+                );
+            $sHost = $oParser->find('#imageHost')[0]->getAttribute('value');
+            $sName = $oParser->find('#imageName')[0]->getAttribute('value');
+            $sFilename = "https:$sHost/image/fl/$sName";
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
                 . str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
