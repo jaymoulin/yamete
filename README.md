@@ -83,10 +83,8 @@ Here's is the list of supported sites for now:
  * freeadultcomix.com
  * hbrowse.com
  * hentai2read.com
- * hentaibox.net
  * hentaicomics.pro
  * hentai-comics.org
- * hentaifox.com
  * hentaifromhell.org
  * hentai-paradise.fr
  * nhentai.net

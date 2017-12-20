@@ -1,0 +1,16 @@
+<?php
+
+namespace YameteTests\Driver;
+
+
+class Comicsmanics extends \PHPUnit\Framework\TestCase
+{
+    public function testDownload()
+    {
+        $url = 'http://www.comicsmanics.com/bad-boss-3-y3df/';
+        $driver = new \Yamete\Driver\Comicsmanics();
+        $driver->setUrl($url);
+        $this->assertNotFalse($driver->canHandle());
+        $this->assertEquals(79, count($driver->getDownloadables()));
+    }
+}

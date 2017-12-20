@@ -25,6 +25,9 @@ class Hentaifr extends \Yamete\DriverAbstract
         $oPageList = $this->getDomParser()->load((string)$oRes->getBody())->find('.ngpage-pagination td a');
         /** @var \DOMElement $oNbPage */
         foreach ($oPageList as $oNbPage); //goes to the end of the list
+        if (!$oNbPage) {
+            throw new \Exception('Url error');
+        }
         if (preg_match('~&c=([0-9]+)~', $oNbPage->getAttribute('href'), $aMatches)) {
             for ($iPage = 0; $iPage <= $aMatches[1]; $iPage++) {
                 $oRes = $this->getClient()->request('GET', $sPageUrl . $iPage);
