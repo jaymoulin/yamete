@@ -21,6 +21,7 @@ class HentaiComicsBr extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
+        $this->getDomParser()->setOptions(['cleanupInput' => false]);
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.single-post p a') as $oImg) {
             /**
              * @var \DOMElement $oImg
