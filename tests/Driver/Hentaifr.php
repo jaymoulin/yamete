@@ -11,6 +11,6 @@ class Hentaifr extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\Hentaifr();
         $driver->setUrl($url);
         $this->assertNotFalse($driver->canHandle());
-        $this->assertEquals(30, count($driver->getDownloadables()));
+        $this->assertEquals(20, count($driver->getDownloadables()));
     }
 }

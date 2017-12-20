@@ -22,10 +22,11 @@ class Hentaifr extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sPageUrl . '0');
         $aReturn = [];
         $i = 0;
-        $oPageList = $this->getDomParser()->load((string)$oRes->getBody())->find('.ngpage-pagination td a');
+        $this->getDomParser()->setOptions(['cleanupInput' => false]);
+        $oPageList = $this->getDomParser()->loadStr((string)$oRes->getBody(), [])->find('.ngpage-pagination td a');
         /** @var \DOMElement $oNbPage */
         foreach ($oPageList as $oNbPage); //goes to the end of the list
-        if (!$oNbPage) {
+        if (!isset($oNbPage)) {
             throw new \Exception('Url error');
         }
         if (preg_match('~&c=([0-9]+)~', $oNbPage->getAttribute('href'), $aMatches)) {
