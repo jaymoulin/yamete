@@ -11,6 +11,6 @@ class HBrowse extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\HBrowse();
         $driver->setUrl($url);
         $this->assertNotFalse($driver->canHandle());
-        $this->assertEquals(30, count($driver->getDownloadables()));
+        $this->assertEquals(18, count($driver->getDownloadables()));
     }
 }

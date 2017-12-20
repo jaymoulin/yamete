@@ -26,14 +26,14 @@ class HBrowse extends \Yamete\DriverAbstract
             /**
              * @var \DOMElement $oLink
              */
-            $sLink = $oLink->getAttribute('href');
+            $sLink = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             $oBody = $this->getDomParser()->load((string)$oRes->getBody());
             foreach ($oBody->find('#jsPageList a') as $oImg) { //images
                 /**
                  * @var \DOMElement $oImg
                  */
-                $sHref = $oImg->getAttribute('href') ?: $sLink . '/00001';
+                $sHref = 'https://www.' . self::DOMAIN . $oImg->getAttribute('href') ?: $sLink . '/00001';
                 $oRes = $this->getClient()->request('GET', $sHref);
                 $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#mangaImage');
                 $sFilename = $oImg->getAttribute('src');
