@@ -11,6 +11,6 @@ class Myreadingmanga extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\Myreadingmanga();
         $driver->setUrl($url);
         $this->assertNotFalse($driver->canHandle());
-        $this->assertEquals(30, count($driver->getDownloadables()));
+        $this->assertEquals(26, count($driver->getDownloadables()));
     }
 }
