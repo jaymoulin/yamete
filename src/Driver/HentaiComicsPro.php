@@ -22,20 +22,14 @@ class HentaiComicsPro extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.part-select option') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.portfolio-normal-width figure a') as $oImg) {
             /**
-             * @var \DOMElement $oLink
+             * @var \DOMElement $oImg
              */
-            $sUrl = 'http://www.' . self::DOMAIN . $oLink->getAttribute('value');
-            foreach ($this->getDomParser()->load($sUrl)->find('.portfolio-normal-width figure a') as $oImg) {
-                /**
-                 * @var \DOMElement $oImg
-                 */
-                $sFilename = $oImg->getAttribute('data-img') . $oImg->getAttribute('data-ext');
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 4, '0', STR_PAD_LEFT)
-                    . '-' . basename($sFilename);
-                $aReturn[$sBasename] = $sFilename;
-            }
+            $sFilename = $oImg->getAttribute('data-img') . $oImg->getAttribute('data-ext');
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 4, '0', STR_PAD_LEFT)
+                . '-' . basename($sFilename);
+            $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
     }
