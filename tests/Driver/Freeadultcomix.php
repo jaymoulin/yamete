@@ -11,6 +11,6 @@ class Freeadultcomix extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\Freeadultcomix();
         $driver->setUrl($url);
         $this->assertNotFalse($driver->canHandle());
-        $this->assertEquals(30, count($driver->getDownloadables()));
+        $this->assertEquals(8, count($driver->getDownloadables()));
     }
 }
