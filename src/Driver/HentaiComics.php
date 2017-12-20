@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use \Tuna\CloudflareMiddleware;
+
 class HentaiComics extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -19,6 +21,12 @@ class HentaiComics extends \Yamete\DriverAbstract
 
     public function getDownloadables()
     {
+        $oClient = $this->getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
+        /**
+         * @var \GuzzleHttp\HandlerStack $oHandler
+         */
+        $oHandler = $oClient->getConfig('handler');
+        $oHandler->push(CloudflareMiddleware::create());
         $sFirstPage = "https://" . self::DOMAIN . "/view/{$this->aMatches['id']}/1/{$this->aMatches['album']}.html";
         $oRes = $this->getClient()->request('GET', $sFirstPage);
         $aReturn = [];
