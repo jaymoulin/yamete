@@ -36,7 +36,7 @@ class HentaiFromHell extends \Yamete\DriverAbstract
             $sLink = $oLink->getAttribute('href');
             preg_match('~^https?://(?<domain>[^/]+)~', $sLink, $aDomains);
             $oRes = $this->getClient()->request('GET', $sLink);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#overflow-wrapper img') as $oImg) {
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.image-container img') as $oImg) {
                 /**
                  * @var \DOMElement $oImg
                  */

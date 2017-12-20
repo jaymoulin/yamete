@@ -7,10 +7,10 @@ class HentaiFromHell extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://hentaifromhell.org/shouchuu-mac-hozumi-kenji-d-mode-dragon-quest-xi/';
+        $url = 'http://hentaifromhell.org/gallery2/[Kamitou%20Masaki]%20The%20Invisible%20Teacher%20Yukino%20Sensei%20[english]%20[Hong_Mei_Ling,%20Altrus].html';
         $driver = new \Yamete\Driver\HentaiFromHell();
         $driver->setUrl($url);
         $this->assertNotFalse($driver->canHandle());
-        $this->assertEquals(30, count($driver->getDownloadables()));
+        $this->assertEquals(9, count($driver->getDownloadables()));
     }
 }
