@@ -116,13 +116,20 @@ class Command extends \Symfony\Component\Console\Command\Command
             $progress = new ProgressBar($output, count($oResult));
             $progress->start();
         }
+        $bSuccess = false;
         foreach ($oResult as $sFileName => $sResource) {
+            $bSuccess = true;
             $output->writeln(
                 PHP_EOL . "<info>Downloading $sResource : $sFileName</info>",
                 OutputInterface::VERBOSITY_VERY_VERBOSE
             );
             file_put_contents($sFileName, file_get_contents($sResource));
             $output->isVerbose() && $progress->advance();
+        }
+        if (!$bSuccess) {
+            throw new \Exception(
+                'No result on download url - consider creating an issue https://github.com/jaymoulin/yamete/issues/'
+            );
         }
         if ($output->isVerbose()) {
             $progress->finish();

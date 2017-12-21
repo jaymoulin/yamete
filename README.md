@@ -111,5 +111,6 @@ Here's is the list of supported sites for now:
  * comicsmanics.com
  * hentaifr.net
  * myreadingmanga.info
+ * gassummit.ru
  
 You must pass the URL to the album for the program to download it!
