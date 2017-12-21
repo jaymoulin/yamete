@@ -120,7 +120,7 @@ class Command extends \Symfony\Component\Console\Command\Command
         foreach ($oResult as $sFileName => $sResource) {
             $bSuccess = true;
             $output->writeln(
-                PHP_EOL . "<info>Downloading $sResource : $sFileName</info>",
+                PHP_EOL . "<question>Downloading $sResource : $sFileName</question>",
                 OutputInterface::VERBOSITY_VERY_VERBOSE
             );
             file_put_contents($sFileName, file_get_contents($sResource));
@@ -128,7 +128,8 @@ class Command extends \Symfony\Component\Console\Command\Command
         }
         if (!$bSuccess) {
             throw new \Exception(
-                'No result on download url - consider creating an issue https://github.com/jaymoulin/yamete/issues/'
+                "No result on download url" . PHP_EOL .
+                "consider creating an issue https://github.com/jaymoulin/yamete/issues/"
             );
         }
         if ($output->isVerbose()) {
