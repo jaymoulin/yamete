@@ -3,7 +3,7 @@
 namespace YameteTests\Driver;
 
 
-class AsmHentai extends \PHPUnit\Framework\TestCase
+class AAADream extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
