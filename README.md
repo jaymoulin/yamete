@@ -80,6 +80,7 @@ Here's is the list of supported sites for now:
  * comicspornoxxx.com
  * e-hentai.org
  * 8muses.com
+ * 8muses.download
  * freeadultcomix.com
  * hbrowse.com
  * hentai2read.com
