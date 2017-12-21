@@ -7,7 +7,7 @@ class Tsumino extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.tsumino.com/Book/Info/35693/sweet-attack';
+        $url = 'https://www.tsumino.com/Book/Info/35693/sweet-attack';
         $driver = new \Yamete\Driver\Tsumino();
         $driver->setUrl($url);
         $this->assertNotFalse($driver->canHandle());
