@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "86b1d042b2bdd825b85d712ec7120c35",
+    "content-hash": "edcea023d5e93b9e3992cbdfe8e025d3",
     "packages": [
         {
             "name": "caseyamcl/guzzle_retry_middleware",
-            "version": "v1.0",
+            "version": "v2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/caseyamcl/guzzle_retry_middleware.git",
-                "reference": "957c4972719e9c502d8272f1dd719ed41fb58af9"
+                "reference": "dff9f8d69c9613ef9793782ec4abea66574f5e6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caseyamcl/guzzle_retry_middleware/zipball/957c4972719e9c502d8272f1dd719ed41fb58af9",
-                "reference": "957c4972719e9c502d8272f1dd719ed41fb58af9",
+                "url": "https://api.github.com/repos/caseyamcl/guzzle_retry_middleware/zipball/dff9f8d69c9613ef9793782ec4abea66574f5e6b",
+                "reference": "dff9f8d69c9613ef9793782ec4abea66574f5e6b",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "~6.0",
+                "guzzlehttp/guzzle": "^6.3",
                 "php": "~5.5|~7.0"
             },
             "require-dev": {
@@ -63,7 +63,7 @@
                 "retry",
                 "retry-after"
             ],
-            "time": "2017-07-30T01:27:20+00:00"
+            "time": "2017-10-02T13:00:41+00:00"
         },
         {
             "name": "crodas/class-info",

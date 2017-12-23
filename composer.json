@@ -13,7 +13,7 @@
         "tunaabutbul/cloudflare-middleware": "^1.0",
         "symfony/console": "^3.2",
         "crodas/class-info": "^0.2.3",
-        "caseyamcl/guzzle_retry_middleware": "^1.0",
+        "caseyamcl/guzzle_retry_middleware": "^2.0",
         "setasign/fpdf": "^1.8"
     },
     "require-dev": {
