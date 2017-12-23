@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">
     <testsuites>
-        <testsuite name="FMUP Test suite">
+        <testsuite name="Test suite">
             <directory suffix=".php">tests</directory>
             <directory suffix=".php">tests/*</directory>
         </testsuite>
@@ -16,8 +16,6 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
-            <!-- this directory should be deleted since code is not correctly designed -->
-            <!--directory suffix=".php">system</directory-->
         </whitelist>
     </filter>
 </phpunit>

@@ -117,5 +117,6 @@ Here's is the list of supported sites for now:
  * hentai4manga.com
  * erolord.com
  * pururin.us
+ * readhentaimanga.com
   
 You must pass the URL to the album for the program to download it!
