@@ -115,5 +115,6 @@ Here's is the list of supported sites for now:
  * aaadream.com
  * porncomics.me
  * hentai4manga.com
+ * erolord.com
   
 You must pass the URL to the album for the program to download it!

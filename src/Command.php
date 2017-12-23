@@ -33,6 +33,7 @@ class Command extends \Symfony\Component\Console\Command\Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        ini_set('display_errors', $output->isDebug() ? '1' : '0');
         $aUrl = [];
         if (is_file($input->getOption(self::LIST_FILE))) {
             $aUrl = file($input->getOption(self::LIST_FILE));
