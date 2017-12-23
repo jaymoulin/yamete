@@ -107,7 +107,6 @@ Here's is the list of supported sites for now:
  * milfcomix.com
  * vercomicsporno.com
  * hitomi.la
- * tsumino.com
  * comicsmanics.com
  * hentaifr.net
  * myreadingmanga.info
