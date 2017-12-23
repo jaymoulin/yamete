@@ -1,4 +1,4 @@
-VERSION ?= 0.2.0
+VERSION ?= 0.3.0
 CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 arm64v8 i386
@@ -10,7 +10,7 @@ qemu-aarch64-static:
 	cp /usr/bin/qemu-aarch64-static .
 build: qemu-aarch64-static qemu-arm-static
 	$(foreach arch,$(archs), \
-		cat docker/Dockerfile | sed "s/FROM php/FROM ${arch}\/php/g" > Dockerfile; \
+		cat docker/Dockerfile | sed "s/FROM alpine/FROM ${arch}\/alpine/g" > Dockerfile; \
 		docker build -t jaymoulin/yamete:${VERSION}-$(arch) ${CACHE} .;\
 	)
 publish:
