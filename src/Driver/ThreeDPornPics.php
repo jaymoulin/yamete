@@ -2,10 +2,10 @@
 
 namespace Yamete\Driver;
 
-class PornComics extends \Yamete\DriverAbstract
+class ThreeDPornPics extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'porncomics.me';
+    const DOMAIN = '3dpornpics.pro';
 
     public function canHandle()
     {
@@ -22,17 +22,15 @@ class PornComics extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
         $aReturn = [];
-        $iCount = count($this->getDomParser()->load((string)$oRes->getBody())->find('.portfolio-normal-width img'));
-        for ($i = 1; $i <= $iCount; $i++) {
-            foreach ($this->getDomParser()->loadFromUrl($this->sUrl . $i . '/')->find('.main-img a') as $oLink) {
-                /**
-                 * @var \DOMElement $oLink
-                 */
-                $sFilename = $oLink->getAttribute('href');
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT)
-                    . '-' . basename($sFilename);
-                $aReturn[$sBasename] = $sFilename;
-            }
+        $i = 0;
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.portfolio-normal-width figure a') as $oLink) {
+            /**
+             * @var \DOMElement $oLink
+             */
+            $sFilename = $oLink->getAttribute('data-img') . $oLink->getAttribute('data-ext');
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                . '-' . basename($sFilename);
+            $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
     }

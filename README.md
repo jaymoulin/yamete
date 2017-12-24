@@ -118,5 +118,6 @@ Here's is the list of supported sites for now:
  * pururin.us
  * readhentaimanga.com
  * hmangasearcher.php
+ * 3dpornpics.pro
   
 You must pass the URL to the album for the program to download it!
