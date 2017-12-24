@@ -3,14 +3,14 @@
 namespace YameteTests\Driver;
 
 
-class HentaiPornPics extends \PHPUnit\Framework\TestCase
+class HentaiPorn extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaipornpics.net/galleries/i-cum-in-my-sister-and-her-friends-takuji';
+        $url = 'http://www.hentaiporn.pics/fr/galleries/-mikaduki-neko-anata-mo-sister';
         $driver = new \Yamete\Driver\HentaiPornPics();
         $driver->setUrl($url);
         $this->assertNotFalse($driver->canHandle());
-        $this->assertEquals(15, count($driver->getDownloadables()));
+        $this->assertEquals(6, count($driver->getDownloadables()));
     }
 }
