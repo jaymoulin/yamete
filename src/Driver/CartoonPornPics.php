@@ -2,9 +2,9 @@
 
 namespace Yamete\Driver;
 
-class PornComics extends ThreeDPornPics
+class CartoonPornPics extends ThreeDPornPics
 {
-    const DOMAIN = 'porncomics.me';
+    const DOMAIN = 'cartoonporn.pics';
 
     protected function getDomain()
     {

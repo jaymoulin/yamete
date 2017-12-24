@@ -7,10 +7,16 @@ class ThreeDPornPics extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = '3dpornpics.pro';
 
+    protected function getDomain()
+    {
+        return self::DOMAIN;
+    }
+
     public function canHandle()
     {
         return preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/galleries/(?<album>[^/?]+)[/?]?~',
+            '~^https?://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-', ]) .
+                ')/(?<lang>[a-z]{2}/)?galleries/(?<album>[^/?]+)[/?]?~',
             $this->sUrl,
             $this->aMatches
         );
@@ -37,6 +43,6 @@ class ThreeDPornPics extends \Yamete\DriverAbstract
 
     private function getFolder()
     {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+        return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
     }
 }

@@ -119,5 +119,6 @@ Here's is the list of supported sites for now:
  * readhentaimanga.com
  * hmangasearcher.php
  * 3dpornpics.pro
+ * cartoonporn.pics
   
 You must pass the URL to the album for the program to download it!
