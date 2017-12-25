@@ -7,10 +7,16 @@ class ThreeDSexToonsNet extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = '3dsextoons.net';
 
+    protected function getDomain()
+    {
+        return self::DOMAIN;
+    }
+
     public function canHandle()
     {
         return (bool)preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/gals/(?<album>[^/]+)/(?<albumId>[^/]+)/$~',
+            '~^https?://(www\.)?(' . strtr($this->getDomain(), ['.' => '\.']) .
+            ')/gals/(?<site>[^/]+)/(?<album>[^/]+)/$~',
             $this->sUrl,
             $this->aMatches
         );
@@ -18,7 +24,7 @@ class ThreeDSexToonsNet extends \Yamete\DriverAbstract
 
     public function getDownloadables()
     {
-        $sUrl = str_replace(self::DOMAIN, 'page-x.com', $this->sUrl);
+        $sUrl = str_replace($this->getDomain(), 'page-x.com', $this->sUrl);
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $iNbImg = count($this->getDomParser()->load((string)$oRes->getBody())->find('#gallery2 a'));
