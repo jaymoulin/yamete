@@ -183,5 +183,7 @@ Here's is the list of supported sites for now:
  * high-hentai.com
  * lustandsin.com
  * fullmetal-hentai.com
+ * bebop-hentai.com
+ * mangerotica.com
   
 You must pass the URL to the album for the program to download it!
