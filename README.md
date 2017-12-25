@@ -155,5 +155,6 @@ Here's is the list of supported sites for now:
  * xxxcomicporn.com
  * 3dcomix.pro
  * overwatchhentai.pro
+ * 3dsextoons.net
   
 You must pass the URL to the album for the program to download it!
