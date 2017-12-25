@@ -160,5 +160,18 @@ Here's is the list of supported sites for now:
  * daddysangel3d.com
  * 3dpics.pro
  * freefamouscartoonporn.com
+ * cartoonpornimages.com
+ * cartoontumblrporn.com
+ * cartoonsexpic.com
+ * comicporn.info
+ * cartoonsex.name
+ * toonporn.me
+ * cartoonpornimages.com
+ * cartooncomicporn.com
+ * cartoonporncomics.name
+ * cartoonpornfr.com
+ * cartoonpicsporn.com
+ * cartoonpornpicture.com
+ * cartoonxxxcomix.com
   
 You must pass the URL to the album for the program to download it!
