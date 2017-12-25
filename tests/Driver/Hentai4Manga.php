@@ -10,7 +10,7 @@ class Hentai4Manga extends \PHPUnit\Framework\TestCase
         $url = 'http://hentai4manga.com/hentai_manga/Yuuki-Shin-Hide-and-Seek-COMIC-Kairakuten-BEAST-2012-06-Thai---H_27418/';
         $driver = new \Yamete\Driver\Hentai4Manga();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(17, count($driver->getDownloadables()));
     }
 }

@@ -10,7 +10,7 @@ class HentaiPornPics extends \PHPUnit\Framework\TestCase
         $url = 'http://www.hentaipornpics.net/galleries/i-cum-in-my-sister-and-her-friends-takuji';
         $driver = new \Yamete\Driver\HentaiPornPics();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(13, count($driver->getDownloadables()));
     }
 }

@@ -10,7 +10,7 @@ class HMangaSearcher extends \PHPUnit\Framework\TestCase
         $url = 'http://www.hmangasearcher.com/c/Teach%20Me%20-%20Very%20Short/1';
         $driver = new \Yamete\Driver\HMangaSearcher();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(8, count($driver->getDownloadables()));
     }
 
@@ -19,7 +19,7 @@ class HMangaSearcher extends \PHPUnit\Framework\TestCase
         $url = 'http://www.hmangasearcher.com/m/Lewd%20Dreams';
         $driver = new \Yamete\Driver\HMangaSearcher();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(33, count($driver->getDownloadables()));
     }
 }

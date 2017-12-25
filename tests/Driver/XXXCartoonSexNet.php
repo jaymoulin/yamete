@@ -10,7 +10,7 @@ class XXXCartoonSexNet extends \PHPUnit\Framework\TestCase
         $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
         $driver = new \Yamete\Driver\XXXCartoonSexNet();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(11, count($driver->getDownloadables()));
     }
 }

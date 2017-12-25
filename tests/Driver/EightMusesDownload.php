@@ -10,7 +10,7 @@ class EightMusesDownload extends \PHPUnit\Framework\TestCase
         $url = 'http://8muses.download/royal-guard-special-training-the-legend-of-zelda-porn-comics-8-muses/';
         $driver = new \Yamete\Driver\EightMusesDownload();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(11, count($driver->getDownloadables()));
     }
 }

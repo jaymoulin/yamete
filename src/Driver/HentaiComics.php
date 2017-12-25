@@ -11,7 +11,7 @@ class HentaiComics extends \Yamete\DriverAbstract
 
     public function canHandle()
     {
-        return preg_match(
+        return (bool)preg_match(
             '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) .
             '/gallery/(?<id>[^/]+)/(?<album>.+)\.html$~',
             $this->sUrl,

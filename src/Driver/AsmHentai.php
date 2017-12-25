@@ -9,7 +9,7 @@ class AsmHentai extends \Yamete\DriverAbstract
 
     public function canHandle()
     {
-        return preg_match(
+        return (bool)preg_match(
             '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/g/(?<album>[^/?]+)/?~',
             $this->sUrl,
             $this->aMatches

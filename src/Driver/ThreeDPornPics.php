@@ -14,9 +14,9 @@ class ThreeDPornPics extends \Yamete\DriverAbstract
 
     public function canHandle()
     {
-        return preg_match(
+        return (bool)preg_match(
             '~^https?://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-', ]) .
-                ')/(?<lang>[a-z]{2}/)?galleries/(?<album>[^/?]+)[/?]?~',
+                ')/(?<lang>[a-z]{2}/)?(galleries|images)/(?<album>[^/?]+)[/?]?~',
             $this->sUrl,
             $this->aMatches
         );

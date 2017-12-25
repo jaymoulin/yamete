@@ -10,7 +10,7 @@ class EHentai extends \PHPUnit\Framework\TestCase
         $url = 'https://e-hentai.org/g/1157082/55d486759e/';
         $driver = new \Yamete\Driver\EHentai();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(28, count($driver->getDownloadables()));
     }
 }

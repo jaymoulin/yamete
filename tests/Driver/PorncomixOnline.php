@@ -10,7 +10,7 @@ class PorncomixOnline extends \PHPUnit\Framework\TestCase
         $url = 'https://www.porncomixonline.net/felsalamy-friends-mom/';
         $driver = new \Yamete\Driver\PorncomixOnline();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(18, count($driver->getDownloadables()));
     }
 }

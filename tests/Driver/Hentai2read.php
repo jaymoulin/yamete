@@ -10,7 +10,7 @@ class Hentai2read extends \PHPUnit\Framework\TestCase
         $url = 'https://hentai2read.com/clumsy_girl/';
         $driver = new \Yamete\Driver\Hentai2read();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(52, count($driver->getDownloadables()));
     }
 }

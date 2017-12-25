@@ -9,7 +9,7 @@ class HentaiFantasy extends \Yamete\DriverAbstract
 
     public function canHandle()
     {
-        return preg_match(
+        return (bool)preg_match(
             '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.']) . '/series/(?<album>[^/]+)/$~',
             $this->sUrl,
             $this->aMatches

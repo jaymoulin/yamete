@@ -7,10 +7,10 @@ class FreeSexComixPro extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.freesexcomix.pro/images/what-fuck-atilio-gambedotti';
         $driver = new \Yamete\Driver\FreeSexComixPro();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(8, count($driver->getDownloadables()));
     }
 }

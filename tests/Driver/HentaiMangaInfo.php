@@ -10,7 +10,7 @@ class HentaiMangaInfo extends \PHPUnit\Framework\TestCase
         $url = 'http://hentaimanga.info/cozy-cozy-gyaru-sex-hentai-comics/';
         $driver = new \Yamete\Driver\HentaiMangaInfo();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(14, count($driver->getDownloadables()));
     }
 }

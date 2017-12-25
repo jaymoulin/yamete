@@ -7,10 +7,10 @@ class LolHentaiPro extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.lolhentai.pro/galleries/bunny-riven-o-taberu-chogath-san';
         $driver = new \Yamete\Driver\LolHentaiPro();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(4, count($driver->getDownloadables()));
     }
 }

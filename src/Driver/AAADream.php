@@ -9,7 +9,7 @@ class AAADream extends \Yamete\DriverAbstract
 
     public function canHandle()
     {
-        return preg_match(
+        return (bool)preg_match(
             '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/thread-(?<album>[^-]+)-1-1\.html$~',
             $this->sUrl,
             $this->aMatches

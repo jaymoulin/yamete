@@ -10,7 +10,7 @@ class AAADream extends \PHPUnit\Framework\TestCase
         $url = 'http://www.aaadream.com/thread-469932-1-1.html';
         $driver = new \Yamete\Driver\AAADream();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(4, count($driver->getDownloadables()));
     }
 }

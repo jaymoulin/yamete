@@ -10,7 +10,7 @@ class HentaiFantasy extends \PHPUnit\Framework\TestCase
         $url = 'http://www.hentaifantasy.it/series/una-stanza-senza-shiori-invito/';
         $driver = new \Yamete\Driver\HentaiFantasy();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(31, count($driver->getDownloadables()));
     }
 }

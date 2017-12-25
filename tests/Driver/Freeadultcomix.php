@@ -10,7 +10,7 @@ class Freeadultcomix extends \PHPUnit\Framework\TestCase
         $url = 'https://freeadultcomix.com/redhead-photoshoot-harmonist11/';
         $driver = new \Yamete\Driver\Freeadultcomix();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(8, count($driver->getDownloadables()));
     }
 }

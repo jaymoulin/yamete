@@ -2,9 +2,9 @@
 
 namespace Yamete\Driver;
 
-class HotIncestArtCom extends ThreeDPornPics
+class OverwatchHentaiPro extends ThreeDPornPics
 {
-    const DOMAIN = 'hotincestart.com';
+    const DOMAIN = 'overwatchhentai.pro';
 
     protected function getDomain()
     {

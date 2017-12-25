@@ -9,7 +9,7 @@ class Hentaifr extends \Yamete\DriverAbstract
 
     public function canHandle()
     {
-        return preg_match(
+        return (bool)preg_match(
             '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/ngdoujinshishe\.php\?id=(?<album>[0-9]+)~',
             $this->sUrl,
             $this->aMatches

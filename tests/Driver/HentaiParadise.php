@@ -10,7 +10,7 @@ class HentaiParadise extends \PHPUnit\Framework\TestCase
         $url = 'https://hentai-paradise.fr/doujins/hahaoya-swap-omae-no-kaa-chan-ore-no-mono-4-mother-swap-your-mother-belongs-to-me-4-en';
         $driver = new \Yamete\Driver\HentaiParadise();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(81, count($driver->getDownloadables()));
     }
 }

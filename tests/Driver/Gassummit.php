@@ -10,7 +10,7 @@ class Gassummit extends \PHPUnit\Framework\TestCase
         $url = 'http://gassummit.ru/yu-gi-oh/futanari-school-girl-puishment-6734/';
         $driver = new \Yamete\Driver\Gassummit();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(12, count($driver->getDownloadables()));
     }
 }

@@ -10,7 +10,7 @@ class MangaPornPro extends \PHPUnit\Framework\TestCase
         $url = 'http://www.mangaporn.pro/galleries/twintail-butt';
         $driver = new \Yamete\Driver\MangaPornPro();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(4, count($driver->getDownloadables()));
     }
 }

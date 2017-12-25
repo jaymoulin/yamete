@@ -10,7 +10,7 @@ class Porncomix extends \PHPUnit\Framework\TestCase
         $url = 'http://www.porncomix.info/party-with-mom/';
         $driver = new \Yamete\Driver\Porncomix();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(28, count($driver->getDownloadables()));
     }
 }

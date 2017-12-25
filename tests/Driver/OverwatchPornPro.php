@@ -10,7 +10,7 @@ class OverwatchPornPro extends \PHPUnit\Framework\TestCase
         $url = 'http://www.overwatchporn.pro/galleries/friend-request-3259';
         $driver = new \Yamete\Driver\OverwatchPornPro();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(9, count($driver->getDownloadables()));
     }
 }

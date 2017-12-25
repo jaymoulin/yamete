@@ -10,7 +10,7 @@ class Xyzcomics extends \PHPUnit\Framework\TestCase
         $url = 'http://xyzcomics.com/croc-f-o-p-breaking-rules-5/';
         $driver = new \Yamete\Driver\Xyzcomics();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(9, count($driver->getDownloadables()));
     }
 }

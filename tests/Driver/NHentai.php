@@ -10,7 +10,7 @@ class NHentai extends \PHPUnit\Framework\TestCase
         $url = 'https://nhentai.net/g/26020/';
         $driver = new \Yamete\Driver\NHentai();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(34, count($driver->getDownloadables()));
     }
 }

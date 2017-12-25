@@ -7,10 +7,10 @@ class HentaiComicsPro extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaicomics.pro/fr/galleries/milftoon-foam-soap?code=MTcweDF4MTg0MjE=';
+        $url = 'http://www.hentaicomics.pro/fr/galleries/milftoon-foam-soap';
         $driver = new \Yamete\Driver\HentaiComicsPro();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(11, count($driver->getDownloadables()));
     }
 }

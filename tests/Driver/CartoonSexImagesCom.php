@@ -7,10 +7,10 @@ class CartoonSexImagesCom extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.cartoonseximages.com/pictures/dear-with-large-tits-and-aliens-with-huge-dicks-at-participate-3d-porn';
         $driver = new \Yamete\Driver\CartoonSexImagesCom();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(11, count($driver->getDownloadables()));
     }
 }

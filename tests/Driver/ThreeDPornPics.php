@@ -10,7 +10,7 @@ class ThreeDPornPics extends \PHPUnit\Framework\TestCase
         $url = 'http://www.3dpornpics.pro/galleries/spoov-bus-stop';
         $driver = new \Yamete\Driver\ThreeDPornPics();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(6, count($driver->getDownloadables()));
     }
 }

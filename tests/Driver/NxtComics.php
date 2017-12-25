@@ -10,7 +10,7 @@ class NxtComics extends \PHPUnit\Framework\TestCase
         $url = 'http://nxt-comics.com/seiren-adventures-lia-7-part-1/';
         $driver = new \Yamete\Driver\NxtComics();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(20, count($driver->getDownloadables()));
     }
 }

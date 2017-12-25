@@ -10,7 +10,7 @@ class WarcraftPornPro extends \PHPUnit\Framework\TestCase
         $url = 'http://www.warcraftporn.pro/galleries/dwarf-vs-dwarf-1';
         $driver = new \Yamete\Driver\WarcraftPornPro();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(6, count($driver->getDownloadables()));
     }
 }

@@ -9,7 +9,7 @@ class Erolord extends \Yamete\DriverAbstract
 
     public function canHandle()
     {
-        return preg_match(
+        return (bool)preg_match(
             '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/[^/]+/(?<album>[0-9]+)/$~',
             $this->sUrl,
             $this->aMatches

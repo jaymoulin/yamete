@@ -10,7 +10,7 @@ class ReadHentaiManga extends \PHPUnit\Framework\TestCase
         $url = 'http://readhentaimanga.com/bitch-hole-english/';
         $driver = new \Yamete\Driver\ReadHentaiManga();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(18, count($driver->getDownloadables()));
     }
 }

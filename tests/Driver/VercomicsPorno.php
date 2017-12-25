@@ -10,7 +10,7 @@ class VercomicsPorno extends \PHPUnit\Framework\TestCase
         $url = 'https://vercomicsporno.com/mac-primera-vez-exclusiva-accel-art';
         $driver = new \Yamete\Driver\VercomicsPorno();
         $driver->setUrl($url);
-        $this->assertNotFalse($driver->canHandle());
+        $this->assertTrue($driver->canHandle());
         $this->assertEquals(12, count($driver->getDownloadables()));
     }
 }
