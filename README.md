@@ -173,5 +173,15 @@ Here's is the list of supported sites for now:
  * cartoonpicsporn.com
  * cartoonpornpicture.com
  * cartoonxxxcomix.com
+ * animesexypics.com
+ * hotsexhentai.com
+ * x-hentaiporn.com
+ * hentai-high-school.com
+ * hotanimeporno.com
+ * sexualhentai.net
+ * luckystarporn.com
+ * high-hentai.com
+ * lustandsin.com
+ * fullmetal-hentai.com
   
 You must pass the URL to the album for the program to download it!
