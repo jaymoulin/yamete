@@ -159,5 +159,6 @@ Here's is the list of supported sites for now:
  * 3dcartoons.net
  * daddysangel3d.com
  * 3dpics.pro
+ * freefamouscartoonporn.com
   
 You must pass the URL to the album for the program to download it!
