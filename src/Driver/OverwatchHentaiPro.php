@@ -2,7 +2,7 @@
 
 namespace Yamete\Driver;
 
-class OverwatchHentaiPro extends ThreeDPornPics
+class OverwatchHentaiPro extends CartoonSexComixCom
 {
     const DOMAIN = 'overwatchhentai.pro';
 

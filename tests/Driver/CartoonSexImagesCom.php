@@ -11,6 +11,6 @@ class CartoonSexImagesCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\CartoonSexImagesCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(6, count($driver->getDownloadables()));
     }
 }

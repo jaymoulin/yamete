@@ -11,6 +11,6 @@ class Sexy3dComixCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\Sexy3dComixCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(7, count($driver->getDownloadables()));
+        $this->assertEquals(9, count($driver->getDownloadables()));
     }
 }

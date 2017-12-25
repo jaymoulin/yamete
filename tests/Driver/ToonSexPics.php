@@ -11,6 +11,6 @@ class ToonSexPics extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\ToonSexPics();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(1, count($driver->getDownloadables()));
     }
 }

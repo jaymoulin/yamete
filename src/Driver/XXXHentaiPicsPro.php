@@ -2,7 +2,7 @@
 
 namespace Yamete\Driver;
 
-class XXXHentaiPicsPro extends ThreeDPornPics
+class XXXHentaiPicsPro extends CartoonSexComixCom
 {
     const DOMAIN = 'xxxhentaipics.pro';
 

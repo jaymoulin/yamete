@@ -22,6 +22,11 @@ class ThreeDPornPics extends \Yamete\DriverAbstract
         );
     }
 
+    protected function getSelector()
+    {
+        return '.portfolio-normal-width figure a';
+    }
+
     public function getDownloadables()
     {
         $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;
@@ -29,7 +34,7 @@ class ThreeDPornPics extends \Yamete\DriverAbstract
         $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.portfolio-normal-width figure a') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
             /**
              * @var \DOMElement $oLink
              */

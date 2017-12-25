@@ -10,4 +10,9 @@ class FreeSexComixPro extends ThreeDPornPics
     {
         return self::DOMAIN;
     }
+
+    protected function getSelector()
+    {
+        return '.page-gallery figure a';
+    }
 }

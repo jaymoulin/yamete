@@ -10,4 +10,9 @@ class LolHentaiPro extends ThreeDPornPics
     {
         return self::DOMAIN;
     }
+
+    protected function getSelector()
+    {
+        return '.grid-portfolio figure a';
+    }
 }
