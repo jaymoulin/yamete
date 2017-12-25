@@ -127,5 +127,35 @@ Here's is the list of supported sites for now:
  * warcraftporn.pro
  * 3dsexpictures.net
  * hentaimanga.pro
+ * sexcartoonpics.com
+ * xsexcomics.com
+ * sexy3dcomix.com
+ * xxxtooncomics.com
+ * xxxporncomix.com
+ * toonsex.pics
+ * freesexcomix.pro
+ * xxxcartoonsex.net
+ * toonpornpics.com
+ * furrypornpics.net
+ * 3dcomix.pro
+ * cartoonseximages.com
+ * xxxhentaipics.pro
+ * cartoonpornpic.net
+ * lolhentai.pro
+ * lolporn.pro
+ * xxxcartoonporn.pro
+ * 3dsexcomics.pro
+ * xxxcartoonporn.pro
+ * xxxhentaicomix.com
+ * xxxmangacomix.com
+ * sexytoonporn.com
+ * cartoonsexcomix.com
+ * xxx3dcomix.com
+ * comicsporn.net
+ * xxxcomicporn.com
+ * 3dcomix.pro
+ * hotincestart.com
+ * finestcartoonporn.com
+ * topadultcomix.com
   
 You must pass the URL to the album for the program to download it!
