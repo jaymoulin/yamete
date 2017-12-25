@@ -125,5 +125,6 @@ Here's is the list of supported sites for now:
  * mangaporn.pro
  * overwatchporn.pro
  * warcraftporn.pro
+ * 3dsexpictures.net
   
 You must pass the URL to the album for the program to download it!
