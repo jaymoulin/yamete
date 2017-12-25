@@ -7,10 +7,10 @@ class XXX3dComixCom extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.xxx3dcomix.com/gallery/artist3d-varris-animated-part-2';
         $driver = new \Yamete\Driver\XXX3dComixCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(12, count($driver->getDownloadables()));
     }
 }

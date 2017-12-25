@@ -7,10 +7,10 @@ class ThreeDComixPro extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.3dcomix.pro/pictures/vacation-in-the-mountais-part-3';
         $driver = new \Yamete\Driver\ThreeDComixPro();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(10, count($driver->getDownloadables()));
     }
 }

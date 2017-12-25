@@ -7,10 +7,10 @@ class LolPornPro extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.lolporn.pro/galleries/-aka6-lol-comic-league-of-legends';
         $driver = new \Yamete\Driver\LolPornPro();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(4, count($driver->getDownloadables()));
     }
 }

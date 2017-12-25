@@ -7,10 +7,10 @@ class XXXCartoonSexNet extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.xxxcartoonsex.net/galleries/shagbase-arkham-cunts-batman';
         $driver = new \Yamete\Driver\XXXCartoonSexNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(6, count($driver->getDownloadables()));
     }
 }

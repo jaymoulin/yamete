@@ -7,10 +7,10 @@ class XXXCartoonPornPro extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.xxxcartoonporn.pro/images/los-simpsons-viejas-costumbres-6-spanish-accoutrement-2';
         $driver = new \Yamete\Driver\XXXCartoonPornPro();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(9, count($driver->getDownloadables()));
     }
 }

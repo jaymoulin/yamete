@@ -7,10 +7,10 @@ class ThreeDSexComicsPro extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.3dsexcomics.pro/gallery/jab-comix-ay-mami';
         $driver = new \Yamete\Driver\ThreeDSexComicsPro();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(8, count($driver->getDownloadables()));
     }
 }

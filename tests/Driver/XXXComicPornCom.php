@@ -7,10 +7,10 @@ class XXXComicPornCom extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.xxxcomicporn.com/galleries/-manic47-joy-ride-robotboy';
         $driver = new \Yamete\Driver\XXXComicPornCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(5, count($driver->getDownloadables()));
     }
 }

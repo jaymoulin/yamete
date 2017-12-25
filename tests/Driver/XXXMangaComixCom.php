@@ -7,10 +7,10 @@ class XXXMangaComixCom extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';
+        $url = 'http://www.xxxmangacomix.com/gallery/declaration-of-obedience-hentai';
         $driver = new \Yamete\Driver\XXXMangaComixCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(8, count($driver->getDownloadables()));
     }
 }
