@@ -157,5 +157,6 @@ Here's is the list of supported sites for now:
  * overwatchhentai.pro
  * 3dsextoons.net
  * 3dcartoons.net
+ * daddysangel3d.com
   
 You must pass the URL to the album for the program to download it!

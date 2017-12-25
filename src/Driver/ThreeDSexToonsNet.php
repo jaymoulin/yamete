@@ -2,42 +2,44 @@
 
 namespace Yamete\Driver;
 
-class ThreeDSexToonsNet extends \Yamete\DriverAbstract
-{
-    private $aMatches = [];
-    const DOMAIN = '3dsextoons.net';
-
-    protected function getDomain()
+if (!class_exists(ThreeDSexToonsNet::class)) {
+    class ThreeDSexToonsNet extends \Yamete\DriverAbstract
     {
-        return self::DOMAIN;
-    }
+        private $aMatches = [];
+        const DOMAIN = '3dsextoons.net';
 
-    public function canHandle()
-    {
-        return (bool)preg_match(
-            '~^https?://(www\.)?(' . strtr($this->getDomain(), ['.' => '\.']) .
-            ')/gals/(?<site>[^/]+)/(?<album>[^/]+)/$~',
-            $this->sUrl,
-            $this->aMatches
-        );
-    }
-
-    public function getDownloadables()
-    {
-        $sUrl = str_replace($this->getDomain(), 'page-x.com', $this->sUrl);
-        $oRes = $this->getClient()->request('GET', $sUrl);
-        $aReturn = [];
-        $iNbImg = count($this->getDomParser()->load((string)$oRes->getBody())->find('#gallery2 a'));
-        for ($i = 1; $i <= $iNbImg; $i++) {
-            $sFilename = $sUrl . str_pad($i, 2, '0', STR_PAD_LEFT) . '.jpg';
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
-            $aReturn[$sBasename] = $sFilename;
+        protected function getDomain()
+        {
+            return self::DOMAIN;
         }
-        return $aReturn;
-    }
 
-    private function getFolder()
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+        public function canHandle()
+        {
+            return (bool)preg_match(
+                '~^https?://(www\.)?(' . strtr($this->getDomain(), ['.' => '\.']) .
+                ')/gals/(?<site>[^/]+)/(?<album>[^/]+)/$~',
+                $this->sUrl,
+                $this->aMatches
+            );
+        }
+
+        public function getDownloadables()
+        {
+            $sUrl = str_replace($this->getDomain(), 'page-x.com', $this->sUrl);
+            $oRes = $this->getClient()->request('GET', $sUrl);
+            $aReturn = [];
+            $iNbImg = count($this->getDomParser()->load((string)$oRes->getBody())->find('#gallery2 a'));
+            for ($i = 1; $i <= $iNbImg; $i++) {
+                $sFilename = $sUrl . str_pad($i, 2, '0', STR_PAD_LEFT) . '.jpg';
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
+                $aReturn[$sBasename] = $sFilename;
+            }
+            return $aReturn;
+        }
+
+        private function getFolder()
+        {
+            return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+        }
     }
 }
