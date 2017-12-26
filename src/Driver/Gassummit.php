@@ -35,7 +35,8 @@ class Gassummit extends \Yamete\DriverAbstract
                  * @var \DOMElement $oLink
                  * @var \DOMElement $oImg
                  */
-                $oImg = $this->getDomParser()->loadFromUrl($oLink->getAttribute('value'))->find('#con img')[0];
+                $sUrl = str_replace('/read/1/', '/read/', $oLink->getAttribute('value'));
+                $oImg = $this->getDomParser()->loadFromUrl($sUrl)->find('#con img')[0];
                 $sFilename = str_replace(' ', '%20', trim($oImg->getAttribute('src')));
                 $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
                     . str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
