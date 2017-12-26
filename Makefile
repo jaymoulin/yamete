@@ -20,6 +20,4 @@ publish:
 	mv manifest2.yaml manifest.yaml
 	manifest-tool push from-spec manifest.yaml
 latest:
-	VERSION=${VERSION} make build
-	VERSION=${VERSION} make publish
 	FULLVERSION=latest VERSION=${VERSION} make publish
