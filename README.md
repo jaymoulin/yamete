@@ -187,5 +187,6 @@ Here's is the list of supported sites for now:
  * mangerotica.com
  * xcomics4you.com
  * hcomicbook.com
+ * hentaibox.fr
   
 You must pass the URL to the album for the program to download it!
