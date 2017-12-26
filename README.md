@@ -185,5 +185,6 @@ Here's is the list of supported sites for now:
  * fullmetal-hentai.com
  * bebop-hentai.com
  * mangerotica.com
+ * xcomics4you.com
   
 You must pass the URL to the album for the program to download it!

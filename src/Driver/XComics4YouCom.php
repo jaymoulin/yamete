@@ -3,9 +3,9 @@
 namespace Yamete\Driver;
 
 
-class MangEroticaCom extends HentaiHighSchoolCom
+class XComics4YouCom extends HentaiHighSchoolCom
 {
-    const DOMAIN = 'mangerotica.com';
+    const DOMAIN = 'xcomics4you.com';
 
     protected function getDomain()
     {
