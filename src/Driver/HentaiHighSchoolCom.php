@@ -48,9 +48,10 @@ if (!class_exists(HentaiHighSchoolCom::class)) {
                     if (is_null($oImg)) {
                         return $aReturn;
                     }
-                    $sFilename = strpos('//', $oImg->getAttribute('src')) === false
-                        ? $sUrl . $oImg->getAttribute('src')
-                        : $oImg->getAttribute('src');
+                    $sSrc = $oImg->getAttribute('src');
+                    $sFilename = strpos('//', $sSrc) === false
+                        ? $sUrl . ($sSrc{0} == '/' ?: '/') . $sSrc
+                        : $sSrc;
                     $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . $sIndex . '-' . basename($sFilename);
                     $aReturn[$sBasename] = $sFilename;
                 } catch (\Exception $e) {
@@ -62,7 +63,7 @@ if (!class_exists(HentaiHighSchoolCom::class)) {
 
         private function getFolder()
         {
-            return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+            return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
         }
     }
 }
