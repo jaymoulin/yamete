@@ -10,7 +10,7 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
     public function canHandle()
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<album>[^/]+)/$~',
+            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<album>[^/]+)~',
             $this->sUrl,
             $this->aMatches
         );
@@ -18,12 +18,11 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
 
     public function getDownloadables()
     {
+        $this->sUrl = 'http://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $this->sUrl . '1/1/');
         $aReturn = [];
         $i = 0;
-        $nbChapters = count(
-            $this->getDomParser()->load((string)$oRes->getBody())->find('.nav_chp option')
-        );
+        $nbChapters = count($this->getDomParser()->load((string)$oRes->getBody())->find('.nav_chp option'));
         for ($chapter = 1; $chapter <= $nbChapters; $chapter++) {
             $this->aMatches['chapter'] = $chapter;
             $oRes = $this->getClient()->request('GET', $this->sUrl . $chapter . '/1/');
