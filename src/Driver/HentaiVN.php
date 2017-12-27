@@ -35,7 +35,7 @@ class HentaiVN extends \Yamete\DriverAbstract
                 /**
                  * @var \DOMElement $oImg
                  */
-                $iPos = strpos('?', $oImg->getAttribute('src'));
+                $iPos = strpos($oImg->getAttribute('src'), '?');
                 $sFilename = substr($oImg->getAttribute('src'), 0, $iPos ? $iPos : strlen($oImg->getAttribute('src')));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . $iChapters . DIRECTORY_SEPARATOR
                     . str_pad($i++, 5, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
