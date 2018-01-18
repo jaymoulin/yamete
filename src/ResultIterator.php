@@ -19,7 +19,7 @@ class ResultIterator extends \IteratorIterator implements \Countable
         $sFileName = is_numeric($sFileName) ? basename($sResource) : $sFileName;
         $sFileName = implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'downloads', $sFileName]);
         if (!file_exists(dirname($sFileName))) {
-            mkdir(dirname($sFileName), 0644, true);
+            mkdir(dirname($sFileName), 0777, true);
         }
         return $sFileName;
     }
