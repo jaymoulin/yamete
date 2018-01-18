@@ -28,6 +28,5 @@ test:
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php composerinstall.php -q --quiet
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php composer.phar install
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php -d max_execution_time=5000 vendor/bin/phpunit
-	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test rm composer.phar composerinstall.php
-	rm -Rf .composer
+	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test rm -Rf composer.phar composerinstall.php .composer
 	docker rmi yamete:test
