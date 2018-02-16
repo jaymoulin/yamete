@@ -7,10 +7,10 @@ class Luscious extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'https://luscious.net/albums/study_301006/';
+        $url = 'https://luscious.net/albums/kawaii-wa-seigi-cute-is-justice_305595/';
         $driver = new \Yamete\Driver\Luscious();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(8, count($driver->getDownloadables()));
+        $this->assertEquals(5, count($driver->getDownloadables()));
     }
 }

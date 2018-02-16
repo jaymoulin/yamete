@@ -18,14 +18,15 @@ class MilfComix extends \Yamete\DriverAbstract
 
     public function getDownloadables()
     {
-        $oRes = $this->getClient()->request('GET', $this->sUrl);
+        $oRes = $this->getClient()->request('GET', $this->sUrl, ['headers' => ['User-Agent' => self::USER_AGENT]]);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.single-post p img') as $oImg) {
-            /**
-             * @var \DOMElement $oImg
-             */
-            $sFilename = $oImg->getAttribute('src');
+        $sBody = (string)$oRes->getBody();
+        $sRegexp = '~<img class="alignnone[^"]+" src="(?<href>[^"]+)"[^>]+>~';
+        if (!preg_match_all($sRegexp, $sBody, $aMatches)) {
+            return $aReturn;
+        }
+        foreach ($aMatches['href'] as $sFilename) {
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;

@@ -11,6 +11,6 @@ class Xyzcomics extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\Xyzcomics();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(9, count($driver->getDownloadables()));
+        $this->assertEquals(31, count($driver->getDownloadables()));
     }
 }

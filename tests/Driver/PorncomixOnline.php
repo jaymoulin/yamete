@@ -11,6 +11,6 @@ class PorncomixOnline extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\PorncomixOnline();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(18, count($driver->getDownloadables()));
+        $this->assertEquals(22, count($driver->getDownloadables()));
     }
 }

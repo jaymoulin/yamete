@@ -11,6 +11,6 @@ class MilfComix extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MilfComix();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
+        $this->assertEquals(31, count($driver->getDownloadables()));
     }
 }

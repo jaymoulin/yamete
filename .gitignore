@@ -1,6 +1,8 @@
-qemu-*-static
-vendor
-build
-downloads
-Dockerfile
-manifest.yaml
+/qemu-*-static
+/vendor
+/build
+/downloads
+/Dockerfile
+/manifest.yaml
+/.composer
+/composerinstall.php

@@ -18,7 +18,7 @@ class HentaiParadise extends \Yamete\DriverAbstract
 
     public function getDownloadables()
     {
-        $oRes = $this->getClient()->request('GET', $this->sUrl . '/0');
+        $oRes = $this->getClient()->request('GET', $this->sUrl . '/0', ['headers' => ['User-Agent' => self::USER_AGENT]]);
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.goPage a') as $oLink) {
             /**
@@ -31,7 +31,7 @@ class HentaiParadise extends \Yamete\DriverAbstract
                         ->getBody()
                 )
                 ->find('#fullPage img');
-            $sFilename = $this->sUrl . '/' . $oImg->getAttribute('src');
+            $sFilename = $oImg->getAttribute('src');
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
         return $aReturn;
