@@ -13,4 +13,13 @@ class EightMuses extends \PHPUnit\Framework\TestCase
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(22, count($driver->getDownloadables()));
     }
+
+    public function testDownloadSeries()
+    {
+        $url = 'https://www.8muses.com/comix/album/JAB-Comics/A-Model-Life';
+        $driver = new \Yamete\Driver\EightMuses();
+        $driver->setUrl($url);
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(53, count($driver->getDownloadables()));
+    }
 }

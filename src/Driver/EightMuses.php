@@ -5,6 +5,7 @@ namespace Yamete\Driver;
 class EightMuses extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
+    private $aReturn = [];
     const DOMAIN = '8muses.com';
 
     public function canHandle()
@@ -18,26 +19,51 @@ class EightMuses extends \Yamete\DriverAbstract
 
     public function getDownloadables()
     {
-        $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $aReturn = [];
-        $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.c-tile') as $oLink) {
+        $this->aReturn = [];
+        foreach ($this->getDomParser()->load($this->getBody($this->sUrl))->find('a.c-tile') as $oLink) {
             /**
              * @var \DOMElement $oLink
              */
-            $oParser = $this->getDomParser()
-                ->load(
-                    (string)$this->getClient()
-                        ->request('GET', 'https://www.' . self::DOMAIN . $oLink->getAttribute('href'))->getBody()
-                );
-            $sHost = $oParser->find('#imageHost')[0]->getAttribute('value');
-            $sName = $oParser->find('#imageName')[0]->getAttribute('value');
-            $sFilename = "https:$sHost/image/fl/$sName";
-            $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
-                . str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
-            $aReturn[$sPath] = $sFilename;
+            $sHref = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
+            $oParser = $this->getDomParser()->load($this->getBody($sHref));
+            if (isset($oParser->find('#imageHost')[0])) {
+                $this->prepareLinks($oParser);
+            } else {
+                $oParser = $this->getDomParser()->load($this->getBody($sHref));
+                foreach ($oParser->find('a.c-tile') as $oLinkImg) {
+                    /**
+                     * @var \DOMElement $oLinkImg
+                     */
+                    $sHref = 'https://www.' . self::DOMAIN . $oLinkImg->getAttribute('href');
+                    $oParser = $this->getDomParser()->load($this->getBody($sHref));
+                    if (isset($oParser->find('#imageHost')[0])) {
+                        $this->prepareLinks($oParser);
+                    }
+                }
+            }
         }
-        return $aReturn;
+        return $this->aReturn;
+    }
+
+    /**
+     * Retrieve body for specified url
+     * @param string $sUrl
+     * @return string
+     * @throws
+     */
+    private function getBody($sUrl)
+    {
+        return (string)$this->getClient()->request('GET', $sUrl)->getBody();
+    }
+
+    private function prepareLinks(\PHPHtmlParser\Dom $oParser)
+    {
+        $sHost = $oParser->find('#imageHost')[0]->getAttribute('value');
+        $sName = $oParser->find('#imageName')[0]->getAttribute('value');
+        $sFilename = "https:$sHost/image/fl/$sName";
+        $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
+            . str_pad(count($this->aReturn) + 1, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
+        $this->aReturn[$sPath] = $sFilename;
     }
 
     private function getFolder()
