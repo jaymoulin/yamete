@@ -3,7 +3,7 @@ CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 arm64v8 i386
 .PHONY: all build publish latest
-all: build publish latest test
+all: build publish latest
 qemu-arm-static:
 	cp /usr/bin/qemu-arm-static .
 qemu-aarch64-static:
