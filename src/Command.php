@@ -122,18 +122,20 @@ class Command extends \Symfony\Component\Console\Command\Command
 
     private function download(ResultIterator $oResult, OutputInterface $output)
     {
+        /** @var Downloadable[] $oResult */
         if ($output->isVerbose()) {
             $progress = new ProgressBar($output, count($oResult));
             $progress->start();
         }
         $bSuccess = false;
-        foreach ($oResult as $sFileName => $sResource) {
+        foreach ($oResult as $sFileName => $oResource) {
             $bSuccess = true;
+            $sPath = $oResource->getPath();
             $output->writeln(
-                PHP_EOL . "<question>Downloading $sResource : $sFileName</question>",
+                PHP_EOL . "<question>Downloading $sPath : $sFileName</question>",
                 OutputInterface::VERBOSITY_VERY_VERBOSE
             );
-            file_put_contents($sFileName, file_get_contents($sResource));
+            $oResource->download();
             $output->isVerbose() && $progress->advance();
         }
         if (!$bSuccess) {

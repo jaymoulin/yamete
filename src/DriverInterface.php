@@ -5,7 +5,7 @@ namespace Yamete;
 interface DriverInterface
 {
     /**
-     * Define URL to be parsed
+     * Defines URL to be parsed
      * @param string $sUrl
      * @return $this
      */
@@ -19,9 +19,15 @@ interface DriverInterface
     public function canHandle();
 
     /**
-     * Return URLs that can be downloaded (indexed by optional file name) for specified URL (with setUrl)
+     * Returns URLs that can be downloaded (indexed by optional file name) for specified URL (with setUrl)
      * @uses self::setUrl
      * @return string[]
      */
     public function getDownloadables();
+
+    /**
+     * Returns Guzzle client that will be used to download resources
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient();
 }

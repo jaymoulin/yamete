@@ -9,7 +9,7 @@ abstract class DriverAbstract implements DriverInterface
     private $oDomParser;
     protected $sUrl;
 
-    protected function getClient($aOptions = [])
+    public function getClient($aOptions = [])
     {
         return $this->oClient = $this->oClient ?: new \GuzzleHttp\Client($aOptions);
     }

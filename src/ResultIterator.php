@@ -7,11 +7,40 @@ namespace Yamete;
  * @package Yamete
  * @method \ArrayIterator getInnerIterator
  */
-class ResultIterator extends \IteratorIterator implements \Countable
+class ResultIterator implements \Iterator, \Countable
 {
+    private $oDriver;
+    private $oIterator;
+
+    public function __construct(DriverInterface $oDriver)
+    {
+        $this->oDriver = $oDriver;
+        $this->oIterator = new \ArrayIterator($oDriver->getDownloadables());
+    }
+
+    public function current()
+    {
+        return new Downloadable($this->oDriver, $this->key(), $this->oIterator->current());
+    }
+
+    public function next()
+    {
+        $this->oIterator->next();
+    }
+
+    public function valid()
+    {
+        return $this->oIterator->valid();
+    }
+
+    public function rewind()
+    {
+        $this->oIterator->rewind();
+    }
+
     public function key()
     {
-        return $this->getFilename(parent::key(), parent::current());
+        return $this->getFilename($this->oIterator->key(), $this->oIterator->current());
     }
 
     private function getFilename($sFileName, $sResource)
@@ -26,6 +55,6 @@ class ResultIterator extends \IteratorIterator implements \Countable
 
     public function count()
     {
-        return count($this->getInnerIterator());
+        return count($this->oIterator);
     }
 }

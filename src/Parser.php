@@ -49,7 +49,7 @@ class Parser
         foreach ($this->aDrivers as $oDriver) {
             $oDriver->setUrl($sUrl);
             if ($oDriver->canHandle()) {
-                return new ResultIterator(new \ArrayIterator($oDriver->getDownloadables()));
+                return new ResultIterator($oDriver);
             }
         }
         return false;
