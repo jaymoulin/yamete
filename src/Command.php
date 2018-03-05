@@ -112,18 +112,26 @@ class Command extends \Symfony\Component\Console\Command\Command
 
     private function pdf(ResultIterator $oResult, OutputInterface $output)
     {
-        $output->writeln('<comment>Converting to PDF</comment>');
-        $pdf = new PDF();
-        $pdf->setMargins(0, 0);
-        $pdf->createFromList($oResult);
-        $baseName = null;
-        foreach ($oResult as $sFileName => $sResource) {
-            $baseName = dirname($sFileName);
-            unlink($sFileName);
+        $iMemoryLimit = ini_set('memory_limit', '2G'); //hack - this is NOT a solution. we better find something for PDF
+        try {
+            $output->writeln('<comment>Converting to PDF</comment>');
+            $pdf = new PDF();
+            $pdf->setMargins(0, 0);
+            $pdf->createFromList($oResult);
+            $baseName = null;
+            foreach ($oResult as $sFileName => $sResource) {
+                $baseName = dirname($sFileName);
+                unlink($sFileName);
+            }
+            rmdir($baseName);
+            $pdf->Output('F', $baseName . '.pdf');
+            $output->writeln("<comment>PDF created $baseName.pdf</comment>");
+        } catch (\Exception $eException) {
+            $sMessage = $eException->getMessage();
+            $output->writeln("<error>PDF errored! : $sMessage</error>");
+            ini_set('memory_limit', $iMemoryLimit);
+            throw $eException;
         }
-        rmdir($baseName);
-        $pdf->Output('F', $baseName . '.pdf');
-        $output->writeln("<comment>PDF created $baseName.pdf</comment>");
     }
 
     private function download(ResultIterator $oResult, OutputInterface $output)
