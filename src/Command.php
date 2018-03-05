@@ -54,18 +54,27 @@ class Command extends \Symfony\Component\Console\Command\Command
             $progress->start();
         }
         foreach ($aUrl as $sUrl) {
-            $sUrl = trim($sUrl);
-            $output->writeln("<comment>Parsing $sUrl</comment>");
-            $oResult = $oParser->parse($sUrl);
-            $iNbUrl > 1 && $output->isVerbose() && $progress->advance();
-            if (!$oResult) {
-                $output->writeln("<error>Error while parsing $sUrl</error>");
+            try {
+                $sUrl = trim($sUrl);
+                $output->writeln("<comment>Parsing $sUrl</comment>");
+                $oResult = $oParser->parse($sUrl);
+                $iNbUrl > 1 && $output->isVerbose() && $progress->advance();
+                if (!$oResult) {
+                    $output->writeln("<error>Error while parsing $sUrl</error>");
+                    continue;
+                }
+                $this->download($oResult, $output);
+                $output->writeln("<info>Download $sUrl success!</info>");
+                !($input->getOption(self::ZIP) && !$input->getOption(self::PDF)) ?: $this->zip($oResult, $output);
+                !$input->getOption(self::PDF) ?: $this->pdf($oResult, $output);
+            } catch (\Exception $eException) {
+                if ($iNbUrl != 1) {
+                    throw $eException;
+                }
+                $sMessage = $eException->getMessage();
+                $output->writeln("<error>$sMessage</error>");
                 continue;
             }
-            $this->download($oResult, $output);
-            $output->writeln("<info>Download $sUrl success!</info>");
-            !($input->getOption(self::ZIP) && !$input->getOption(self::PDF)) ?: $this->zip($oResult, $output);
-            !$input->getOption(self::PDF) ?: $this->pdf($oResult, $output);
         }
         if ($iNbUrl > 1 && $output->isVerbose()) {
             $progress->finish();
@@ -92,7 +101,7 @@ class Command extends \Symfony\Component\Console\Command\Command
             unlink($sFileName);
         }
         rmdir($baseName);
-        $output->writeln("<info>Zip created $baseName.pdf</info>");
+        $output->writeln("<comment>Zip created $baseName.zip</comment>");
     }
 
     private function pdf(ResultIterator $oResult, OutputInterface $output)
@@ -108,7 +117,7 @@ class Command extends \Symfony\Component\Console\Command\Command
         }
         rmdir($baseName);
         $pdf->Output('F', $baseName . '.pdf');
-        $output->writeln("<info>PDF created $baseName.pdf</info>");
+        $output->writeln("<comment>PDF created $baseName.pdf</comment>");
     }
 
     private function download(ResultIterator $oResult, OutputInterface $output)
