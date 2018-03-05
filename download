@@ -1,6 +1,5 @@
 #!/usr/bin/env php
 <?php
-ini_set('memory_limit', '2G');
 require_once 'vendor/autoload.php';
 define('VERSION', <<<HEREDOC
 Yamete 0.6.0 - Jay MOULIN <https://twitter.com/MoulinJay>
