@@ -14,15 +14,17 @@ class Command extends \Symfony\Component\Console\Command\Command
     const DRIVERS = 'drivers';
     const PDF = 'pdf';
     const ZIP = 'zip';
+    const ERRORS = 'errors';
 
     protected function configure()
     {
         $this->setName('download')
-            ->setDescription("Download a URL resources")
+            ->setDescription("Download an URL resources")
             ->addOption(self::URL, 'u', InputOption::VALUE_OPTIONAL, 'Url to download from')
             ->addOption(self::LIST_FILE, 'l', InputOption::VALUE_OPTIONAL, 'List file with multiple urls')
             ->addOption(self::PDF, 'p', InputOption::VALUE_NONE, 'Optional to create a PDF')
             ->addOption(self::ZIP, 'z', InputOption::VALUE_NONE, 'Optional to create a zip file')
+            ->addOption(self::ERRORS, 'e', InputOption::VALUE_OPTIONAL, 'Optional file path to create artifacts error urls')
             ->addOption(
                 self::DRIVERS,
                 'd',
@@ -35,6 +37,9 @@ class Command extends \Symfony\Component\Console\Command\Command
     {
         ini_set('display_errors', $output->isDebug() ? '1' : '0');
         $aUrl = [];
+        if (!empty($input->getOption(self::ERRORS)) && !file_exists(dirname($input->getOption(self::ERRORS)))) {
+            mkdir($input->getOption(self::ERRORS), 0777, true);
+        }
         if (is_file($input->getOption(self::LIST_FILE))) {
             $aUrl = file($input->getOption(self::LIST_FILE));
         } elseif ($input->getOption(self::URL)) {
@@ -53,6 +58,7 @@ class Command extends \Symfony\Component\Console\Command\Command
             $progress = new ProgressBar($output, $iNbUrl);
             $progress->start();
         }
+        $fArtifact = empty($input->getOption(self::ERRORS)) ?: fopen($input->getOption(self::ERRORS), "a");
         foreach ($aUrl as $sUrl) {
             try {
                 $sUrl = trim($sUrl);
@@ -60,15 +66,15 @@ class Command extends \Symfony\Component\Console\Command\Command
                 $oResult = $oParser->parse($sUrl);
                 $iNbUrl > 1 && $output->isVerbose() && $progress->advance();
                 if (!$oResult) {
-                    $output->writeln("<error>Error while parsing $sUrl</error>");
-                    continue;
+                    throw new \DomainException("Error while parsing $sUrl");
                 }
                 $this->download($oResult, $output);
                 $output->writeln("<info>Download $sUrl success!</info>");
                 !($input->getOption(self::ZIP) && !$input->getOption(self::PDF)) ?: $this->zip($oResult, $output);
                 !$input->getOption(self::PDF) ?: $this->pdf($oResult, $output);
             } catch (\Exception $eException) {
-                if ($iNbUrl != 1) {
+                $fArtifact && fputs($fArtifact, $sUrl);
+                if ($iNbUrl == 1) {
                     throw $eException;
                 }
                 $sMessage = $eException->getMessage();

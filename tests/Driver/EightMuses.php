@@ -20,6 +20,6 @@ class EightMuses extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\EightMuses();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(53, count($driver->getDownloadables()));
+        $this->assertEquals(56, count($driver->getDownloadables()));
     }
 }

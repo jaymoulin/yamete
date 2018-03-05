@@ -20,21 +20,22 @@ Usage:
   download [options]
 
 Options:
-  -u, --url[=URL]          Url to download from
-  -l, --list[=LIST]        List file with multiple urls
-  -p, --pdf                Optional to create a PDF
-  -z, --zip                Optional to create a zip file
-  -d, --drivers[=DRIVERS]  Optional array of drivers to add (multiple values allowed)
-  -h, --help               Display this help message
-  -q, --quiet              Do not output any message
-  -V, --version            Display this application version
-      --ansi               Force ANSI output
-      --no-ansi            Disable ANSI output
-  -n, --no-interaction     Do not ask any interactive question
-  -v|vv|vvv, --verbose     Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+  -u, --url[=URL]             Url to download from
+  -l, --list[=LIST]           List file with multiple urls
+  -p, --pdf                   Optional to create a PDF
+  -z, --zip                   Optional to create a zip file
+  -e, --errors[=ERRORS]       Optional file path to create artifacts error urls
+  -d, --drivers[=DRIVERS]     Optional array of drivers to add (multiple values allowed)
+  -h, --help                  Display this help message
+  -q, --quiet                 Do not output any message
+  -V, --version               Display this application version
+      --ansi                  Force ANSI output
+      --no-ansi               Disable ANSI output
+  -n, --no-interaction        Do not ask any interactive question
+  -v|vv|vvv, --verbose        Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 Help:
-  Download a URL resources
+  Download an URL resources
 ```
 
 ### Mandatory parameter
@@ -45,6 +46,7 @@ OR
 ### Optional parameter
  - `-d` or `--drivers`: the path to custom drivers to handle some URL
  - `-p` or `--pdf`: Add this parameter to download a single PDF file instead of multiple images
+ - `-e` or `--errors`: Add this parameter to put all urls that failed in another file 
 
 ### Downloads
 
