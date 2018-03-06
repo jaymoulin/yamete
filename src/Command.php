@@ -66,7 +66,11 @@ class Command extends \Symfony\Component\Console\Command\Command
                 $oResult = $oParser->parse($sUrl);
                 $iNbUrl > 1 && $output->isVerbose() && $progress->advance();
                 if (!$oResult) {
-                    throw new \DomainException("Error while parsing $sUrl");
+                    throw new \DomainException(
+                        "Unable to parse $sUrl." . PHP_EOL .
+                        "Consider creating an issue on " . 
+                        "https://github.com/jaymoulin/yamete/issues/"
+                    );
                 }
                 $this->download($oResult, $output);
                 $output->writeln("<info>Download $sUrl success!</info>");

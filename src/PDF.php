@@ -22,8 +22,8 @@ class PDF extends \FPDF
         list($width, $height) = getimagesize($imgFilename);
         $width = $this->pixelsToMM($width);
         $height = $this->pixelsToMM($height);
-        $widthScale = self::MAX_WIDTH / $width;
-        $heightScale = self::MAX_HEIGHT / $height;
+        $widthScale = self::MAX_WIDTH / ($width ?: 1);
+        $heightScale = self::MAX_HEIGHT / ($height ?: 1);
         $scale = min($widthScale, $heightScale);
         return $width > $height
             ? [round($scale * $width), round($scale * $height)]
