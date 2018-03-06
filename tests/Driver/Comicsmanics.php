@@ -13,4 +13,13 @@ class Comicsmanics extends \PHPUnit\Framework\TestCase
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(79, count($driver->getDownloadables()));
     }
+
+    public function testNewFormatDownload()
+    {
+        $url = 'http://www.comicsmanics.com/milftoon-lemonade-01-incest-comix/';
+        $driver = new \Yamete\Driver\Comicsmanics();
+        $driver->setUrl($url);
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(22, count($driver->getDownloadables()));
+    }
 }

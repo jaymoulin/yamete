@@ -30,6 +30,17 @@ class Comicsmanics extends \Yamete\DriverAbstract
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }
+        if (!$i) {
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.size-large') as $oImg) {
+                /**
+                 * @var \DOMElement $oImg
+                 */
+                $sFilename = 'https://www.' . self::DOMAIN . $oImg->getAttribute('src');
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                    . '-' . basename($sFilename);
+                $aReturn[$sBasename] = $sFilename;
+            }
+        }
         return $aReturn;
     }
 
