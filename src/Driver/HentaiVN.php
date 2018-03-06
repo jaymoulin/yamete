@@ -21,14 +21,16 @@ class HentaiVN extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        $sAccessor = '.listing td a';
-        $oList = $this->getDomParser()->load((string)$oRes->getBody())->find($sAccessor);
+        $bIsNoChapterFormat = (bool)preg_match('~[0-9]+-[0-9]+-.+~', $this->aMatches['album']);
+        $oList = $bIsNoChapterFormat
+            ? [$this->sUrl]
+            : $this->getDomParser()->load((string)$oRes->getBody())->find('.listing td a');
         $iChapters = count($oList);
         foreach ($oList as $oLink) { //chapters
             /**
              * @var \DOMElement $oLink
              */
-            $sLink = 'http://' . self::DOMAIN . $oLink->getAttribute('href');
+            $sLink = $bIsNoChapterFormat ? $oLink : 'http://' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             $oBody = $this->getDomParser()->load((string)$oRes->getBody());
             foreach ($oBody->find('#image img') as $oImg) { //images
