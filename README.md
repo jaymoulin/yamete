@@ -117,7 +117,7 @@ Here's is the list of supported sites for now:
  * porncomics.me
  * hentai4manga.com
  * erolord.com
- * pururin.us
+ * pururin.io
  * readhentaimanga.com
  * hmangasearcher.php
  * 3dpornpics.pro

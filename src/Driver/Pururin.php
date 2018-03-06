@@ -5,7 +5,7 @@ namespace Yamete\Driver;
 class Pururin extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'pururin.us';
+    const DOMAIN = 'pururin.io';
 
     public function canHandle()
     {

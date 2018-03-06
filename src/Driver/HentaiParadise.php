@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use \Tuna\CloudflareMiddleware;
+
 class HentaiParadise extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -18,7 +20,8 @@ class HentaiParadise extends \Yamete\DriverAbstract
 
     public function getDownloadables()
     {
-        $oRes = $this->getClient()->request('GET', $this->sUrl . '/0', ['headers' => ['User-Agent' => self::USER_AGENT]]);
+        $this->sUrl = 'https://' . self::DOMAIN . '/doujins/' . $this->aMatches['album'] . '/';
+        $oRes = $this->getClient()->request('GET', $this->sUrl . '0');
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.goPage a') as $oLink) {
             /**
@@ -27,14 +30,23 @@ class HentaiParadise extends \Yamete\DriverAbstract
              */
             $oImg = $this->getDomParser()
                 ->load(
-                    (string)$this->getClient()->request('GET', $this->sUrl . '/' . $oLink->getAttribute('href'))
-                        ->getBody()
+                    (string)$this->getClient()->request('GET', $this->sUrl . $oLink->getAttribute('href'))->getBody()
                 )
                 ->find('#fullPage img');
             $sFilename = $oImg->getAttribute('src');
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
         return $aReturn;
+    }
+
+    public function getClient($aOptions = [])
+    {
+        $oClient = new \GuzzleHttp\Client(
+            ['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]
+        );
+        $oHandler = $oClient->getConfig('handler');
+        $oHandler->push(CloudflareMiddleware::create());
+        return $oClient;
     }
 
     private function getFolder()

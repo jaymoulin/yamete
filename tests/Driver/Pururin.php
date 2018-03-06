@@ -7,7 +7,7 @@ class Pururin extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://pururin.us/gallery/35297/kyouei-swimming';
+        $url = 'http://pururin.io/gallery/35297/kyouei-swimming';
         $driver = new \Yamete\Driver\Pururin();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
