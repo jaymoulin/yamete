@@ -13,4 +13,13 @@ class Luscious extends \PHPUnit\Framework\TestCase
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(5, count($driver->getDownloadables()));
     }
+
+    public function testDownloadPages()
+    {
+        $url = 'https://luscious.net/albums/please-help-yourself-master-2_101657/';
+        $driver = new \Yamete\Driver\Luscious();
+        $driver->setUrl($url);
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(185, count($driver->getDownloadables()));
+    }
 }

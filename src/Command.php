@@ -77,7 +77,7 @@ class Command extends \Symfony\Component\Console\Command\Command
                 !($input->getOption(self::ZIP) && !$input->getOption(self::PDF)) ?: $this->zip($oResult, $output);
                 !$input->getOption(self::PDF) ?: $this->pdf($oResult, $output);
             } catch (\Exception $eException) {
-                $fArtifact && fputs($fArtifact, $sUrl . PHP_EOL);
+                is_resource($fArtifact) && fputs($fArtifact, $sUrl . PHP_EOL);
                 if ($iNbUrl == 1) {
                     throw $eException;
                 }
