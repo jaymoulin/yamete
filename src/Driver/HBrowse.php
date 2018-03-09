@@ -37,6 +37,9 @@ class HBrowse extends \Yamete\DriverAbstract
                 $oRes = $this->getClient()->request('GET', $sHref);
                 $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#mangaImage');
                 $sFilename = $oImg->getAttribute('src');
+                $sFilename = preg_match('~^https?://~', $sFilename)
+                    ? $sFilename
+                    : 'https://www.' . self::DOMAIN . $sFilename;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 4, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
