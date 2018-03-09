@@ -13,6 +13,11 @@ class Pururin extends \Yamete\DriverAbstract
             '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/gallery/(?<albumId>[^/]+)/(?<album>.+)~',
             $this->sUrl,
             $this->aMatches
+        ) ||
+        (bool)preg_match(
+            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/read/(?<albumId>[^/]+)/[0-9]+/(?<album>.+)~',
+            $this->sUrl,
+            $this->aMatches
         );
     }
 
