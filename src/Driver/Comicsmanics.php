@@ -25,7 +25,10 @@ class Comicsmanics extends \Yamete\DriverAbstract
             /**
              * @var \DOMElement $oImg
              */
-            $sFilename = 'http://www.' . self::DOMAIN . $oImg->getAttribute('src');
+            $sFilename = $oImg->getAttribute('src');
+            $sFilename = preg_match('~^https?://~', $sFilename)
+                ? str_replace('https://', 'http://', $sFilename)
+                : 'http://www.' . self::DOMAIN . $sFilename;
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
