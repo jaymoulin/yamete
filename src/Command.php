@@ -67,8 +67,7 @@ class Command extends \Symfony\Component\Console\Command\Command
                 $iNbUrl > 1 && $output->isVerbose() && $progress->advance();
                 if (!$oResult) {
                     throw new \DomainException(
-                        "Unable to parse $sUrl." . PHP_EOL .
-                        "Consider creating an issue on " . 
+                        "Unable to parse $sUrl." . PHP_EOL . "Consider creating an issue on " .
                         "https://github.com/jaymoulin/yamete/issues/"
                     );
                 }
@@ -148,9 +147,9 @@ class Command extends \Symfony\Component\Console\Command\Command
         $bSuccess = false;
         foreach ($oResult as $sFileName => $oResource) {
             $bSuccess = true;
-            $sPath = $oResource->getPath();
+            $sPath = $oResource->getUrl();
             $output->writeln(
-                PHP_EOL . "<question>Downloading $sPath : $sFileName</question>",
+                PHP_EOL . "<question>Downloading $sPath > $sFileName</question>",
                 OutputInterface::VERBOSITY_VERY_VERBOSE
             );
             $oResource->download();
