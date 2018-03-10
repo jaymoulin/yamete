@@ -25,7 +25,7 @@ class Hitomi extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\HtmlNode $oImg
              */
-            $sFilename = 'https:' . str_replace('//g.', '//ba.', $oImg->innerhtml);
+            $sFilename = 'https:' . str_replace('//g.', '//aa.', $oImg->innerhtml);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
