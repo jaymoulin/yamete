@@ -10,7 +10,7 @@ class EHentai extends \Yamete\DriverAbstract
     public function canHandle()
     {
         return (bool)preg_match(
-            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/g/([^/]+)/(?<album>[^/]+)/~',
+            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/(?<mode>s|g)/([^/]+)/(?<album>[^/-]+)~',
             $this->sUrl,
             $this->aMatches
         );
@@ -19,6 +19,10 @@ class EHentai extends \Yamete\DriverAbstract
     public function getDownloadables()
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
+        if ($this->aMatches['mode'] == 's') {
+            $sHref = $this->getDomParser()->load((string)$oRes->getBody())->find('#i5 a')[0]->getAttribute('href');
+            $oRes = $this->getClient()->request('GET', $sHref);
+        }
         $aReturn = [];
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gdtm a') as $oLink) {
