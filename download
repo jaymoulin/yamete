@@ -2,7 +2,7 @@
 <?php
 require_once 'vendor/autoload.php';
 define('VERSION', <<<HEREDOC
-Yamete 0.6.0 - Jay MOULIN <https://twitter.com/MoulinJay>
+Yamete 0.6.2 - Jay MOULIN <https://twitter.com/MoulinJay>
 
 \e[0;5;37;47m.  .  .  .  .  .  . .\e[0;1;37;47m@:\e[0;5;37;47m  .  .  .  .  .  .  .  .  .  .  .  . \e[0m
 \e[0;5;37;47m.   .   .    .   .\e[0;1;37;47m8\e[0;1;30;47mX\e[0;5;33;40m:\e[0;1;30;47m%\e[0;5;37;47m.   .   .    .  X\e[0;5;33;40m \e[0;1;30;47mX\e[0;1;37;47m%\e[0;5;37;47m;  .    .   .    .\e[0m
