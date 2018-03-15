@@ -11,7 +11,7 @@ class EightMuses extends \Yamete\DriverAbstract
     public function canHandle()
     {
         return (bool)preg_match(
-            '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/comix/album/(?<album>[^?]+)~',
+            '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/comi(x|cs)/album/(?<album>[^?]+)~',
             $this->sUrl,
             $this->aMatches
         );
@@ -59,6 +59,7 @@ class EightMuses extends \Yamete\DriverAbstract
     private function prepareLinks(\PHPHtmlParser\Dom $oParser)
     {
         $sHost = $oParser->find('#imageHost')[0]->getAttribute('value');
+        $sHost = $sHost ?: '//www.' . self::DOMAIN;
         $sName = $oParser->find('#imageName')[0]->getAttribute('value');
         $sFilename = "https:$sHost/image/fl/$sName";
         $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
