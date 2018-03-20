@@ -9,6 +9,12 @@ manifests:
   -
     image: jaymoulin/yamete:$VERSION-arm64v8
     platform:
+      architecture: arm
+      variant: v8
+      os: linux
+  -
+    image: jaymoulin/yamete:$VERSION-arm64v8
+    platform:
       architecture: arm64
       os: linux
   -
