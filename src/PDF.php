@@ -25,9 +25,7 @@ class PDF extends \FPDF
         $widthScale = self::MAX_WIDTH / ($width ?: 1);
         $heightScale = self::MAX_HEIGHT / ($height ?: 1);
         $scale = min($widthScale, $heightScale);
-        return $width > $height
-            ? [round($scale * $width), round($scale * $height)]
-            : [round($scale * $height), round($scale * $width)];
+        return [round($scale * $height), round($scale * $width)];
     }
 
     public function createFromList(ResultIterator $oList)
