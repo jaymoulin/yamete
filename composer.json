@@ -8,7 +8,7 @@
     },
     "require": {
         "ext-zip": "^1.13",
-        "paquettg/php-html-parser": "^1.7",
+        "thesoftwarefanatics/php-html-parser": "^1.8",
         "guzzlehttp/guzzle": "^6.2",
         "tunaabutbul/cloudflare-middleware": "^1.0",
         "symfony/console": "^3.2",

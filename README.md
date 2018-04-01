@@ -119,7 +119,6 @@ Here's is the list of supported sites for now:
  * erolord.com
  * pururin.io
  * readhentaimanga.com
- * hmangasearcher.php
  * 3dpornpics.pro
  * cartoonporn.pics
  * hentaipornpics.net
@@ -159,7 +158,6 @@ Here's is the list of supported sites for now:
  * overwatchhentai.pro
  * 3dsextoons.net
  * 3dcartoons.net
- * daddysangel3d.com
  * 3dpics.pro
  * freefamouscartoonporn.com
  * cartoonpornimages.com
