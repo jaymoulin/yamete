@@ -28,6 +28,10 @@ if (!class_exists(ThreeDPornPics::class)) {
             return '.portfolio-normal-width figure a';
         }
 
+        /**
+         * @return array|string[]
+         * @throws \GuzzleHttp\Exception\GuzzleException
+         */
         public function getDownloadables()
         {
             $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;

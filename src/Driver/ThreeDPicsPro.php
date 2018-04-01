@@ -16,6 +16,10 @@ class ThreeDPicsPro extends \Yamete\DriverAbstract
         );
     }
 
+    /**
+     * @return array|string[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getDownloadables()
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);

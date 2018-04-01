@@ -16,6 +16,10 @@ class HBrowse extends \Yamete\DriverAbstract
         );
     }
 
+    /**
+     * @return array|string[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getDownloadables()
     {
         $oRes = $this->getClient()->request('GET', 'https://www.' . self::DOMAIN . '/' . $this->aMatches['album']);

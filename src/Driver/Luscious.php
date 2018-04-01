@@ -17,11 +17,21 @@ class Luscious extends \Yamete\DriverAbstract
         );
     }
 
+    /**
+     * @return array|string[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getDownloadables()
     {
         return $this->download((string)$this->getClient()->request('GET', $this->sUrl)->getBody());
     }
 
+    /**
+     * @param $sBody
+     * @param array $aReturn
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     private function download($sBody, $aReturn = [])
     {
         foreach ($this->getDomParser()->load($sBody)->find('.thumbnail a') as $oLink) {

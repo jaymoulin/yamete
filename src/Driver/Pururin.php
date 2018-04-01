@@ -21,6 +21,10 @@ class Pururin extends \Yamete\DriverAbstract
         );
     }
 
+    /**
+     * @return array|string[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getDownloadables()
     {
         $sUrl = 'http://' . self::DOMAIN . '/read/' . $this->aMatches['albumId'] . '/01/' . $this->aMatches['album'];

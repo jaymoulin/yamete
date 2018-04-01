@@ -27,6 +27,10 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
         return '.my-gallery figure a';
     }
 
+    /**
+     * @return array|string[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getDownloadables()
     {
         $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;

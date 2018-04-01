@@ -42,6 +42,12 @@ class Gassummit extends \Yamete\DriverAbstract
                 $sUrl = str_replace('/read/1/', '/read/', $oLink->getAttribute('value'));
                 $oRes = $this->getClient()->request('GET', $sUrl);
                 $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#con img')[0];
+                if (!$oImg) {
+                    throw new \DomainException(
+                        "Unable to parse $sUrl." . PHP_EOL . "Consider creating an issue on " .
+                        "https://github.com/jaymoulin/yamete/issues/"
+                    );
+                }
                 $sFilename = str_replace(' ', '%20', trim($oImg->getAttribute('src')));
                 $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
                     . str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);

@@ -17,6 +17,9 @@ class EightMuses extends \Yamete\DriverAbstract
         );
     }
 
+    /**
+     * @return array|string[]
+     */
     public function getDownloadables()
     {
         $this->aReturn = [];

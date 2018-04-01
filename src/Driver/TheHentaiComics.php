@@ -16,6 +16,10 @@ class TheHentaiComics extends \Yamete\DriverAbstract
         );
     }
 
+    /**
+     * @return array|string[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getDownloadables()
     {
         $aReturn = [];

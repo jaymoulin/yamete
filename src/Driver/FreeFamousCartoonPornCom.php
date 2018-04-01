@@ -22,6 +22,10 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
             );
         }
 
+        /**
+         * @return array|string[]
+         * @throws \GuzzleHttp\Exception\GuzzleException
+         */
         public function getDownloadables()
         {
             $oRes = $this->getClient()->request('GET', $this->sUrl);

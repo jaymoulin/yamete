@@ -23,6 +23,10 @@ if (!class_exists(ThreeDSexToonsNet::class)) {
             );
         }
 
+        /**
+         * @return array|string[]
+         * @throws \GuzzleHttp\Exception\GuzzleException
+         */
         public function getDownloadables()
         {
             $sUrl = str_replace($this->getDomain(), 'page-x.com', $this->sUrl);

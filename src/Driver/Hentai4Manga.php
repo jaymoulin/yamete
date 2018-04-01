@@ -23,6 +23,10 @@ if (!class_exists(Hentai4Manga::class)) {
             );
         }
 
+        /**
+         * @return array|string[]
+         * @throws \GuzzleHttp\Exception\GuzzleException
+         */
         public function getDownloadables()
         {
             $oRes = $this->getClient()->request('GET', $this->sUrl);

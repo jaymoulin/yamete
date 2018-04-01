@@ -24,6 +24,9 @@ if (!class_exists(HentaiHighSchoolCom::class)) {
             );
         }
 
+        /**
+         * @return array|string[]
+         */
         public function getDownloadables()
         {
             $aParts = [$this->getDomain()];
