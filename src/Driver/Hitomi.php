@@ -16,6 +16,10 @@ class Hitomi extends \Yamete\DriverAbstract
         );
     }
 
+    /**
+     * @return array|string[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getDownloadables()
     {
         $oRes = $this->getClient()->request('GET', str_replace('/galleries/', '/reader/', $this->sUrl));
@@ -25,7 +29,8 @@ class Hitomi extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\HtmlNode $oImg
              */
-            $sFilename = 'https:' . str_replace('//g.', '//aa.', $oImg->innerhtml);
+            $sReplace = '//' . ($this->aMatches['album'] % 2 ? 'b' : 'a') . 'a.';
+            $sFilename = 'https:' . str_replace('//g.', $sReplace, $oImg->innerhtml);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
