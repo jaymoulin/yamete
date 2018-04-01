@@ -16,9 +16,13 @@ class Gassummit extends \Yamete\DriverAbstract
         );
     }
 
+    /**
+     * @return array|string[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getDownloadables()
     {
-        $oRes = $this->getClient()->request('GET', $this->sUrl, ['headers' => ['User-Agent' => self::USER_AGENT]]);
+        $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
         $sPageSelector = '#topn span';
@@ -28,7 +32,7 @@ class Gassummit extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\AbstractNode $oSpan
              */
             $sUrl = trim($oChapter->getAttribute('href'));
-            $oRes = $this->getClient()->request('GET', $sUrl, ['headers' => ['User-Agent' => self::USER_AGENT]]);
+            $oRes = $this->getClient()->request('GET', $sUrl);
             $oSpan = $this->getDomParser()->load((string)$oRes->getBody())->find($sPageSelector, 2);
             foreach ($oSpan->find('option') as $oLink) {
                 /**
@@ -44,6 +48,11 @@ class Gassummit extends \Yamete\DriverAbstract
             }
         }
         return $aReturn;
+    }
+
+    public function getClient($aOptions = [])
+    {
+        return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT]]);
     }
 
     private function getFolder()
