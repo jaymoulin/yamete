@@ -25,16 +25,14 @@ class HentaiComicsBr extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        $this->getDomParser()->setOptions(['cleanupInput' => false]);
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.single-post p a') as $oImg) {
-            /**
-             * @var \DOMElement $oImg
-             */
-            $sFilename = $oImg->getAttribute('href');
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
-                . '-' . basename($sFilename);
-            $aReturn[$sBasename] = $sFilename;
+        if (preg_match_all('~class="alignnone size-full [^"]+" src="(?<url>[^"]+)"~', (string)$oRes->getBody(), $aUrls)) {
+            foreach ($aUrls['url'] as $sFilename) {
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
+                    . '-' . basename($sFilename);
+                $aReturn[$sBasename] = $sFilename;
+            }
         }
+
         return $aReturn;
     }
 

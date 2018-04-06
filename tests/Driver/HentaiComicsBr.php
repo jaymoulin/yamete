@@ -11,6 +11,6 @@ class HentaiComicsBr extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\HentaiComicsBr();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(18, count($driver->getDownloadables()));
+        $this->assertEquals(15, count($driver->getDownloadables()));
     }
 }

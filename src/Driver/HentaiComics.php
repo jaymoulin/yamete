@@ -20,17 +20,26 @@ class HentaiComics extends \Yamete\DriverAbstract
     }
 
     /**
-     * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
      */
-    public function getDownloadables()
+    public function getClient($aOptions = [])
     {
-        $oClient = $this->getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
+        $oClient = parent::getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
         /**
          * @var \GuzzleHttp\HandlerStack $oHandler
          */
         $oHandler = $oClient->getConfig('handler');
         $oHandler->push(CloudflareMiddleware::create());
+        return $oClient;
+    }
+
+    /**
+     * @return array|string[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getDownloadables()
+    {
         $sFirstPage = "https://" . self::DOMAIN . "/view/{$this->aMatches['id']}/1/{$this->aMatches['album']}.html";
         $oRes = $this->getClient()->request('GET', $sFirstPage);
         $aReturn = [];

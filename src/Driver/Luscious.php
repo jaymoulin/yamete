@@ -11,7 +11,7 @@ class Luscious extends \Yamete\DriverAbstract
     public function canHandle()
     {
         return (bool)preg_match(
-            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/albums/(?<album>[^/]+)/~',
+            '~^https?://(m\.)?' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/albums/(?<album>[^/]+)/~',
             $this->sUrl,
             $this->aMatches
         );
@@ -23,7 +23,9 @@ class Luscious extends \Yamete\DriverAbstract
      */
     public function getDownloadables()
     {
-        return $this->download((string)$this->getClient()->request('GET', $this->sUrl)->getBody());
+        return $this->download(
+            (string)$this->getClient()->request('GET', str_replace('//m.', '//', $this->sUrl))->getBody()
+        );
     }
 
     /**

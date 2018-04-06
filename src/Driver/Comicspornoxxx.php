@@ -23,19 +23,12 @@ class Comicspornoxxx extends \Yamete\DriverAbstract
     public function getDownloadables()
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        /**
-         * @var \DOMElement $oLink
-         */
-        $oLink = $this->getDomParser()->load((string)$oRes->getBody())->find('.entry-content .su-button-center a')[0];
-        $sUrl = $oLink->getAttribute('href');
-        $oRes = $this->getClient()->request('GET', $sUrl);
-        preg_match('~^https?://(?<domain>[^/]+)/~', $sUrl, $aDomains);
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail a') as $oLink) {
             /**
              * @var \DOMElement $oLink
              */
-            $sLink = 'https://' . $aDomains['domain'] . $oLink->getAttribute('href');
+            $sLink = $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#center .text-center img') as $oImg) {
                 /**

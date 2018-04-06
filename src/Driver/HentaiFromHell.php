@@ -19,18 +19,27 @@ class HentaiFromHell extends \Yamete\DriverAbstract
     }
 
     /**
-     * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
      */
-    public function getDownloadables()
+    public function getClient($aOptions = [])
     {
-        $oClient = $this->getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
+        $oClient = parent::getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
         /**
          * @var \GuzzleHttp\HandlerStack $oHandler
          */
         $oHandler = $oClient->getConfig('handler');
         $oHandler->push(CloudflareMiddleware::create());
-        $oRes = $oClient->request('GET', $this->sUrl);
+        return $oClient;
+    }
+
+    /**
+     * @return array|string[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getDownloadables()
+    {
+        $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('center a') as $oLink) {

@@ -7,10 +7,10 @@ class MilfComix extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'https://milfcomix.com/breaking-the-rules-5-the-fairly-oddparents-croc/';
+        $url = 'https://milfcomix.com/sweet-sting-part-2-doxy/';
         $driver = new \Yamete\Driver\MilfComix();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(31, count($driver->getDownloadables()));
+        $this->assertEquals(17, count($driver->getDownloadables()));
     }
 }
