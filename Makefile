@@ -21,7 +21,7 @@ publish:
 	manifest-tool push from-spec manifest.yaml
 latest:
 	FULLVERSION=latest VERSION=${VERSION} make publish
-test:
+test: qemu-aarch64-static qemu-arm-static
 	cp docker/Dockerfile Dockerfile
 	docker build -t yamete:test .
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O composerinstall.php -q
