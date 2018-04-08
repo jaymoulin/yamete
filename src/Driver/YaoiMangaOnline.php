@@ -24,7 +24,12 @@ class YaoiMangaOnline extends \Yamete\DriverAbstract
      */
     public function getClient($aOptions = [])
     {
-        $oClient = parent::getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
+        $oClient = parent::getClient(
+            [
+                'cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__)),
+                'headers' => ['User-Agent' => self::USER_AGENT],
+            ]
+        );
         /**
          * @var \GuzzleHttp\HandlerStack $oHandler
          */
