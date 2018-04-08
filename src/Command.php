@@ -33,6 +33,12 @@ class Command extends \Symfony\Component\Console\Command\Command
             );
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         ini_set('display_errors', $output->isDebug() ? '1' : '0');
@@ -113,6 +119,11 @@ class Command extends \Symfony\Component\Console\Command\Command
         $output->writeln("<comment>Zip created $baseName.zip</comment>");
     }
 
+    /**
+     * @param ResultIterator $oResult
+     * @param OutputInterface $output
+     * @throws \Exception
+     */
     private function pdf(ResultIterator $oResult, OutputInterface $output)
     {
         $iMemoryLimit = ini_set('memory_limit', '2G'); //hack - this is NOT a solution. we better find something for PDF
@@ -135,8 +146,14 @@ class Command extends \Symfony\Component\Console\Command\Command
             ini_set('memory_limit', $iMemoryLimit);
             throw $eException;
         }
+        ini_set('memory_limit', $iMemoryLimit);
     }
 
+    /**
+     * @param ResultIterator $oResult
+     * @param OutputInterface $output
+     * @throws \Exception
+     */
     private function download(ResultIterator $oResult, OutputInterface $output)
     {
         /** @var Downloadable[] $oResult */

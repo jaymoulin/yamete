@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use \Tuna\CloudflareMiddleware;
+
 class PorncomixOnline extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -14,6 +16,21 @@ class PorncomixOnline extends \Yamete\DriverAbstract
             $this->sUrl,
             $this->aMatches
         );
+    }
+
+    /**
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient($aOptions = [])
+    {
+        $oClient = parent::getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
+        /**
+         * @var \GuzzleHttp\HandlerStack $oHandler
+         */
+        $oHandler = $oClient->getConfig('handler');
+        $oHandler->push(CloudflareMiddleware::create());
+        return $oClient;
     }
 
     /**
