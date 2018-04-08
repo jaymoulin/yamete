@@ -25,13 +25,13 @@ class Shentai extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry-content > p > a > img') as $oImg) {
-            /**
-             * @var \DOMElement $oImg
-             */
-            if ($oImg->getAttribute('alt') !== 'image') {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry-content > p > a') as $oLink) {
+            /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
+            if (strpos($oLink->getAttribute('rel'), 'noopener') === false) {
                 continue;
             }
+            $oImg = $oLink->find('img')[0];
+            /* @var \PHPHtmlParser\Dom\AbstractNode $oImg */
             $sFilename = str_replace('small', 'big', $oImg->getAttribute('src'));
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT) . '-'
                 . basename($sFilename);

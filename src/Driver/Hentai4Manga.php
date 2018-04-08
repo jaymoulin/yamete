@@ -53,8 +53,8 @@ if (!class_exists(Hentai4Manga::class)) {
         {
             foreach ($this->getDomParser()->loadFromUrl($sUrl, ['cleanupInput' => false])->find('#thumblist a') as $oLink) {
                 /**
-                 * @var \DOMElement $oLink
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sCurrentImg = 'http://' . $this->aMatches['domain'] . $oLink->getAttribute('href');
                 $oImg = $this->getDomParser()->loadFromUrl($sCurrentImg, ['cleanupInput' => false])

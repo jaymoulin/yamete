@@ -35,7 +35,7 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
             ) / 2;
             for ($page = 1; $page <= $nbPages; $page++) {
                 $oRes = $this->getClient()->request('GET', $this->sUrl . $chapter . '/' . $page . '/');
-                /** @var \DOMElement $oImg */
+                /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
                 $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#main_img')[0];
                 $sFilename = $this->decodeUrl($oImg->getAttribute('src'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)

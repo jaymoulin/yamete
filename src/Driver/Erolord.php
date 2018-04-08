@@ -30,7 +30,7 @@ class Erolord extends \Yamete\DriverAbstract
         $iAlbumId = $this->aMatches['album'];
         for ($i = 1; $i <= $aMatches[1]; $i++) {
             $sUrl = 'http://' . self::DOMAIN . "/view.php?g=$i&d=$iAlbumId";
-            /** @var \DOMElement $oImg */
+            /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
             $oImg = $this->getDomParser()->loadFromUrl($sUrl)->find('.imghref img')[0];
             $sFilename = 'http://' . self::DOMAIN . $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT)

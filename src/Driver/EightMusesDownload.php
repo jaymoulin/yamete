@@ -27,7 +27,7 @@ class EightMusesDownload extends \Yamete\DriverAbstract
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.popup-gallery figure a') as $oLink) {
             /**
-             * @var \DOMElement $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $sFilename = $oLink->getAttribute('href');
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR

@@ -37,7 +37,7 @@ if (!class_exists(LuckyStarPornCom::class)) {
                 $sIndex = str_pad($i, 3, '0', STR_PAD_LEFT);
                 $sImgUrl = "$sUrl/image$sIndex.php";
                 try {
-                    /* @var \DOMElement $oImg */
+                    /* @var \PHPHtmlParser\Dom\AbstractNode $oImg */
 
                     $oImg = $this->getDomParser()->load((string)$this->getClient()->get($sImgUrl)->getBody())
                         ->find('a img')[0];

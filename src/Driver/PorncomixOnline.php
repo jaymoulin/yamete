@@ -48,7 +48,7 @@ class PorncomixOnline extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.unite-gallery img') as $oImg) {
             /**
-             * @var \DOMElement $oImg
+             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('data-image');
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;

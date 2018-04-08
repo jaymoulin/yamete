@@ -25,7 +25,7 @@ class EightMuses extends \Yamete\DriverAbstract
         $this->aReturn = [];
         foreach ($this->getDomParser()->load($this->getBody($this->sUrl))->find('a.c-tile') as $oLink) {
             /**
-             * @var \DOMElement $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $sHref = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oParser = $this->getDomParser()->load($this->getBody($sHref));
@@ -35,7 +35,7 @@ class EightMuses extends \Yamete\DriverAbstract
                 $oParser = $this->getDomParser()->load($this->getBody($sHref));
                 foreach ($oParser->find('a.c-tile') as $oLinkImg) {
                     /**
-                     * @var \DOMElement $oLinkImg
+                     * @var \PHPHtmlParser\Dom\AbstractNode $oLinkImg
                      */
                     $sHref = 'https://www.' . self::DOMAIN . $oLinkImg->getAttribute('href');
                     $oParser = $this->getDomParser()->load($this->getBody($sHref));

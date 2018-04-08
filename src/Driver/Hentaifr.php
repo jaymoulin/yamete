@@ -28,7 +28,7 @@ class Hentaifr extends \Yamete\DriverAbstract
         $i = 0;
         $this->getDomParser()->setOptions(['cleanupInput' => false]);
         $oPageList = $this->getDomParser()->loadStr((string)$oRes->getBody(), [])->find('.ngpage-pagination td a');
-        /** @var \DOMElement $oNbPage */
+        /** @var \PHPHtmlParser\Dom\AbstractNode $oNbPage */
         foreach ($oPageList as $oNbPage); //goes to the end of the list
         if (!isset($oNbPage)) {
             throw new \Exception('Url error');
@@ -37,7 +37,7 @@ class Hentaifr extends \Yamete\DriverAbstract
             for ($iPage = 0; $iPage <= $aMatches[1]; $iPage++) {
                 $oRes = $this->getClient()->request('GET', $sPageUrl . $iPage);
                 $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('.doujin-vote-bloc img')[0];
-                /** @var \DOMElement $oImg */
+                /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
                 $sFilename = 'http://' . self::DOMAIN . $oImg->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

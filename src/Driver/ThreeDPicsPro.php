@@ -26,7 +26,7 @@ class ThreeDPicsPro extends \Yamete\DriverAbstract
         $aReturn = [];
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#thumbTable a') as $oLink) {
-            /* @var \DOMElement $oLink */
+            /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
             $sFilename = str_replace('index.php', $oLink->getAttribute('href'), $this->sUrl);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

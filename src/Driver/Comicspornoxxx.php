@@ -26,13 +26,13 @@ class Comicspornoxxx extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail a') as $oLink) {
             /**
-             * @var \DOMElement $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $sLink = $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#center .text-center img') as $oImg) {
                 /**
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sFilename = 'https://' . $aDomains['domain'] . $oImg->getAttribute('src');
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;

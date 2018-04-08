@@ -39,7 +39,7 @@ class CartoonPornPicNet extends \Yamete\DriverAbstract
         $aReturn = [];
         $iNbPage = count($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()));
         for ($i = 1; $i <= $iNbPage; $i++) {
-            /* @var \DOMElement $oImg */
+            /* @var \PHPHtmlParser\Dom\AbstractNode $oImg */
             $oImg = $this->getDomParser()->loadFromUrl($this->sUrl . $i)->find('.main_img img')[0]
                 ?: $this->getDomParser()->loadFromUrl($this->sUrl . $i)->find('.main-img img')[0];
             $sFilename = $oImg->getAttribute('src');

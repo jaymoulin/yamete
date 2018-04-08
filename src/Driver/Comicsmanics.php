@@ -27,7 +27,7 @@ class Comicsmanics extends \Yamete\DriverAbstract
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.single-post img.size-full') as $oImg) {
             /**
-             * @var \DOMElement $oImg
+             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
             $sFilename = preg_match('~^https?://~', $sFilename)
@@ -40,7 +40,7 @@ class Comicsmanics extends \Yamete\DriverAbstract
         if (!$i) {
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.size-large') as $oImg) {
                 /**
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sFilename = 'http://www.' . self::DOMAIN . $oImg->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)

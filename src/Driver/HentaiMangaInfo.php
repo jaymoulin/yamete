@@ -27,14 +27,14 @@ class HentaiMangaInfo extends \Yamete\DriverAbstract
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.hentaimanga figure a') as $oLink) {
             /**
-             * @var \DOMElement $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $sLink = $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             $oBody = $this->getDomParser()->load((string)$oRes->getBody());
             foreach ($oBody->find('#attachementim img') as $oImg) { //images
                 /**
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sFilename = $oImg->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)

@@ -45,7 +45,7 @@ if (!class_exists(HentaiHighSchoolCom::class)) {
                 $sIndex = str_pad($i, strlen($this->aMatches['number']), '0', STR_PAD_LEFT);
                 $sImgUrl = "${sUrl}/${sType}${sIndex}.${sExtension}";
                 try {
-                    /* @var \DOMElement $oImg */
+                    /* @var \PHPHtmlParser\Dom\AbstractNode $oImg */
                     $oImg = $this->getDomParser()->load((string)$this->getClient()->get($sImgUrl)->getBody())
                         ->find('table td a img')[0];
                     if (is_null($oImg)) {

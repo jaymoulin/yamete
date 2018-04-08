@@ -30,7 +30,7 @@ class Palcomix extends \Yamete\DriverAbstract
             $oRes = $this->getClient()->request('GET', $sLink);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img') as $oImg) {
                 /**
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 if (strpos($oImg->getAttribute('alt'), 'page') !== 0) {
                     continue;

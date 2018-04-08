@@ -27,7 +27,7 @@ class AsmHentai extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#jumpto_down option') as $oLink) {
             /**
-             * @var \DOMElement $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             if (empty($oLink->getAttribute('value'))) {
                 continue;
@@ -36,7 +36,7 @@ class AsmHentai extends \Yamete\DriverAbstract
             $oRes = $this->getClient()->request('GET', $sLink);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#img img') as $oImg) {
                 /**
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sFilename = 'https:' . $oImg->getAttribute('src');
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;

@@ -35,12 +35,12 @@ class NHentai extends \Yamete\DriverAbstract
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.gallerythumb') as $oLink) {
             /**
-             * @var \DOMElement $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . $oLink->getAttribute('href'));
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#image-container img') as $oImg) {
                 /**
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sFilename = $oImg->getAttribute('src');
                 $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT) . '-'

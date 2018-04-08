@@ -50,8 +50,8 @@ class Hentai2read extends \Yamete\DriverAbstract
         $sAccessor = '.pageDropdown .scrollable-dropdown li a';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sAccessor) as $oLink) {
             /**
-             * @var \DOMElement $oLink
-             * @var \DOMElement $oImg
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             if (empty($oLink->getAttribute('data-pagid'))) {
                 continue;

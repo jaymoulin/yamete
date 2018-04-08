@@ -27,7 +27,7 @@ class Hentaiporns extends \Yamete\DriverAbstract
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery-icon a') as $oImg) {
             /**
-             * @var \DOMElement $oImg
+             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('href');
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR .

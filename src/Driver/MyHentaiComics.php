@@ -26,8 +26,8 @@ class MyHentaiComics extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.g-item a') as $oLink) {
             /**
-             * @var \DOMElement $oLink
-             * @var \DOMElement $oImg
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $oImg = $this->getDomParser()
                 ->load(

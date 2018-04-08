@@ -34,7 +34,7 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
             $oIterator = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])
                 ->find('#aniimated-thumbnials a');
             foreach ($oIterator as $oLink) {
-                /* @var \DOMElement $oLink */
+                /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
                 $sFilename = $oLink->getAttribute('href');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

@@ -27,7 +27,7 @@ class Xyzcomics extends \Yamete\DriverAbstract
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry p a img') as $oImg) {
             /**
-             * @var \DOMElement $oImg
+             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = str_replace('small', 'big', $oImg->getAttribute('src'));
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT) . '-'

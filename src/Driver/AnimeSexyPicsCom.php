@@ -38,8 +38,8 @@ class AnimeSexyPicsCom extends \Yamete\DriverAbstract
         $i = 0;
         foreach ($this->getDomParser()->load($sBody)->find('.player a') as $oLink) {
             /**
-             * @var \DOMElement $oLink
-             * @var \DOMElement $oImg
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sUrl = 'http://' . $this->getDomain() . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sUrl);

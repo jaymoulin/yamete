@@ -27,12 +27,12 @@ class HentaiFox extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.preview_thumb a') as $oLink) {
             /**
-             * @var \DOMElement $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . '/' . $oLink->getAttribute('href'));
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#gimg') as $oImg) {
                 /**
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sFilename = 'https:' . $oImg->getAttribute('src');
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;

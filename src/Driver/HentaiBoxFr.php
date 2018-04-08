@@ -26,7 +26,7 @@ class HentaiBoxFr extends \Yamete\DriverAbstract
         for ($i = 1; $i <= 999; $i++) {
             $this->sUrl = 'http://' . self::DOMAIN . '/manga/' . $this->aMatches['album'] . '/lire/page/' . $i;
             $oRes = $this->getClient()->request('GET', $this->sUrl);
-            /* @var \DOMElement $oImg */
+            /* @var \PHPHtmlParser\Dom\AbstractNode $oImg */
             $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('.span11 a img')[0];
             if (!$oImg) {
                 return $aReturn;

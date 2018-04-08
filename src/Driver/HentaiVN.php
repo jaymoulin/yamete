@@ -32,14 +32,14 @@ class HentaiVN extends \Yamete\DriverAbstract
         $iChapters = count($oList);
         foreach ($oList as $oLink) { //chapters
             /**
-             * @var \DOMElement $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $sLink = $bIsNoChapterFormat ? $oLink : 'http://' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             $oBody = $this->getDomParser()->load((string)$oRes->getBody());
             foreach ($oBody->find('#image img') as $oImg) { //images
                 /**
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $iPos = strpos($oImg->getAttribute('src'), '?');
                 $sFilename = substr($oImg->getAttribute('src'), 0, $iPos ? $iPos : strlen($oImg->getAttribute('src')));

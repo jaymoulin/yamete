@@ -28,14 +28,14 @@ class HBrowse extends \Yamete\DriverAbstract
         $sAccessor = '#main .listTable .listMiddle a';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sAccessor) as $oLink) { //chapters
             /**
-             * @var \DOMElement $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $sLink = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             $oBody = $this->getDomParser()->load((string)$oRes->getBody());
             foreach ($oBody->find('#jsPageList a') as $oImg) { //images
                 /**
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sHref = 'https://www.' . self::DOMAIN . $oImg->getAttribute('href') ?: $sLink . '/00001';
                 $oRes = $this->getClient()->request('GET', $sHref);

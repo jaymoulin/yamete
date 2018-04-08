@@ -41,7 +41,7 @@ if (!class_exists(ThreeDPornPics::class)) {
             $i = 0;
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
                 /**
-                 * @var \DOMElement $oLink
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
                  */
                 $sFilename = $oLink->getAttribute('data-img') . $oLink->getAttribute('data-ext');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)

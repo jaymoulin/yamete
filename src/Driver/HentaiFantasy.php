@@ -27,7 +27,7 @@ class HentaiFantasy extends \Yamete\DriverAbstract
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.group .element .title a') as $oLink) {
             /**
-             * @var \DOMElement $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $sLink = $oLink->getAttribute('href');
             $bFound = preg_match(
@@ -41,8 +41,8 @@ class HentaiFantasy extends \Yamete\DriverAbstract
                 $sSelector = '.topbar_right .dropdown li a';
                 foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oPage) {
                     /**
-                     * @var \DOMElement $oPage
-                     * @var \DOMElement $oImg
+                     * @var \PHPHtmlParser\Dom\AbstractNode $oPage
+                     * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                      */
                     $oRes = $this->getClient()->request('GET', $oPage->getAttribute('href'));
                     $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('img.open')[0];

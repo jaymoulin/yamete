@@ -38,8 +38,8 @@ class Luscious extends \Yamete\DriverAbstract
     {
         foreach ($this->getDomParser()->load($sBody)->find('.thumbnail a') as $oLink) {
             /**
-             * @var \DOMElement $oLink
-             * @var \DOMElement $oImg
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $oImg = $this->getDomParser()
                 ->load(

@@ -23,7 +23,7 @@ class Myreadingmanga extends \Yamete\DriverAbstract
     {
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$sBody)->find('.content .separator img') as $oImg) {
-            /** @var \DOMElement $oImg */
+            /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$this->iCurrentPage, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
@@ -48,7 +48,7 @@ class Myreadingmanga extends \Yamete\DriverAbstract
         $oPageList = $this->getDomParser()->load((string)$oRes->getBody())->find('.pagination a');
         $aReturn = $this->getImgListForBody((string)$oRes->getBody());
         foreach ($oPageList as $oLink) {
-            /** @var \DOMElement $oLink */
+            /** @var \PHPHtmlParser\Dom\AbstractNode $oLink */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
             $aReturn = array_merge($aReturn, $this->getImgListForBody((string)$oRes->getBody()));
         }

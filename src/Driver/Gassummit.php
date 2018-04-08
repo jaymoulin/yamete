@@ -28,7 +28,7 @@ class Gassummit extends \Yamete\DriverAbstract
         $sPageSelector = '#topn span';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.readchap') as $oChapter) {
             /**
-             * @var \DOMElement $oChapter
+             * @var \PHPHtmlParser\Dom\AbstractNode $oChapter
              * @var \PHPHtmlParser\Dom\AbstractNode $oSpan
              */
             $sUrl = trim($oChapter->getAttribute('href'));
@@ -36,8 +36,8 @@ class Gassummit extends \Yamete\DriverAbstract
             $oSpan = $this->getDomParser()->load((string)$oRes->getBody())->find($sPageSelector, 2);
             foreach ($oSpan->find('option') as $oLink) {
                 /**
-                 * @var \DOMElement $oLink
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sUrl = str_replace('/read/1/', '/read/', $oLink->getAttribute('value'));
                 $oRes = $this->getClient()->request('GET', $sUrl);

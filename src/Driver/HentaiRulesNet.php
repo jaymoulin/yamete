@@ -36,8 +36,8 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
             $sUrl = $sBaseUrl . '/index.php?/category/' . $this->aMatches['album'] . '/start-' . $page . '00';
             foreach ($this->getDomParser()->loadFromUrl($sUrl)->find('.thumbnails li a') as $oLink) {
                 /**
-                 * @var \DOMElement $oLink
-                 * @var \DOMElement $oImg
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sUrl = $sBaseUrl . '/' . $oLink->getAttribute('href');
                 $oImg = $this->getDomParser()->loadFromUrl($sUrl)->find('#theImage img')[0];
