@@ -47,7 +47,7 @@ class Hentai2read extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl . '1/');
         $aReturn = [];
         $i = 0;
-        $sAccessor = '.pageDropdown .scrollable-dropdown li a';
+        $sAccessor = '.dropdown .scrollable-dropdown li a';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sAccessor) as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink

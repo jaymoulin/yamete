@@ -20,6 +20,6 @@ class Luscious extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\Luscious();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(185, count($driver->getDownloadables()));
+        $this->assertEquals(184, count($driver->getDownloadables()));
     }
 }

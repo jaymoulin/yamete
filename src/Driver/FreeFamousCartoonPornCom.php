@@ -22,6 +22,14 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
             );
         }
 
+        protected function getSelectors()
+        {
+            return [
+                '#grid-content a',
+                '#aniimated-thumbnials a',
+            ];
+        }
+
         /**
          * @return array|string[]
          * @throws \GuzzleHttp\Exception\GuzzleException
@@ -31,11 +39,27 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
             $oRes = $this->getClient()->request('GET', $this->sUrl);
             $aReturn = [];
             $i = 0;
-            $oIterator = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])
-                ->find('#aniimated-thumbnials a');
+            $oIterator = new \ArrayIterator;
+            foreach ($this->getSelectors() as $sSelector) {
+                $oIterator = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])
+                    ->find($sSelector);
+                if (count($oIterator) !== 0) {
+                    break;
+                }
+            }
             foreach ($oIterator as $oLink) {
-                /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
-                $sFilename = $oLink->getAttribute('href');
+                /**
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImage
+                 */
+                $sUrl = 'http://' . $this->getDomain() . $oLink->getAttribute('href');
+                $sSelector = '.container-gal-item img';
+                $oImage = $this->getDomParser()->load(
+                        (string)$this->getClient()->request('GET', $sUrl)->getBody(),
+                        ['cleanupInput' => false]
+                    )
+                    ->find($sSelector)[0];
+                $sFilename = $oImage->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;

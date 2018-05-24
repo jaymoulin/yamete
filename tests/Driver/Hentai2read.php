@@ -11,6 +11,6 @@ class Hentai2read extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\Hentai2read();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(52, count($driver->getDownloadables()));
+        $this->assertEquals(26, count($driver->getDownloadables()));
     }
 }
