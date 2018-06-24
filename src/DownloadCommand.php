@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 
-class Command extends \Symfony\Component\Console\Command\Command
+class DownloadCommand extends \Symfony\Component\Console\Command\Command
 {
     const URL = 'url';
     const LIST_FILE = 'list';

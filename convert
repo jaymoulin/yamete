@@ -23,7 +23,7 @@ Yamete $sVersion - Jay MOULIN <https://twitter.com/MoulinJay>
 \e[0;5;37;47m. .         t    ...  .   . ..; .;  . .  ....... .     .   .\e[0m
 HEREDOC
 );
-$oCommand = new Yamete\DownloadCommand;
+$oCommand = new Yamete\ConvertCommand;
 
 $oApplication = new \Symfony\Component\Console\Application;
 $oApplication->add($oCommand);

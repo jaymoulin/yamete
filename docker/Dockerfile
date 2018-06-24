@@ -1,6 +1,8 @@
 FROM php:alpine3.7
 COPY qemu-*-static /usr/bin/
+ARG VERSION=0.7.1
 LABEL maintainer="Jay MOULIN <jaymoulin@gmail.com> <https://twitter.com/MoulinJay>"
+LABEL version=${VERSION}
 
 ENV PATH="/root:$PATH"
 

@@ -28,7 +28,7 @@ class PDF extends \FPDF
         return [round($scale * $height), round($scale * $width)];
     }
 
-    public function createFromList(ResultIterator $oList)
+    public function createFromList(\Iterator $oList)
     {
         foreach ($oList as $sFilename => $sResource) {
             list($width, $height) = getimagesize($sFilename);

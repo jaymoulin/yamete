@@ -11,7 +11,7 @@ qemu-aarch64-static:
 build: qemu-aarch64-static qemu-arm-static
 	$(foreach arch,$(archs), \
 		cat docker/Dockerfile | sed "s/FROM alpine/FROM ${arch}\/alpine/g" > Dockerfile; \
-		docker build -t jaymoulin/yamete:${VERSION}-$(arch) ${CACHE} .;\
+		docker build -t jaymoulin/yamete:${VERSION}-$(arch) --build-arg VERSION=${VERSION} ${CACHE} .;\
 	)
 publish:
 	docker push jaymoulin/yamete
