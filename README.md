@@ -89,7 +89,6 @@ Here's is the list of supported sites for now:
  * hentaicomics.pro
  * hentai-comics.org
  * hentaifromhell.org
- * hentai-paradise.fr
  * nhentai.net
  * hentaiporns.net
  * luscious.net
