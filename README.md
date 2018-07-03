@@ -179,7 +179,6 @@ Here's is the list of supported sites for now:
  * sexualhentai.net
  * luckystarporn.com
  * high-hentai.com
- * lustandsin.com
  * fullmetal-hentai.com
  * bebop-hentai.com
  * mangerotica.com
