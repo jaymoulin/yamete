@@ -155,7 +155,6 @@ Here's is the list of supported sites for now:
  * comicsporn.net
  * xxxcomicporn.com
  * 3dcomix.pro
- * overwatchhentai.pro
  * 3dsextoons.net
  * 3dcartoons.net
  * 3dpics.pro
