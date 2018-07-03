@@ -186,7 +186,6 @@ Here's is the list of supported sites for now:
  * mangerotica.com
  * xcomics4you.com
  * hcomicbook.com
- * hentaibox.fr
  * hentairules.net
  * thehentaicomics.com
  * palcomix.com
