@@ -31,8 +31,8 @@ class HentaiFantasy extends \Yamete\DriverAbstract
              */
             $sLink = $oLink->getAttribute('href');
             $bFound = preg_match(
-                '~http://www\.' . strtr(self::DOMAIN, ['.' => '\.'])
-                    . '/read/(?<album>[^/]+)/(?<lang>[^/]{2})/(?<chapters>.+)/$~',
+                '~https?://www\.' . strtr(self::DOMAIN, ['.' => '\.'])
+                    . '/read/(?<album>[^/]+)/(?<lang>[^/]{2})/(?<chapters>.+)/~',
                 $sLink,
                 $aMatches
             );
