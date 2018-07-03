@@ -191,5 +191,6 @@ Here's is the list of supported sites for now:
  * hentai-comic.com
  * perveden.com
  * chochox.com
+ * lovehentaimanga.com
   
 You must pass the URL to the album for the program to download it!
