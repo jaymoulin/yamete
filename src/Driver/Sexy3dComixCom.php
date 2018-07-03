@@ -13,6 +13,6 @@ class Sexy3dComixCom extends CartoonSexComixCom
 
     protected function getSelector()
     {
-        return '.player figure a';
+        return '.gallery-thumbs figure a';
     }
 }
