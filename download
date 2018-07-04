@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 require_once 'vendor/autoload.php';
-$sVersion = getenv('VERSION') ?: '0.7.1';
+$sVersion = getenv('VERSION') ?: '0.8.0';
 define('VERSION', <<<HEREDOC
 Yamete $sVersion - Jay MOULIN <https://twitter.com/MoulinJay>
 
