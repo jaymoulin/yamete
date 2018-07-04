@@ -11,6 +11,6 @@ class Hentai4Manga extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\Hentai4Manga();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(32, count($driver->getDownloadables()));
+        $this->assertEquals(17, count($driver->getDownloadables()));
     }
 }

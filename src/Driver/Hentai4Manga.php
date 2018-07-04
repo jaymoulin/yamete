@@ -30,7 +30,7 @@ if (!class_exists(Hentai4Manga::class)) {
         public function getDownloadables()
         {
             $sMainUrl = "http://" . implode('/', [
-                $this->getDomain(),
+                (isset($this->aMatches['domain']) ? $this->aMatches['domain'] : $this->getDomain()),
                 $this->aMatches['category'],
                 $this->aMatches['album'],
             ]);
@@ -42,7 +42,7 @@ if (!class_exists(Hentai4Manga::class)) {
             $this->parse($this->sUrl, $aReturn);
             if ($iNbPage > 1) {
                 for ($page = 2; $page <= $iNbPage; $page++) {
-                    $sUrl = substr($this->sUrl, 0, strlen($sMainUrl) - 1);
+                    $sUrl = substr($this->sUrl, 0, strlen($sMainUrl));
                     $this->parse("${sUrl}_p${page}/", $aReturn);
                 }
             }
