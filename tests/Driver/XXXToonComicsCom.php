@@ -7,10 +7,10 @@ class XXXToonComicsCom extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.xxxtooncomics.com/gallery/studio-oppai-a-beautiful-day-at-beach';
+        $url = 'http://www.xxxtooncomics.com/gallery/football-and-beer-part-1.html';
         $driver = new \Yamete\Driver\XXXToonComicsCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(7, count($driver->getDownloadables()));
+        $this->assertEquals(13, count($driver->getDownloadables()));
     }
 }

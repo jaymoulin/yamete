@@ -29,7 +29,7 @@ class EightMuses extends \Yamete\DriverAbstract
              */
             $sHref = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oParser = $this->getDomParser()->load($this->getBody($sHref));
-            if (isset($oParser->find('#imageHost')[0])) {
+            if (isset($oParser->find('.image')[0])) {
                 $this->prepareLinks($oParser);
             } else {
                 $oParser = $this->getDomParser()->load($this->getBody($sHref));
@@ -39,7 +39,7 @@ class EightMuses extends \Yamete\DriverAbstract
                      */
                     $sHref = 'https://www.' . self::DOMAIN . $oLinkImg->getAttribute('href');
                     $oParser = $this->getDomParser()->load($this->getBody($sHref));
-                    if (isset($oParser->find('#imageHost')[0])) {
+                    if (isset($oParser->find('.image')[0])) {
                         $this->prepareLinks($oParser);
                     }
                 }
@@ -61,9 +61,9 @@ class EightMuses extends \Yamete\DriverAbstract
 
     private function prepareLinks(\PHPHtmlParser\Dom $oParser)
     {
-        $sHost = $oParser->find('#imageHost')[0]->getAttribute('value');
+        $sHost = $oParser->find('.image')[0]->getAttribute('value');
         $sHost = $sHost ?: '//www.' . self::DOMAIN;
-        $sName = $oParser->find('#imageName')[0]->getAttribute('value');
+        $sName = $oParser->find('.image')[0]->getAttribute('value');
         $sFilename = "https:$sHost/image/fl/$sName";
         $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
             . str_pad(count($this->aReturn) + 1, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);

@@ -36,11 +36,15 @@ class Erofus extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $sUrl);
         $bFound = false;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail-container a') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.row-content a') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
-            $this->getLinks('https://www.' . self::DOMAIN . $oLink->getAttribute('href'));
+            $sHref = $oLink->getAttribute('href');
+            if (!$oLink->getAttribute('title')) {
+                continue;
+            }
+            $this->getLinks(strpos($sHref, '://') !== false ? $sHref : 'https://www.' . self::DOMAIN . $sHref);
             $bFound = true;
         }
         if ($bFound) {

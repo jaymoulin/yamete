@@ -25,6 +25,9 @@ class Myreadingmanga extends \Yamete\DriverAbstract
         foreach ($this->getDomParser()->load((string)$sBody)->find('.content .separator img') as $oImg) {
             /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
             $sFilename = $oImg->getAttribute('src');
+            if (strpos($sFilename, 'trans.gif') !== false) {
+                continue;
+            }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$this->iCurrentPage, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
