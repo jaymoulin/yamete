@@ -35,8 +35,7 @@
         "phpcs": "phpcs src --standard=PSR2 --report-checkstyle=build/logs/checkstyle.xml",
         "phploc": "phploc src --log-csv build/logs/phploc.csv",
         "phpmd": "phpmd src xml codesize,controversial,cleancode,design,naming,unusedcode --reportfile build/logs/checkstyle.xml",
-        "phpcpd": "phpcpd src --log-pmd=build/logs/cpd.xml",
-        "phpdoc": "phpdoc -d src -t docs --template clean"
+        "phpcpd": "phpcpd src --log-pmd=build/logs/cpd.xml"
     },
     "license": "MIT",
     "authors": [
