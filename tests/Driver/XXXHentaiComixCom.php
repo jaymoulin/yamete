@@ -11,6 +11,6 @@ class XXXHentaiComixCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\XXXHentaiComixCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(4, count($driver->getDownloadables()));
+        $this->assertEquals(10, count($driver->getDownloadables()));
     }
 }

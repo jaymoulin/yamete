@@ -11,6 +11,6 @@ class XXXHentaiPicsPro extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\XXXHentaiPicsPro();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(22, count($driver->getDownloadables()));
+        $this->assertEquals(419, count($driver->getDownloadables()));
     }
 }

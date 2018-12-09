@@ -29,14 +29,14 @@ class Pururin extends \Yamete\DriverAbstract
     {
         $sUrl = 'http://' . self::DOMAIN . '/read/' . $this->aMatches['albumId'] . '/01/' . $this->aMatches['album'];
         $oRes = $this->getClient()->request('GET', $sUrl);
-        if (!preg_match('~var chapters = ([^;]+);~', (string)$oRes->getBody(), $aMatches)) {
+        if (!preg_match('~<gallery\-read :gallery="([^"]+)"~', (string)$oRes->getBody(), $aMatches)) {
             return [];
         }
-        $aAssets = \GuzzleHttp\json_decode(trim($aMatches[1]), true);
+        $aAssets = \GuzzleHttp\json_decode(html_entity_decode($aMatches[1]), true);
         $aReturn = [];
-        foreach ($aAssets as $aData) {
-            $sFilename = $aData['image'];
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($aData['page'], 5, '0', STR_PAD_LEFT)
+        for ($i = 1; $i <= $aAssets['total_pages']; $i++) {
+            $sFilename = "https://api.pururin.io/images/${$this->aMatches['albumId']}/$i.${aAssets['image_extension']}";
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

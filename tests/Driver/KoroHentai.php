@@ -11,6 +11,6 @@ class KoroHentai extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\KoroHentai();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(20, count($driver->getDownloadables()));
+        $this->assertEquals(15, count($driver->getDownloadables()));
     }
 }
