@@ -86,8 +86,6 @@ Here's is the list of supported sites for now:
  * freeadultcomix.com
  * hbrowse.com
  * hentai2read.com
- * hentaicomics.pro
- * hentai-comics.org
  * hentaifromhell.org
  * nhentai.net
  * hentaiporns.net
@@ -111,17 +109,11 @@ Here's is the list of supported sites for now:
  * myreadingmanga.info
  * gassummit.ru
  * aaadream.com
- * porncomics.me
  * hentai4manga.com
  * erolord.com
  * pururin.io
  * readhentaimanga.com
- * 3dpornpics.pro
- * cartoonporn.pics
- * hentaipornpics.net
  * hentaiporn.pics
- * mangaporn.pro
- * overwatchporn.pro
  * warcraftporn.pro
  * 3dsexpictures.net
  * hentaimanga.pro
@@ -129,27 +121,20 @@ Here's is the list of supported sites for now:
  * xsexcomics.com
  * sexy3dcomix.com
  * xxxtooncomics.com
- * xxxporncomix.com
  * toonsex.pics
  * freesexcomix.pro
- * xxxcartoonsex.net
  * toonpornpics.com
  * furrypornpics.net
  * 3dcomix.pro
- * cartoonseximages.com
  * xxxhentaipics.pro
- * cartoonpornpic.net
  * lolhentai.pro
  * lolporn.pro
- * xxxcartoonporn.pro
  * 3dsexcomics.pro
- * xxxcartoonporn.pro
  * xxxhentaicomix.com
  * xxxmangacomix.com
  * sexytoonporn.com
  * cartoonsexcomix.com
  * xxx3dcomix.com
- * comicsporn.net
  * xxxcomicporn.com
  * 3dcomix.pro
  * 3dsextoons.net

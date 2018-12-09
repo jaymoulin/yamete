@@ -2,9 +2,9 @@
 
 namespace Yamete\Driver;
 
-class OverwatchPornPro extends ThreeDPornPics
+class XXXComicComixPro extends XXXComicPornCom
 {
-    const DOMAIN = 'overwatchporn.pro';
+    const DOMAIN = '3dcomix.pro';
 
     protected function getDomain()
     {

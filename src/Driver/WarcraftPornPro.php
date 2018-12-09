@@ -2,7 +2,7 @@
 
 namespace Yamete\Driver;
 
-class WarcraftPornPro extends ThreeDPornPics
+class WarcraftPornPro extends XXXComicPornCom
 {
     const DOMAIN = 'warcraftporn.pro';
 

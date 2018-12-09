@@ -2,9 +2,9 @@
 
 namespace Yamete\Driver;
 
-class HentaiComicsPro extends ThreeDPornPics
+class SexCartoonComCom extends XXXComicPornCom
 {
-    const DOMAIN = 'hentaicomics.pro';
+    const DOMAIN = 'sexcartoonpics.com';
 
     protected function getDomain()
     {

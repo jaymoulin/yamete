@@ -2,7 +2,7 @@
 
 namespace Yamete\Driver;
 
-class LolHentaiPro extends ThreeDPornPics
+class LolHentaiPro extends XXXComicPornCom
 {
     const DOMAIN = 'lolhentai.pro';
 
