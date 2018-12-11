@@ -23,28 +23,7 @@ class EightMuses extends \Yamete\DriverAbstract
     public function getDownloadables()
     {
         $this->aReturn = [];
-        foreach ($this->getDomParser()->load($this->getBody($this->sUrl))->find('a.c-tile') as $oLink) {
-            /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             */
-            $sHref = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
-            $oParser = $this->getDomParser()->load($this->getBody($sHref));
-            if (isset($oParser->find('.image')[0])) {
-                $this->prepareLinks($oParser);
-            } else {
-                $oParser = $this->getDomParser()->load($this->getBody($sHref));
-                foreach ($oParser->find('a.c-tile') as $oLinkImg) {
-                    /**
-                     * @var \PHPHtmlParser\Dom\AbstractNode $oLinkImg
-                     */
-                    $sHref = 'https://www.' . self::DOMAIN . $oLinkImg->getAttribute('href');
-                    $oParser = $this->getDomParser()->load($this->getBody($sHref));
-                    if (isset($oParser->find('.image')[0])) {
-                        $this->prepareLinks($oParser);
-                    }
-                }
-            }
-        }
+        $this->prepareLinks($this->sUrl);
         return $this->aReturn;
     }
 
@@ -59,15 +38,34 @@ class EightMuses extends \Yamete\DriverAbstract
         return (string)$this->getClient()->request('GET', $sUrl)->getBody();
     }
 
-    private function prepareLinks(\PHPHtmlParser\Dom $oParser)
+    private function prepareLinks($sUrl)
     {
-        $sHost = $oParser->find('.image')[0]->getAttribute('value');
-        $sHost = $sHost ?: '//www.' . self::DOMAIN;
-        $sName = $oParser->find('.image')[0]->getAttribute('value');
-        $sFilename = "https:$sHost/image/fl/$sName";
-        $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
-            . str_pad(count($this->aReturn) + 1, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
-        $this->aReturn[$sPath] = $sFilename;
+        $oParser = $this->getDomParser()->load($this->getBody($sUrl));
+        foreach ($oParser->find('a.c-tile') as $oLink) {
+            /**
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             */
+            $sDomain = self::DOMAIN;
+            $sHref = $oLink->getAttribute('href');
+            if (!$sHref) {
+                continue;
+            }
+            $sLink = "https://www.$sDomain$sHref";
+            if (!preg_match('~/[0-9]+$~', $sLink)) {
+                $this->prepareLinks($sLink);
+                continue;
+            }
+            foreach ($oParser->find('.image img.lazyload') as $oImg) {
+                /**
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 */
+                $sFilename = str_replace('/th/', '/fm/', "https://www.$sDomain" . $oImg->getAttribute('data-src'));
+                $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
+                    . str_pad(count($this->aReturn) + 1, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
+                $this->aReturn[$sPath] = $sFilename;
+            }
+            return;
+        }
     }
 
     private function getFolder()
