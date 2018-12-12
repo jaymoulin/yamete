@@ -3,7 +3,7 @@
 namespace Yamete\Driver;
 
 
-class FullMetalHentaiCom extends LuckyStarPornCom
+class FullMetalHentaiCom extends HighHentaiCom
 {
     const DOMAIN = 'fullmetal-hentai.com';
 
