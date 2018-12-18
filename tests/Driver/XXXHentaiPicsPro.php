@@ -7,10 +7,10 @@ class XXXHentaiPicsPro extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://www.xxxhentaipics.pro/gallery/kill-la-kill-collection-part-10.html';
+        $url = 'http://www.xxxhentaipics.pro/gallery/artist-chuuka-naruto-part-18-5610.html?view=MjY4eDZ4MTE3Nzg=';
         $driver = new \Yamete\Driver\XXXHentaiPicsPro();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(419, count($driver->getDownloadables()));
+        $this->assertEquals(700, count($driver->getDownloadables()));
     }
 }

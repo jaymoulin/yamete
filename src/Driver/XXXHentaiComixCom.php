@@ -58,7 +58,7 @@ class XXXHentaiComixCom extends \Yamete\DriverAbstract
     {
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
             /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
-            $sFilename = $oLink->getAttribute('data-img') . '.' . $oLink->getAttribute('data-ext');
+            $sFilename = $oLink->getAttribute('data-img') . '.' . trim($oLink->getAttribute('data-ext'), '.');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($this->iPointer++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $this->aReturn[$sBasename] = $sFilename;
