@@ -13,4 +13,13 @@ class Hentai2read extends \PHPUnit\Framework\TestCase
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(26, count($driver->getDownloadables()));
     }
+
+    public function testDownloadCollection()
+    {
+        $url = 'https://hentai2read.com/y_mountain_villas_lineage/';
+        $driver = new \Yamete\Driver\Hentai2read();
+        $driver->setUrl($url);
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(47, count($driver->getDownloadables()));
+    }
 }

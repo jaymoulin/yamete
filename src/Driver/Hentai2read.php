@@ -7,6 +7,8 @@ use \Tuna\CloudflareMiddleware;
 class Hentai2read extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
+    private $aReturn = [];
+    private $iPointer = 0;
     const DOMAIN = 'hentai2read.com';
 
     public function canHandle()
@@ -44,26 +46,36 @@ class Hentai2read extends \Yamete\DriverAbstract
      */
     public function getDownloadables()
     {
-        $oRes = $this->getClient()->request('GET', $this->sUrl . '1/');
-        $aReturn = [];
-        $i = 0;
-        $sAccessor = '.dropdown .scrollable-dropdown li a';
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sAccessor) as $oLink) {
-            /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
-             */
-            if (empty($oLink->getAttribute('data-pagid'))) {
-                continue;
-            }
-            $oRes = $this->getClient()->request('GET', $this->sUrl . '1/' . $oLink->getAttribute('data-pagid') . '/');
-            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#arf-reader')[0];
-            $sFilename = $oImg->getAttribute('src');
-            $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT) . '-'
-                . basename($sFilename);
-            $aReturn[$sPath] = $sFilename;
+
+        $this->aReturn = [];
+        $this->iPointer = 0;
+        $this->parse($this->sUrl . '1/');
+        return $this->aReturn;
+    }
+
+    /**
+     * @param $sUrl
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    private function parse($sUrl)
+    {
+        if (!$sUrl) {
+            return $this->aReturn;
         }
-        return $aReturn;
+        $oRes = $this->getClient()->request('GET', $sUrl);
+        $sAccessor = '~var gData = (?<json>\{[^\}]+\});~';
+        if (preg_match($sAccessor, (string)$oRes->getBody(), $aMatches) !== false) {
+            $aObj = \GuzzleHttp\json_decode(str_replace('\'', '"', $aMatches['json']), true);
+            foreach ($aObj['images'] as $sPostImage) {
+                $sFilename = 'https://static.hentaicdn.com/hentai' . $sPostImage;
+                $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$this->iPointer, 5, '0', STR_PAD_LEFT) .
+                    '-' . basename($sFilename);
+                $this->aReturn[$sPath] = $sFilename;
+            }
+            $this->parse($aObj['nextURL']);
+        }
+        return $this->aReturn;
     }
 
     private function getFolder()
