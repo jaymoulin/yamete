@@ -108,7 +108,6 @@ Here's is the list of supported sites for now:
  * hentaifr.net
  * myreadingmanga.info
  * gassummit.ru
- * aaadream.com
  * hentai4manga.com
  * erolord.com
  * pururin.io

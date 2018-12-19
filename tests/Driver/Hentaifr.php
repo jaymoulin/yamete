@@ -7,10 +7,19 @@ class Hentaifr extends \PHPUnit\Framework\TestCase
 {
     public function testDownload()
     {
-        $url = 'http://hentaifr.net/ngdoujinshishe.php?id=28747&page=1&news=31315';
+        $url = 'https://hentaifr.net/forbidden-frontiers-vol-5-par-pokkuti-lecture-en-ligne/';
         $driver = new \Yamete\Driver\Hentaifr();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(20, count($driver->getDownloadables()));
+        $this->assertEquals(18, count($driver->getDownloadables()));
+    }
+
+    public function testDownloadToBeSure()
+    {
+        $url = 'https://hentaifr.net/cait-x-vi-x-jinx-badcompzero-lecture-en-ligne/';
+        $driver = new \Yamete\Driver\Hentaifr();
+        $driver->setUrl($url);
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(7, count($driver->getDownloadables()));
     }
 }
