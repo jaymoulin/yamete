@@ -169,7 +169,6 @@ Here's is the list of supported sites for now:
  * thehentaicomics.com
  * palcomix.com
  * hentaifox.com
- * hentai-comic.com
  * perveden.com
  * chochox.com
  * lovehentaimanga.com
