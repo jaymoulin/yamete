@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class PorncomixOnline extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://www.porncomixonline.net/felsalamy-friends-mom/';

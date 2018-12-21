@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class ReadHentaiManga extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://readhentaimanga.com/bitch-hole-english/';

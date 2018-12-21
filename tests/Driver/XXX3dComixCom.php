@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class XXX3dComixCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.xxx3dcomix.com/gallery/artist3d-varris-animated-part-2';

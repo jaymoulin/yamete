@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class ToonPornMe extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://toonporn.me/content/art-fantasy-girls/index.html';

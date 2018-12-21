@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class SexyToonPornCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.sexytoonporn.com/galleries/sweetcheeks-beach-bunnies';

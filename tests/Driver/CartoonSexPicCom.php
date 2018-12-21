@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class CartoonSexPicCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://cartoonsexpic.com/content/cartoons-women-who-love-it-when-you-cum-inside-them/index.html';

@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Sexy3dComixCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.sexy3dcomix.com/gallery/icstor-incest-story-sister-and-mom-part-8';

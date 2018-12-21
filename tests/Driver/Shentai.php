@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Shentai extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://shentai.xyz/bayushi-brave-porn/';

@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class HentaiThai extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://hentaithai.com/forum/index.php?topic=18234.0';

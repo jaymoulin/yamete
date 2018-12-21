@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class HentaiMangaInfo extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://hentaimanga.info/cozy-cozy-gyaru-sex-hentai-comics/';

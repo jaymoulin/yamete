@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Hentai4Doujin extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.hentai4doujin.com/hentai_doujin/-Gintama-Silver-Soul---yaoi_27842/';

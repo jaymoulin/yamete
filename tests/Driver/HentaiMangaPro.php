@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class HentaiMangaPro extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.hentaimanga.pro/galleries/metalforever-preggo-maya-occult-academy';

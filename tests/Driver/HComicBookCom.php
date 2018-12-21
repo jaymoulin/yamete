@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class HComicBookCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.hcomicbook.com/hentai_doujin/41962/';

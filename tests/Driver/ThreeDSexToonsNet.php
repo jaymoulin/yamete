@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class ThreeDSexToonsNet extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.3dsextoons.net/gals/crazy-xxx-3d-world/375e/';

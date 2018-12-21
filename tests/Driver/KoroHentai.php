@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class KoroHentai extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://korohentai.com/kearuda-no-yarashii-hon-2.html';

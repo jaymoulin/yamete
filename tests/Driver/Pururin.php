@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Pururin extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://pururin.io/gallery/35297/kyouei-swimming';

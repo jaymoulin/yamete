@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class XXXHentaiComixCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.xxxhentaicomix.com/gallery/distressed-damsels-wonder-woman.html';

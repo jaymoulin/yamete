@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class FreeFamousCartoonPornCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://freefamouscartoonporn.com/content/omorashi-ladies-by-munio/index.html';

@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class AsmHentai extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://asmhentai.com/g/204673/';

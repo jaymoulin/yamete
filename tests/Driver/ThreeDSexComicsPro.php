@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class ThreeDSexComicsPro extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.3dsexcomics.pro/gallery/jab-comix-ay-mami';

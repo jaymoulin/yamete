@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class CartoonSexComixCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.cartoonsexcomix.com/gallery/milftoon-grand-prize';

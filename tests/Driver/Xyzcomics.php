@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Xyzcomics extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://xyzcomics.com/croc-f-o-p-breaking-rules-5/';

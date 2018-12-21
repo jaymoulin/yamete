@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class LolPornPro extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.lolporn.pro/galleries/-aka6-lol-comic-league-of-legends';

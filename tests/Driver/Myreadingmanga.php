@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Myreadingmanga extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://myreadingmanga.info/p-sakai-ringo-house-sitting-eng/';

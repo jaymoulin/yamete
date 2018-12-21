@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class EightMusesDownload extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://8muses.download/royal-guard-special-training-the-legend-of-zelda-porn-comics-8-muses/';

@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class WarcraftPornPro extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.warcraftporn.pro/galleries/dwarf-vs-dwarf-1';

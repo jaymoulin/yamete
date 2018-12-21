@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class CartoonPornPictureCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://cartoonpornpicture.com/content/into-the-multiverse/index.html';

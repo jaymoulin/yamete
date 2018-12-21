@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class ThreeDSexPicturesNet extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.3dsexpictures.net/galleries/teacher-azalea-adrian-mccockin';

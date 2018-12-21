@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class HentaiRulesNet extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.hentairules.net/galleries4/index.php?/category/533';

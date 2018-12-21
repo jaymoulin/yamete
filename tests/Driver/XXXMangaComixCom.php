@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class XXXMangaComixCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.xxxmangacomix.com/gallery/frozen-wedding-jitters.html';

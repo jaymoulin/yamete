@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class ThreeDComixPro extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.3dcomix.pro/pictures/vacation-in-the-mountais-part-3';

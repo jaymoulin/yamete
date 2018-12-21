@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class MyHentaiComics extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://myhentaicomics.com/index.php/Glass-Room';

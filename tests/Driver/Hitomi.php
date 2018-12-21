@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Hitomi extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://hitomi.la/galleries/1157169.html';

@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Chochox extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://chochox.com/billy-and-mandy-milftoon/';

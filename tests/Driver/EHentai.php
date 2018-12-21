@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class EHentai extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://e-hentai.org/g/1157082/55d486759e/';

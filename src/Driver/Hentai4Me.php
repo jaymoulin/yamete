@@ -2,10 +2,13 @@
 
 namespace Yamete\Driver;
 
+use Tuna\CloudflareMiddleware;
+
 class Hentai4Me extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentai4me.net';
+
 
     protected function getDomain()
     {
@@ -34,7 +37,6 @@ class Hentai4Me extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-
             $sFilename = $oImg->getAttribute('data-lazy-src');
             if (!$sFilename) {
                 continue;
@@ -44,6 +46,26 @@ class Hentai4Me extends \Yamete\DriverAbstract
             $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
+    }
+
+    /**
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient($aOptions = [])
+    {
+        $oClient = parent::getClient(
+            [
+                'cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__)),
+                'headers' => ['User-Agent' => self::USER_AGENT, 'Referer' => $this->sUrl],
+            ]
+        );
+        /**
+         * @var \GuzzleHttp\HandlerStack $oHandler
+         */
+        $oHandler = $oClient->getConfig('handler');
+        $oHandler->push(CloudflareMiddleware::create());
+        return $oClient;
     }
 
     private function getFolder()

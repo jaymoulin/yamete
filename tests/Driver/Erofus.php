@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Erofus extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://www.erofus.com/comics/zzz-comics/agw-house-party';
@@ -14,6 +17,9 @@ class Erofus extends \PHPUnit\Framework\TestCase
         $this->assertEquals(40, count($driver->getDownloadables()));
     }
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownloadChapter()
     {
         $url = 'https://www.erofus.com/comics/zzz-comics/agw-house-party/issue-1';

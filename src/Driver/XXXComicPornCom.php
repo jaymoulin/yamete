@@ -37,18 +37,45 @@ if (!class_exists(XXXComicPornCom::class)) {
             $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;
             $oRes = $this->getClient()->request('GET', $this->sUrl);
             $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
-            $aReturn = [];
+            $aReturn = new \AppendIterator();
+            $sBody = (string)$oRes->getBody();
             $i = 0;
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
+            $oOptions = $this->getDomParser()->load($sBody)->find('.part-select option');
+            if (count($oOptions)) {
+                foreach ($oOptions as $oOption) {
+                    /**
+                     * @var \PHPHtmlParser\Dom\AbstractNode $oOption
+                     */
+                    $sUrl = 'http://' . $this->getDomain() . $oOption->getAttribute('value');
+                    $sCurrentBody = (string)$this->getClient()->request('GET', $sUrl)->getBody();
+                    list($oCursor, $i) = $this->getForBody($sCurrentBody, $i);
+                    $aReturn->append($oCursor);
+                }
+            } else {
+                list($oCursor) = $this->getForBody($sBody, $i);
+                $aReturn->append($oCursor);
+            }
+            return iterator_to_array($aReturn);
+        }
+
+        /**
+         * @param string $sBody
+         * @param int $iIndex
+         * @return array
+         */
+        private function getForBody($sBody, $iIndex)
+        {
+            $aReturn = [];
+            foreach ($this->getDomParser()->load($sBody)->find($this->getSelector()) as $oLink) {
                 /**
                  * @var \PHPHtmlParser\Dom\AbstractNode $oLink
                  */
                 $sFilename = $oLink->getAttribute('data-img') . $oLink->getAttribute('data-ext');
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($iIndex++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }
-            return $aReturn;
+            return [new \ArrayIterator($aReturn), $iIndex];
         }
 
         private function getFolder()

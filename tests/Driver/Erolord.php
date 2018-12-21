@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Erolord extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://erolord.com/doujin/2177314/';

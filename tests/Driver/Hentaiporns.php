@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Hentaiporns extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://hentaiporns.net/hm-viva-la-d-va-2-overwatch-korean/';

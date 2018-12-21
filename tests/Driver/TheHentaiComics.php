@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class TheHentaiComics extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://thehentaicomics.com/down-south-3/';

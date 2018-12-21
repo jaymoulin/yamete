@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class HotAnimePornoCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://hotanimeporno.com/gallery/manga-hentai-free-pregnant-4/index.html';

@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class XXXToonComicsCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.xxxtooncomics.com/gallery/football-and-beer-part-1.html';

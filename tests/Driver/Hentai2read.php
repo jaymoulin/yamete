@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Hentai2read extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://hentai2read.com/clumsy_girl/';
@@ -14,6 +17,9 @@ class Hentai2read extends \PHPUnit\Framework\TestCase
         $this->assertEquals(26, count($driver->getDownloadables()));
     }
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownloadCollection()
     {
         $url = 'https://hentai2read.com/y_mountain_villas_lineage/';

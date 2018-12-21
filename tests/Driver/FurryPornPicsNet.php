@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class FurryPornPicsNet extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.furrypornpics.net/galleries/jay-naylor-sarah';

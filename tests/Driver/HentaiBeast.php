@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class HentaiBeast extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://hentaibeast.com/index.php?/category/279';

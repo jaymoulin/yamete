@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class PorncomixSite extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://porncomix.site/linart-unexpected-surprise-porncomics/';

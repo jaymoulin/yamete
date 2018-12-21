@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Comicspornoxxx extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://comicspornoxxx.com/kaa-san-koibito-seikatsu-2/';

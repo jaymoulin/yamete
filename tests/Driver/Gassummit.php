@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Gassummit extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://gassummit.ru/yu-gi-oh/futanari-school-girl-puishment-6734/';

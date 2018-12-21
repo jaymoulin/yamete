@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Freeadultcomix extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://freeadultcomix.com/redhead-photoshoot-harmonist11/';

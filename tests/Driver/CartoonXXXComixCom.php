@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class CartoonXXXComixCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.cartoonxxxcomix.com/gallery/coop-in-trouble';

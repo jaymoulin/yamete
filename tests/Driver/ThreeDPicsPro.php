@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class ThreeDPicsPro extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.3dpics.pro/pics/shiny-latex-anime/index.php';

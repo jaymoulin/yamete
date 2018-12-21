@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class LoveHentaiManga extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://lovehentaimanga.com/hentai_manga/index.php/gadgirl/gadgirl';

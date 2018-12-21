@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class CartoonPornComicsName extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://cartoonporncomics.name/content/adult-porn-cartoons/index.html';

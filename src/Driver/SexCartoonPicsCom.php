@@ -2,7 +2,7 @@
 
 namespace Yamete\Driver;
 
-class SexCartoonComCom extends XXXComicPornCom
+class SexCartoonPicsCom extends XXXComicPornCom
 {
     const DOMAIN = 'sexcartoonpics.com';
 

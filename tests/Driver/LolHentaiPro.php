@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class LolHentaiPro extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.lolhentai.pro/galleries/bunny-riven-o-taberu-chogath-san';

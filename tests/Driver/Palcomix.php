@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Palcomix extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://palcomix.com/princessmarco/index.html';

@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class SimplyHentai extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://original-work.simply-hentai.com/mushikago-infu-hen-ichi-ni';

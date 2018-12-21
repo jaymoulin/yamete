@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Doujins extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://doujins.com/hentai-magazine-chapters/herio-addictive-pheromone-36573';

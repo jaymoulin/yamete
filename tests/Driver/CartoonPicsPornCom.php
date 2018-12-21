@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class CartoonPicsPornCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://cartoonpicsporn.com/content/nettori-netorare-milf-next-door-teaches-young-man/index.html';

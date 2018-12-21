@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class HentaiFantasy extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.hentaifantasy.it/series/una-stanza-senza-shiori-invito/';

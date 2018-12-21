@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class HBrowse extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.hbrowse.com/13537/c00001';

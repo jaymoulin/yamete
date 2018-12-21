@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class AnimeSexyPicsCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://animesexypics.com/gallery/pregnant-hentai-sex/index.html';

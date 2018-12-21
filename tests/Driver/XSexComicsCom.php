@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class XSexComicsCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.xsexcomics.com/fr/galleries/jlullaby-waterballoons';

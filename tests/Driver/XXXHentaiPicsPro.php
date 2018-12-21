@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class XXXHentaiPicsPro extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.xxxhentaipics.pro/gallery/artist-chuuka-naruto-part-18-5610.html?view=MjY4eDZ4MTE3Nzg=';

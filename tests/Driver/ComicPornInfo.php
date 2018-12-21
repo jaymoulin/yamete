@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class ComicPornInfo extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://comicporn.info/content/an-incredible-story/index.html';

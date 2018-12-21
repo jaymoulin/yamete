@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class ToonPornPicsCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.toonpornpics.com/galleries/mix-of-famous-cartoon-anime-hentai-girls';

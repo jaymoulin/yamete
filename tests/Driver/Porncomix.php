@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Porncomix extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.porncomix.info/party-with-mom/';

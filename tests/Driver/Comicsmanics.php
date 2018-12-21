@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class Comicsmanics extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.comicsmanics.com/bad-boss-3-y3df/';
@@ -14,6 +17,9 @@ class Comicsmanics extends \PHPUnit\Framework\TestCase
         $this->assertEquals(79, count($driver->getDownloadables()));
     }
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testNewFormatDownload()
     {
         $url = 'http://www.comicsmanics.com/milftoon-lemonade-01-incest-comix/';

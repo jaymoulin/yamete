@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class BebopHentaiCom extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.bebop-hentai.com/hentai2017/touhou_for-24-hours/image001.php';

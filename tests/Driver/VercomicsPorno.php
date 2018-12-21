@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class VercomicsPorno extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'https://vercomicsporno.com/mac-primera-vez-exclusiva-accel-art';

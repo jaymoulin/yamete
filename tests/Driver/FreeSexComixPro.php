@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class FreeSexComixPro extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://www.freesexcomix.pro/images/what-fuck-atilio-gambedotti';

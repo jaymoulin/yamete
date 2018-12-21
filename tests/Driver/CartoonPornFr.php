@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class CartoonPornFr extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://cartoonpornfr.com/content/jessica-rabbit-set-3/index.html';

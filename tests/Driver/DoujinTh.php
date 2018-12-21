@@ -5,6 +5,9 @@ namespace YameteTests\Driver;
 
 class DoujinTh extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testDownload()
     {
         $url = 'http://doujin-th.com/forum/index.php?topic=11249.0';
