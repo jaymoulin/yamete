@@ -711,16 +711,16 @@
         },
         {
             "name": "thesoftwarefanatics/php-html-parser",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thesoftwarefanatics/php-html-parser.git",
-                "reference": "3502f0b530b20bea9a72361377510553a69e766a"
+                "reference": "2dff8676821bdbc309f64980a96b4c62020c79c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thesoftwarefanatics/php-html-parser/zipball/3502f0b530b20bea9a72361377510553a69e766a",
-                "reference": "3502f0b530b20bea9a72361377510553a69e766a",
+                "url": "https://api.github.com/repos/thesoftwarefanatics/php-html-parser/zipball/2dff8676821bdbc309f64980a96b4c62020c79c3",
+                "reference": "2dff8676821bdbc309f64980a96b4c62020c79c3",
                 "shasum": ""
             },
             "require": {
@@ -769,7 +769,7 @@
                 "html",
                 "parser"
             ],
-            "time": "2018-01-10T14:47:57+00:00"
+            "time": "2018-12-21T07:45:56+00:00"
         },
         {
             "name": "tunaabutbul/cloudflare-middleware",
@@ -1643,16 +1643,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.0",
+            "version": "7.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "520723129e2b3fc1dc4c0953e43c9d40e1ecb352"
+                "reference": "c23d78776ad415d5506e0679723cb461d71f488f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/520723129e2b3fc1dc4c0953e43c9d40e1ecb352",
-                "reference": "520723129e2b3fc1dc4c0953e43c9d40e1ecb352",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c23d78776ad415d5506e0679723cb461d71f488f",
+                "reference": "c23d78776ad415d5506e0679723cb461d71f488f",
                 "shasum": ""
             },
             "require": {
@@ -1723,7 +1723,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-12-07T07:08:12+00:00"
+            "time": "2018-12-12T07:20:32+00:00"
         },
         {
             "name": "psr/container",
@@ -2429,16 +2429,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.3.2",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "6ad28354c04b364c3c71a34e4a18b629cc3b231e"
+                "reference": "379deb987e26c7cd103a7b387aea178baec96e48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/6ad28354c04b364c3c71a34e4a18b629cc3b231e",
-                "reference": "6ad28354c04b364c3c71a34e4a18b629cc3b231e",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/379deb987e26c7cd103a7b387aea178baec96e48",
+                "reference": "379deb987e26c7cd103a7b387aea178baec96e48",
                 "shasum": ""
             },
             "require": {
@@ -2476,7 +2476,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2018-09-23T23:08:17+00:00"
+            "time": "2018-12-19T23:57:18+00:00"
         },
         {
             "name": "symfony/config",
