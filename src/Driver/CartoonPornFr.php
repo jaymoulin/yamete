@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class CartoonPornFr extends FreeFamousCartoonPornCom
 {
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return 'cartoonpornfr.com';
     }

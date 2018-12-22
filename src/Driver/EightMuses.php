@@ -2,13 +2,15 @@
 
 namespace Yamete\Driver;
 
+use phpDocumentor\Reflection\Types\Null_;
+
 class EightMuses extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
     const DOMAIN = '8muses.com';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/comi(x|cs)/album/(?<album>[^?]+)~',
@@ -20,7 +22,7 @@ class EightMuses extends \Yamete\DriverAbstract
     /**
      * @return array|string[]
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $this->aReturn = [];
         $this->prepareLinks($this->sUrl);
@@ -33,12 +35,12 @@ class EightMuses extends \Yamete\DriverAbstract
      * @return string
      * @throws
      */
-    private function getBody($sUrl)
+    private function getBody(string $sUrl): string
     {
         return (string)$this->getClient()->request('GET', $sUrl)->getBody();
     }
 
-    private function prepareLinks($sUrl)
+    private function prepareLinks(string $sUrl): void
     {
         $oParser = $this->getDomParser()->load($this->getBody($sUrl));
         foreach ($oParser->find('a.c-tile') as $oLink) {
@@ -68,7 +70,7 @@ class EightMuses extends \Yamete\DriverAbstract
         }
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

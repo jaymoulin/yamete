@@ -6,7 +6,7 @@ class Hentai4Doujin extends Hentai4Manga
 {
     const DOMAIN = 'hentai4doujin.com';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }

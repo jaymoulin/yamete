@@ -8,7 +8,7 @@ class MangaKakalot extends \Yamete\DriverAbstract
     private $aReturn = [];
     const DOMAIN = 'mangakakalot.com';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(manga|chapter)/(?<album>[^/]+)~',
@@ -21,7 +21,7 @@ class MangaKakalot extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $this->aReturn = [];
         $this->getLinks($this->sUrl);
@@ -32,7 +32,7 @@ class MangaKakalot extends \Yamete\DriverAbstract
      * @param string $sUrl
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private function getLinks($sUrl)
+    private function getLinks(string $sUrl): void
     {
         $oRes = $this->getClient()->request('GET', $sUrl);
         $bFound = false;
@@ -58,7 +58,7 @@ class MangaKakalot extends \Yamete\DriverAbstract
         }
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

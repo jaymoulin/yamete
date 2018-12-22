@@ -6,7 +6,7 @@ class HentaiMangaPro extends XXXComicPornCom
 {
     const DOMAIN = 'hentaimanga.pro';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }

@@ -9,7 +9,7 @@ class NHentai extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'nhentai.net';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://' . strtr(self::DOMAIN, ['.' => '\.']) . '/g/(?<album>[^/]+)/$~',
@@ -22,7 +22,7 @@ class NHentai extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $oClient = $this->getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
         /**
@@ -51,7 +51,7 @@ class NHentai extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

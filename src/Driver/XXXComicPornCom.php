@@ -8,12 +8,12 @@ if (!class_exists(XXXComicPornCom::class)) {
         private $aMatches = [];
         const DOMAIN = 'xxxcomicporn.com';
 
-        protected function getDomain()
+        protected function getDomain(): string
         {
             return self::DOMAIN;
         }
 
-        public function canHandle()
+        public function canHandle(): bool
         {
             return (bool)preg_match(
                 '~^https?://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
@@ -23,7 +23,7 @@ if (!class_exists(XXXComicPornCom::class)) {
             );
         }
 
-        protected function getSelector()
+        protected function getSelector(): string
         {
             return '.portfolio-normal-width figure a';
         }
@@ -32,7 +32,7 @@ if (!class_exists(XXXComicPornCom::class)) {
          * @return array|string[]
          * @throws \GuzzleHttp\Exception\GuzzleException
          */
-        public function getDownloadables()
+        public function getDownloadables(): array
         {
             $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;
             $oRes = $this->getClient()->request('GET', $this->sUrl);
@@ -63,7 +63,7 @@ if (!class_exists(XXXComicPornCom::class)) {
          * @param int $iIndex
          * @return array
          */
-        private function getForBody($sBody, $iIndex)
+        private function getForBody(string $sBody, int $iIndex): array
         {
             $aReturn = [];
             foreach ($this->getDomParser()->load($sBody)->find($this->getSelector()) as $oLink) {
@@ -78,7 +78,7 @@ if (!class_exists(XXXComicPornCom::class)) {
             return [new \ArrayIterator($aReturn), $iIndex];
         }
 
-        private function getFolder()
+        private function getFolder(): string
         {
             return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
         }

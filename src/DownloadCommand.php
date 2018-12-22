@@ -16,7 +16,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
     const ZIP = 'zip';
     const ERRORS = 'errors';
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('download')
             ->setDescription("Download an URL resources")
@@ -39,7 +39,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
      * @return int|null|void
      * @throws \Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         ini_set('display_errors', $output->isDebug() ? '1' : '0');
         $aUrl = [];
@@ -97,7 +97,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
         }
     }
 
-    private function zip(ResultIterator $oResult, OutputInterface $output)
+    private function zip(ResultIterator $oResult, OutputInterface $output): void
     {
         $output->writeln('<comment>Creating zip archive</comment>');
         $zip = new \ZipArchive();
@@ -124,7 +124,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
      * @param OutputInterface $output
      * @throws \Exception
      */
-    private function pdf(ResultIterator $oResult, OutputInterface $output)
+    private function pdf(ResultIterator $oResult, OutputInterface $output): void
     {
         $iMemoryLimit = ini_set('memory_limit', '2G'); //hack - this is NOT a solution. we better find something for PDF
         try {
@@ -152,11 +152,13 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
     /**
      * @param ResultIterator $oResult
      * @param OutputInterface $output
+     * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Exception
      */
-    private function download(ResultIterator $oResult, OutputInterface $output)
+    private function download(ResultIterator $oResult, OutputInterface $output): void
     {
         /** @var Downloadable[] $oResult */
+        $progress = null;
         if ($output->isVerbose()) {
             $progress = new ProgressBar($output, count($oResult));
             $progress->start();

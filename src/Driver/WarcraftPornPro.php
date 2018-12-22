@@ -6,7 +6,7 @@ class WarcraftPornPro extends XXXComicPornCom
 {
     const DOMAIN = 'warcraftporn.pro';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }

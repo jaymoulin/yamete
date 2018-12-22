@@ -7,7 +7,7 @@ class Palcomix extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'palcomix.com';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<album>[^/?]+)/?~',
@@ -20,12 +20,13 @@ class Palcomix extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $oRes = $this->getClient()
             ->request('GET', 'http://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/index.html');
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail a') as $oLink) {
+            /** @var \PHPHtmlParser\Dom\AbstractNode $oLink */
             $sLink = 'http://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/' . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img') as $oImg) {
@@ -43,12 +44,12 @@ class Palcomix extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    public function getClient($aOptions = [])
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
     {
         return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

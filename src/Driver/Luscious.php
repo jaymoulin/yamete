@@ -8,7 +8,7 @@ class Luscious extends \Yamete\DriverAbstract
     private $iCounter = 0;
     const DOMAIN = 'luscious.net';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://(m\.)?' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/albums/(?<album>[^/]+)/~',
@@ -21,7 +21,7 @@ class Luscious extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         return $this->download(
             (string)$this->getClient()->request('GET', str_replace('//m.', '//', $this->sUrl))->getBody()
@@ -34,7 +34,7 @@ class Luscious extends \Yamete\DriverAbstract
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private function download($sBody, $aReturn = [])
+    private function download(string $sBody, array $aReturn = []): array
     {
         foreach ($this->getDomParser()->load($sBody)->find('.thumbnail a') as $oLink) {
             /**
@@ -65,7 +65,7 @@ class Luscious extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

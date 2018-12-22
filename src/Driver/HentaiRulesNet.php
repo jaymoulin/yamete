@@ -7,9 +7,8 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'hentairules.net';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
-        //http://www.hentairules.net/galleries4/index.php?/category/533
         return (bool)preg_match(
             '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) .
             ')/galleries(?<gallery>[0-9]+)/index\.php\?/category/(?<album>[0-9]+)$~',
@@ -22,7 +21,7 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
@@ -50,7 +49,7 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

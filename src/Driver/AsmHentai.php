@@ -7,7 +7,7 @@ class AsmHentai extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'asmhentai.com';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/g/(?<album>[^/?]+)/?~',
@@ -17,10 +17,10 @@ class AsmHentai extends \Yamete\DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $oRes = $this->getClient()
             ->request('GET', 'https://' . self::DOMAIN . '/gallery/' . $this->aMatches['album'] . '/1/');
@@ -45,7 +45,7 @@ class AsmHentai extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

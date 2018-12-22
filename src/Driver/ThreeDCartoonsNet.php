@@ -6,7 +6,7 @@ class ThreeDCartoonsNet extends ThreeDSexToonsNet
 {
     const DOMAIN = '3dcartoons.net';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }

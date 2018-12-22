@@ -6,12 +6,12 @@ class SexyToonPornCom extends CartoonSexComixCom
 {
     const DOMAIN = 'sexytoonporn.com';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }
 
-    protected function getSelector()
+    protected function getSelector(): string
     {
         return 'a.img-init';
     }

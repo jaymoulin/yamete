@@ -9,7 +9,7 @@ class HentaiRead extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'hentairead.com';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<album>[^/]+)/$~',
@@ -22,7 +22,7 @@ class HentaiRead extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl . '1/1/');
         $aReturn = [];
@@ -46,7 +46,7 @@ class HentaiRead extends \Yamete\DriverAbstract
      * @param array $aOptions
      * @return \GuzzleHttp\Client
      */
-    public function getClient($aOptions = [])
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
     {
         $oClient = parent::getClient(
             [
@@ -62,7 +62,7 @@ class HentaiRead extends \Yamete\DriverAbstract
         return $oClient;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

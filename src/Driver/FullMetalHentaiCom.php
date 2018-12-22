@@ -7,7 +7,7 @@ class FullMetalHentaiCom extends HighHentaiCom
 {
     const DOMAIN = 'fullmetal-hentai.com';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }

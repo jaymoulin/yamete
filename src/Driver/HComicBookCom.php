@@ -6,7 +6,7 @@ class HComicBookCom extends Hentai4Manga
 {
     const DOMAIN = 'hcomicbook.com';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }

@@ -9,7 +9,7 @@ class PorncomixOnline extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'porncomixonline.net';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.']) . '/(?<album>[^/]+)/$~',
@@ -22,7 +22,7 @@ class PorncomixOnline extends \Yamete\DriverAbstract
      * @param array $aOptions
      * @return \GuzzleHttp\Client
      */
-    public function getClient($aOptions = [])
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
     {
         $oClient = parent::getClient(
             [
@@ -42,7 +42,7 @@ class PorncomixOnline extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
@@ -56,7 +56,7 @@ class PorncomixOnline extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

@@ -7,7 +7,7 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'readhentaimanga.com';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<album>[^/]+)~',
@@ -20,7 +20,7 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $this->sUrl = 'http://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $this->sUrl . '1/1/');
@@ -31,8 +31,8 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
             $this->aMatches['chapter'] = $chapter;
             $oRes = $this->getClient()->request('GET', $this->sUrl . $chapter . '/1/');
             $nbPages = count(
-                $this->getDomParser()->load((string)$oRes->getBody())->find('.nav_pag option')
-            ) / 2;
+                    $this->getDomParser()->load((string)$oRes->getBody())->find('.nav_pag option')
+                ) / 2;
             for ($page = 1; $page <= $nbPages; $page++) {
                 $oRes = $this->getClient()->request('GET', $this->sUrl . $chapter . '/' . $page . '/');
                 /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
@@ -46,7 +46,7 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function decodeUrl($sUrl)
+    private function decodeUrl(string $sUrl): string
     {
         $aMap = explode('&#38;#x', $sUrl);
         unset($aMap[0]);
@@ -57,7 +57,7 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
         return $sReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album'], $this->aMatches['chapter']]);
     }

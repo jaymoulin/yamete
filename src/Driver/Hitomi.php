@@ -7,7 +7,7 @@ class Hitomi extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'hitomi.la';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/galleries/(?<album>[^.]+).html$~',
@@ -20,7 +20,7 @@ class Hitomi extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', str_replace('/galleries/', '/reader/', $this->sUrl));
         $aReturn = [];
@@ -38,7 +38,7 @@ class Hitomi extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

@@ -12,12 +12,12 @@ class PDF extends \FPDF
     const MAX_WIDTH = self::A4_WIDTH;
     const MAX_HEIGHT = self::A4_HEIGHT;
 
-    private function pixelsToMM($val)
+    private function pixelsToMM(int $val): int
     {
         return $val * self::MM_IN_INCH / self::DPI;
     }
 
-    private function resizeToFit($imgFilename)
+    private function resizeToFit(string $imgFilename): array
     {
         list($width, $height) = getimagesize($imgFilename);
         $width = $this->pixelsToMM($width);
@@ -28,7 +28,7 @@ class PDF extends \FPDF
         return [round($scale * $height), round($scale * $width)];
     }
 
-    public function createFromList(\Iterator $oList)
+    public function createFromList(\Iterator $oList): void
     {
         foreach ($oList as $sFilename => $sResource) {
             list($width, $height) = getimagesize($sFilename);
@@ -37,7 +37,7 @@ class PDF extends \FPDF
         }
     }
 
-    function fullSizeImage($sFileName)
+    function fullSizeImage(string $sFileName): void
     {
         list($width, $height) = $this->resizeToFit($sFileName);
         $this->Image($sFileName, 0, 0, $height, $width);

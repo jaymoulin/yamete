@@ -18,32 +18,32 @@ class ResultIterator implements \Iterator, \Countable
         $this->oIterator = new \ArrayIterator($oDriver->getDownloadables());
     }
 
-    public function current()
+    public function current(): Downloadable
     {
         return new Downloadable($this->oDriver, $this->key(), $this->oIterator->current());
     }
 
-    public function next()
+    public function next(): void
     {
         $this->oIterator->next();
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return $this->oIterator->valid();
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->oIterator->rewind();
     }
 
-    public function key()
+    public function key(): string
     {
         return $this->getFilename($this->oIterator->key(), $this->oIterator->current());
     }
 
-    private function getFilename($sFileName, $sResource)
+    private function getFilename(string $sFileName, string $sResource): string
     {
         $sFileName = is_numeric($sFileName) ? basename($sResource) : $sFileName;
         $sFileName = implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'downloads', $sFileName]);
@@ -53,7 +53,7 @@ class ResultIterator implements \Iterator, \Countable
         return $sFileName;
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->oIterator);
     }

@@ -3,26 +3,23 @@
 namespace Yamete;
 
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 class ConvertCommand extends \Symfony\Component\Console\Command\Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('convert')
-            ->setDescription("Convert downloaded urls to PDF")
-        ;
+            ->setDescription("Convert downloaded urls to PDF");
     }
 
     /**
-     * @param InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         ini_set('display_errors', $output->isDebug() ? '1' : '0');
         $output->writeln("<comment>Init conversion</comment>");
@@ -44,7 +41,7 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
      * Path to download folder assets
      * @return string
      */
-    private function getDirectory()
+    private function getDirectory(): string
     {
         return implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'downloads']);
     }
@@ -55,7 +52,7 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
      * @return int|null|void
      * @throws \Exception
      */
-    private function pdf(array $aList, OutputInterface $output)
+    private function pdf(array $aList, OutputInterface $output): void
     {
         $iMemoryLimit = ini_set('memory_limit', '2G'); //hack - this is NOT a solution. we better find something for PDF
         try {

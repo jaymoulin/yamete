@@ -9,12 +9,12 @@ class XXXHentaiComixCom extends \Yamete\DriverAbstract
     private $aReturn = [];
     private $iPointer = 0;
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
@@ -24,7 +24,7 @@ class XXXHentaiComixCom extends \Yamete\DriverAbstract
         );
     }
 
-    protected function getSelector()
+    protected function getSelector(): string
     {
         return '.gallery-thumbs figure a';
     }
@@ -33,7 +33,7 @@ class XXXHentaiComixCom extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;
         $oRes = $this->getClient()->request('GET', $this->sUrl);
@@ -54,7 +54,7 @@ class XXXHentaiComixCom extends \Yamete\DriverAbstract
         return $this->aReturn;
     }
 
-    private function findForRes(\Psr\Http\Message\ResponseInterface $oRes)
+    private function findForRes(\Psr\Http\Message\ResponseInterface $oRes): void
     {
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
             /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
@@ -65,7 +65,7 @@ class XXXHentaiComixCom extends \Yamete\DriverAbstract
         }
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
     }

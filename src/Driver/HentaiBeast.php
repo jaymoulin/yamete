@@ -7,7 +7,7 @@ class HentaiBeast extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'hentaibeast.com';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/index\.php\?/category/(?<album>[^/]+)$~',
@@ -20,7 +20,7 @@ class HentaiBeast extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
@@ -33,7 +33,7 @@ class HentaiBeast extends \Yamete\DriverAbstract
             $iNbPages = (int)$oLink->innerHtml() ?: $iNbPages;
         }
         for ($iPage = 1; $iPage <= ($iNbPages ?: 1); $iPage++) {
-            $oRes = $this->getClient()->request('GET', $this->sUrl . ($iPage > 1 ? '/start-' . (($iPage - 1)  * 10) : ''));
+            $oRes = $this->getClient()->request('GET', $this->sUrl . ($iPage > 1 ? '/start-' . (($iPage - 1) * 10) : ''));
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gthumb a') as $oLink) {
                 /**
                  * @var \PHPHtmlParser\Dom\AbstractNode $oLink
@@ -51,7 +51,7 @@ class HentaiBeast extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

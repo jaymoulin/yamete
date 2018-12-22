@@ -8,12 +8,12 @@ if (!class_exists(HentaiHighSchoolCom::class)) {
         private $aMatches = [];
         const DOMAIN = 'hentai-high-school.com';
 
-        protected function getDomain()
+        protected function getDomain(): string
         {
             return self::DOMAIN;
         }
 
-        public function canHandle()
+        public function canHandle(): bool
         {
             return (bool)preg_match(
                 '~^https?://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
@@ -27,7 +27,7 @@ if (!class_exists(HentaiHighSchoolCom::class)) {
         /**
          * @return array|string[]
          */
-        public function getDownloadables()
+        public function getDownloadables(): array
         {
             $aParts = [$this->getDomain()];
             if (isset($this->aMatches['year']) && $this->aMatches['year']) {
@@ -64,7 +64,7 @@ if (!class_exists(HentaiHighSchoolCom::class)) {
             return $aReturn;
         }
 
-        private function getFolder()
+        private function getFolder(): string
         {
             return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
         }

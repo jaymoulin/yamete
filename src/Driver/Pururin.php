@@ -7,25 +7,25 @@ class Pururin extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'pururin.io';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/gallery/(?<albumId>[^/]+)/(?<album>.+)~',
-            $this->sUrl,
-            $this->aMatches
-        ) ||
-        (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/read/(?<albumId>[^/]+)/[0-9]+/(?<album>.+)~',
-            $this->sUrl,
-            $this->aMatches
-        );
+                '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/gallery/(?<albumId>[^/]+)/(?<album>.+)~',
+                $this->sUrl,
+                $this->aMatches
+            ) ||
+            (bool)preg_match(
+                '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/read/(?<albumId>[^/]+)/[0-9]+/(?<album>.+)~',
+                $this->sUrl,
+                $this->aMatches
+            );
     }
 
     /**
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $sUrl = 'http://' . self::DOMAIN . '/read/' . $this->aMatches['albumId'] . '/01/' . $this->aMatches['album'];
         $oRes = $this->getClient()->request('GET', $sUrl);
@@ -43,7 +43,7 @@ class Pururin extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

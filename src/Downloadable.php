@@ -1,4 +1,5 @@
 <?php
+
 namespace Yamete;
 
 class Downloadable
@@ -7,24 +8,28 @@ class Downloadable
     private $sPath;
     private $sUrl;
 
-    public function __construct(DriverInterface $oDriver, $sPath, $sUrl)
+    public function __construct(DriverInterface $oDriver, string $sPath, string $sUrl)
     {
         $this->oDriver = $oDriver;
         $this->sPath = $sPath;
         $this->sUrl = $sUrl;
     }
 
-    public function getPath()
+    public function getPath(): string
     {
         return $this->sPath;
     }
 
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->sUrl;
     }
 
-    public function download()
+    /**
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function download(): \Psr\Http\Message\ResponseInterface
     {
         return $this->oDriver->getClient()->request('GET', $this->sUrl, ['sink' => $this->sPath]);
     }

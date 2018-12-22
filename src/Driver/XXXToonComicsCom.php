@@ -6,7 +6,7 @@ class XXXToonComicsCom extends XXXHentaiComixCom
 {
     const DOMAIN = 'xxxtooncomics.com';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }

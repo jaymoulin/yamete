@@ -7,12 +7,12 @@ class BebopHentaiCom extends HighHentaiCom
 {
     const DOMAIN = 'bebop-hentai.com';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }
 
-    protected function getStart()
+    protected function getStart(): int
     {
         return 1;
     }

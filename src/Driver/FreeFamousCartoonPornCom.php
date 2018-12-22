@@ -8,12 +8,12 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
         private $aMatches = [];
         const DOMAIN = 'freefamouscartoonporn.com';
 
-        protected function getDomain()
+        protected function getDomain(): string
         {
             return self::DOMAIN;
         }
 
-        public function canHandle()
+        public function canHandle(): bool
         {
             return (bool)preg_match(
                 '~^https?://(' . strtr($this->getDomain(), ['.' => '\.']) . ')/content/(?<album>[^/]+)/index\.html$~',
@@ -22,7 +22,7 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
             );
         }
 
-        protected function getSelectors()
+        protected function getSelectors(): array
         {
             return [
                 '#grid-content a',
@@ -34,7 +34,7 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
          * @return array|string[]
          * @throws \GuzzleHttp\Exception\GuzzleException
          */
-        public function getDownloadables()
+        public function getDownloadables(): array
         {
             $oRes = $this->getClient()->request('GET', $this->sUrl);
             $aReturn = [];
@@ -55,9 +55,9 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
                 $sUrl = 'http://' . $this->getDomain() . $oLink->getAttribute('href');
                 $sSelector = '.container-gal-item img';
                 $oImage = $this->getDomParser()->load(
-                        (string)$this->getClient()->request('GET', $sUrl)->getBody(),
-                        ['cleanupInput' => false]
-                    )
+                    (string)$this->getClient()->request('GET', $sUrl)->getBody(),
+                    ['cleanupInput' => false]
+                )
                     ->find($sSelector)[0];
                 $sFilename = $oImage->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
@@ -67,7 +67,7 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
             return $aReturn;
         }
 
-        private function getFolder()
+        private function getFolder(): string
         {
             return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
         }

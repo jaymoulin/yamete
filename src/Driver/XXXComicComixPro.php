@@ -6,7 +6,7 @@ class XXXComicComixPro extends XXXComicPornCom
 {
     const DOMAIN = '3dcomix.pro';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }

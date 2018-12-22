@@ -8,12 +8,12 @@ if (!class_exists(Hentai4Manga::class)) {
         private $aMatches = [];
         const DOMAIN = 'hentai4manga.com';
 
-        protected function getDomain()
+        protected function getDomain(): string
         {
             return self::DOMAIN;
         }
 
-        public function canHandle()
+        public function canHandle(): bool
         {
             return (bool)preg_match(
                 '~^https?://(?<domain>(www\.)?' . strtr($this->getDomain(), ['.' => '\.']) .
@@ -27,13 +27,13 @@ if (!class_exists(Hentai4Manga::class)) {
          * @return array|string[]
          * @throws \GuzzleHttp\Exception\GuzzleException
          */
-        public function getDownloadables()
+        public function getDownloadables(): array
         {
             $sMainUrl = "http://" . implode('/', [
-                (isset($this->aMatches['domain']) ? $this->aMatches['domain'] : $this->getDomain()),
-                $this->aMatches['category'],
-                $this->aMatches['album'],
-            ]);
+                    (isset($this->aMatches['domain']) ? $this->aMatches['domain'] : $this->getDomain()),
+                    $this->aMatches['category'],
+                    $this->aMatches['album'],
+                ]);
             $oRes = $this->getClient()->request('GET', $sMainUrl);
             $aReturn = [];
             $iNbPage = count(
@@ -49,7 +49,7 @@ if (!class_exists(Hentai4Manga::class)) {
             return $aReturn;
         }
 
-        private function parse($sUrl, array &$aReturn)
+        private function parse(string $sUrl, array &$aReturn): void
         {
             foreach ($this->getDomParser()->loadFromUrl($sUrl, ['cleanupInput' => false])->find('#thumblist a') as $oLink) {
                 /**
@@ -66,7 +66,7 @@ if (!class_exists(Hentai4Manga::class)) {
             }
         }
 
-        private function getFolder()
+        private function getFolder(): string
         {
             return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
         }

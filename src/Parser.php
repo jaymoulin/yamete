@@ -19,7 +19,7 @@ class Parser
      * @param string $sDirectory
      * @return $this
      */
-    public function addDriverDirectory($sDirectory)
+    public function addDriverDirectory(string $sDirectory): Parser
     {
         substr($sDirectory, -1) != '/' && $sDirectory .= '/';
         if (!is_dir($sDirectory)) {
@@ -44,7 +44,7 @@ class Parser
      * @param string $sUrl Url to parse
      * @return bool|ResultIterator
      */
-    public function parse($sUrl)
+    public function parse(string $sUrl)
     {
         foreach ($this->aDrivers as $oDriver) {
             $oDriver->setUrl($sUrl);

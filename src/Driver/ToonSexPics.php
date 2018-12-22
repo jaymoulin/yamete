@@ -6,7 +6,7 @@ class ToonSexPics extends XXXComicPornCom
 {
     const DOMAIN = 'toonsex.pics';
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }

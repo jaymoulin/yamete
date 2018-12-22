@@ -7,12 +7,12 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
     const DOMAIN = 'cartoonsexcomix.com';
     private $aMatches = [];
 
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return self::DOMAIN;
     }
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
@@ -22,7 +22,7 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
         );
     }
 
-    protected function getSelector()
+    protected function getSelector(): string
     {
         return '.my-gallery figure a';
     }
@@ -31,7 +31,7 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;
         $oRes = $this->getClient()->request('GET', $this->sUrl);
@@ -48,7 +48,7 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
     }

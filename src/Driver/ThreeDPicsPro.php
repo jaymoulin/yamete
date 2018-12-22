@@ -7,7 +7,7 @@ class ThreeDPicsPro extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = '3dpics.pro';
 
-    public function canHandle()
+    public function canHandle(): bool
     {
         return (bool)preg_match(
             '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/pics/(?<album>[^/]+)/index\.php$~',
@@ -20,7 +20,7 @@ class ThreeDPicsPro extends \Yamete\DriverAbstract
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getDownloadables()
+    public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
@@ -35,7 +35,7 @@ class ThreeDPicsPro extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder()
+    private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

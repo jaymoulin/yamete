@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class HotSexHentaiCom extends AnimeSexyPicsCom
 {
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return 'hotsexhentai.com';
     }
