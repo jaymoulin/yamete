@@ -3,7 +3,7 @@
 namespace Yamete\Driver;
 
 
-class BebopHentaiCom extends HighHentaiCom
+class BebopHentaiCom extends FullMetalHentaiCom
 {
     const DOMAIN = 'bebop-hentai.com';
 
