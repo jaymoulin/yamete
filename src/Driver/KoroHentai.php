@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use GuzzleCloudflare\Middleware;
+
 class KoroHentai extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -44,6 +46,26 @@ class KoroHentai extends \Yamete\DriverAbstract
             $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
+    }
+
+    /**
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    {
+        $oClient = parent::getClient(
+            [
+                'cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__)),
+                'headers' => ['User-Agent' => self::USER_AGENT, 'Referer' => $this->sUrl],
+            ]
+        );
+        /**
+         * @var \GuzzleHttp\HandlerStack $oHandler
+         */
+        $oHandler = $oClient->getConfig('handler');
+        $oHandler->push(Middleware::create());
+        return $oClient;
     }
 
     private function getFolder(): string

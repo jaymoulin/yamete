@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b8951a2c27acb9a4f85b9a3d6e95ea5",
+    "content-hash": "782878ab13dd843597eb36b07b8dfc7a",
     "packages": [
         {
             "name": "caseyamcl/guzzle_retry_middleware",
@@ -286,6 +286,91 @@
                 "url"
             ],
             "time": "2018-12-04T20:46:45+00:00"
+        },
+        {
+            "name": "jaymoulin/guzzlehttp-cloudflare",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jaymoulin/guzzlehttp-cloudflare.git",
+                "reference": "aa3f9c2117e26369df37a4bc517024dae9d5839e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jaymoulin/guzzlehttp-cloudflare/zipball/aa3f9c2117e26369df37a4bc517024dae9d5839e",
+                "reference": "aa3f9c2117e26369df37a4bc517024dae9d5839e",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3",
+                "kyranrana/cloudflare-bypass": "^v2.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "phploc/phploc": "^4.0",
+                "phpmd/phpmd": "^2.4",
+                "phpunit/phpunit": "^7.0",
+                "sebastian/phpcpd": "^4.0",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GuzzleCloudflare\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jay MOULIN",
+                    "email": "jaymoulin@gmail.com"
+                }
+            ],
+            "description": "Bypass Cloudflare protection using GuzzleHTTP",
+            "time": "2018-12-25T16:36:19+00:00"
+        },
+        {
+            "name": "kyranrana/cloudflare-bypass",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KyranRana/cloudflare-bypass.git",
+                "reference": "f3342605cddbe31f42d6a2c93b642c702b3788c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KyranRana/cloudflare-bypass/zipball/f3342605cddbe31f42d6a2c93b642c702b3788c8",
+                "reference": "f3342605cddbe31f42d6a2c93b642c702b3788c8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.3",
+                "phpunit/phpunit": "~5.7",
+                "symfony/cache": "^4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CloudflareBypass\\": "src/CloudflareBypass"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Library for helping bypass the Cloudflare IUAM page",
+            "homepage": "https://github.com/KyranRana/cloudflare-bypass",
+            "keywords": [
+                "bypass",
+                "cloudflare"
+            ],
+            "time": "2018-12-14T22:55:36+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -770,48 +855,6 @@
                 "parser"
             ],
             "time": "2018-12-21T07:45:56+00:00"
-        },
-        {
-            "name": "tunaabutbul/cloudflare-middleware",
-            "version": "v1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tunaabutbul/cloudflare-middleware.git",
-                "reference": "05a88cf070f041d501a2d8fc3c01bb66ffc63b15"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tunaabutbul/cloudflare-middleware/zipball/05a88cf070f041d501a2d8fc3c01bb66ffc63b15",
-                "reference": "05a88cf070f041d501a2d8fc3c01bb66ffc63b15",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "6.3.*",
-                "php": ">=5.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Tuna\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tuna Abutbul",
-                    "email": "tuna.abutbul+github@gmail.com"
-                }
-            ],
-            "description": "Cloudflare Middleware For Guzzle",
-            "keywords": [
-                "Guzzle",
-                "cloudflare",
-                "middleware"
-            ],
-            "time": "2018-02-07T09:18:26+00:00"
         }
     ],
     "packages-dev": [
@@ -2853,20 +2896,21 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "0df1908962e7a3071564e857d86874dad1ef204a"
+                "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/0df1908962e7a3071564e857d86874dad1ef204a",
-                "reference": "0df1908962e7a3071564e857d86874dad1ef204a",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/83e253c8e0be5b0257b881e1827274667c5c17a9",
+                "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3 || ^7.0"
+                "php": "^5.3.3 || ^7.0",
+                "symfony/polyfill-ctype": "^1.8"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.6",
@@ -2899,7 +2943,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2018-01-29T19:49:41+00:00"
+            "time": "2018-12-25T11:19:39+00:00"
         }
     ],
     "aliases": [],

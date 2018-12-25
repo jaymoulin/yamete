@@ -2,7 +2,7 @@
 
 namespace Yamete\Driver;
 
-use \Tuna\CloudflareMiddleware;
+use \GuzzleCloudflare\Middleware;
 
 class Hentai2read extends \Yamete\DriverAbstract
 {
@@ -36,7 +36,7 @@ class Hentai2read extends \Yamete\DriverAbstract
          * @var \GuzzleHttp\HandlerStack $oHandler
          */
         $oHandler = $oClient->getConfig('handler');
-        $oHandler->push(CloudflareMiddleware::create());
+        $oHandler->push(Middleware::create());
         return $oClient;
     }
 

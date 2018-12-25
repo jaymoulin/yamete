@@ -2,7 +2,7 @@
 
 namespace Yamete\Driver;
 
-use \Tuna\CloudflareMiddleware;
+use \GuzzleCloudflare\Middleware;
 
 class PorncomixOnline extends \Yamete\DriverAbstract
 {
@@ -34,7 +34,7 @@ class PorncomixOnline extends \Yamete\DriverAbstract
          * @var \GuzzleHttp\HandlerStack $oHandler
          */
         $oHandler = $oClient->getConfig('handler');
-        $oHandler->push(CloudflareMiddleware::create());
+        $oHandler->push(Middleware::create());
         return $oClient;
     }
 

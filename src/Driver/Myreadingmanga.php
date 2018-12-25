@@ -2,7 +2,7 @@
 
 namespace Yamete\Driver;
 
-use \Tuna\CloudflareMiddleware;
+use \GuzzleCloudflare\Middleware;
 
 class Myreadingmanga extends \Yamete\DriverAbstract
 {
@@ -46,7 +46,7 @@ class Myreadingmanga extends \Yamete\DriverAbstract
          * @var \GuzzleHttp\HandlerStack $oHandler
          */
         $oHandler = $oClient->getConfig('handler');
-        $oHandler->push(CloudflareMiddleware::create());
+        $oHandler->push(Middleware::create());
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $oPageList = $this->getDomParser()->load((string)$oRes->getBody())->find('.pagination a');
         $aReturn = $this->getImgListForBody((string)$oRes->getBody());
