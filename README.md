@@ -173,7 +173,6 @@ Here's is the list of supported sites for now:
  * chochox.com
  * lovehentaimanga.com
  * hentaibeast.com
- * hentai4me.net
  * doujin-th.com
  * hentaithai.com
  * doujins.com
