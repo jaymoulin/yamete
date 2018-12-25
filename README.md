@@ -58,12 +58,14 @@ Docker
 You can use Docker image to use this program easily without knowing code or installing PHP etc...
 
 ```
-docker run --rm -ti -v </path/to/downloads>:/root/downloads jaymoulin/yamete download [...]
+docker run --rm -ti -v </path/to/downloads>:/app/downloads -u $(id -u):$(id -g) jaymoulin/yamete download [...]
 ```
 
 see usage to complete *\[...\]*
 
 with *\</path/to/downloads>* the path where downloaded assets will be downloaded to.
+
+Note: Use the `-u $(id -u):$(id -g)` part for yamete to run as a specific user. It's recommanded to use static values (see: https://docs.docker.com/engine/reference/commandline/exec/#options)
 
 ### Build Docker Image
 
