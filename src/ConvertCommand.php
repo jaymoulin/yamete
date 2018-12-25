@@ -9,7 +9,7 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
 {
     protected function configure(): void
     {
-        $this->setName('convert')
+        $this->setName('converter')
             ->setDescription("Convert downloaded urls to PDF");
     }
 

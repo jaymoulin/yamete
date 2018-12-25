@@ -29,7 +29,10 @@
             "YameteTests\\": "tests"
         }
     },
-    "bin": ["download"],
+    "bin": [
+        "download",
+        "converter"
+    ],
     "scripts": {
         "phpunit": "phpunit",
         "phpcs": "phpcs src --standard=PSR2 --report-checkstyle=build/logs/checkstyle.xml",

@@ -8,3 +8,5 @@ phpunit.xml     export-ignore
 CONTRIBUTING.md export-ignore
 logo.png        export-ignore
 README.md       export-ignore
+/docker/        export-ignore
+manifest.yml    export-ignore
