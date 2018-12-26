@@ -27,7 +27,7 @@ class HentaiRead extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl . '1/1/');
         $aReturn = [];
         $i = 0;
-        $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('select.cbo_wpm_pag option'));
+        $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('select.cbo_wpm_pag option')) / 2;
         for ($iPage = 1; $iPage <= $iNbPages; $iPage++) {
             $oRes = $this->getClient()->request('GET', $this->sUrl . '1/' . $iPage . '/');
             /**
