@@ -22,19 +22,19 @@ publish:
 latest:
 	FULLVERSION=latest VERSION=${VERSION} make publish
 update: build-test-image
-	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php composer.phar update
-	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test rm -Rf composer.phar composerinstall.php .composer
+	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composer.phar update
+	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test rm -Rf composer.phar composerinstall.php .composer
 	docker rmi yamete:test
 build/test-image:
 	cp docker/Dockerfile Dockerfile
 	docker build -t yamete:test .
-	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O composerinstall.php -q
-	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php composerinstall.php -q --quiet
-	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php composer.phar install
+	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O composerinstall.php -q
+	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composerinstall.php -q --quiet
+	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composer.phar install
 	touch build/test-image
 test: build/test-image
-	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php -d max_execution_time=5000 vendor/bin/phpunit
+	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php -d max_execution_time=5000 vendor/bin/phpunit
 test-clean:
-	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test rm -Rf composer.phar composerinstall.php .composer
+	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test rm -Rf composer.phar composerinstall.php .composer
 	docker rmi yamete:test
 	rm build/test-image
