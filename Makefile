@@ -2,7 +2,7 @@ VERSION ?= 1.0.0
 CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 arm64v8 i386
-.PHONY: all build publish test build-test-image update latest
+.PHONY: all build publish test build-test-image update latest test-clean
 all: build publish latest
 qemu-arm-static:
 	cp /usr/bin/qemu-arm-static .
@@ -25,13 +25,16 @@ update: build-test-image
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php composer.phar update
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test rm -Rf composer.phar composerinstall.php .composer
 	docker rmi yamete:test
-build-test-image:
+build/test-image:
 	cp docker/Dockerfile Dockerfile
 	docker build -t yamete:test .
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O composerinstall.php -q
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php composerinstall.php -q --quiet
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php composer.phar install
-test: build-test-image
+	touch build/test-image
+test: build/test-image
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test php -d max_execution_time=5000 vendor/bin/phpunit
+test-clean:
 	docker run --rm --name yametest -ti -v ${PWD}:/root/ yamete:test rm -Rf composer.phar composerinstall.php .composer
 	docker rmi yamete:test
+	rm build/test-image
