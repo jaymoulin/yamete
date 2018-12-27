@@ -189,5 +189,6 @@ Here's is the list of supported sites for now:
  * hentai-archive.net
  * hentai-ita.net
  * sankakucomplex.com
+ * multporn.net
 
 You must pass the URL to the album for the program to download it!
