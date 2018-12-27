@@ -21,10 +21,11 @@ publish:
 	manifest-tool push from-spec manifest.yaml
 latest:
 	FULLVERSION=latest VERSION=${VERSION} make publish
-update: build-test-image
+update: build/test-image
 	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composer.phar update
 	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test rm -Rf composer.phar composerinstall.php .composer
 	docker rmi yamete:test
+	rm build/test-image
 build/test-image:
 	cp docker/Dockerfile Dockerfile
 	docker build -t yamete:test .
