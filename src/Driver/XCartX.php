@@ -32,7 +32,7 @@ class XCartX extends \Yamete\DriverAbstract
         $sBody = (string)$oRes->getBody();
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load($sBody)->find('.full-story a.highslide') as $oLink) {
+        foreach ($this->getDomParser()->load($sBody)->find('.full-text a.highslide') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
