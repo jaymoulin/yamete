@@ -8,9 +8,10 @@ ENV PATH="/app:$PATH"
 
 COPY . /app
 WORKDIR /app
-RUN apk add zlib-dev libzip-dev --update --no-cache && \
+RUN apk add zlib-dev libzip-dev libgd gd-dev libpng-dev --update --no-cache && \
 chmod go+wx /app && \
 docker-php-ext-install -j$(nproc) zip && \
+docker-php-ext-install -j$(nproc) gd && \
 apk add wget git --virtual .build-deps && \
 wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet && \
 php composer.phar install --no-dev -o && \
