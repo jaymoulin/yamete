@@ -42,7 +42,7 @@ class MultPornNet extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sFilename = $oImg->getAttribute('largeimageurl');
+            $sFilename = preg_replace('~\?.*$~', '', $oImg->getAttribute('largeimageurl'));
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;

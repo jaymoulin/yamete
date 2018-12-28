@@ -44,6 +44,7 @@ class MintManga extends \Yamete\DriverAbstract
                 $sJsonClean = implode(',', array_slice(explode(',', trim($aMatches['json'])), 0, -2));
                 foreach (explode('],[', $sJsonClean) as $sString) {
                     $sFilename = str_replace(['"', '\''], '', implode('', array_slice(explode(',', $sString), 1, 2)));
+                    $sFilename = preg_replace('~\?.*$~', '', $sFilename);
                     $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
                         . '-' . basename($sFilename);
                     $aReturn[$sBasename] = $sFilename;
