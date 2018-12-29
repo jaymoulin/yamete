@@ -171,7 +171,10 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
                 PHP_EOL . "<question>Downloading $sPath > $sFileName</question>",
                 OutputInterface::VERBOSITY_VERY_VERBOSE
             );
-            $oResource->download();
+            if ($oResource->download()->getStatusCode() != 200) {
+                $bSuccess = false;
+                $output->writeln("<error>Download error : $sPath</error>");
+            }
             $output->isVerbose() && $progress->advance();
         }
         if (!$bSuccess) {

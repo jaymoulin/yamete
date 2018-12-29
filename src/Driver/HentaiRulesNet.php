@@ -30,7 +30,7 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
         if (!$iNbPage) {
             $iNbPage = 1;
         }
-        $sBaseUrl = 'http://www.' . self::DOMAIN . '/galleries' . $this->aMatches['gallery'];
+        $sBaseUrl = 'https://www.' . self::DOMAIN . '/galleries' . $this->aMatches['gallery'];
         for ($page = 0; $page < $iNbPage; $page++) {
             $sUrl = $sBaseUrl . '/index.php?/category/' . $this->aMatches['album'] . '/start-' . $page . '00';
             foreach ($this->getDomParser()->loadFromUrl($sUrl)->find('.thumbnails li a') as $oLink) {
@@ -40,7 +40,7 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
                  */
                 $sUrl = $sBaseUrl . '/' . $oLink->getAttribute('href');
                 $oImg = $this->getDomParser()->loadFromUrl($sUrl)->find('#theImage img')[0];
-                $sFilename = $sBaseUrl . '/' . $oImg->getAttribute('src');
+                $sFilename = $sBaseUrl . '/' . $oImg->getAttribute('data-cfsrc');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
