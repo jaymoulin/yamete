@@ -36,8 +36,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int|null|void
-     * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
@@ -163,9 +162,9 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             $progress = new ProgressBar($output, count($oResult));
             $progress->start();
         }
-        $bSuccess = false;
+        $bSuccess = null;
         foreach ($oResult as $sFileName => $oResource) {
-            $bSuccess = true;
+            $bSuccess = is_null($bSuccess) ? true : $bSuccess;
             $sPath = $oResource->getUrl();
             $output->writeln(
                 PHP_EOL . "<question>Downloading $sPath > $sFileName</question>",
