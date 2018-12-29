@@ -16,7 +16,7 @@ class MultPornNet extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) .
-            ')/comics/(?<album>[^/]+)/?$~',
+            ')/[^/]+/(?<album>[^/]+)/?$~',
             $this->sUrl,
             $this->aMatches
         );
