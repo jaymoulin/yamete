@@ -47,7 +47,7 @@ class YaoiMangaOnline extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry-content noscript img') as $oImg) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry-content img') as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */

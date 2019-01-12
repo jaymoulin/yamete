@@ -10,10 +10,10 @@ class YaoiMangaOnline extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://yaoimangaonline.com/shingeki-no-kyojin-dj-shitataru-ase-no-itteki-made-omty-makino-jp/';
+        $url = 'https://yaoimangaonline.com/shingeki-no-kyoujin-dj-shounen-kakkyuu-by-hpk-kurosuke-aa-eng/';
         $driver = new \Yamete\Driver\YaoiMangaOnline();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(34, count($driver->getDownloadables()));
+        $this->assertEquals(44, count($driver->getDownloadables()));
     }
 }
