@@ -14,6 +14,6 @@ class MintManga extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MintManga();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(864, count($driver->getDownloadables()));
+        $this->assertEquals(882, count($driver->getDownloadables()));
     }
 }

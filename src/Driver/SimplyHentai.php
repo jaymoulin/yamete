@@ -22,7 +22,8 @@ class SimplyHentai extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $oRes = $this->getClient()->request('GET', 'http://' . $this->aMatches['domain'] . '/all-pages');
+        $sUrl = 'https://' . $this->aMatches['domain'] . '/' . $this->aMatches['album'] . '/all-pages';
+        $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.image-preview') as $oLink) {
@@ -30,10 +31,14 @@ class SimplyHentai extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $oImg = $this->getDomParser()
-                ->load((string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody())
-                ->find('.next-link picture img');
-            $sFilename = $oImg->getAttribute('src');
+            $sContent = (string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody();
+            $sRegExp = '~<div data-react-class="album/Read" data-react-props="([^"]+)">~';
+            if (!preg_match($sRegExp, $sContent, $aMatches)) {
+                continue;
+            }
+            $sProps = html_entity_decode($aMatches[1]);
+            $aJson = \GuzzleHttp\json_decode($sProps, true);
+            $sFilename = $aJson['image']['sizes']['full'];
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR .
                 str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
