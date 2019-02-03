@@ -102,7 +102,6 @@ Here's is the list of supported sites for now:
  * xyzcomics.com
  * hentaifantasy.it
  * hentaivn.net
- * hentaimanga.info
  * yaoimangaonline.com
  * vercomicsporno.com
  * hitomi.la
