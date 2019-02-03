@@ -1,6 +1,6 @@
 FROM php:7.3-alpine
 COPY qemu-*-static /usr/bin/
-ARG VERSION=1.2.1
+ARG VERSION=1.2.2
 LABEL maintainer="Jay MOULIN <jaymoulin@gmail.com> <https://twitter.com/MoulinJay>"
 LABEL version=${VERSION}
 
