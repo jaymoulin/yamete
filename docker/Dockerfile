@@ -1,4 +1,4 @@
-FROM php:7.3-alpine
+FROM php:7.3-alpine3.8
 COPY qemu-*-static /usr/bin/
 ARG VERSION=1.2.2
 LABEL maintainer="Jay MOULIN <jaymoulin@gmail.com> <https://twitter.com/MoulinJay>"
