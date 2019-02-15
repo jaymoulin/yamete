@@ -54,11 +54,12 @@ class HentaiFromHell extends \Yamete\DriverAbstract
             $sLink = $oLink->getAttribute('href');
             preg_match('~^https?://(?<domain>[^/]+)~', $sLink, $aDomains);
             $oRes = $this->getClient()->request('GET', $sLink);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.image-container img') as $oImg) {
+            $sRegexp = '~<meta property="og:image" content="(?<file>[^"]+)"/>~';
+            if (preg_match($sRegexp, (string)$oRes->getBody(), $aMatches)) {
                 /**
                  * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
-                $sLink = $oImg->getAttribute('src');
+                $sLink = $aMatches['file'];
                 $bHasHost = preg_match('~^https?://(?<domain>[^/]+)~', $sLink);
                 $sFilename = $bHasHost ? $sLink : 'http://' . $sLink;
                 $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
