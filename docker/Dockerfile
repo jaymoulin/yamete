@@ -1,4 +1,4 @@
-FROM php:7.3-alpine3.8
+FROM php:7.3-alpine
 COPY qemu-*-static /usr/bin/
 ARG VERSION=1.2.2
 LABEL maintainer="Jay MOULIN <jaymoulin@gmail.com> <https://twitter.com/MoulinJay>"
@@ -13,7 +13,7 @@ chmod go+wx /app && \
 docker-php-ext-install -j$(nproc) zip && \
 docker-php-ext-install -j$(nproc) gd && \
 apk add wget git --virtual .build-deps && \
-wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet && \
+wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O - -q | php -- --quiet && \
 php composer.phar install --no-dev -o && \
 rm composer.phar && \
 apk del wget --purge .build-deps

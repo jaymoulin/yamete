@@ -6,3 +6,4 @@
 /manifest.yaml
 /.composer
 /composerinstall.php
+/.phpunit.result.cache
