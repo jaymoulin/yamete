@@ -25,21 +25,18 @@ class VercomicsPorno extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        $bSkipFirst = true;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#comicimg p img') as $oImg) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.comicimg p img') as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('data-lazy-src');
-            if ($bSkipFirst || empty($sFilename)) {
-                $bSkipFirst = false;
+            if ($oImg->getAttribute('class') != '' || $oImg->getAttribute('title') != '' || empty($sFilename)) {
                 continue;
             }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
-            $aReturn[$sBasename] = $sFilename;
+            $aReturn[$sBasename] = strpos($sFilename, 'http') === 0 ? $sFilename : 'https:' . $sFilename;
         }
-        array_pop($aReturn);
         return $aReturn;
     }
 
