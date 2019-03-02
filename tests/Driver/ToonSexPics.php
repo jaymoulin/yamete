@@ -8,12 +8,12 @@ class ToonSexPics extends \PHPUnit\Framework\TestCase
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function testDownload()
+    public function testDownloadSerie()
     {
-        $url = 'http://www.toonsex.pics/galleries/cumming-inside-mommy-s-hole-vol-2-hentai';
+        $url = 'http://www.toonsex.pics/galleries/cumming-inside-mommy-s-hole-vol-2-hentai-part-2';
         $driver = new \Yamete\Driver\ToonSexPics();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(387, count($driver->getDownloadables()));
+        $this->assertEquals(129, count($driver->getDownloadables()));
     }
 }

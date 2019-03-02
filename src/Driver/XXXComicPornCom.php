@@ -42,11 +42,16 @@ if (!class_exists(XXXComicPornCom::class)) {
             $i = 0;
             $oOptions = $this->getDomParser()->load($sBody)->find('.part-select option');
             if (count($oOptions)) {
+                $aParsed = [];
                 foreach ($oOptions as $oOption) {
                     /**
                      * @var \PHPHtmlParser\Dom\AbstractNode $oOption
                      */
                     $sUrl = 'http://' . $this->getDomain() . $oOption->getAttribute('value');
+                    if (isset($aParsed[$sUrl])) {
+                        continue;
+                    }
+                    $aParsed[$sUrl] = true;
                     $sCurrentBody = (string)$this->getClient()->request('GET', $sUrl)->getBody();
                     list($oCursor, $i) = $this->getForBody($sCurrentBody, $i);
                     $aReturn->append($oCursor);

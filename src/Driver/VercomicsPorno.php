@@ -26,7 +26,7 @@ class VercomicsPorno extends \Yamete\DriverAbstract
         $aReturn = [];
         $i = 0;
         $bSkipFirst = true;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#posts .col-md-12 p img') as $oImg) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#comicimg p img') as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
