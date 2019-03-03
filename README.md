@@ -208,5 +208,6 @@ Here's is the list of supported sites for now:
  * hentaihand.com
  * multicomics.net
  * comicspornohentai.com
+ * poringa.com
 
 You must pass the URL to the album for the program to download it!
