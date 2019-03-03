@@ -213,5 +213,6 @@ Here's is the list of supported sites for now:
  * cartoonporn.eu
  * sexcomic.org
  * hentaicloud.com
+ * nude-moon.me
 
 You must pass the URL to the album for the program to download it!
