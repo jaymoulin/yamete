@@ -205,5 +205,6 @@ Here's is the list of supported sites for now:
  * theyiffgallery.com
  * hdporncomics.com
  * xcartx.com
+ * hentaihand.com
 
 You must pass the URL to the album for the program to download it!
