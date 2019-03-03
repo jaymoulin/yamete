@@ -216,5 +216,6 @@ Here's is the list of supported sites for now:
  * nude-moon.me
  * gntai.xyz
  * hentaigratis.biz
+ * doujinhentai.net
 
 You must pass the URL to the album for the program to download it!
