@@ -16,4 +16,16 @@ class PorncomixOnline extends \PHPUnit\Framework\TestCase
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(22, count($driver->getDownloadables()));
     }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function testDownloadNew()
+    {
+        $url = 'https://www.porncomixonline.net/the-earth-chapter-1/';
+        $driver = new \Yamete\Driver\PorncomixOnline();
+        $driver->setUrl($url);
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(31, count($driver->getDownloadables()));
+    }
 }

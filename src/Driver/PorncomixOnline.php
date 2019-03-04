@@ -46,12 +46,23 @@ class PorncomixOnline extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
+        $bFound = false;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.unite-gallery img') as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('data-image');
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
+            $bFound = true;
+        }
+        if (!$bFound) {
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('figure.dgwt-jg-item a') as $oLink) {
+                /**
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+                 */
+                $sFilename = explode('?', $oLink->getAttribute('href'))[0];
+                $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
+            }
         }
         return $aReturn;
     }
