@@ -33,8 +33,13 @@ class NHentai extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $iTotal = count($this->getDomParser()->load((string)$oRes->getBody())->find('a.gallerythumb'));
+        $oImgBase = $this->getDomParser()->load((string)$oRes->getBody())->find('#cover img')[0];
+        /**
+         * @var \PHPHtmlParser\Dom\AbstractNode $oImgBase
+         */
+        $sBasePath = $oImgBase->getAttribute('data-src');
         for ($i = 1; $i <= $iTotal; $i++) {
-            $sFilename = 'https://i.' . self::DOMAIN . '/galleries/' . $this->aMatches['album'] . '/' . $i . '.jpg';
+            $sFilename = strtr($sBasePath, ['//t.' => '//i.', 'cover' => $i]);
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT) . '-'
                 . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
