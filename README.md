@@ -226,5 +226,6 @@ Here's is the list of supported sites for now:
  * verpornocomic.com
  * hentai-corp.com
  * myhentaigallery.com
+ * auto-wedding.ru
 
 You must pass the URL to the album for the program to download it!
