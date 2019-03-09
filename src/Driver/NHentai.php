@@ -40,6 +40,10 @@ class NHentai extends \Yamete\DriverAbstract
         $sBasePath = $oImgBase->getAttribute('data-src');
         for ($i = 1; $i <= $iTotal; $i++) {
             $sFilename = strtr($sBasePath, ['//t.' => '//i.', 'cover' => $i]);
+            $oRes = $this->getClient()->request('GET', $sFilename, ["http_errors" => false]);
+            if ($oRes->getStatusCode() == 404) {
+                $sFilename = str_replace('.jpg', '.png', $sFilename);
+            }
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT) . '-'
                 . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
