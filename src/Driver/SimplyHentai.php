@@ -10,7 +10,7 @@ class SimplyHentai extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(?<domain>[^.]+\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/(?<album>[^?]+))~',
+            '~^https?://(?<domain>[^.]+\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . ')/(?<album>[^?]+)(?!all\-pages)~',
             $this->sUrl,
             $this->aMatches
         );
@@ -22,7 +22,8 @@ class SimplyHentai extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $sUrl = 'https://' . $this->aMatches['domain'] . '/' . $this->aMatches['album'] . '/all-pages';
+        $sUrl = 'https://' . $this->aMatches['domain'] . '/' . $this->aMatches['album'] .
+            ($this->aMatches['album']{strlen($this->aMatches['album']) - 1} == '/' ? '' : '/') . 'all-pages';
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $i = 0;
