@@ -234,5 +234,6 @@ Here's is the list of supported sites for now:
  * megapornpics.com
  * porkyfap.org
  * girlscv.com
+ * pornhugo.com
 
 You must pass the URL to the album for the program to download it!
