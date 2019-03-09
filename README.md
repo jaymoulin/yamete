@@ -12,6 +12,17 @@ Yamete - Hentai downloader in PHP CLI - Easy PHP Site downloader
 
 This image allows you easily download specific assets of a site
 
+But why?
+--------
+
+You should not ask why I made it but why is it so popular?
+
+If we trust 2019 or 2018 Pornhub stats (https://www.pornhub.com/insights/women-of-the-world, https://www.pornhub.com/insights/2018-year-in-review),
+Hentai is the top 3 search for both women and men and growing.
+
+At the beginning, this repo purpose was to download resources from web sites with PHP... It just took a strange turn... (trust me dude, it's named `EZ site downloader` for a reason)
+BUT you can still use it for its former purpose by coding your own drivers! (`-d` parameter exists for this purpose)
+
 Usage
 -----
 
