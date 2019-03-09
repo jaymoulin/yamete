@@ -235,5 +235,6 @@ Here's is the list of supported sites for now:
  * porkyfap.org
  * girlscv.com
  * pornhugo.com
+ * goodcomix.tk
 
 You must pass the URL to the album for the program to download it!
