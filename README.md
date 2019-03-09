@@ -230,5 +230,10 @@ Here's is the list of supported sites for now:
  * pornocomics.net
  * hdhentaicomics.com
  * cartoonporncomics.info
+<<<<<<< HEAD
+=======
+ * hentai-free.org
+ * hentaischool.com
+>>>>>>> 9233096... added hentaischool.com
 
 You must pass the URL to the album for the program to download it!
