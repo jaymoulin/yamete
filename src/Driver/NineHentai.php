@@ -16,7 +16,7 @@ class NineHentai extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) .
-            ')/g/(?<album>[0-9]+)/$~',
+            ')/g/(?<album>[0-9]+)/~',
             $this->sUrl,
             $this->aMatches
         );
