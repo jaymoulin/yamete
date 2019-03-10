@@ -16,7 +16,7 @@ class SankakuComplex extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^https?://www.' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) .
-            '/[0-9]{4}/[0-9]{2}/[0-9]{2}/(?<album>[^/]+)/$~',
+            '/[0-9]{4}/[0-9]{2}/[0-9]{2}/(?<album>[^/]+)/~',
             $this->sUrl,
             $this->aMatches
         );
