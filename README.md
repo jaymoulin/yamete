@@ -250,5 +250,6 @@ Here's is the list of supported sites for now:
  * porncomics.me
  * sexcomix.me
  * hentaipornpics.net
+ * comicsporn.net
 
 You must pass the URL to the album for the program to download it!
