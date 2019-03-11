@@ -246,5 +246,6 @@ Here's is the list of supported sites for now:
  * naughtyhentai.com
  * upcomics.org
  * tnaflix.com
+ * hentaicomics.pro
 
 You must pass the URL to the album for the program to download it!
