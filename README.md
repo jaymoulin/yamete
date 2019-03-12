@@ -253,5 +253,6 @@ Here's is the list of supported sites for now:
  * comicsporn.net
  * cartoonporn.pics
  * mangaporno.pro
+ * superhq.net
 
 You must pass the URL to the album for the program to download it!
