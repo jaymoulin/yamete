@@ -14,6 +14,6 @@ class HentaiHere extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\HentaiHere();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(184, count($driver->getDownloadables()));
+        $this->assertEquals(92, count($driver->getDownloadables()));
     }
 }
