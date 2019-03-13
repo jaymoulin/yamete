@@ -255,5 +255,6 @@ Here's is the list of supported sites for now:
  * mangaporno.pro
  * superhq.net
  * mangapark.net
+ * animephile.com
 
 You must pass the URL to the album for the program to download it!
