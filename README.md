@@ -216,7 +216,6 @@ Here's is the list of supported sites for now:
  * gntai.xyz
  * hentaigratis.biz
  * doujinhentai.net
- * hqdesexo.com
  * hentai24h.org
  * hentaiworld.fr
  * vercomicsporno.xxx
