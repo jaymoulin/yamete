@@ -255,5 +255,6 @@ Here's is the list of supported sites for now:
  * mangapark.net
  * animephile.com
  * yuri-ism.net
+ * mangazuki.me
 
 You must pass the URL to the album for the program to download it!
