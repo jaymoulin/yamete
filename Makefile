@@ -2,7 +2,7 @@ VERSION ?= 1.2.2
 CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 arm64v8 i386
-.PHONY: all build publish test build-test-image update latest test-clean
+.PHONY: all build publish test update latest test-clean
 all: build publish latest
 qemu-arm-static:
 	cp /usr/bin/qemu-arm-static .
