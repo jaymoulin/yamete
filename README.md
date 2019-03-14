@@ -256,5 +256,6 @@ Here's is the list of supported sites for now:
  * animephile.com
  * yuri-ism.net
  * mangazuki.me
+ * 9mangaplus.com
 
 You must pass the URL to the album for the program to download it!
