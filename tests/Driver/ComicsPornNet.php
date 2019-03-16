@@ -14,6 +14,6 @@ class ComicsPornNet extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\ComicsPornNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(132, count($driver->getDownloadables()));
+        $this->assertEquals(147, count($driver->getDownloadables()));
     }
 }
