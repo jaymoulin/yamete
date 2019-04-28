@@ -26,7 +26,7 @@ class VercomicsPorno extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\VercomicsPorno();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(8, count($driver->getDownloadables()));
+        $this->assertEquals(24, count($driver->getDownloadables()));
     }
 
     /**
@@ -62,7 +62,7 @@ class VercomicsPorno extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\VercomicsPorno();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(41, count($driver->getDownloadables()));
+        $this->assertEquals(43, count($driver->getDownloadables()));
     }
 
     /**

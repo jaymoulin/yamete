@@ -36,7 +36,7 @@ class Hitomi extends \Yamete\DriverAbstract
             if ($bFirst) {
                 $bFirst = false;
                 $oRes = $this->getClient()->request('GET', $sFilename, ["http_errors" => false]);
-                if ($oRes->getStatusCode() === 403) {
+                if ($oRes->getStatusCode() === 403 or $oRes->getStatusCode() === 404) {
                     $bCdnType = $bCdnType == 'a' ? 'b' : 'a';
                     $sFilename = preg_replace('~https://[ab]~', 'https://' . $bCdnType, $sFilename);
                 }
