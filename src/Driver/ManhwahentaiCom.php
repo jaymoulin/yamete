@@ -31,7 +31,10 @@ class ManhwahentaiCom extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('li.wp-manga-chapter a') as $oLink) {
+        $oIterator = $this->getDomParser()
+            ->load((string)$oRes->getBody(), ['cleanupInput' => false])
+            ->find('li.wp-manga-chapter a');
+        foreach ($oIterator as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
