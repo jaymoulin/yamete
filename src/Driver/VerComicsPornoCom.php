@@ -23,6 +23,7 @@ class VerComicsPornoCom extends \Yamete\DriverAbstract
     public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
+        var_dump((string)$oRes->getBody());die;
         $aReturn = [];
         $i = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.wp-content img') as $oImg) {
