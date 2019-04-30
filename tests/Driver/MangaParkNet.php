@@ -26,7 +26,7 @@ class MangaParkNet extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MangaParkNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(705, count($driver->getDownloadables()));
+        $this->assertEquals(887, count($driver->getDownloadables()));
     }
 
     /**
