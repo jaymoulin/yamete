@@ -190,7 +190,6 @@ Here's is the list of supported sites for now:
  * hentaimangaly.com
  * 9hentai.com
  * mintmanga.com
- * mangafap.com
  * hentai.cafe
  * hentai-archive.net
  * hentai-ita.net
