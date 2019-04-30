@@ -207,7 +207,6 @@ Here's is the list of supported sites for now:
  * comicspornohentai.com
  * poringa.com
  * ver-comics-porno.com
- * cartoonporn.eu
  * sexcomic.org
  * hentaicloud.com
  * nude-moon.me
