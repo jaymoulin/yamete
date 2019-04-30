@@ -26,13 +26,13 @@ class HentaiCloud extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $iIndex = 0;
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('div.thumb-overlay a') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('div.thumbnail a') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $sLink = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.photo-holder img') as $oImg) {
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail img') as $oImg) {
                 /**
                  * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
