@@ -224,7 +224,7 @@ Here's is the list of supported sites for now:
  * verpornocomic.com
  * hentai-corp.com
  * myhentaigallery.com
- * auto-wedding.ru
+ * nsotennis.ru
  * pornocomics.net
  * hdhentaicomics.com
  * cartoonporncomics.info

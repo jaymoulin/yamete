@@ -2,9 +2,9 @@
 
 namespace Yamete\Driver;
 
-class AutoWedding extends \Yamete\DriverAbstract
+class NSOTennis extends \Yamete\DriverAbstract
 {
-    const DOMAIN = 'auto-wedding.ru';
+    const DOMAIN = 'nsotennis.ru';
     private $aMatches = [];
 
     protected function getDomain(): string
@@ -16,7 +16,7 @@ class AutoWedding extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
-            ')/(?<category>[^/]+)/(?<album>[^/?]+)/~',
+            ')/listmangahentai\.html/(?<category>[^/]+)/(?<album>[^/?]+)/~',
             $this->sUrl,
             $this->aMatches
         );
@@ -28,7 +28,7 @@ class AutoWedding extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $sUrl = "http://{$this->getDomain()}/{$this->aMatches['category']}/{$this->aMatches['album']}/";
+        $sUrl = "https://{$this->getDomain()}/listmangahentai.html/{$this->aMatches['category']}/{$this->aMatches['album']}/";
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $i = 0;
@@ -41,7 +41,7 @@ class AutoWedding extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\InnerNode $oSelect
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sChapter = trim($oLink->getAttribute('href'));
+            $sChapter = str_replace('/listmangahentai.html/ ', 'https:', trim($oLink->getAttribute('href')));
             $oRes = $this->getClient()->request('GET', $sChapter);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('select') as $oSelect);
             foreach ($oSelect->getChildren() as $oChapterLink) {
