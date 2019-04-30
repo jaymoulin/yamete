@@ -171,7 +171,6 @@ Here's is the list of supported sites for now:
  * hentai-high-school.com
  * hotanimeporno.com
  * sexualhentai.net
- * fullmetal-hentai.com
  * mangerotica.com
  * xcomics4you.com
  * hcomicbook.com
