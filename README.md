@@ -168,7 +168,6 @@ Here's is the list of supported sites for now:
  * animesexypics.com
  * hotsexhentai.com
  * x-hentaiporn.com
- * hentai-high-school.com
  * hotanimeporno.com
  * sexualhentai.net
  * mangerotica.com
