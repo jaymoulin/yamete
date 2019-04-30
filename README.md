@@ -120,7 +120,6 @@ Here's is the list of supported sites for now:
  * comicsmanics.com
  * hentaifr.net
  * myreadingmanga.info
- * gassummit.ru
  * hentai4manga.com
  * erolord.com
  * pururin.io
