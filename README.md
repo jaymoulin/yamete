@@ -232,7 +232,6 @@ Here's is the list of supported sites for now:
  * hentai-id.tv
  * superhentais.com
  * rajahentai.com
- * naughtyhentai.com
  * upcomics.org
  * tnaflix.com
  * hentaicomics.pro
