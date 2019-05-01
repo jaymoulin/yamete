@@ -170,7 +170,6 @@ Here's is the list of supported sites for now:
  * x-hentaiporn.com
  * hotanimeporno.com
  * sexualhentai.net
- * mangerotica.com
  * hcomicbook.com
  * hentairules.net
  * thehentaicomics.com
