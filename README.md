@@ -105,7 +105,7 @@ Here's is the list of supported sites for now:
  * hentaiporns.net
  * luscious.net
  * myhentaicomics.com
- * nxt-comics.com
+ * nxt-comics.net
  * porncomix.info
  * porncomixonline.net
  * porncomix.site

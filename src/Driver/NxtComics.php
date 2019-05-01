@@ -5,12 +5,12 @@ namespace Yamete\Driver;
 class NxtComics extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'nxt-comics.com';
+    const DOMAIN = 'nxt-comics.net';
 
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/(?<album>[^/]+)/$~',
+            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/(?<category>[^/]+)/(?<album>[^/]+)/$~',
             $this->sUrl,
             $this->aMatches
         );
@@ -25,16 +25,16 @@ class NxtComics extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry-content > p > a > img') as $oImg) {
+        $sRule = '.entry-content figure.dgwt-jg-item a';
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sRule) as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
-            $sFilename = str_replace('small', 'big', $oImg->getAttribute('src'));
+            $sFilename = $oLink->getAttribute('href');
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT) . '-'
                 . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
         }
-        array_pop($aReturn);
         return $aReturn;
     }
 
