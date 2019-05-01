@@ -171,7 +171,6 @@ Here's is the list of supported sites for now:
  * hotanimeporno.com
  * sexualhentai.net
  * mangerotica.com
- * xcomics4you.com
  * hcomicbook.com
  * hentairules.net
  * thehentaicomics.com
