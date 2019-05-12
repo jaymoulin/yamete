@@ -52,4 +52,9 @@ class Hitomi extends \Yamete\DriverAbstract
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
+
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    {
+        return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
+    }
 }
