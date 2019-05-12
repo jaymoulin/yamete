@@ -1,4 +1,4 @@
-VERSION ?= 1.3.1
+VERSION ?= 1.3.2
 CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 arm64v8 i386
@@ -24,8 +24,6 @@ latest:
 update: build/test-image
 	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composer.phar update
 	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test rm -Rf composer.phar composerinstall.php .composer
-	docker rmi yamete:test
-	rm build/test-image
 build/test-image:
 	mkdir -p build
 	cp docker/Dockerfile Dockerfile
