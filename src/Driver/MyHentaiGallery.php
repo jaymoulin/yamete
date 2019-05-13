@@ -30,6 +30,10 @@ class MyHentaiGallery extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = str_replace('/thumbnail/', '/original/', $oImg->getAttribute('src'));
+            $iPos = strpos($sFilename, '?');
+            if ($iPos) {
+                $sFilename = substr($sFilename, 0, $iPos);
+            }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
