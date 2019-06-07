@@ -14,6 +14,6 @@ class YuriIsmNet extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\YuriIsmNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1124, count($driver->getDownloadables()));
+        $this->assertEquals(1147, count($driver->getDownloadables()));
     }
 }
