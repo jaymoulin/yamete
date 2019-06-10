@@ -35,6 +35,15 @@ class ComicsPornoHentai extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
+    /**
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    {
+        return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
+    }
+
     private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
