@@ -2,10 +2,10 @@
 
 namespace Yamete\Driver;
 
-class MultiComics extends \Yamete\DriverAbstract
+class ThreeXPornComicsNet extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'multicomics.net';
+    const DOMAIN = '3xporncomics.net';
 
     protected function getDomain(): string
     {
@@ -16,7 +16,7 @@ class MultiComics extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) .
-            ')/online/(?<album>[^/]+)/?~',
+            ')/(?<category>[^/]+)/(?<album>[^/]+)/?~',
             $this->sUrl,
             $this->aMatches
         );
