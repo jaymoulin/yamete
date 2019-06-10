@@ -25,7 +25,10 @@ class Hentaiporns extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery-icon a') as $oImg) {
+        $oCollection = $this->getDomParser()
+            ->load((string)$oRes->getBody(), ['cleanupInput' => false])
+            ->find('.gallery-icon a');
+        foreach ($oCollection as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
