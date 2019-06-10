@@ -10,29 +10,34 @@ class HentaiHand extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/.*/(?<album>[^/?]+)/$~',
+            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/comic/(?<album>[0-9]+)/?$~',
             $this->sUrl,
             $this->aMatches
         );
     }
 
     /**
-     * @return array
+     * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.singlegalleryimagecontainer img') as $oLink) {
-            /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             */
-            if (empty($oLink->getAttribute('data-lazy-src'))) {
-                continue;
+        $i = 0;
+        $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('a.gallerythumb'));
+        for ($iPage = 1; $iPage <= $iNbPages; $iPage++) {
+            $oRes = $this->getClient()
+                ->request('GET', 'https://' . implode('/', [self::DOMAIN, $this->aMatches['album'], $iPage]));
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#image-container .item img') as $oImg) {
+                /**
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 */
+                $sFilename = $oImg->getAttribute('src');
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                    . '-' . basename($sFilename);
+                $aReturn[$sBasename] = $sFilename;
             }
-            $sFilename = $oLink->getAttribute('data-lazy-src');;
-            $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
         return $aReturn;
     }

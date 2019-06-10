@@ -10,10 +10,10 @@ class HentaiHand extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://hentaihand.com/porn-comics/cumming-inside-mommys-hole-vol-2-hentai/';
+        $url = 'https://hentaihand.com/comic/49972';
         $driver = new \Yamete\Driver\HentaiHand();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(129, count($driver->getDownloadables()));
+        $this->assertEquals(20, count($driver->getDownloadables()));
     }
 }
