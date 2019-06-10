@@ -228,7 +228,6 @@ Here's is the list of supported sites for now:
  * porncomix.re
  * freesexcomics.pro
  * manhwahentai.com
- * hentaiyaro.com
  * hentai-id.tv
  * superhentais.com
  * rajahentai.com
