@@ -14,6 +14,6 @@ class SuperHentaisCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\SuperHentaisCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(3, count($driver->getDownloadables()));
+        $this->assertEquals(7, count($driver->getDownloadables()));
     }
 }

@@ -14,6 +14,6 @@ class HentaiHand extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\HentaiHand();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(20, count($driver->getDownloadables()));
+        $this->assertEquals(40, count($driver->getDownloadables()));
     }
 }

@@ -14,6 +14,6 @@ class ManhwahentaiCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\ManhwahentaiCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(643, count($driver->getDownloadables()));
+        $this->assertEquals(693, count($driver->getDownloadables()));
     }
 }
