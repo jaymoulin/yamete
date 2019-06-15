@@ -22,8 +22,12 @@ publish:
 latest:
 	FULLVERSION=latest VERSION=${VERSION} make publish
 update: build/test-image
-	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composer.phar update
-	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test rm -Rf composer.phar composerinstall.php .composer
+	image=`docker images yamete:test | wc -l`; \
+	if [ "$${image}" -gt 1 ]; then \
+		docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composer.phar update;\
+	else\
+		rm build/test-image;\
+	fi
 build/test-image:
 	mkdir -p build
 	cp docker/Dockerfile Dockerfile
@@ -33,7 +37,12 @@ build/test-image:
 	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composer.phar install
 	touch build/test-image
 test: build/test-image
-	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php -d max_execution_time=5000 vendor/bin/phpunit
+	image=`docker images yamete:test | wc -l`; \
+	if [ "$${image}" -gt 1 ]; then \
+		docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php -d max_execution_time=5000 vendor/bin/phpunit;\
+	else\
+		rm build/test-image;\
+	fi
 test-clean:
 	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test rm -Rf composer.phar composerinstall.php .composer
 	docker rmi yamete:test
