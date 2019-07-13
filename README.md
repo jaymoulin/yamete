@@ -247,5 +247,6 @@ Here's is the list of supported sites for now:
  * mangazuki.me
  * 9mangaplus.com
  * doujinshi.rocks
+ * readhent.ai
 
 You must pass the URL to the album for the program to download it!
