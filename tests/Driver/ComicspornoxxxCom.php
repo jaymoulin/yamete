@@ -3,7 +3,7 @@
 namespace YameteTests\Driver;
 
 
-class Comicspornoxxx extends \PHPUnit\Framework\TestCase
+class ComicspornoxxxCom extends \PHPUnit\Framework\TestCase
 {
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -11,7 +11,7 @@ class Comicspornoxxx extends \PHPUnit\Framework\TestCase
     public function testDownload()
     {
         $url = 'https://comicspornoxxx.com/kaa-san-koibito-seikatsu-2/';
-        $driver = new \Yamete\Driver\Comicspornoxxx();
+        $driver = new \Yamete\Driver\ComicspornoxxxCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(12, count($driver->getDownloadables()));

@@ -249,5 +249,6 @@ Here's is the list of supported sites for now:
  * doujinshi.rocks
  * readhent.ai
  * tmohentai.com
+ * comicsporno.xxx
 
 You must pass the URL to the album for the program to download it!
