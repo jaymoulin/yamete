@@ -29,10 +29,12 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
             /** @var \SplFileInfo $oFilename */
             if ($oFilename->isFile()) {
                 $sFilename = $oFilename->getRealPath();
-                $aList[dirname($sFilename)][] = $sFilename;
+                $sFolderName = basename(dirname($sFilename));
+                $aList[$sFolderName][] = $sFilename;
             }
         }
         foreach ($aList as $sDirName => $aFolder) {
+            sort($aFolder);
             $this->pdf($aFolder, $output);
         }
     }
@@ -72,7 +74,6 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
             $sMessage = $eException->getMessage();
             $output->writeln("<error>PDF errored! : $sMessage</error>");
             ini_set('memory_limit', $iMemoryLimit);
-            throw $eException;
         }
         ini_set('memory_limit', $iMemoryLimit);
     }
