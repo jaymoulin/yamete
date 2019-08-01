@@ -19,26 +19,6 @@ class YaoiMangaOnline extends \Yamete\DriverAbstract
     }
 
     /**
-     * @param array $aOptions
-     * @return \GuzzleHttp\Client
-     */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
-    {
-        $oClient = parent::getClient(
-            [
-                'cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__)),
-                'headers' => ['User-Agent' => self::USER_AGENT],
-            ]
-        );
-        /**
-         * @var \GuzzleHttp\HandlerStack $oHandler
-         */
-        $oHandler = $oClient->getConfig('handler');
-        $oHandler->push(Middleware::create());
-        return $oClient;
-    }
-
-    /**
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -58,6 +38,28 @@ class YaoiMangaOnline extends \Yamete\DriverAbstract
         }
         return $aReturn;
     }
+
+
+    /**
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    {
+        $oClient = parent::getClient(
+            [
+                'cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__)),
+                'headers' => ['User-Agent' => self::USER_AGENT],
+            ]
+        );
+        /**
+         * @var \GuzzleHttp\HandlerStack $oHandler
+         */
+        $oHandler = $oClient->getConfig('handler');
+        $oHandler->push(Middleware::create());
+        return $oClient;
+    }
+
 
     private function getFolder(): string
     {

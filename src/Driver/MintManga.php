@@ -32,7 +32,8 @@ class MintManga extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sBaseUrl . '/' . $this->aMatches['album'] . '/vol1/1?mtr=1');
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#chapterSelectorSelect option') as $oLink) {
+        $sSelector = '#chapterSelectorSelect option';
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg

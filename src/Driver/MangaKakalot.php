@@ -52,7 +52,8 @@ class MangaKakalot extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(count($this->aReturn) + 1, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR
+                . str_pad(count($this->aReturn) + 1, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $this->aReturn[$sBasename] = $sFilename;
         }

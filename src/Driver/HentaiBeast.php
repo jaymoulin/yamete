@@ -33,7 +33,8 @@ class HentaiBeast extends \Yamete\DriverAbstract
             $iNbPages = (int)$oLink->innerHtml() ?: $iNbPages;
         }
         for ($iPage = 1; $iPage <= ($iNbPages ?: 1); $iPage++) {
-            $oRes = $this->getClient()->request('GET', $this->sUrl . ($iPage > 1 ? '/start-' . (($iPage - 1) * 10) : ''));
+            $oRes = $this->getClient()
+                ->request('GET', $this->sUrl . ($iPage > 1 ? '/start-' . (($iPage - 1) * 10) : ''));
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gthumb a') as $oLink) {
                 /**
                  * @var \PHPHtmlParser\Dom\AbstractNode $oLink

@@ -25,7 +25,7 @@ class Comicsmanics extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.single-post img.size-full') as $oImg) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.post-texto img.size-full') as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */

@@ -28,7 +28,8 @@ class NSOTennis extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $sUrl = "https://{$this->getDomain()}/listmangahentai.html/{$this->aMatches['category']}/{$this->aMatches['album']}/";
+        $sUrl = "https://{$this->getDomain()}"
+            . "/listmangahentai.html/{$this->aMatches['category']}/{$this->aMatches['album']}/";
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $i = 0;
@@ -43,7 +44,8 @@ class NSOTennis extends \Yamete\DriverAbstract
              */
             $sChapter = str_replace('/listmangahentai.html/ ', 'https:', trim($oLink->getAttribute('href')));
             $oRes = $this->getClient()->request('GET', $sChapter);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('select') as $oSelect);
+            $aItems = $this->getDomParser()->load((string)$oRes->getBody())->find('select');
+            $oSelect = $aItems[count($aItems) - 1];
             foreach ($oSelect->getChildren() as $oChapterLink) {
                 $sPageLink = trim($oChapterLink->getAttribute('value'));
                 $oRes = $this->getClient()->request('GET', $sPageLink);

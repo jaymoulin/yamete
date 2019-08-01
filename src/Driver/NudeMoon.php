@@ -9,11 +9,9 @@ class NudeMoon extends \Yamete\DriverAbstract
 
     public function canHandle(): bool
     {
-        return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . ')/(?<albumId>[0-9]+)-online-(?<album>.+)\.html$~',
-            $this->sUrl,
-            $this->aMatches
-        );
+        $sMatch = '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-'])
+            . ')/(?<albumId>[0-9]+)-online-(?<album>.+)\.html$~';
+        return (bool)preg_match($sMatch, $this->sUrl, $this->aMatches);
     }
 
     /**

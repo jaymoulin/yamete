@@ -53,7 +53,7 @@ class PDF extends \FPDF
      * @param string $sFileName
      * @throws \Exception
      */
-    function fullSizeImage(string $sFileName): void
+    private function fullSizeImage(string $sFileName): void
     {
         list($width, $height) = $this->resizeToFit($sFileName);
         try {

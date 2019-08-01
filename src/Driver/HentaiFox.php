@@ -2,7 +2,6 @@
 
 namespace Yamete\Driver;
 
-
 class HentaiFox extends \Yamete\DriverAbstract
 {
     private $aMatches = [];

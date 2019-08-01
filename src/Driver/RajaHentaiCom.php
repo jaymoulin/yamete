@@ -9,11 +9,9 @@ class RajaHentaiCom extends \Yamete\DriverAbstract
 
     public function canHandle(): bool
     {
-        return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/index/__xtblog_entry/(?<albumId>[0-9]+)\-(?<album>[^?]+)~',
-            $this->sUrl,
-            $this->aMatches
-        );
+        $sMatch = '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.'])
+            . ')/index/__xtblog_entry/(?<albumId>[0-9]+)\-(?<album>[^?]+)~';
+        return (bool)preg_match($sMatch, $this->sUrl, $this->aMatches);
     }
 
     /**

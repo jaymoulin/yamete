@@ -30,7 +30,7 @@ class VerpornocomicCom extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
-            if ($oImg->getAttribute('class') !== NULL) {
+            if ($oImg->getAttribute('class') !== null) {
                 continue;
             }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)

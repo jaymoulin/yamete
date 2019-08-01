@@ -4,6 +4,9 @@ namespace Yamete;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use \RecursiveIteratorIterator;
+use \RecursiveDirectoryIterator;
+use \ArrayIterator;
 
 class ConvertCommand extends \Symfony\Component\Console\Command\Command
 {
@@ -24,7 +27,7 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
         ini_set('display_errors', $output->isDebug() ? '1' : '0');
         $output->writeln("<comment>Init conversion</comment>");
         $aList = [];
-        $oIterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->getDirectory()));
+        $oIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->getDirectory()));
         foreach ($oIterator as $oFilename) {
             /** @var \SplFileInfo $oFilename */
             if ($oFilename->isFile()) {
@@ -33,7 +36,7 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
                 $aList[$sFolderName][] = $sFilename;
             }
         }
-        foreach ($aList as $sDirName => $aFolder) {
+        foreach ($aList as $aFolder) {
             sort($aFolder);
             $this->pdf($aFolder, $output);
         }
@@ -61,7 +64,7 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
             $output->writeln('<comment>Converting to PDF</comment>');
             $pdf = new PDF();
             $pdf->setMargins(0, 0);
-            $pdf->createFromList(new \ArrayIterator(array_flip($aList)));
+            $pdf->createFromList(new ArrayIterator(array_flip($aList)));
             $baseName = null;
             foreach ($aList as $sFileName) {
                 $baseName = dirname($sFileName);

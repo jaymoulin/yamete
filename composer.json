@@ -37,7 +37,7 @@
         "phpunit": "phpunit",
         "phpcs": "phpcs src --standard=PSR2 --report-checkstyle=build/logs/checkstyle.xml",
         "phploc": "phploc src --log-csv build/logs/phploc.csv",
-        "phpmd": "phpmd src xml codesize,controversial,cleancode,design,naming,unusedcode --reportfile build/logs/checkstyle.xml",
+        "phpmd": "phpmd src xml codesize,controversial,cleancode,design,naming,unusedcode --reportfile build/logs/mess.xml",
         "phpcpd": "phpcpd src --log-pmd=build/logs/cpd.xml"
     },
     "license": "MIT",

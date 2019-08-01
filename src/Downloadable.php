@@ -31,6 +31,7 @@ class Downloadable
      */
     public function download(): \Psr\Http\Message\ResponseInterface
     {
-        return $this->oDriver->getClient()->request('GET', $this->sUrl, ['sink' => $this->sPath, 'http_errors' => false]);
+        return $this->oDriver->getClient()
+            ->request('GET', $this->sUrl, ['sink' => $this->sPath, 'http_errors' => false]);
     }
 }

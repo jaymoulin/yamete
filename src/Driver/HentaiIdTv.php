@@ -24,11 +24,9 @@ class HentaiIdTv extends \Yamete\DriverAbstract
                 $this->sUrl = $aMatch['url'];
             }
         }
-        return (bool)preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . ')/manga\.php\?id=(?<album>[0-9]+)~',
-            $this->sUrl,
-            $this->aMatches
-        );
+        $sMatch = '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-'])
+            . ')/manga\.php\?id=(?<album>[0-9]+)~';
+        return (bool)preg_match($sMatch, $this->sUrl, $this->aMatches);
     }
 
     public function getDomain(): string
@@ -46,7 +44,8 @@ class HentaiIdTv extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sBaseUrl);
         $aReturn = [];
         $i = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#inlineFormCustomSelect option') as $oLink) {
+        $sSelector = '#inlineFormCustomSelect option';
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg

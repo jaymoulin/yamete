@@ -25,10 +25,12 @@ class LoveHentaiManga extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('.weatimages_pages_navigator a')) / 2;
+        $sPageSelector = '.weatimages_pages_navigator a';
+        $sSelector = 'img.weatimages_thumb_border';
+        $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find($sPageSelector)) / 2;
         for ($iPage = 1; $iPage <= ($iNbPages ?: 1); $iPage++) {
             $oRes = $this->getClient()->request('GET', $this->sUrl . '?page=' . $iPage);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.weatimages_thumb_border') as $oImg) {
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oImg) {
                 /**
                  * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */

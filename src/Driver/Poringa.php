@@ -9,11 +9,9 @@ class Poringa extends \Yamete\DriverAbstract
 
     public function canHandle(): bool
     {
-        return (bool)preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/posts/hentai/(?<album_id>[^/?]+)/(?<album>[^.]+).html$~',
-            $this->sUrl,
-            $this->aMatches
-        );
+        $sMatch = '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.'])
+            . ')/posts/hentai/(?<album_id>[^/?]+)/(?<album>[^.]+).html$~';
+        return (bool)preg_match($sMatch, $this->sUrl, $this->aMatches);
     }
 
     /**

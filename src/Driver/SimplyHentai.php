@@ -9,11 +9,9 @@ class SimplyHentai extends \Yamete\DriverAbstract
 
     public function canHandle(): bool
     {
-        return (bool)preg_match(
-            '~^https?://(?<domain>[^.]+\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . ')/(?<album>[^?]+)(?!all\-pages)~',
-            $this->sUrl,
-            $this->aMatches
-        );
+        $sMatch = '~^https?://(?<domain>[^.]+\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-'])
+            . ')/(?<album>[^?]+)(?!all\-pages)~';
+        return (bool)preg_match($sMatch, $this->sUrl, $this->aMatches);
     }
 
     /**

@@ -24,7 +24,12 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             ->addOption(self::LIST_FILE, 'l', InputOption::VALUE_OPTIONAL, 'List file with multiple urls')
             ->addOption(self::PDF, 'p', InputOption::VALUE_NONE, 'Optional to create a PDF')
             ->addOption(self::ZIP, 'z', InputOption::VALUE_NONE, 'Optional to create a zip file')
-            ->addOption(self::ERRORS, 'e', InputOption::VALUE_OPTIONAL, 'Optional file path to create artifacts error urls')
+            ->addOption(
+                self::ERRORS,
+                'e',
+                InputOption::VALUE_OPTIONAL,
+                'Optional file path to create artifacts error urls'
+            )
             ->addOption(
                 self::DRIVERS,
                 'd',

@@ -30,9 +30,7 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
         for ($chapter = 1; $chapter <= $nbChapters; $chapter++) {
             $this->aMatches['chapter'] = $chapter;
             $oRes = $this->getClient()->request('GET', $this->sUrl . $chapter . '/1/');
-            $nbPages = count(
-                    $this->getDomParser()->load((string)$oRes->getBody())->find('.nav_pag option')
-                ) / 2;
+            $nbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('.nav_pag option')) / 2;
             for ($page = 1; $page <= $nbPages; $page++) {
                 $oRes = $this->getClient()->request('GET', $this->sUrl . $chapter . '/' . $page . '/');
                 /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */

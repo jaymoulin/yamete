@@ -9,11 +9,9 @@ class SuperHentaisCom extends \Yamete\DriverAbstract
 
     public function canHandle(): bool
     {
-        return (bool)preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<category>[^/]+)/(?<album>[^/]+)/(?<albumId>[0-9]+)$~',
-            $this->sUrl,
-            $this->aMatches
-        );
+        $sMatch = '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.'])
+            . ')/(?<category>[^/]+)/(?<album>[^/]+)/(?<albumId>[0-9]+)$~';
+        return (bool)preg_match($sMatch, $this->sUrl, $this->aMatches);
     }
 
     /**

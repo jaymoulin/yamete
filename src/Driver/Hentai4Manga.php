@@ -37,8 +37,8 @@ if (!class_exists(Hentai4Manga::class)) {
             $oRes = $this->getClient()->request('GET', $sMainUrl);
             $aReturn = [];
             $iNbPage = count(
-                    $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('#page div')
-                ) - 2;
+                $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('#page div')
+            ) - 2;
             $this->parse($this->sUrl, $aReturn);
             if ($iNbPage > 1) {
                 for ($page = 2; $page <= $iNbPage; $page++) {
@@ -51,7 +51,8 @@ if (!class_exists(Hentai4Manga::class)) {
 
         private function parse(string $sUrl, array &$aReturn): void
         {
-            foreach ($this->getDomParser()->loadFromUrl($sUrl, ['cleanupInput' => false])->find('#thumblist a') as $oLink) {
+            $sSelector = '#thumblist a';
+            foreach ($this->getDomParser()->loadFromUrl($sUrl, ['cleanupInput' => false])->find($sSelector) as $oLink) {
                 /**
                  * @var \PHPHtmlParser\Dom\AbstractNode $oLink
                  * @var \PHPHtmlParser\Dom\AbstractNode $oImg

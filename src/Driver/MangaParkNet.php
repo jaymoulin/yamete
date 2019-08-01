@@ -35,7 +35,9 @@ class MangaParkNet extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $i = 0;
-        $oChapters = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('ul.chapter a.ch');
+        $oChapters = $this->getDomParser()
+            ->load((string)$oRes->getBody(), ['cleanupInput' => false])
+            ->find('ul.chapter a.ch');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         foreach ($aChapters as $oLink) {
@@ -44,7 +46,7 @@ class MangaParkNet extends \Yamete\DriverAbstract
             if (!preg_match('~var _load_pages = (?<json>[^;]+)~', (string)$oRes->getBody(), $aMatch)) {
                 continue;
             }
-            foreach(\GuzzleHttp\json_decode($aMatch['json'], true) as $aPage) {
+            foreach (\GuzzleHttp\json_decode($aMatch['json'], true) as $aPage) {
                 $sFilename = $aPage['u'];
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

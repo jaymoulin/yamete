@@ -36,7 +36,10 @@ class Hentai24h extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sUrl = "https://" . implode('/', [$this->getDomain(), $this->aMatches['album'], 'chap-' . $iChap . '.html']);
+            $sUrl = "https://" . implode(
+                '/',
+                [$this->getDomain(), $this->aMatches['album'], 'chap-' . $iChap . '.html']
+            );
             $oRes = $this->getClient()->request('GET', $sUrl);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.content-child p img') as $oImg) {
                 $sFilename = $oImg->getAttribute('src');

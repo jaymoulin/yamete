@@ -166,8 +166,6 @@ Here's is the list of supported sites for now:
  * cartoonpornpicture.com
  * cartoonxxxcomix.com
  * animesexypics.com
- * hotsexhentai.com
- * x-hentaiporn.com
  * hotanimeporno.com
  * sexualhentai.net
  * hcomicbook.com
@@ -227,7 +225,6 @@ Here's is the list of supported sites for now:
  * goodcomix.tk
  * porncomix.re
  * freesexcomics.pro
- * manhwahentai.com
  * hentai-id.tv
  * superhentais.com
  * rajahentai.com
