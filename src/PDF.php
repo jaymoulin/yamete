@@ -2,6 +2,9 @@
 
 namespace Yamete;
 
+use \Exception;
+use \Iterator;
+
 class PDF extends \FPDF
 {
 
@@ -26,7 +29,7 @@ class PDF extends \FPDF
     {
         list($width, $height) = getimagesize($imgFilename);
         if (!$width || !$height) {
-            throw new \Exception('Not an image file');
+            throw new Exception('Not an image file');
         }
         $width = $this->pixelsToMM($width);
         $height = $this->pixelsToMM($height);
@@ -37,10 +40,10 @@ class PDF extends \FPDF
     }
 
     /**
-     * @param \Iterator $oList
-     * @throws \Exception
+     * @param Iterator $oList
+     * @throws Exception
      */
-    public function createFromList(\Iterator $oList): void
+    public function createFromList(Iterator $oList): void
     {
         foreach ($oList as $sFilename => $sResource) {
             list($width, $height) = getimagesize($sFilename);
@@ -59,13 +62,12 @@ class PDF extends \FPDF
         try {
             $this->Image($sFileName, 0, 0, $height, $width);
         } catch (\Exception $e) {
-            if (strpos($e->getMessage(), 'Not a PNG file') !== false) {
-                $sNewFilename = str_replace('.png', '.jpg', $sFileName);
-                rename($sFileName, $sNewFilename);
-                $this->Image($sNewFilename, 0, 0, $height, $width);
-            } else {
+            if (strpos($e->getMessage(), 'Not a PNG file') === false) {
                 throw $e;
             }
+            $sNewFilename = str_replace('.png', '.jpg', $sFileName);
+            rename($sFileName, $sNewFilename);
+            $this->Image($sNewFilename, 0, 0, $height, $width);
         }
     }
 }

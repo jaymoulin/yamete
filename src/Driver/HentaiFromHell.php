@@ -2,7 +2,8 @@
 
 namespace Yamete\Driver;
 
-use GuzzleCloudflare\Middleware;
+use \GuzzleCloudflare\Middleware;
+use \GuzzleHttp\Cookie\FileCookieJar;
 
 class HentaiFromHell extends \Yamete\DriverAbstract
 {
@@ -26,7 +27,7 @@ class HentaiFromHell extends \Yamete\DriverAbstract
     {
         $oClient = parent::getClient(
             [
-                'cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__)),
+                'cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__)),
                 'headers' => ['User-Agent' => self::USER_AGENT],
             ]
         );
@@ -52,7 +53,6 @@ class HentaiFromHell extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $sLink = $oLink->getAttribute('href');
-            preg_match('~^https?://(?<domain>[^/]+)~', $sLink, $aDomains);
             $oRes = $this->getClient()->request('GET', $sLink);
             $sRegexp = '~<meta property="og:image" content="(?<file>[^"]+)"/>~';
             if (preg_match($sRegexp, (string)$oRes->getBody(), $aMatches)) {

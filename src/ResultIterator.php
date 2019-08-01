@@ -2,6 +2,8 @@
 
 namespace Yamete;
 
+use \ArrayIterator;
+
 /**
  * Class ResultIterator
  * @package Yamete
@@ -15,7 +17,7 @@ class ResultIterator implements \Iterator, \Countable
     public function __construct(DriverInterface $oDriver)
     {
         $this->oDriver = $oDriver;
-        $this->oIterator = new \ArrayIterator($oDriver->getDownloadables());
+        $this->oIterator = new ArrayIterator($oDriver->getDownloadables());
     }
 
     public function current(): Downloadable

@@ -6,6 +6,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
+use \Exception;
+use \DomainException;
+use \ZipArchive;
 
 class DownloadCommand extends \Symfony\Component\Console\Command\Command
 {
@@ -55,7 +58,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
         } elseif ($input->getOption(self::URL)) {
             $aUrl[] = $input->getOption(self::URL);
         } else {
-            throw new \Exception('Required parameter : ' . implode(' or ', [self::URL, self::LIST_FILE]));
+            throw new Exception('Required parameter : ' . implode(' or ', [self::URL, self::LIST_FILE]));
         }
         $oParser = new Parser();
         if ($input->getOption(self::DRIVERS)) {
@@ -76,7 +79,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
                 $oResult = $oParser->parse($sUrl);
                 $iNbUrl > 1 && $output->isVerbose() && $progress->advance();
                 if (!$oResult) {
-                    throw new \DomainException(
+                    throw new DomainException(
                         "Unable to parse $sUrl." . PHP_EOL . "Consider creating an issue on " .
                         "https://github.com/jaymoulin/yamete/issues/"
                     );
@@ -85,7 +88,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
                 $output->writeln("<info>Download $sUrl success!</info>");
                 !($input->getOption(self::ZIP) && !$input->getOption(self::PDF)) ?: $this->zip($oResult, $output);
                 !$input->getOption(self::PDF) ?: $this->pdf($oResult, $output);
-            } catch (\Exception $eException) {
+            } catch (Exception $eException) {
                 is_resource($fArtifact) && fputs($fArtifact, $sUrl . PHP_EOL);
                 if ($iNbUrl == 1) {
                     throw $eException;
@@ -104,14 +107,14 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
     private function zip(ResultIterator $oResult, OutputInterface $output): void
     {
         $output->writeln('<comment>Creating zip archive</comment>');
-        $zip = new \ZipArchive();
+        $zip = new ZipArchive();
         $isOpened = false;
         $baseName = null;
         foreach ($oResult as $sFileName => $sResource) {
             $baseName = dirname($sFileName);
             if (!$isOpened) {
                 $isOpened = true;
-                $zip->open($baseName . '.zip', \ZipArchive::CREATE);
+                $zip->open($baseName . '.zip', ZipArchive::CREATE);
             }
             $zip->addFile($sFileName);
         }
@@ -144,7 +147,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             rmdir($baseName);
             $pdf->Output('F', $baseName . '.pdf');
             $output->writeln("<comment>PDF created $baseName.pdf</comment>");
-        } catch (\Exception $eException) {
+        } catch (Exception $eException) {
             $sMessage = $eException->getMessage();
             $output->writeln("<error>PDF errored! : $sMessage</error>");
             ini_set('memory_limit', $iMemoryLimit);
@@ -182,7 +185,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             $output->isVerbose() && $progress->advance();
         }
         if (!$bSuccess) {
-            throw new \Exception(
+            throw new Exception(
                 "No result on download url" . PHP_EOL .
                 "consider creating an issue https://github.com/jaymoulin/yamete/issues/"
             );

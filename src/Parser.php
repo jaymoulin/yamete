@@ -2,6 +2,10 @@
 
 namespace Yamete;
 
+use \UnexpectedValueException;
+use \crodas\ClassInfo\ClassInfo;
+use \RuntimeException;
+
 class Parser
 {
     /**
@@ -23,16 +27,16 @@ class Parser
     {
         substr($sDirectory, -1) != '/' && $sDirectory .= '/';
         if (!is_dir($sDirectory)) {
-            throw new \UnexpectedValueException($sDirectory . ' is not a valid directory');
+            throw new UnexpectedValueException($sDirectory . ' is not a valid directory');
         }
         foreach (glob($sDirectory . '*.php') as $sDriver) {
-            $aClasses = (new \crodas\ClassInfo\ClassInfo($sDriver))->getClasses();
+            $aClasses = (new ClassInfo($sDriver))->getClasses();
             if (count($aClasses)) {
                 $sClass = (string)current($aClasses);
                 include $sDriver;
                 $oDriver = new $sClass;
                 if (!$oDriver instanceof DriverInterface) {
-                    throw new \RuntimeException("Driver $sClass ($sDriver) must implements " . DriverInterface::class);
+                    throw new RuntimeException("Driver $sClass ($sDriver) must implements " . DriverInterface::class);
                 }
                 $this->aDrivers[] = $oDriver;
             }

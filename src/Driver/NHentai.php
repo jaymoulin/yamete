@@ -2,7 +2,8 @@
 
 namespace Yamete\Driver;
 
-use GuzzleRetry\GuzzleRetryMiddleware;
+use \GuzzleRetry\GuzzleRetryMiddleware;
+use \GuzzleHttp\Cookie\FileCookieJar;
 
 class NHentai extends \Yamete\DriverAbstract
 {
@@ -24,7 +25,7 @@ class NHentai extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $oClient = $this->getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
+        $oClient = $this->getClient(['cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__))]);
         /**
          * @var \GuzzleHttp\HandlerStack $oHandler
          */

@@ -3,6 +3,7 @@
 namespace Yamete\Driver;
 
 use \GuzzleCloudflare\Middleware;
+use \GuzzleHttp\Cookie\FileCookieJar;
 
 class YaoiMangaOnline extends \Yamete\DriverAbstract
 {
@@ -48,7 +49,7 @@ class YaoiMangaOnline extends \Yamete\DriverAbstract
     {
         $oClient = parent::getClient(
             [
-                'cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__)),
+                'cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__)),
                 'headers' => ['User-Agent' => self::USER_AGENT],
             ]
         );

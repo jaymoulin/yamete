@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use \AppendIterator;
+
 if (!class_exists(XXXComicPornCom::class)) {
     class XXXComicPornCom extends \Yamete\DriverAbstract
     {
@@ -37,7 +39,7 @@ if (!class_exists(XXXComicPornCom::class)) {
             $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;
             $oRes = $this->getClient()->request('GET', $this->sUrl);
             $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
-            $aReturn = new \AppendIterator();
+            $aReturn = new AppendIterator();
             $sBody = (string)$oRes->getBody();
             $index = 0;
             $oOptions = $this->getDomParser()->load($sBody)->find('.part-select option');
@@ -80,7 +82,7 @@ if (!class_exists(XXXComicPornCom::class)) {
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }
-            return [new \ArrayIterator($aReturn), $iIndex];
+            return [new ArrayIterator($aReturn), $iIndex];
         }
 
         private function getFolder(): string

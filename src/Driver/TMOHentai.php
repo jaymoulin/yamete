@@ -3,6 +3,7 @@
 namespace Yamete\Driver;
 
 use \GuzzleCloudflare\Middleware;
+use \GuzzleHttp\Cookie\FileCookieJar;
 
 class TMOHentai extends \Yamete\DriverAbstract
 {
@@ -31,7 +32,7 @@ class TMOHentai extends \Yamete\DriverAbstract
     {
         $oClient = parent::getClient(
             [
-                'cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__)),
+                'cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__)),
                 'headers' => ['User-Agent' => self::USER_AGENT],
             ]
         );

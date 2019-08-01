@@ -3,6 +3,7 @@
 namespace Yamete\Driver;
 
 use \GuzzleCloudflare\Middleware;
+use \GuzzleHttp\Cookie\FileCookieJar;
 
 class Myreadingmanga extends \Yamete\DriverAbstract
 {
@@ -41,7 +42,7 @@ class Myreadingmanga extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $oClient = $this->getClient(['cookies' => new \GuzzleHttp\Cookie\FileCookieJar(tempnam('/tmp', __CLASS__))]);
+        $oClient = $this->getClient(['cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__))]);
         /**
          * @var \GuzzleHttp\HandlerStack $oHandler
          */

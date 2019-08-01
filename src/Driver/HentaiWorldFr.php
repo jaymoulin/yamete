@@ -2,6 +2,9 @@
 
 namespace Yamete\Driver;
 
+use \AppendIterator;
+use \ArrayIterator;
+
 class HentaiWorldFr extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -32,7 +35,7 @@ class HentaiWorldFr extends \Yamete\DriverAbstract
             '/',
             ['www.' . $this->getDomain(), 'Doujins', explode('/', $this->aMatches['album'])[0]]
         ) . '/';
-        return iterator_to_array($this->getForUrl($sUrl, new \AppendIterator()));
+        return iterator_to_array($this->getForUrl($sUrl, new AppendIterator()));
     }
 
     /**
@@ -42,7 +45,7 @@ class HentaiWorldFr extends \Yamete\DriverAbstract
      * @return \Iterator
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private function getForUrl($sUrl, \AppendIterator $oAppend, $iIndex = 0): \Iterator
+    private function getForUrl($sUrl, AppendIterator $oAppend, $iIndex = 0): \Iterator
     {
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
@@ -63,7 +66,7 @@ class HentaiWorldFr extends \Yamete\DriverAbstract
                 $this->getForUrl($sFilename, $oAppend, $iIndex);
             }
         }
-        $oAppend->append(new \ArrayIterator($aReturn));
+        $oAppend->append(new ArrayIterator($aReturn));
         return $oAppend;
     }
 
