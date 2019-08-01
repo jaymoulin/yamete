@@ -24,7 +24,7 @@ class Hitomi extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', str_replace('/galleries/', '/reader/', $this->sUrl));
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $bCdnType = ($this->aMatches['album'] % 2 ? 'b' : 'a');
         $bFirst = true;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.img-url') as $oImg) {
@@ -41,7 +41,7 @@ class Hitomi extends \Yamete\DriverAbstract
                     $sFilename = preg_replace('~https://[ab]~', 'https://' . $bCdnType, $sFilename);
                 }
             }
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

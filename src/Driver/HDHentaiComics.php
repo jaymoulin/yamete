@@ -24,13 +24,13 @@ class HDHentaiComics extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $oImgs = $this->getDomParser()->load((string)$oRes->getBody())->find('.my-gallery figure img');
         foreach ($oImgs as $oImg) {
             /* @var \PHPHtmlParser\Dom\AbstractNode $oImg */
             $sFilename = strtr($oImg->getAttribute('data-src'), ['/thumbs/' => '/images/']);
             $sFilename{strrpos($sFilename, '-')} = '/';
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

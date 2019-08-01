@@ -24,7 +24,7 @@ class SimplyHentai extends \Yamete\DriverAbstract
             ($this->aMatches['album']{strlen($this->aMatches['album']) - 1} == '/' ? '' : '/') . 'all-pages';
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.image-preview') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
@@ -39,7 +39,7 @@ class SimplyHentai extends \Yamete\DriverAbstract
             $aJson = \GuzzleHttp\json_decode($sProps, true);
             $sFilename = $aJson['image']['sizes']['full'];
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR .
-                str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
+                str_pad($index++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
         }
         return $aReturn;

@@ -32,7 +32,7 @@ class NSOTennis extends \Yamete\DriverAbstract
             . "/listmangahentai.html/{$this->aMatches['category']}/{$this->aMatches['album']}/";
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $aChapters = iterator_to_array($this->getDomParser()->load((string)$oRes->getBody())->find('a.readchap'));
         krsort($aChapters);
         foreach ($aChapters as $oLink) {
@@ -51,7 +51,7 @@ class NSOTennis extends \Yamete\DriverAbstract
                 $oRes = $this->getClient()->request('GET', $sPageLink);
                 $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#con img')[0];
                 $sFilename = trim($oImg->getAttribute('src'));
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

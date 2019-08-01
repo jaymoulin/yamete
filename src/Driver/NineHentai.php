@@ -38,9 +38,9 @@ class NineHentai extends \Yamete\DriverAbstract
         if ($aJson['status'] !== true) {
             return [];
         }
-        for ($i = 1; $i <= $aJson['results']['total_page']; $i++) {
-            $sFilename = $aJson['results']['image_server'] . $this->aMatches['album'] . '/' . $i . '.jpg';
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT)
+        for ($index = 1; $index <= $aJson['results']['total_page']; $index++) {
+            $sFilename = $aJson['results']['image_server'] . $this->aMatches['album'] . '/' . $index . '.jpg';
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

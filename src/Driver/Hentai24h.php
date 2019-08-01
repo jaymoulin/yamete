@@ -30,7 +30,7 @@ class Hentai24h extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $iNbChap = count($this->getDomParser()->load((string)$oRes->getBody())->find('.chapter-nav a.btn-success')) / 2;
         for ($iChap = 1; $iChap <= $iNbChap; $iChap++) {
             /**
@@ -43,7 +43,7 @@ class Hentai24h extends \Yamete\DriverAbstract
             $oRes = $this->getClient()->request('GET', $sUrl);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.content-child p img') as $oImg) {
                 $sFilename = $oImg->getAttribute('src');
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

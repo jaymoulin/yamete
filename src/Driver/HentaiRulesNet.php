@@ -25,7 +25,7 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $iNbPage = count($this->getDomParser()->load((string)$oRes->getBody())->find('.navigationBar > a')) + 1;
         if (!$iNbPage) {
             $iNbPage = 1;
@@ -41,7 +41,7 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
                 $sUrl = $sBaseUrl . '/' . $oLink->getAttribute('href');
                 $oImg = $this->getDomParser()->loadFromUrl($sUrl)->find('#theImage img')[0];
                 $sFilename = $sBaseUrl . '/' . $oImg->getAttribute('data-cfsrc');
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

@@ -24,7 +24,7 @@ class HBrowse extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', 'https://www.' . self::DOMAIN . '/' . $this->aMatches['album']);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $sAccessor = '#main .listTable .listMiddle a';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sAccessor) as $oLink) { //chapters
             /**
@@ -44,7 +44,7 @@ class HBrowse extends \Yamete\DriverAbstract
                 $sFilename = preg_match('~^https?://~', $sFilename)
                     ? $sFilename
                     : 'https://www.' . self::DOMAIN . $sFilename;
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 4, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 4, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

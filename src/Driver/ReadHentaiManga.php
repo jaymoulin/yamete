@@ -25,7 +25,7 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
         $this->sUrl = 'http://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $this->sUrl . '1/1/');
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $nbChapters = count($this->getDomParser()->load((string)$oRes->getBody())->find('.nav_chp option'));
         for ($chapter = 1; $chapter <= $nbChapters; $chapter++) {
             $this->aMatches['chapter'] = $chapter;
@@ -36,7 +36,7 @@ class ReadHentaiManga extends \Yamete\DriverAbstract
                 /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
                 $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#main_img')[0];
                 $sFilename = $this->decodeUrl($oImg->getAttribute('src'));
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

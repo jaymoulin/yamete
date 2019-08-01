@@ -24,7 +24,7 @@ class HentaiVN extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $bIsNoChapterFormat = (bool)preg_match('~[0-9]+-[0-9]+-.+~', $this->aMatches['album']);
         $oList = $bIsNoChapterFormat
             ? [$this->sUrl]
@@ -44,7 +44,7 @@ class HentaiVN extends \Yamete\DriverAbstract
                 $iPos = strpos($oImg->getAttribute('src'), '?');
                 $sFilename = substr($oImg->getAttribute('src'), 0, $iPos ? $iPos : strlen($oImg->getAttribute('src')));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . $iChapters . DIRECTORY_SEPARATOR
-                    . str_pad($i++, 5, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
+                    . str_pad($index++, 5, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }
             --$iChapters;

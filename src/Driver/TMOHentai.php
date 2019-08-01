@@ -52,7 +52,7 @@ class TMOHentai extends \Yamete\DriverAbstract
         $this->sUrl = "https://www.{$this->getDomain()}/contents/{$this->aMatches['album']}";
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.panel-body .well a') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
@@ -62,7 +62,7 @@ class TMOHentai extends \Yamete\DriverAbstract
             $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('img.content-image')[0];
 
             $sFilename = "https://www.{$this->getDomain()}{$oImg->getAttribute('data-original')}";
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

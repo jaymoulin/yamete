@@ -33,8 +33,8 @@ if (!class_exists(ThreeDSexToonsNet::class)) {
             $oRes = $this->getClient()->request('GET', $sUrl);
             $aReturn = [];
             $iNbImg = count($this->getDomParser()->load((string)$oRes->getBody())->find('#gallery2 a'));
-            for ($i = 1; $i <= $iNbImg; $i++) {
-                $sFilename = $sUrl . str_pad($i, 2, '0', STR_PAD_LEFT) . '.jpg';
+            for ($index = 1; $index <= $iNbImg; $index++) {
+                $sFilename = $sUrl . str_pad($index, 2, '0', STR_PAD_LEFT) . '.jpg';
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

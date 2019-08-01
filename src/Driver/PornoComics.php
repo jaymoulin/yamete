@@ -24,11 +24,11 @@ class PornoComics extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $sRegExp = '~<img class="alignnone" .+?src="(?<filename>[^"]+)">~';
         if (preg_match_all($sRegExp, (string)$oRes->getBody(), $aImgs)) {
             foreach ($aImgs['filename'] as $sFilename) {
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

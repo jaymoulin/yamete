@@ -24,14 +24,14 @@ class NxtComics extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $sRule = '.entry-content figure.dgwt-jg-item a';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sRule) as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
             $sFilename = $oLink->getAttribute('href');
-            $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT) . '-'
+            $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT) . '-'
                 . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
         }

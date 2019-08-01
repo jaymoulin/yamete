@@ -26,7 +26,7 @@ class HentaiHere extends \Yamete\DriverAbstract
         $aReturn = [];
         $oRes = $this->getClient()->request('GET', $this->sUrl . '/1/1/');
         $iNbChapter = count($this->getDomParser()->load((string)$oRes->getBody())->find('.dropdown ul.text-left li'));
-        $i = 0;
+        $index = 0;
         for ($iChapter = 1; $iChapter <= $iNbChapter; $iChapter++) {
             $oRes = $this->getClient()->request('GET', $this->sUrl . '/' . $iChapter . '/1/');
             $sRegExp = '~<a href="https://' . self::DOMAIN . '/report/(?<chapterName>[^"]+)">~';
@@ -38,7 +38,7 @@ class HentaiHere extends \Yamete\DriverAbstract
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.item img') as $oThumb) {
                 /* @var \PHPHtmlParser\Dom\AbstractNode $oThumb */
                 $sFilename = strtr($oThumb->getAttribute('src'), ['/thumbnails' => '', 'tmb' => '']);
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

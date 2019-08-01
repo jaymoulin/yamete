@@ -30,7 +30,7 @@ class MangazukiMe extends \Yamete\DriverAbstract
         $this->sUrl = 'https://' . self::DOMAIN . "/manga/{$this->aMatches['album']}/";
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('.wp-manga-chapter a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
@@ -38,7 +38,7 @@ class MangazukiMe extends \Yamete\DriverAbstract
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.wp-manga-chapter-img') as $oImg) {
                 $sFilename = $oImg->getAttribute('src');
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

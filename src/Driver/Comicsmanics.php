@@ -24,7 +24,7 @@ class Comicsmanics extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.post-texto img.size-full') as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
@@ -33,17 +33,17 @@ class Comicsmanics extends \Yamete\DriverAbstract
             $sFilename = preg_match('~^https?://~', $sFilename)
                 ? str_replace('https://', 'http://', $sFilename)
                 : 'http://www.' . self::DOMAIN . $sFilename;
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }
-        if (!$i) {
+        if (!$index) {
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.size-large') as $oImg) {
                 /**
                  * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sFilename = 'http://www.' . self::DOMAIN . $oImg->getAttribute('src');
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

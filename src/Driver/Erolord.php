@@ -28,12 +28,12 @@ class Erolord extends \Yamete\DriverAbstract
             return [];
         }
         $iAlbumId = $this->aMatches['album'];
-        for ($i = 1; $i <= $aMatches[1]; $i++) {
-            $sUrl = 'http://' . self::DOMAIN . "/view.php?g=$i&d=$iAlbumId";
+        for ($index = 1; $index <= $aMatches[1]; $index++) {
+            $sUrl = 'http://' . self::DOMAIN . "/view.php?g=$index&d=$iAlbumId";
             /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
             $oImg = $this->getDomParser()->loadFromUrl($sUrl)->find('.imghref img')[0];
             $sFilename = 'http://' . self::DOMAIN . $oImg->getAttribute('src');
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

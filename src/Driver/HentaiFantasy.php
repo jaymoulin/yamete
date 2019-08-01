@@ -24,7 +24,7 @@ class HentaiFantasy extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.group .element .title a') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
@@ -49,7 +49,7 @@ class HentaiFantasy extends \Yamete\DriverAbstract
                     $sFilename = $oImg->getAttribute('src');
                     $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
                         . $aMatches['chapters'] . DIRECTORY_SEPARATOR
-                        . str_pad(++$i, 5, '0', STR_PAD_LEFT) . '-'
+                        . str_pad(++$index, 5, '0', STR_PAD_LEFT) . '-'
                         . basename($sFilename);
                     $aReturn[$sPath] = $sFilename;
                 }

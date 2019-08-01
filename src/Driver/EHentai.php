@@ -28,7 +28,7 @@ class EHentai extends \Yamete\DriverAbstract
             $oRes = $this->getClient()->request('GET', $sHref);
         }
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gdtm a') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
@@ -39,7 +39,7 @@ class EHentai extends \Yamete\DriverAbstract
                 ->find('#i3 img');
             $sFilename = $oImg->getAttribute('src');
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
-                . str_pad($i++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
+                . str_pad($index++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
         }
         return $aReturn;

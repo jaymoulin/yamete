@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use \ArrayIterator;
+
 if (!class_exists(FreeFamousCartoonPornCom::class)) {
     class FreeFamousCartoonPornCom extends \Yamete\DriverAbstract
     {
@@ -38,8 +40,8 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
         {
             $oRes = $this->getClient()->request('GET', $this->sUrl);
             $aReturn = [];
-            $i = 0;
-            $oIterator = new \ArrayIterator;
+            $index = 0;
+            $oIterator = new ArrayIterator;
             foreach ($this->getSelectors() as $sSelector) {
                 $oIterator = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])
                     ->find($sSelector);
@@ -60,7 +62,7 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
                 )
                     ->find($sSelector)[0];
                 $sFilename = $oImage->getAttribute('src');
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

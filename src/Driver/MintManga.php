@@ -31,7 +31,7 @@ class MintManga extends \Yamete\DriverAbstract
         $sBaseUrl = 'http://' . $this->getDomain();
         $oRes = $this->getClient()->request('GET', $sBaseUrl . '/' . $this->aMatches['album'] . '/vol1/1?mtr=1');
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $sSelector = '#chapterSelectorSelect option';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oLink) {
             /**
@@ -46,7 +46,7 @@ class MintManga extends \Yamete\DriverAbstract
                 foreach (explode('],[', $sJsonClean) as $sString) {
                     $sFilename = str_replace(['"', '\''], '', implode('', array_slice(explode(',', $sString), 1, 2)));
                     $sFilename = preg_replace('~\?.*$~', '', $sFilename);
-                    $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                    $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                         . '-' . basename($sFilename);
                     $aReturn[$sBasename] = $sFilename;
                 }

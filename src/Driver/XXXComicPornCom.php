@@ -39,7 +39,7 @@ if (!class_exists(XXXComicPornCom::class)) {
             $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
             $aReturn = new \AppendIterator();
             $sBody = (string)$oRes->getBody();
-            $i = 0;
+            $index = 0;
             $oOptions = $this->getDomParser()->load($sBody)->find('.part-select option');
             if (count($oOptions)) {
                 $aParsed = [];
@@ -53,11 +53,11 @@ if (!class_exists(XXXComicPornCom::class)) {
                     }
                     $aParsed[$sUrl] = true;
                     $sCurrentBody = (string)$this->getClient()->request('GET', $sUrl)->getBody();
-                    list($oCursor, $i) = $this->getForBody($sCurrentBody, $i);
+                    list($oCursor, $index) = $this->getForBody($sCurrentBody, $index);
                     $aReturn->append($oCursor);
                 }
             } else {
-                list($oCursor) = $this->getForBody($sBody, $i);
+                list($oCursor) = $this->getForBody($sBody, $index);
                 $aReturn->append($oCursor);
             }
             return iterator_to_array($aReturn);

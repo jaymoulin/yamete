@@ -35,11 +35,11 @@ class HentaiCafe extends \Yamete\DriverAbstract
             return [];
         }
         $aObjets = \GuzzleHttp\json_decode($aMatches[1], true);
-        $i = 0;
+        $index = 0;
         $aReturn = [];
         foreach ($aObjets as $aResult) {
             $sFilename = $aResult['url'];
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

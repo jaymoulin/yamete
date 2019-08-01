@@ -24,7 +24,7 @@ class VercomicsPornoXXX extends \Yamete\DriverAbstract
     {
         $sContent = file_get_contents($this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         foreach ($this->getDomParser()->load($sContent)->find('p img') as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
@@ -33,7 +33,7 @@ class VercomicsPornoXXX extends \Yamete\DriverAbstract
             if (strpos($oImg->getAttribute('class'), 'size-full') === false) {
                 continue;
             }
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

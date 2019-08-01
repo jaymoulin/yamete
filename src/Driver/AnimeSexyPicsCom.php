@@ -35,7 +35,7 @@ class AnimeSexyPicsCom extends \Yamete\DriverAbstract
             (string)$oRes->getBody()
         );
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         foreach ($this->getDomParser()->load($sBody)->find('.player a') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
@@ -50,7 +50,7 @@ class AnimeSexyPicsCom extends \Yamete\DriverAbstract
             );
             $oImg = $this->getDomParser()->load($sBody)->find('center img')[0];
             $sFilename = $oImg->getAttribute('src');
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

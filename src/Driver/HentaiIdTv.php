@@ -43,7 +43,7 @@ class HentaiIdTv extends \Yamete\DriverAbstract
         $sBaseUrl = "https://{$this->getDomain()}/manga.php?id={$this->aMatches['album']}";
         $oRes = $this->getClient()->request('GET', $sBaseUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $sSelector = '#inlineFormCustomSelect option';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oLink) {
             /**
@@ -54,7 +54,7 @@ class HentaiIdTv extends \Yamete\DriverAbstract
             $oRes = $this->getClient()->request('GET', $sUrl);
             $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('img.img-m2')[0];
             $sFilename = $oImg->getAttribute('src');
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

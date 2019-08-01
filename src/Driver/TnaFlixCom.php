@@ -25,7 +25,7 @@ class TnaFlixCom extends \Yamete\DriverAbstract
         $sUrl = "https://www." . self::DOMAIN . '/gallery/' . $this->aMatches['album'];
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $sRegExp = '~<span class="text\-gray">(?<nbElem>[0-9]+) photos?</span></h2>~';
         if (!preg_match($sRegExp, (string)$oRes->getBody(), $aMatch)) {
             return $aReturn;
@@ -39,7 +39,7 @@ class TnaFlixCom extends \Yamete\DriverAbstract
                 continue;
             }
             foreach ($aMatches['url'] as $sFilename) {
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }

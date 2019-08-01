@@ -24,12 +24,12 @@ class Hentaifr extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $i = 0;
+        $index = 0;
         $oPageList = $this->getDomParser()->load((string)$oRes->getBody())->find('.rl-gallery-item a');
         foreach ($oPageList as $oHref) {
             /** @var \PHPHtmlParser\Dom\AbstractNode $oHref */
             $sFilename = $oHref->getAttribute('href');
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$i, 5, '0', STR_PAD_LEFT)
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }

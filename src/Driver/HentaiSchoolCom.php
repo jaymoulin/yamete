@@ -31,9 +31,9 @@ class HentaiSchoolCom extends \Yamete\DriverAbstract
         $sUrl = $oIframe->getAttribute('src');
         $oRes = $this->getClient()->request('GET', $sUrl);
         $iNbPage = count($this->getDomParser()->load((string)$oRes->getBody())->find('select.page-form option'));
-        for ($i = 1; $i <= $iNbPage; $i++) {
-            $sFilename = $sUrl . $i . '.jpg';
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT)
+        for ($index = 1; $index <= $iNbPage; $index++) {
+            $sFilename = $sUrl . $index . '.jpg';
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }
