@@ -10,10 +10,10 @@ class CartoonPornPictureCom extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://cartoonpornpicture.com/content/into-the-multiverse/index.html';
+        $url = 'http://cartoonpornpicture.com/content/hentai-1337/index.html';
         $driver = new \Yamete\Driver\CartoonPornPictureCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(30, count($driver->getDownloadables()));
+        $this->assertEquals(97, count($driver->getDownloadables()));
     }
 }

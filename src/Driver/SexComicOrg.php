@@ -28,7 +28,8 @@ class SexComicOrg extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sFilename = 'https:' . $oImg->getAttribute('src');
+            $sFilename = $oImg->getAttribute('src');
+            $sFilename = strpos('https:', $sFilename) !== false ? $sFilename : 'https:' . $sFilename;
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
         return $aReturn;

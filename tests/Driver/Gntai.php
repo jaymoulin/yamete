@@ -10,10 +10,10 @@ class Gntai extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://www.gntai.xyz/2017/06/choukyourankou.html';
+        $url = 'http://www.gntai.xyz/2019/07/quieres-echar-un-vistazo-por-ti-mismo.html';
         $driver = new \Yamete\Driver\Gntai();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(34, count($driver->getDownloadables()));
+        $this->assertEquals(17, count($driver->getDownloadables()));
     }
 }
