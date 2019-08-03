@@ -15,7 +15,7 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
+            '~^(?<scheme>https?)://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
             ')/(pictures|gallery|galleries)/(?<album>[^/?]+)[/?]?~',
             $this->sUrl,
             $this->aMatches
@@ -33,7 +33,8 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;
+        $iParamsPos = strpos($this->sUrl, '?');
+        $this->sUrl = $iParamsPos ? substr($this->sUrl, 0, $iParamsPos) : $this->sUrl;
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
         $aReturn = [];
@@ -41,6 +42,9 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
             /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
             $sFilename = $oLink->getAttribute('href');
+            $sFilename = strpos('http', $sFilename) !== false
+                ? $sFilename
+                : $this->aMatches['scheme'] . '://www.' . $this->getDomain() . $sFilename;
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
