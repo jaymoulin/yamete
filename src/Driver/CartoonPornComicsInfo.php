@@ -30,9 +30,11 @@ class CartoonPornComicsInfo extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#attachementim img')[0];
-            $sFilename = $oImg->getAttribute('src');
+            $oRes = $this->getClient()->request('GET', html_entity_decode($oLink->getAttribute('href')));
+            if (preg_match('~"([^"]+bigImages[^"]+)"~', (string)$oRes->getBody(), $aMatches) === false) {
+                continue;
+            }
+            $sFilename = $aMatches[1];
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
