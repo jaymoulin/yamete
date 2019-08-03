@@ -3,7 +3,7 @@ CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 arm64v8 i386
 COMPOSER ?= update
-.PHONY: all build publish test composer latest test-clean
+.PHONY: all build publish test composer latest test-clean test-real
 all: build publish latest
 qemu-arm-static:
 	cp /usr/bin/qemu-arm-static .
@@ -37,6 +37,17 @@ build/test-image:
 	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composerinstall.php -q --quiet
 	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composer.phar install
 	touch build/test-image
+test-real: build/test-image
+	image=`docker images yamete:test | wc -l`; \
+	if [ "$${image}" -gt 1 ]; then \
+		cd tests;\
+		grep -rnE "https?://" | sed -En "s/.*(https?[^'\"]+).*/\1/p" > ../build/list.txt;\
+		cd ..;\
+		docker run --rm --name yametest -ti -v ${PWD}:/app/ -v ${PWD}:/dl yamete:test download -l /dl/build/list.txt -e /dl/build/error.txt;\
+		exit `cat build/error.txt | wc -l`;\
+	else\
+		rm build/test-image;\
+	fi
 test: build/test-image
 	image=`docker images yamete:test | wc -l`; \
 	if [ "$${image}" -gt 1 ]; then \
