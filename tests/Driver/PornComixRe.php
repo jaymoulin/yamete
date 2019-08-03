@@ -10,10 +10,10 @@ class PornComixRe extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://porncomix.re/online/spider-man-aunt-cumming/';
+        $url = 'http://porncomix.re/online/romulo-mancin-pie-conundrum/';
         $driver = new \Yamete\Driver\PornComixRe();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(13, count($driver->getDownloadables()));
+        $this->assertEquals(12, count($driver->getDownloadables()));
     }
 }

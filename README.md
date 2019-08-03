@@ -136,7 +136,6 @@ Here's is the list of supported sites for now:
  * freesexcomix.pro
  * toonpornpics.com
  * furrypornpics.net
- * 3dcomix.pro
  * xxxhentaipics.pro
  * lolhentai.pro
  * lolporn.pro
