@@ -9,17 +9,18 @@ class Pururin extends \Yamete\DriverAbstract
 
     public function canHandle(): bool
     {
-        $aMatch1 = (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/gallery/(?<albumId>[^/]+)/(?<album>.+)~',
-            $this->sUrl,
-            $this->aMatches
+        return (
+            (bool)preg_match(
+                '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/gallery/(?<albumId>[^/]+)/(?<album>.+)~',
+                $this->sUrl,
+                $this->aMatches
+            ) ||
+            (bool)preg_match(
+                '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/read/(?<albumId>[^/]+)/[0-9]+/(?<album>.+)~',
+                $this->sUrl,
+                $this->aMatches
+            )
         );
-        $aMatch2 = (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/read/(?<albumId>[^/]+)/[0-9]+/(?<album>.+)~',
-            $this->sUrl,
-            $this->aMatches
-        );
-        return $aMatch1 || $aMatch2;
     }
 
     /**

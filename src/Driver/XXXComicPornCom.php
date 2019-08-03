@@ -3,6 +3,7 @@
 namespace Yamete\Driver;
 
 use \AppendIterator;
+use \ArrayIterator;
 
 if (!class_exists(XXXComicPornCom::class)) {
     class XXXComicPornCom extends \Yamete\DriverAbstract
