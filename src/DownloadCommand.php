@@ -45,6 +45,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {

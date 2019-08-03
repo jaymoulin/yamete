@@ -29,9 +29,9 @@ class Doujins extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sFilename = $oImg->getAttribute('data-file');
+            $sFilename = html_entity_decode($oImg->getAttribute('data-file'));
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                . '-' . basename($sFilename);
+                . '-' . basename(preg_replace('~\?.*~', '', $sFilename));
             $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;

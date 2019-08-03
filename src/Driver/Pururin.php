@@ -37,7 +37,7 @@ class Pururin extends \Yamete\DriverAbstract
         $aAssets = \GuzzleHttp\json_decode(html_entity_decode($aMatches[1]), true);
         $aReturn = [];
         for ($index = 1; $index <= $aAssets['total_pages']; $index++) {
-            $sFilename = "https://api.pururin.io/images/${$this->aMatches['albumId']}"
+            $sFilename = "https://cdn.pururin.io/assets/images/data/${$this->aMatches['albumId']}"
                 . "/$index.${aAssets['image_extension']}";
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

@@ -43,7 +43,7 @@ test-real: build/test-image
 		cd tests;\
 		grep -rnE "https?://" | sed -En "s/.*(https?[^'\"]+).*/\1/p" > ../build/list.txt;\
 		cd ..;\
-		docker run --rm --name yametest -ti -v ${PWD}:/app/ -v ${PWD}:/dl yamete:test download -l /dl/build/list.txt -e /dl/build/error.txt;\
+		docker run --rm --name yametest -ti -v ${PWD}:/app/ -v ${PWD}:/dl yamete:test download -l /dl/build/list.txt -e /dl/build/error.txt -v;\
 		exit `cat build/error.txt | wc -l`;\
 	else\
 		rm build/test-image;\

@@ -40,7 +40,8 @@ class TMOHentai extends \Yamete\DriverAbstract
          * @var \GuzzleHttp\HandlerStack $oHandler
          */
         $oHandler = $oClient->getConfig('handler');
-        $oHandler->push(Middleware::create());
+        $oHandler->remove('cloudflare');
+        $oHandler->push(Middleware::create(), 'cloudflare');
         return $oClient;
     }
 
