@@ -5,7 +5,6 @@ namespace Yamete\Driver;
 class ReadhentAi extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    private $aReturn = [];
     private $index = 0;
     const DOMAIN = 'readhent.ai';
 
@@ -35,16 +34,17 @@ class ReadhentAi extends \Yamete\DriverAbstract
         $this->sUrl = "https://{$this->getDomain()}/{$this->aMatches['category']}/{$this->aMatches['album']}";
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $oContent = $this->getDomParser()->load((string)$oRes->getBody());
-        $this->aReturn = [];
+        $aReturn = [];
         $this->index = 0;
         $oPages = $oContent->find('.preview_thumb a img');
-        foreach ($oPages as $oLink) {
-            $sFilename = str_replace('thumb_', '', $oLink->getAttribute('href'));
+        foreach ($oPages as $oImg) {
+            $sFilename = str_replace('thumb_', '', $oImg->getAttribute('src'));
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($this->index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
-            $this->aReturn[$sBasename] = $sFilename;
+            $aReturn[$sBasename] = $sFilename;
         }
-        return $this->aReturn;
+        var_dump($aReturn);
+        return $aReturn;
     }
 
     private function getFolder(): string
