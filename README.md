@@ -163,7 +163,6 @@ Here's is the list of supported sites for now:
  * cartoonpicsporn.com
  * cartoonpornpicture.com
  * cartoonxxxcomix.com
- * animesexypics.com
  * sexualhentai.net
  * hcomicbook.com
  * hentairules.net
