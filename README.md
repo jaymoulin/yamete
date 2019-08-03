@@ -146,7 +146,6 @@ Here's is the list of supported sites for now:
  * cartoonsexcomix.com
  * xxx3dcomix.com
  * xxxcomicporn.com
- * 3dcomix.pro
  * 3dsextoons.net
  * 3dcartoons.net
  * 3dpics.pro
@@ -165,7 +164,6 @@ Here's is the list of supported sites for now:
  * cartoonpornpicture.com
  * cartoonxxxcomix.com
  * animesexypics.com
- * hotanimeporno.com
  * sexualhentai.net
  * hcomicbook.com
  * hentairules.net
