@@ -2,6 +2,9 @@
 
 namespace Yamete\Driver;
 
+use \GuzzleCloudflare\Middleware;
+use \GuzzleHttp\Cookie\FileCookieJar;
+
 class HentaiVN extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -45,7 +48,7 @@ class HentaiVN extends \Yamete\DriverAbstract
                 $sFilename = substr($oImg->getAttribute('src'), 0, $iPos ? $iPos : strlen($oImg->getAttribute('src')));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . $iChapters . DIRECTORY_SEPARATOR
                     . str_pad($index++, 5, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
-                $aReturn[$sBasename] = $sFilename;
+                $aReturn[$sBasename] = $oImg->getAttribute('src');
             }
             --$iChapters;
         }
@@ -55,5 +58,26 @@ class HentaiVN extends \Yamete\DriverAbstract
     private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+    }
+
+    /**
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    {
+        $oClient = parent::getClient(
+            [
+                'cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__)),
+                'headers' => ['User-Agent' => self::USER_AGENT],
+            ]
+        );
+        /**
+         * @var \GuzzleHttp\HandlerStack $oHandler
+         */
+        $oHandler = $oClient->getConfig('handler');
+        $oHandler->remove('cloudflare');
+        $oHandler->push(Middleware::create(), 'cloudflare');
+        return $oClient;
     }
 }
