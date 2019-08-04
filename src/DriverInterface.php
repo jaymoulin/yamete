@@ -30,4 +30,10 @@ interface DriverInterface
      * @return \GuzzleHttp\Client
      */
     public function getClient() : \GuzzleHttp\Client;
+
+    /**
+     * Clean the current instance (free memory)
+     * @return $this
+     */
+    public function clean() : DriverInterface;
 }

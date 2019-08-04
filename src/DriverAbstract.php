@@ -13,19 +13,30 @@ abstract class DriverAbstract implements DriverInterface
     private $oDomParser;
     protected $sUrl;
 
-    public function getClient(array $aOptions = []) : Client
+    public function getClient(array $aOptions = []): Client
     {
         return $this->oClient = $this->oClient ?: new Client($aOptions);
     }
 
-    protected function getDomParser() : Dom
+    protected function getDomParser(): Dom
     {
         return $this->oDomParser = $this->oDomParser ?: new Dom;
     }
 
-    public function setUrl(string $sUrl) : DriverInterface
+    public function setUrl(string $sUrl): DriverInterface
     {
         $this->sUrl = (string)$sUrl;
+        return $this;
+    }
+
+    /**
+     * Cleans memory
+     * @return DriverInterface
+     */
+    public function clean(): DriverInterface
+    {
+        unset($this->oDomParser);
+        unset($this->oClient);
         return $this;
     }
 }

@@ -18,6 +18,7 @@ class ResultIterator implements \Iterator, \Countable
     {
         $this->oDriver = $oDriver;
         $this->oIterator = new ArrayIterator($oDriver->getDownloadables());
+        $oDriver->clean();
     }
 
     public function current(): Downloadable
