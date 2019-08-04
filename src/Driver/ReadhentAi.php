@@ -43,7 +43,6 @@ class ReadhentAi extends \Yamete\DriverAbstract
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }
-        var_dump($aReturn);
         return $aReturn;
     }
 

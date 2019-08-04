@@ -10,7 +10,7 @@ class HentaiHand extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/comic/(?<album>[0-9]+)/?$~',
+            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/comic/(?<album>[0-9]+)/?~',
             $this->sUrl,
             $this->aMatches
         );

@@ -1,4 +1,4 @@
-VERSION ?= 1.4.2
+VERSION ?= 1.4.3
 CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 arm64v8 i386
@@ -25,7 +25,7 @@ latest:
 composer: build/test-image
 	image=`docker images yamete:test | wc -l`; \
 	if [ "$${image}" -gt 1 ]; then \
-		docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composer.phar ${COMPOSER};\
+		docker run --rm -ti -v ${PWD}:/app/ yamete:test php composer.phar ${COMPOSER};\
 	else\
 		rm build/test-image;\
 	fi
@@ -33,9 +33,9 @@ build/test-image:
 	mkdir -p build
 	cp docker/Dockerfile Dockerfile
 	docker build -t yamete:test .
-	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O composerinstall.php -q
-	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composerinstall.php -q --quiet
-	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php composer.phar install
+	docker run --rm -ti -v ${PWD}:/app/ yamete:test wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O composerinstall.php -q
+	docker run --rm -ti -v ${PWD}:/app/ yamete:test php composerinstall.php -q --quiet
+	docker run --rm -ti -v ${PWD}:/app/ yamete:test php composer.phar install
 	touch build/test-image
 test-real: build/test-image
 	image=`docker images yamete:test | wc -l`; \
@@ -43,7 +43,7 @@ test-real: build/test-image
 		cd tests;\
 		grep -rnE "https?://" | sed -En "s/.*(https?[^'\"]+).*/\1/p" > ../build/list.txt;\
 		cd ..;\
-		docker run --rm --name yametest -ti -v ${PWD}:/app/ -v ${PWD}:/dl yamete:test download -l /dl/build/list.txt -e /dl/build/error.txt -v;\
+		docker run --rm --name yametestreal -ti -v ${PWD}:/app/ -v ${PWD}:/dl yamete:test download -l /dl/build/list.txt -e /dl/build/error.txt -v;\
 		exit `cat build/error.txt | wc -l`;\
 	else\
 		rm build/test-image;\
@@ -51,11 +51,11 @@ test-real: build/test-image
 test: build/test-image
 	image=`docker images yamete:test | wc -l`; \
 	if [ "$${image}" -gt 1 ]; then \
-		docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test php -d max_execution_time=5000 vendor/bin/phpunit;\
+		docker run --rm -ti --name yametest -v ${PWD}:/app/ yamete:test php -d max_execution_time=5000 vendor/bin/phpunit;\
 	else\
 		rm build/test-image;\
 	fi
 test-clean:
-	docker run --rm --name yametest -ti -v ${PWD}:/app/ yamete:test rm -Rf composer.phar composerinstall.php .composer
+	docker run --rm -ti -v ${PWD}:/app/ yamete:test rm -Rf composer.phar composerinstall.php .composer
 	docker rmi yamete:test
 	rm build/test-image
