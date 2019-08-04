@@ -69,7 +69,7 @@ class HentaiVN extends \Yamete\DriverAbstract
         $oClient = parent::getClient(
             [
                 'cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__)),
-                'headers' => ['User-Agent' => self::USER_AGENT],
+                'headers' => ['User-Agent' => self::USER_AGENT, 'Referer' => $this->sUrl],
             ]
         );
         /**
