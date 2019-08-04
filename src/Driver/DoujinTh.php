@@ -30,7 +30,7 @@ class DoujinTh extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
-            $sFilename = strpos('http', $sFilename) !== false
+            $sFilename = strpos($sFilename, 'http') !== false
                 ? $sFilename
                 : 'https://' . self::DOMAIN . '/' . $sFilename;
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

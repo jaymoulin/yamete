@@ -79,7 +79,7 @@ if (!class_exists(XXXComicPornCom::class)) {
                  * @var \PHPHtmlParser\Dom\AbstractNode $oLink
                  */
                 $sFilename = $oLink->getAttribute('data-img') . $oLink->getAttribute('data-ext');
-                $sFilename = strpos('http', $sFilename) !== false
+                $sFilename = strpos($sFilename, 'http') !== false
                     ? $sFilename
                     : 'http://' . $this->getDomain() . $sFilename;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($iIndex++, 5, '0', STR_PAD_LEFT)
