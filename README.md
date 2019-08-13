@@ -243,5 +243,6 @@ Here's is the list of supported sites for now:
  * tmohentai.com
  * comicsporno.xxx
  * hentairead.com
+ * doujinreader.com
 
 You must pass the URL to the album for the program to download it!
