@@ -3,7 +3,7 @@ CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 arm64v8 i386
 COMPOSER ?= update
-.PHONY: all build publish test composer latest test-clean test-real
+.PHONY: all build publish test composer latest test-clean test-real ci
 all: build publish latest
 qemu-arm-static:
 	cp /usr/bin/qemu-arm-static .
@@ -59,3 +59,8 @@ test-clean:
 	docker run --rm -ti -v ${PWD}:/app/ yamete:test rm -Rf composer.phar composerinstall.php .composer
 	docker rmi yamete:test
 	rm build/test-image
+ci:
+	COMPOSER=phpcs make composer || true
+	COMPOSER=phpmd make composer || true 
+	COMPOSER=phploc make composer || true
+	COMPOSER=phpcpd make composer || true
