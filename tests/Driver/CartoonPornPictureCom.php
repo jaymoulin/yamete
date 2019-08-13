@@ -14,6 +14,6 @@ class CartoonPornPictureCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\CartoonPornPictureCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(97, count($driver->getDownloadables()));
+        $this->assertEquals(98, count($driver->getDownloadables()));
     }
 }
