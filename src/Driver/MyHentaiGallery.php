@@ -7,10 +7,16 @@ class MyHentaiGallery extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'myhentaigallery.com';
 
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/gallery/thumbnails/(?<album>[0-9]+)$~',
+            '~^https?://' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-'])
+            . '/gallery/thumbnails/(?<album>[0-9]+)$~',
             $this->sUrl,
             $this->aMatches
         );
@@ -43,6 +49,6 @@ class MyHentaiGallery extends \Yamete\DriverAbstract
 
     private function getFolder(): string
     {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+        return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
     }
 }
