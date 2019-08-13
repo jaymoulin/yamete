@@ -23,7 +23,7 @@ class Myreadingmanga extends \Yamete\DriverAbstract
     private function getImgListForBody(string $sBody): array
     {
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$sBody)->find('.content .separator img') as $oImg) {
+        foreach ($this->getDomParser()->load((string)$sBody)->find('.content .entry-content img') as $oImg) {
             /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
             $sFilename = $oImg->getAttribute('src');
             if (strpos($sFilename, 'trans.gif') !== false) {
