@@ -36,7 +36,9 @@ class MangaKakalot extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $sUrl);
         $bFound = false;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.chapter-list a') as $oLink) {
+        $aChapters = iterator_to_array($this->getDomParser()->load((string)$oRes->getBody())->find('.chapter-list a'));
+        krsort($aChapters);
+        foreach ($aChapters as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
