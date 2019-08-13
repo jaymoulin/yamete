@@ -143,7 +143,10 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             $baseName = null;
             foreach ($oResult as $sFileName => $sResource) {
                 $baseName = dirname($sFileName);
-                unlink($sFileName);
+                $bDone = @unlink($sFileName);
+                if (!$bDone) {
+                    unlink(str_replace('.jpg', '.png', $sFileName));
+                }
             }
             rmdir($baseName);
             $pdf->Output('F', $baseName . '.pdf');

@@ -62,12 +62,17 @@ class PDF extends \FPDF
         try {
             $this->Image($sFileName, 0, 0, $height, $width);
         } catch (\Exception $e) {
-            if (strpos($e->getMessage(), 'Not a PNG file') === false) {
+            if (strpos($e->getMessage(), 'Not a PNG file') !== false) {
+                $sNewFilename = str_replace('.png', '.jpg', $sFileName);
+                rename($sFileName, $sNewFilename);
+                $this->Image($sNewFilename, 0, 0, $height, $width);
+            } elseif (strpos($e->getMessage(), 'Not a JPEG file') !== false) {
+                $sNewFilename = str_replace('.jpg', '.png', $sFileName);
+                rename($sFileName, $sNewFilename);
+                $this->Image($sNewFilename, 0, 0, $height, $width);
+            } else {
                 throw $e;
             }
-            $sNewFilename = str_replace('.png', '.jpg', $sFileName);
-            rename($sFileName, $sNewFilename);
-            $this->Image($sNewFilename, 0, 0, $height, $width);
         }
     }
 }
