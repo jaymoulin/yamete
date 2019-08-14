@@ -19,4 +19,4 @@ deploy:
     script:
         - make publish latest
     on:
-        branch: master
+        tags: true

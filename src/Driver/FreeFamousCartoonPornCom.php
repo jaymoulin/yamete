@@ -62,7 +62,7 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
                 )
                     ->find($sSelector)[0];
                 $sFilename = $oImage->getAttribute('src');
-                $sFilename = strpos($sFilename,'http') !== false
+                $sFilename = strpos($sFilename, 'http') !== false
                     ? $sFilename
                     : 'http://' . $this->getDomain() . $sFilename;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

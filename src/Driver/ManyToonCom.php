@@ -32,7 +32,7 @@ class ManyToonCom extends \Yamete\DriverAbstract
         $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('li.wp-manga-chapter a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
-        $i = 0;
+        $index = 0;
         $aReturn = [];
         foreach ($aChapters as $oChapter) {
             $oRes = $this->getClient()->request('GET', $oChapter->getAttribute('href'));
@@ -40,7 +40,7 @@ class ManyToonCom extends \Yamete\DriverAbstract
                 $sFilename = trim($oImg->getAttribute('src'));
                 $iPos = strpos($sFilename, '?');
                 $sFilename = substr($sFilename, 0, $iPos);
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i++, 5, '0', STR_PAD_LEFT)
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }
