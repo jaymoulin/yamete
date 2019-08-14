@@ -7,10 +7,15 @@ class MangazukiMe extends \Yamete\DriverAbstract
     private $aMatches = [];
     const DOMAIN = 'mangazuki.me';
 
+    public function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/manga/(?<album>[^/]+)/~',
+            '~^https?://(?<domain>(www\.)?' . strtr($this->getDomain(), ['.' => '\.']) . ')/manga/(?<album>[^/]+)~',
             $this->sUrl,
             $this->aMatches
         );
@@ -27,7 +32,7 @@ class MangazukiMe extends \Yamete\DriverAbstract
          * @var \PHPHtmlParser\Dom\AbstractNode[] $aChapters
          * @var \PHPHtmlParser\Dom\AbstractNode $oImg
          */
-        $this->sUrl = 'https://' . self::DOMAIN . "/manga/{$this->aMatches['album']}/";
+        $this->sUrl = "https://{$this->aMatches['domain']}/manga/{$this->aMatches['album']}/";
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
@@ -48,6 +53,6 @@ class MangazukiMe extends \Yamete\DriverAbstract
 
     private function getFolder(): string
     {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+        return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
     }
 }

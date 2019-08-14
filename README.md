@@ -247,5 +247,6 @@ Here's is the list of supported sites for now:
  * myhentaigallery.com
  * thedoujin.com
  * manytoon.com
+ * mangazuki.online
 
 You must pass the URL to the album for the program to download it!
