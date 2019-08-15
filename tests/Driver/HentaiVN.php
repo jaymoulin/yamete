@@ -22,10 +22,10 @@ class HentaiVN extends \PHPUnit\Framework\TestCase
      */
     public function testNoFormatDownload()
     {
-        $url = 'https://hentaivn.net/1934-4365-xem-truyen-magic-seven-the-idolmaster-oneshot.html';
+        $url = 'https://hentaivn.net/16076-29054-xem-truyen-darrens-adventure-chap-1.html';
         $driver = new \Yamete\Driver\HentaiVN();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(26, count($driver->getDownloadables()));
+        $this->assertEquals(11, count($driver->getDownloadables()));
     }
 }

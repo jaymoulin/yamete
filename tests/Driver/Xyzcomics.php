@@ -10,10 +10,10 @@ class Xyzcomics extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://xyzcomics.com/croc-f-o-p-breaking-rules-5/';
+        $url = 'http://xyzcomics.com/fop-breaking-rules-4-sexy-alien-town/';
         $driver = new \Yamete\Driver\Xyzcomics();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(31, count($driver->getDownloadables()));
+        $this->assertEquals(27, count($driver->getDownloadables()));
     }
 }
