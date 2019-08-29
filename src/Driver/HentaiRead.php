@@ -47,7 +47,7 @@ class HentaiRead extends \Yamete\DriverAbstract
             return;
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('#single-pager option'));
+        $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('#single-pager option')) / 2;
         for ($i = 1; $i <= $iNbPages; $i++) {
             /* @var \PHPHtmlParser\Dom\AbstractNode $oImg */
             $oRes = $this->getClient()->request('GET', str_replace('/p/1', '/p/' . $i, $sUrl));
