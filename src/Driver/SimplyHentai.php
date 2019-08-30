@@ -25,19 +25,18 @@ class SimplyHentai extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.image-preview') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.preview') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sContent = (string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody();
-            $sRegExp = '~<div data-react-class="album/Read" data-react-props="([^"]+)">~';
+            $sUrl = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
+            $sContent = (string)$this->getClient()->request('GET', $sUrl)->getBody();
+            $sRegExp = '~<link rel="image_src" href="([^"]+)">~';
             if (!preg_match($sRegExp, $sContent, $aMatches)) {
                 continue;
             }
-            $sProps = html_entity_decode($aMatches[1]);
-            $aJson = \GuzzleHttp\json_decode($sProps, true);
-            $sFilename = $aJson['image']['sizes']['full'];
+            $sFilename = $aMatches[1];
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR .
                 str_pad($index++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
