@@ -10,10 +10,10 @@ class CartoonSexPicCom extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://cartoonsexpic.com/content/cartoons-women-who-love-it-when-you-cum-inside-them/index.html';
+        $url = 'http://cartoonsexpic.com/content/wagamama-oppai-selfish-boobs/index.html';
         $driver = new \Yamete\Driver\CartoonSexPicCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(39, count($driver->getDownloadables()));
+        $this->assertEquals(60, count($driver->getDownloadables()));
     }
 }
