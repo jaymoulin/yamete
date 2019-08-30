@@ -236,7 +236,6 @@ Here's is the list of supported sites for now:
  * yuri-ism.net
  * mangazuki.me
  * 9mangaplus.com
- * doujinshi.rocks
  * readhent.ai
  * tmohentai.com
  * comicsporno.xxx
