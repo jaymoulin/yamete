@@ -14,7 +14,7 @@ class HentaiIdTv extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         if (preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . ')/(?<album>[^/]+)/$~',
+            '~^https?://(www\.)?(' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . ')/(?<album>[^/]+)/$~',
             $this->sUrl
         )) {
             $oRes = $this->getClient()->request('GET', $this->sUrl);
@@ -24,7 +24,7 @@ class HentaiIdTv extends \Yamete\DriverAbstract
                 $this->sUrl = $aMatch['url'];
             }
         }
-        $sMatch = '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-'])
+        $sMatch = '~^https?://(www\.)?(' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-'])
             . ')/manga\.php\?id=(?<album>[0-9]+)~';
         return (bool)preg_match($sMatch, $this->sUrl, $this->aMatches);
     }
