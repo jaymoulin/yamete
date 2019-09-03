@@ -10,7 +10,7 @@ class SimplyHentai extends \PHPUnit\Framework\TestCase
      */
     public function testDownloadOriginal()
     {
-        $url = 'http://original-work.simply-hentai.com/mushikago-infu-hen-ichi-ni';
+        $url = 'https://www.simply-hentai.com/original-work/mushikago-infu-hen-ichi-ni';
         $driver = new \Yamete\Driver\SimplyHentai();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());

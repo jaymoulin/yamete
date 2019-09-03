@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Client;
+
 class SimplyHentai extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -25,18 +27,9 @@ class SimplyHentai extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.preview') as $oLink) {
-            /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
-             */
-            $sUrl = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
-            $sContent = (string)$this->getClient()->request('GET', $sUrl)->getBody();
-            $sRegExp = '~<link rel="image_src" href="([^"]+)">~';
-            if (!preg_match($sRegExp, $sContent, $aMatches)) {
-                continue;
-            }
-            $sFilename = $aMatches[1];
+        $aJson = \GuzzleHttp\json_decode((string)$oRes->getBody(), true);
+        foreach ($aJson as $aData) {
+            $sFilename = $aData['full'];
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR .
                 str_pad($index++, 4, '0', STR_PAD_LEFT) . '-' . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
@@ -47,5 +40,10 @@ class SimplyHentai extends \Yamete\DriverAbstract
     private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+    }
+
+    public function getClient(array $aOptions = []): Client
+    {
+        return parent::getClient(['headers' => ['Accept' => 'application/json']]);
     }
 }
