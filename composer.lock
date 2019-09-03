@@ -293,19 +293,21 @@
         },
         {
             "name": "jaymoulin/guzzlehttp-cloudflare",
-            "version": "1.0.0",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jaymoulin/guzzlehttp-cloudflare.git",
-                "reference": "746859f3dcf90ebd7d90655c42d01bae35bdf060"
+                "reference": "f399d14d6bab3636592822ea2cfadb97759cc182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jaymoulin/guzzlehttp-cloudflare/zipball/746859f3dcf90ebd7d90655c42d01bae35bdf060",
-                "reference": "746859f3dcf90ebd7d90655c42d01bae35bdf060",
+                "url": "https://api.github.com/repos/jaymoulin/guzzlehttp-cloudflare/zipball/f399d14d6bab3636592822ea2cfadb97759cc182",
+                "reference": "f399d14d6bab3636592822ea2cfadb97759cc182",
                 "shasum": ""
             },
             "require": {
+                "ext-bcmath": "*",
+                "ext-curl": "*",
                 "guzzlehttp/guzzle": "^6.3",
                 "kyranrana/cloudflare-bypass": "^v3.0",
                 "php": "^7.2"
@@ -334,7 +336,7 @@
                 }
             ],
             "description": "Bypass Cloudflare protection using GuzzleHTTP",
-            "time": "2019-09-02T10:04:00+00:00"
+            "time": "2019-09-04T15:23:55+00:00"
         },
         {
             "name": "krowinski/bcmath-extended",
