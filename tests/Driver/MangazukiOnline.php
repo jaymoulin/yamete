@@ -14,6 +14,6 @@ class MangazukiOnline extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MangazukiOnline();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1123, count($driver->getDownloadables()));
+        $this->assertEquals(1223, count($driver->getDownloadables()));
     }
 }
