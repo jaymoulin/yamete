@@ -143,9 +143,20 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             $baseName = null;
             foreach ($oResult as $sFileName => $sResource) {
                 $baseName = dirname($sFileName);
-                $bDone = @unlink($sFileName);
-                if (!$bDone) {
-                    unlink(str_replace('.jpg', '.png', $sFileName));
+                $bDone = false;
+                foreach (['.jpg', '.jpeg', '.png', '.gif'] as $sSource) {
+                    foreach (['.png', '.gif', '.jpg', '.jpeg'] as $sDest) {
+                        $bDone = @unlink($sFileName);
+                        if (!$bDone) {
+                            $bDone = @unlink(str_replace($sSource, $sDest, $sFileName));
+                        }
+                        if ($bDone) {
+                            break;
+                        }
+                    }
+                    if ($bDone) {
+                        break;
+                    }
                 }
             }
             rmdir($baseName);

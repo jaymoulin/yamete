@@ -67,7 +67,11 @@ class PDF extends \FPDF
                 rename($sFileName, $sNewFilename);
                 $this->Image($sNewFilename, 0, 0, $height, $width);
             } elseif (strpos($e->getMessage(), 'Not a JPEG file') !== false) {
-                $sNewFilename = str_replace('.jpg', '.png', $sFileName);
+                $sNewFilename = str_replace('.jpg', '.gif', $sFileName);
+                rename($sFileName, $sNewFilename);
+                $this->Image($sNewFilename, 0, 0, $height, $width);
+            } elseif (strpos($e->getMessage(), 'Not a GIF file') !== false) {
+                $sNewFilename = str_replace('.gif', '.png', $sFileName);
                 rename($sFileName, $sNewFilename);
                 $this->Image($sNewFilename, 0, 0, $height, $width);
             } else {
