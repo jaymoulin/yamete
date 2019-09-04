@@ -33,10 +33,8 @@ class PDF extends \FPDF
         }
         $width = $this->pixelsToMM($width);
         $height = $this->pixelsToMM($height);
-        $widthScale = self::MAX_WIDTH / ($width ?: 1);
-        $heightScale = self::MAX_HEIGHT / ($height ?: 1);
-        $scale = min($widthScale, $heightScale);
-        return [round($scale * $height), round($scale * $width)];
+        $iScale = $width < $height ? self::MAX_WIDTH : self::MAX_HEIGHT;
+        return [$iScale, $height * $iScale / $width];
     }
 
     /**
@@ -60,20 +58,20 @@ class PDF extends \FPDF
     {
         list($width, $height) = $this->resizeToFit($sFileName);
         try {
-            $this->Image($sFileName, 0, 0, $height, $width);
+            $this->Image($sFileName, 0, 0, $width, $height);
         } catch (\Exception $e) {
             if (strpos($e->getMessage(), 'Not a PNG file') !== false) {
                 $sNewFilename = str_replace('.png', '.jpg', $sFileName);
                 rename($sFileName, $sNewFilename);
-                $this->Image($sNewFilename, 0, 0, $height, $width);
+                $this->Image($sNewFilename, 0, 0, $width, $height);
             } elseif (strpos($e->getMessage(), 'Not a JPEG file') !== false) {
                 $sNewFilename = str_replace('.jpg', '.gif', $sFileName);
                 rename($sFileName, $sNewFilename);
-                $this->Image($sNewFilename, 0, 0, $height, $width);
+                $this->Image($sNewFilename, 0, 0, $width, $height);
             } elseif (strpos($e->getMessage(), 'Not a GIF file') !== false) {
                 $sNewFilename = str_replace('.gif', '.png', $sFileName);
                 rename($sFileName, $sNewFilename);
-                $this->Image($sNewFilename, 0, 0, $height, $width);
+                $this->Image($sNewFilename, 0, 0, $width, $height);
             } else {
                 throw $e;
             }
