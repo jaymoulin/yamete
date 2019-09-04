@@ -14,6 +14,6 @@ class MySexGamerCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MySexGamerCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(17, count($driver->getDownloadables()));
+        $this->assertEquals(16, count($driver->getDownloadables()));
     }
 }
