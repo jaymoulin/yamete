@@ -28,7 +28,12 @@ class HentaiCafe extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $sBaseUrl = 'https://' . $this->getDomain() . '/manga/read/' . $this->aMatches['album'] . '/en/0/1/page/';
+        $oRes = $this->getClient()->request('GET', $this->sUrl);
+        $sRegExp = '~href="([^"]+)" title="Read"~';
+        if (!preg_match($sRegExp, (string)$oRes->getBody(), $aMatches)) {
+            return [];
+        }
+        $sBaseUrl = $aMatches[1] . 'page/';
         $oRes = $this->getClient()->request('GET', $sBaseUrl . 1);
         $sRegExp = '~var pages = ([^;]+);~';
         if (!preg_match($sRegExp, (string)$oRes->getBody(), $aMatches)) {
