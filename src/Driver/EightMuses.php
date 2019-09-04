@@ -2,7 +2,7 @@
 
 namespace Yamete\Driver;
 
-use phpDocumentor\Reflection\Types\Null_;
+use GuzzleHttp\Client;
 
 class EightMuses extends \Yamete\DriverAbstract
 {
@@ -73,5 +73,10 @@ class EightMuses extends \Yamete\DriverAbstract
     private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+    }
+
+    public function getClient(array $aOptions = []): Client
+    {
+        return parent::getClient(['headers' => ['Accept' => '*/*']]);
     }
 }
