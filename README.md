@@ -13,6 +13,8 @@ Yamete - Hentai downloader in PHP CLI - Easy PHP Site downloader
 
 This image allows you easily download specific assets of a site
 
+Interest in hentai? You may like this https://bit.ly/2kBtKYr
+
 But why?
 --------
 
