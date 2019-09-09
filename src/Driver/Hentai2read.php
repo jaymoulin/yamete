@@ -68,6 +68,9 @@ class Hentai2read extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sUrl);
         $sAccessor = '~var gData = (?<json>\{[^\}]+\});~';
         if (preg_match($sAccessor, (string)$oRes->getBody(), $aMatches) !== false) {
+            if (!$aMatches['json']) {
+                return $this->aReturn;
+            }
             $aObj = \GuzzleHttp\json_decode(str_replace('\'', '"', $aMatches['json']), true);
             foreach ($aObj['images'] as $sPostImage) {
                 $sFilename = 'https://static.hentaicdn.com/hentai' . $sPostImage;
