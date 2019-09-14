@@ -31,6 +31,7 @@ composer: build/test-image
 	fi
 build/test-image:
 	mkdir -p build
+	touch qemu-mock-static
 	cp docker/Dockerfile Dockerfile
 	docker build -t yamete:test .
 	docker run --rm -ti -v ${PWD}:/app/ yamete:test wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O composerinstall.php -q
