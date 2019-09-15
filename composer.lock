@@ -297,12 +297,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jaymoulin/guzzlehttp-cloudflare.git",
-                "reference": "f399d14d6bab3636592822ea2cfadb97759cc182"
+                "reference": "050ae3233a8e92fcd4ee791779e27a42cbbd0344"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jaymoulin/guzzlehttp-cloudflare/zipball/f399d14d6bab3636592822ea2cfadb97759cc182",
-                "reference": "f399d14d6bab3636592822ea2cfadb97759cc182",
+                "url": "https://api.github.com/repos/jaymoulin/guzzlehttp-cloudflare/zipball/050ae3233a8e92fcd4ee791779e27a42cbbd0344",
+                "reference": "050ae3233a8e92fcd4ee791779e27a42cbbd0344",
                 "shasum": ""
             },
             "require": {
@@ -340,24 +340,25 @@
         },
         {
             "name": "krowinski/bcmath-extended",
-            "version": "5.1.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/krowinski/bcmath-extended.git",
-                "reference": "bba0abac8aa159cf60ee260c1d85b5897420e3c8"
+                "reference": "d07e18ca3050b872f04bc1cf5a3b8a3b591c6309"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/krowinski/bcmath-extended/zipball/bba0abac8aa159cf60ee260c1d85b5897420e3c8",
-                "reference": "bba0abac8aa159cf60ee260c1d85b5897420e3c8",
+                "url": "https://api.github.com/repos/krowinski/bcmath-extended/zipball/d07e18ca3050b872f04bc1cf5a3b8a3b591c6309",
+                "reference": "d07e18ca3050b872f04bc1cf5a3b8a3b591c6309",
                 "shasum": ""
             },
             "require": {
                 "ext-bcmath": "*",
-                "php": ">=7.1"
+                "php": ">=5.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.5"
+                "php": ">=5.4",
+                "phpunit/phpunit": "^4.8|^5.7|^6.5"
             },
             "type": "library",
             "autoload": {
@@ -392,32 +393,32 @@
                 "round",
                 "scientific-notation"
             ],
-            "time": "2019-09-01T08:58:33+00:00"
+            "time": "2019-04-15T09:15:39+00:00"
         },
         {
             "name": "kyranrana/cloudflare-bypass",
-            "version": "3.0.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KyranRana/cloudflare-bypass.git",
-                "reference": "2261302f46fdde4867064596a4b30e3bde864ea6"
+                "reference": "a3ba3488853b6d0c686d5a27ced9bc4500e7c853"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KyranRana/cloudflare-bypass/zipball/2261302f46fdde4867064596a4b30e3bde864ea6",
-                "reference": "2261302f46fdde4867064596a4b30e3bde864ea6",
+                "url": "https://api.github.com/repos/KyranRana/cloudflare-bypass/zipball/a3ba3488853b6d0c686d5a27ced9bc4500e7c853",
+                "reference": "a3ba3488853b6d0c686d5a27ced9bc4500e7c853",
                 "shasum": ""
             },
             "require": {
                 "ext-bcmath": "*",
                 "ext-curl": "*",
                 "ext-json": "*",
-                "kyranrana/simple-javascript-compilation": "^0.2.0",
-                "myclabs/php-enum": "^1.7",
-                "php": "^7.2"
+                "kyranrana/simple-javascript-compilation": "^0.2.5",
+                "myclabs/php-enum": "^1.6.6",
+                "php": "^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.2.1"
+                "phpunit/phpunit": "^6.5.5"
             },
             "type": "library",
             "autoload": {
@@ -436,33 +437,33 @@
                 }
             ],
             "description": "A library for helping bypass the cloudflare UAM page.",
-            "time": "2019-09-02T09:39:29+00:00"
+            "time": "2019-09-06T19:07:23+00:00"
         },
         {
             "name": "kyranrana/simple-javascript-compilation",
-            "version": "0.2.0",
+            "version": "0.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KyranRana/simple-javascript-compilation.git",
-                "reference": "70ee06973cf6805e545c773ae4d790628ca9b135"
+                "reference": "d8a1529da0deb97f0d1028dc571a28f9bc09fd60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KyranRana/simple-javascript-compilation/zipball/70ee06973cf6805e545c773ae4d790628ca9b135",
-                "reference": "70ee06973cf6805e545c773ae4d790628ca9b135",
+                "url": "https://api.github.com/repos/KyranRana/simple-javascript-compilation/zipball/d8a1529da0deb97f0d1028dc571a28f9bc09fd60",
+                "reference": "d8a1529da0deb97f0d1028dc571a28f9bc09fd60",
                 "shasum": ""
             },
             "require": {
                 "ext-bcmath": "*",
                 "ext-curl": "*",
                 "ext-mbstring": "*",
-                "krowinski/bcmath-extended": "^5.1",
+                "krowinski/bcmath-extended": "^4.2.1",
                 "matthiasmullie/minify": "^1.3",
-                "myclabs/php-enum": "^1.7",
-                "php": "^7.2"
+                "myclabs/php-enum": "^1.6.6",
+                "php": "^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.2.1"
+                "phpunit/phpunit": "^6.5.5"
             },
             "type": "library",
             "autoload": {
@@ -481,7 +482,7 @@
                 }
             ],
             "description": "Compiles JavaScript code through a series of actions.",
-            "time": "2019-09-02T09:38:14+00:00"
+            "time": "2019-09-05T19:49:34+00:00"
         },
         {
             "name": "matthiasmullie/minify",
@@ -1474,35 +1475,33 @@
         },
         {
             "name": "phpdocumentor/reflection-common",
-            "version": "1.0.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
-                "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6"
+                "reference": "63a995caa1ca9e5590304cd845c15ad6d482a62a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
-                "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/63a995caa1ca9e5590304cd845c15ad6d482a62a",
+                "reference": "63a995caa1ca9e5590304cd845c15ad6d482a62a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.6"
+                "phpunit/phpunit": "~6"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "phpDocumentor\\Reflection\\": [
-                        "src"
-                    ]
+                    "phpDocumentor\\Reflection\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1524,30 +1523,30 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2017-09-11T18:02:19+00:00"
+            "time": "2018-08-07T13:53:10+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.3.1",
+            "version": "4.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "bdd9f737ebc2a01c06ea7ff4308ec6697db9b53c"
+                "reference": "b83ff7cfcfee7827e1e78b637a5904fe6a96698e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/bdd9f737ebc2a01c06ea7ff4308ec6697db9b53c",
-                "reference": "bdd9f737ebc2a01c06ea7ff4308ec6697db9b53c",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/b83ff7cfcfee7827e1e78b637a5904fe6a96698e",
+                "reference": "b83ff7cfcfee7827e1e78b637a5904fe6a96698e",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0",
-                "phpdocumentor/reflection-common": "^1.0.0",
-                "phpdocumentor/type-resolver": "^0.4.0",
+                "phpdocumentor/reflection-common": "^1.0.0 || ^2.0.0",
+                "phpdocumentor/type-resolver": "~0.4 || ^1.0.0",
                 "webmozart/assert": "^1.0"
             },
             "require-dev": {
-                "doctrine/instantiator": "~1.0.5",
+                "doctrine/instantiator": "^1.0.5",
                 "mockery/mockery": "^1.0",
                 "phpunit/phpunit": "^6.4"
             },
@@ -1575,41 +1574,40 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2019-04-30T17:48:53+00:00"
+            "time": "2019-09-12T14:27:41+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "0.4.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "9c977708995954784726e25d0cd1dddf4e65b0f7"
+                "reference": "2e32a6d48972b2c1976ed5d8967145b6cec4a4a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/9c977708995954784726e25d0cd1dddf4e65b0f7",
-                "reference": "9c977708995954784726e25d0cd1dddf4e65b0f7",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/2e32a6d48972b2c1976ed5d8967145b6cec4a4a9",
+                "reference": "2e32a6d48972b2c1976ed5d8967145b6cec4a4a9",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5 || ^7.0",
-                "phpdocumentor/reflection-common": "^1.0"
+                "php": "^7.1",
+                "phpdocumentor/reflection-common": "^2.0"
             },
             "require-dev": {
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^5.2||^4.8.24"
+                "ext-tokenizer": "^7.1",
+                "mockery/mockery": "~1",
+                "phpunit/phpunit": "^7.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "phpDocumentor\\Reflection\\": [
-                        "src/"
-                    ]
+                    "phpDocumentor\\Reflection\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1622,7 +1620,8 @@
                     "email": "me@mikevanriel.com"
                 }
             ],
-            "time": "2017-07-14T14:27:02+00:00"
+            "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
+            "time": "2019-08-22T18:11:29+00:00"
         },
         {
             "name": "phploc/phploc",
@@ -2058,16 +2057,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.3.4",
+            "version": "8.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "e31cce0cf4499c0ccdbbb211a3280d36ab341e36"
+                "reference": "302faed7059fde575cf3403a78c730c5e3a62750"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e31cce0cf4499c0ccdbbb211a3280d36ab341e36",
-                "reference": "e31cce0cf4499c0ccdbbb211a3280d36ab341e36",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/302faed7059fde575cf3403a78c730c5e3a62750",
+                "reference": "302faed7059fde575cf3403a78c730c5e3a62750",
                 "shasum": ""
             },
             "require": {
@@ -2090,7 +2089,7 @@
                 "sebastian/comparator": "^3.0.2",
                 "sebastian/diff": "^3.0.2",
                 "sebastian/environment": "^4.2.2",
-                "sebastian/exporter": "^3.1.0",
+                "sebastian/exporter": "^3.1.1",
                 "sebastian/global-state": "^3.0.0",
                 "sebastian/object-enumerator": "^3.0.3",
                 "sebastian/resource-operations": "^2.0.1",
@@ -2126,8 +2125,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
@@ -2137,7 +2136,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-08-11T06:56:55+00:00"
+            "time": "2019-09-14T09:12:03+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -2359,16 +2358,16 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "06a9a5947f47b3029d76118eb5c22802e5869687"
+                "reference": "68609e1261d215ea5b21b7987539cbfbe156ec3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/06a9a5947f47b3029d76118eb5c22802e5869687",
-                "reference": "06a9a5947f47b3029d76118eb5c22802e5869687",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/68609e1261d215ea5b21b7987539cbfbe156ec3e",
+                "reference": "68609e1261d215ea5b21b7987539cbfbe156ec3e",
                 "shasum": ""
             },
             "require": {
@@ -2422,7 +2421,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2019-08-11T12:43:14+00:00"
+            "time": "2019-09-14T09:02:43+00:00"
         },
         {
             "name": "sebastian/finder-facade",
