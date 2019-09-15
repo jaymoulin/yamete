@@ -198,7 +198,7 @@ Here's is the list of supported sites for now:
  * ver-comics-porno.com
  * sexcomic.org
  * hentaicloud.com
- * nude-moon.me
+ * nude-moon.net
  * gntai.xyz
  * hentaigratis.biz
  * doujinhentai.net

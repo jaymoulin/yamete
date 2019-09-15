@@ -10,10 +10,10 @@ class NudeMoon extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://nude-moon.me/10883-online--karfagen-majuu-jouka-shoujo-utea-3.html';
+        $url = 'https://nude-moon.net/11683-online--kairo-rising-heat.html';
         $driver = new \Yamete\Driver\NudeMoon();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(10, count($driver->getDownloadables()));
+        $this->assertEquals(42, count($driver->getDownloadables()));
     }
 }

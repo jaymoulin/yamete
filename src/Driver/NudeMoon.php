@@ -5,7 +5,7 @@ namespace Yamete\Driver;
 class NudeMoon extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'nude-moon.me';
+    const DOMAIN = 'nude-moon.net';
 
     public function canHandle(): bool
     {
@@ -24,7 +24,7 @@ class NudeMoon extends \Yamete\DriverAbstract
         $aReturn = [];
         if (preg_match_all("~images\[[0-9]+\]\.src = '(?<url>[^']+)';~", (string)$oRes->getBody(), $aMatches)) {
             foreach ($aMatches['url'] as $sUrl) {
-                $sFilename = str_replace('./', 'http://' . self::DOMAIN . '/', $sUrl);
+                $sFilename = str_replace('./', 'https://' . self::DOMAIN . '/', $sUrl);
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
             }
         }
