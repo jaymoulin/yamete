@@ -10,10 +10,10 @@ class ManyToonCom extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://manytoon.com/comic/oh-my-chaozu/';
+        $url = 'https://manytoon.com/comic/the-secret-club/';
         $driver = new \Yamete\Driver\ManyToonCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(339, count($driver->getDownloadables()));
+        $this->assertEquals(23, count($driver->getDownloadables()));
     }
 }

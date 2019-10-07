@@ -14,6 +14,6 @@ class NudeMoon extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\NudeMoon();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(42, count($driver->getDownloadables()));
+        $this->assertEquals(32, count($driver->getDownloadables()));
     }
 }
