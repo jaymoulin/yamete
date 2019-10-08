@@ -125,7 +125,6 @@ Here's is the list of supported sites for now:
  * hentai4manga.com
  * erolord.com
  * pururin.io
- * readhentaimanga.com
  * hentaiporn.pics
  * warcraftporn.pro
  * 3dsexpictures.net
