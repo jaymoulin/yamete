@@ -28,7 +28,7 @@ class HentaiHand extends \Yamete\DriverAbstract
         $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('a.gallerythumb'));
         for ($iPage = 1; $iPage <= $iNbPages; $iPage++) {
             $oRes = $this->getClient()
-                ->request('GET', 'https://' . implode('/', [self::DOMAIN, $this->aMatches['album'], $iPage]));
+                ->request('GET', 'https://' . implode('/', [self::DOMAIN, 'viewc', $this->aMatches['album'], $iPage]));
             $sRule = '#image-container .item img';
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sRule) as $oImg) {
                 /**
