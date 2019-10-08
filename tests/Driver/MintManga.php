@@ -10,10 +10,10 @@ class MintManga extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://mintmanga.com/jagaaaaaan/';
+        $url = 'http://mintmanga.com/very_pure';
         $driver = new \Yamete\Driver\MintManga();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1394, count($driver->getDownloadables()));
+        $this->assertEquals(808, count($driver->getDownloadables()));
     }
 }

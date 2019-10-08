@@ -16,7 +16,7 @@ class MintManga extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) .
-            ')/(?<album>[^/]+)/~',
+            ')/(?<album>[^/]+)/?~',
             $this->sUrl,
             $this->aMatches
         );
@@ -34,6 +34,7 @@ class MintManga extends \Yamete\DriverAbstract
         $index = 0;
         $sSelector = '#chapterSelectorSelect option';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oLink) {
+            usleep(100);
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
