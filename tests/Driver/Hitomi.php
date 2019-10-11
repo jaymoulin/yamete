@@ -16,4 +16,16 @@ class Hitomi extends \PHPUnit\Framework\TestCase
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(26, count($driver->getDownloadables()));
     }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function testDownloadThird()
+    {
+        $url = 'https://hitomi.la/galleries/1495922.html';
+        $driver = new \Yamete\Driver\Hitomi();
+        $driver->setUrl($url);
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(22, count($driver->getDownloadables()));
+    }
 }
