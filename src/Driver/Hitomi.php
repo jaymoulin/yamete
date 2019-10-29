@@ -22,16 +22,17 @@ class Hitomi extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $oRes = $this->getClient()->request('GET', str_replace('/galleries/', '/reader/', $this->sUrl));
+        $sAlbum = $this->aMatches['album'];
+        $oRes = $this->getClient()->request('GET', "https://ltn.hitomi.la/galleries/${sAlbum}.js");
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.img-url') as $oImg) {
+        $sJson = str_replace('var galleryinfo = ', '', (string)$oRes->getBody());
+        foreach (\GuzzleHttp\json_decode($sJson, true) as $aItem) {
             foreach (['a', 'b', 'c'] as $cCdn) {
                 /**
                  * @var \PHPHtmlParser\Dom\HtmlNode $oImg
                  */
-                $sReplace = '//' . $cCdn . 'a.';
-                $sFilename = 'https:' . str_replace(['//g.', '//i.'], $sReplace, $oImg->innerhtml);
+                $sFilename = "https://${cCdn}a." . self::DOMAIN . "/galleries/${sAlbum}/${aItem['name']}";
                 $oRes = $this->getClient()->request('GET', $sFilename, ["http_errors" => false]);
                 if ($oRes->getStatusCode() === 403 or $oRes->getStatusCode() === 404) {
                     continue;
