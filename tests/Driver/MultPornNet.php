@@ -22,10 +22,10 @@ class MultPornNet extends \PHPUnit\Framework\TestCase
      */
     public function testDownloadHentai()
     {
-        $url = 'https://multporn.net/hentai_manga/i_love_girls';
+        $url = 'https://multporn.net/hentai_manga/night';
         $driver = new \Yamete\Driver\MultPornNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(26, count($driver->getDownloadables()));
+        $this->assertEquals(10, count($driver->getDownloadables()));
     }
 }

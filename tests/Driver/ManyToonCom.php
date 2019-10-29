@@ -14,6 +14,6 @@ class ManyToonCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\ManyToonCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(19, count($driver->getDownloadables()));
+        $this->assertEquals(23, count($driver->getDownloadables()));
     }
 }
