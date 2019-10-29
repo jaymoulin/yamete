@@ -13,7 +13,7 @@ class HentaiFromHell extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.']) . '/gallery2/(?<album>.+)\.html~',
+            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.']) . '/gallery([0-9]+)/(?<album>.+)\.html~',
             $this->sUrl,
             $this->aMatches
         );
