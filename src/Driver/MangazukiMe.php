@@ -42,7 +42,9 @@ class MangazukiMe extends \Yamete\DriverAbstract
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         foreach ($aChapters as $oLink) {
-            $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href') . '?style=list');
+            $sHref = $oLink->getAttribute('href');
+            $sHref .= strpos($sHref, "?") !== false ? '' : '?style=list';
+            $oRes = $this->getClient()->request('GET', $sHref);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.wp-manga-chapter-img') as $oImg) {
                 $sFilename = trim($oImg->getAttribute('src'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
