@@ -244,7 +244,6 @@ Here's is the list of supported sites for now:
  * hentairead.com
  * doujinreader.com
  * myhentaigallery.com
- * thedoujin.com
  * manytoon.com
  * mangazuki.online
  * mysexgamer.com
