@@ -14,6 +14,6 @@ class GoodComixTk extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\GoodComixTk();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(14, count($driver->getDownloadables()));
+        $this->assertEquals(15, count($driver->getDownloadables()));
     }
 }
