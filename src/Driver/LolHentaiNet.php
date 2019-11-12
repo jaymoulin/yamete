@@ -31,7 +31,7 @@ class LolHentaiNet extends \Yamete\DriverAbstract
         $oContent = $this->getDomParser()->load((string)$oRes->getBody());
         $aReturn = [];
         $index = 0;
-        $oChapters = $oContent->find('.pagination ul li a');
+        $oChapters = $oContent->find('.pagination li a');
         $iMaxPage = 0;
         foreach ($oChapters as $oLink) {
             $iMaxPage = $iMaxPage >= (int)$oLink->text ? $iMaxPage : (int)$oLink->text;
