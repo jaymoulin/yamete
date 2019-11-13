@@ -44,7 +44,10 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
             $sFilename = $oLink->getAttribute('href');
             $sFilename = strpos($sFilename, 'http') !== false
                 ? $sFilename
-                : $this->aMatches['scheme'] . '://www.' . $this->getDomain() . $sFilename;
+                : (
+                    strpos($sFilename, '//') !== false
+                    ? $this->aMatches['scheme'] . ':' . $sFilename
+                    : $this->aMatches['scheme'] . '://www.' . $this->getDomain() . $sFilename);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
