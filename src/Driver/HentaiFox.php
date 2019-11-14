@@ -24,7 +24,7 @@ class HentaiFox extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.preview_thumb a') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.g_thumb a') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
