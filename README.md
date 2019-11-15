@@ -253,5 +253,6 @@ Here's is the list of supported sites for now:
  * mangaowl.com
  * hentaishark.com
  * ballballict.com
+ * 18comic.org
 
 You must pass the URL to the album for the program to download it!
