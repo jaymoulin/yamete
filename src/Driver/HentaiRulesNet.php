@@ -10,7 +10,7 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) .
+            '~^https?://(www\.)?(' . strtr($this->getDomain(), ['.' => '\.']) .
             ')/galleries(?<gallery>[0-9]+)/index\.php\?/category/(?<album>[0-9]+)$~',
             $this->sUrl,
             $this->aMatches
@@ -30,16 +30,18 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
         if (!$iNbPage) {
             $iNbPage = 1;
         }
-        $sBaseUrl = 'https://www.' . self::DOMAIN . '/galleries' . $this->aMatches['gallery'];
+        $sBaseUrl = 'http://www.' . $this->getDomain() . '/galleries' . $this->aMatches['gallery'];
         for ($page = 0; $page < $iNbPage; $page++) {
             $sUrl = $sBaseUrl . '/index.php?/category/' . $this->aMatches['album'] . '/start-' . $page . '00';
-            foreach ($this->getDomParser()->loadFromUrl($sUrl)->find('.thumbnails li a') as $oLink) {
+            $oRes = $this->getClient()->request('GET', $sUrl);
+            foreach ($this->getDomParser()->load((string) $oRes->getBody())->find('#thumbnails li a') as $oLink) {
                 /**
                  * @var \PHPHtmlParser\Dom\AbstractNode $oLink
                  * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sUrl = $sBaseUrl . '/' . $oLink->getAttribute('href');
-                $oImg = $this->getDomParser()->loadFromUrl($sUrl)->find('#theImage img')[0];
+                $oRes = $this->getClient()->request('GET', $sUrl);
+                $oImg = $this->getDomParser()->load((string) $oRes->getBody())->find('#theImage img')[0];
                 $sFilename = $sBaseUrl . '/' . $oImg->getAttribute('data-cfsrc');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
@@ -52,5 +54,10 @@ class HentaiRulesNet extends \Yamete\DriverAbstract
     private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+    }
+
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
     }
 }

@@ -252,5 +252,6 @@ Here's is the list of supported sites for now:
  * hmangasearcher.com
  * mangaowl.com
  * hentaishark.com
+ * ballballict.com
 
 You must pass the URL to the album for the program to download it!
