@@ -250,5 +250,6 @@ Here's is the list of supported sites for now:
  * lolhentai.net
  * kisshentaitv.com
  * hmangasearcher.com
+ * mangaowl.com
 
 You must pass the URL to the album for the program to download it!
