@@ -265,5 +265,6 @@ Here's is the list of supported sites for now:
  * truyenhentai18.net
  * hcomic.in
  * hcomic1.com
+ * doujinshihentai.com
 
 You must pass the URL to the album for the program to download it!
