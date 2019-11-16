@@ -45,6 +45,6 @@ class HComicIn extends \Yamete\DriverAbstract
 
     private function getFolder(): string
     {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+        return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
     }
 }
