@@ -10,10 +10,15 @@ class DuppNet extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . ')/g/(?<album>[0-9]+)/~',
+            '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) . ')/g/(?<album>[0-9]+)/~',
             $this->sUrl,
             $this->aMatches
         );
+    }
+
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
     }
 
     /**
@@ -47,6 +52,6 @@ class DuppNet extends \Yamete\DriverAbstract
 
     private function getFolder(): string
     {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+        return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
     }
 }
