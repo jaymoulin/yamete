@@ -266,5 +266,6 @@ Here's is the list of supported sites for now:
  * hcomic.in
  * hcomic1.com
  * doujinshihentai.com
+ * acgxmanga.com
 
 You must pass the URL to the album for the program to download it!
