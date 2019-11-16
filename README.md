@@ -262,5 +262,6 @@ Here's is the list of supported sites for now:
  * kingsmanga.net
  * hentai-paradise.fr
  * hdhentai.tv
+ * truyenhentai18.net
 
 You must pass the URL to the album for the program to download it!
