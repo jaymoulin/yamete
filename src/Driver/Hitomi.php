@@ -34,12 +34,13 @@ class Hitomi extends \Yamete\DriverAbstract
                  */
                 $sFilename = "https://${cCdn}a." . self::DOMAIN . "/galleries/${sAlbum}/${aItem['name']}";
                 $oRes = $this->getClient()->request('GET', $sFilename, ["http_errors" => false]);
-                if ($oRes->getStatusCode() === 403 or $oRes->getStatusCode() === 404) {
+                if ($oRes->getStatusCode() !== 200) {
                     continue;
                 }
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
+                break;
             }
         }
         return $aReturn;
