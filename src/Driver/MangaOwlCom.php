@@ -41,7 +41,7 @@ class MangaOwlCom extends \Yamete\DriverAbstract
             $aChap = array_reverse($aChap);
             $aReturn = array_merge($aReturn, $aChap);
         }
-        return array_reverse($aReturn);;
+        return array_reverse($aReturn);
     }
 
     private function getFolder(): string

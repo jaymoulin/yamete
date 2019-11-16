@@ -26,7 +26,7 @@ class EighteenComicOrg extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.panel-body .row img.lazy_img') as $oImg) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.panel-body .row .lazy_img') as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */

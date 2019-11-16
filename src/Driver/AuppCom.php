@@ -12,7 +12,8 @@ class AuppCom extends DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(?<lang>[a-z]{2}\.)?(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) . ')/s/(?<album>[0-9]+)/~',
+            '~^https?://(?<lang>[a-z]{2}\.)?(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-'])
+            . ')/s/(?<album>[0-9]+)/~',
             $this->sUrl,
             $this->aMatches
         );
@@ -35,7 +36,8 @@ class AuppCom extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#thumbnail-container .lazyload') as $oImg) {
+        $sBody = (string)$oRes->getBody();
+        foreach ($this->getDomParser()->load($sBody)->find('#thumbnail-container .lazyload') as $oImg) {
             $sFilename = 'https://a.comicstatic.icu' . $oImg->getAttribute('data-src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename(preg_replace('~\?(.*)$~', '', $sFilename));
