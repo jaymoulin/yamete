@@ -13,7 +13,7 @@ Yamete - Hentai downloader in PHP CLI - Easy PHP Site downloader
 
 This image allows you easily download specific assets of a site
 
-Interested in hentai? You may like this: https://gestyy.com/w5K3hX
+Interested in hentai? You may like this: https://yametee.store
 
 But why?
 --------
@@ -81,7 +81,7 @@ with *\</path/to/downloads>* the path where downloaded assets will be downloaded
 
 Note: Use the `-u $(id -u):$(id -g)` part for yamete to run as a specific user. It's recommanded to use static values (see: https://docs.docker.com/engine/reference/commandline/exec/#options)
 
-Merch - https://gestyy.com/w5K3hX
+Merch - https://yametee.store
 ---------------------------------
 
 ### Build Docker Image
