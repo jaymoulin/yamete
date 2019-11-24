@@ -35,7 +35,10 @@ class MyHentaiGallery extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sFilename = str_replace('/thumbnail/', '/original/', $oImg->getAttribute('src'));
+            $sFilename = html_entity_decode(
+                str_replace('/thumbnail/', '/original/', $oImg->getAttribute('src')),
+                ENT_QUOTES
+            );
             $iPos = strpos($sFilename, '?');
             if ($iPos) {
                 $sFilename = substr($sFilename, 0, $iPos);
