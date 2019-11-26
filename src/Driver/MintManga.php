@@ -5,7 +5,7 @@ namespace Yamete\Driver;
 class MintManga extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'mintmanga.com';
+    const DOMAIN = 'mintmanga.live';
 
     protected function getDomain(): string
     {
@@ -34,7 +34,7 @@ class MintManga extends \Yamete\DriverAbstract
         $index = 0;
         $sSelector = '#chapterSelectorSelect option';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oLink) {
-            usleep(100);
+            usleep(1000);
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg

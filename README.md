@@ -185,7 +185,7 @@ Here's is the list of supported sites for now:
  * hentaihere.com
  * hentaimangaly.com
  * 9hentai.com
- * mintmanga.com
+ * mintmanga.live
  * hentai.cafe
  * hentai-archive.net
  * hentai-ita.net
