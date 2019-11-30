@@ -264,7 +264,6 @@ Here's is the list of supported sites for now:
  * truyenhentai18.net
  * hcomic.in
  * hcomic1.com
- * doujinshihentai.com
  * acgxmanga.com
  * d-upp.net
  * a-upp.com
