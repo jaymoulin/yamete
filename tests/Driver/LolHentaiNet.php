@@ -14,6 +14,6 @@ class LolHentaiNet extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\LolHentaiNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(81, count($driver->getDownloadables()));
+        $this->assertEquals(72, count($driver->getDownloadables()));
     }
 }
