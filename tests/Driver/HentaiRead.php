@@ -15,5 +15,6 @@ class HentaiRead extends \PHPUnit\Framework\TestCase
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(20, count($driver->getDownloadables()));
+        var_dump($driver->getDownloadables());
     }
 }

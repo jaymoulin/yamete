@@ -47,20 +47,15 @@ class HentaiRead extends \Yamete\DriverAbstract
             return;
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('#single-pager option')) / 2;
-        for ($i = 1; $i <= $iNbPages; $i++) {
-            /* @var \PHPHtmlParser\Dom\AbstractNode $oImg */
-            $oRes = $this->getClient()->request('GET', str_replace('/p/1', '/p/' . $i, $sUrl));
-            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('.wp-manga-chapter-img')[0];
-            if (!$oImg) {
-                continue;
+        if (preg_match('~var chapImages = ([^;]+);~', (string)$oRes->getBody(), $aMatches)) {
+            $aPages = \GuzzleHttp\json_decode($aMatches[1], true);
+            foreach ($aPages as $sFilename) {
+                $iPos = strpos($sFilename, '?');
+                $sFilename = substr($sFilename, 0, $iPos);
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT)
+                    . '-' . basename($sFilename);
+                $this->aReturn[$sBasename] = $sFilename;
             }
-            $sFilename = $oImg->getAttribute('data-src');
-            $iPos = strpos($sFilename, '?');
-            $sFilename = substr($sFilename, 0, $iPos);
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT)
-                . '-' . basename($sFilename);
-            $this->aReturn[$sBasename] = $sFilename;
         }
     }
 
