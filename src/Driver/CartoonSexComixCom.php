@@ -16,7 +16,7 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^(?<scheme>https?)://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
-            ')/(pictures|gallery|galleries)/(?<album>[^/?]+)[/?]?~',
+            ')/(pictures|gallery|galleries|videos)/(?<album>[^/?]+)[/?]?~',
             $this->sUrl,
             $this->aMatches
         );

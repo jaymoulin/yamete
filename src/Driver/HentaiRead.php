@@ -47,7 +47,7 @@ class HentaiRead extends \Yamete\DriverAbstract
             return;
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
-        if (preg_match('~var chapImages = ([^;]+);~', (string)$oRes->getBody(), $aMatches)) {
+        if (preg_match('~var chapter_preloaded_images = ([^]]+])~', (string)$oRes->getBody(), $aMatches)) {
             $aPages = \GuzzleHttp\json_decode($aMatches[1], true);
             foreach ($aPages as $sFilename) {
                 $iPos = strpos($sFilename, '?');

@@ -14,6 +14,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
 {
     const URL = 'url';
     const LIST_FILE = 'list';
+    const INTERACTIVE = 'interactive';
     const DRIVERS = 'drivers';
     const PDF = 'pdf';
     const ZIP = 'zip';
@@ -25,6 +26,12 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             ->setDescription("Download an URL resources")
             ->addOption(self::URL, 'u', InputOption::VALUE_OPTIONAL, 'Url to download from')
             ->addOption(self::LIST_FILE, 'l', InputOption::VALUE_OPTIONAL, 'List file with multiple urls')
+            ->addOption(
+                self::INTERACTIVE,
+                'i',
+                InputOption::VALUE_NONE,
+                'Interactive (send url to STDIN, never ends)'
+            )
             ->addOption(self::PDF, 'p', InputOption::VALUE_NONE, 'Optional to create a PDF')
             ->addOption(self::ZIP, 'z', InputOption::VALUE_NONE, 'Optional to create a zip file')
             ->addOption(
@@ -39,6 +46,25 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Optional array of drivers to add'
             );
+    }
+
+
+    /**
+     * @param $aUrls
+     * @param bool $bIsInteractive
+     * @return \Generator
+     */
+    private function getGenerator(array $aUrls = [], $bIsInteractive = false): \Generator
+    {
+        if (!$bIsInteractive) {
+            foreach ($aUrls as $sUrl) {
+                yield $sUrl;
+            }
+        } else {
+            while ($sLine = fgets(STDIN)) {
+                yield $sLine;
+            }
+        }
     }
 
     /**
@@ -58,8 +84,11 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             $aUrl = file($input->getOption(self::LIST_FILE));
         } elseif ($input->getOption(self::URL)) {
             $aUrl[] = $input->getOption(self::URL);
+        } elseif ($input->getOption(self::INTERACTIVE)) {
+            $output->writeln("<question>/!\ INTERACTIVE MODE /!\\\n\nSend ^C or EOF to end process</question>");
+            $aUrl = [];
         } else {
-            throw new Exception('Required parameter : ' . implode(' or ', [self::URL, self::LIST_FILE]));
+            throw new Exception('Required parameter : ' . implode(' or ', [self::URL, self::LIST_FILE, self::INTERACTIVE]));
         }
         $oParser = new Parser();
         if ($input->getOption(self::DRIVERS)) {
@@ -73,7 +102,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             $progress->start();
         }
         $fArtifact = empty($input->getOption(self::ERRORS)) ?: fopen($input->getOption(self::ERRORS), "a");
-        foreach ($aUrl as $sUrl) {
+        foreach ($this->getGenerator($aUrl, $input->getOption(self::INTERACTIVE)) as $sUrl) {
             try {
                 $sUrl = trim($sUrl);
                 $output->writeln("<comment>Parsing $sUrl</comment>");

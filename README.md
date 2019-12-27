@@ -38,6 +38,7 @@ Usage:
 Options:
   -u, --url[=URL]             Url to download from
   -l, --list[=LIST]           List file with multiple urls
+  -i, --interactive           Interactive (send url to STDIN, never ends)
   -p, --pdf                   Optional to create a PDF
   -z, --zip                   Optional to create a zip file
   -e, --errors[=ERRORS]       Optional file path to create artifacts error urls
@@ -58,6 +59,8 @@ Help:
 `-u` or `--url` : the URL to download assets from
 OR
 `-l` or `--list` : the path to a file containing all URLs to download from on each line
+OR
+`-i` or `--interactive` : each url entry must be sent separately in the STDIN input. EOF or ^C (<kbd>CTRL</kbd> + <kbd>C</kbd>)
 
 ### Optional parameter
  - `-d` or `--drivers`: the path to custom drivers to handle some URL
@@ -74,14 +77,16 @@ Docker
 You can use Docker image to use this program easily without knowing code or installing PHP etc...
 
 ```
-docker run --rm -ti -v </path/to/downloads>:/app/downloads -u $(id -u):$(id -g) jaymoulin/yamete download [...]
+docker run --rm -ti -v </path/to/downloads>:/app/downloads -u $(id -u) jaymoulin/yamete download [...]
 ```
 
 see usage to complete *\[...\]*
 
 with *\</path/to/downloads>* the path where downloaded assets will be downloaded to.
 
-Note: Use the `-u $(id -u):$(id -g)` part for yamete to run as a specific user. It's recommanded to use static values (see: https://docs.docker.com/engine/reference/commandline/exec/#options)
+Note: Use the `-u $(id -u)` part for yamete to run as a specific user. It's recommanded to use static values (see: https://docs.docker.com/engine/reference/commandline/exec/#options)
+Note: Add `--init` parameter before `jaymoulin/yamete` if you intend to use interactive mode (`-i` parameter of Yamete), this is mandatory with `-ti` parameter.
+Otherwise, you will not be able to quit interactive mode. If you forgot the `--init` parameter or this parameter is not before the image, use (<kbd>CTRL</kbd>+<kbd>P</kbd> then <kbd>CTRL</kbd>+<kbd>Q</kbd> to detach your running container)
 
 Merch - https://yametee.store
 ---------------------------------
@@ -238,7 +243,6 @@ Here's is the list of supported sites for now:
  * animephile.com
  * yuri-ism.net
  * mangazuki.me
- * 9mangaplus.com
  * readhent.ai
  * tmohentai.com
  * comicsporno.xxx
@@ -267,5 +271,41 @@ Here's is the list of supported sites for now:
  * acgxmanga.com
  * d-upp.net
  * a-upp.com
+ * xxxmanga.pro
+ * hentaixxxcomics.com
+ * allporncomic.com
+ * hentaikai.com
+ * hqhentai.online
+ * hentaizone.me
+ * mymangacomics.com
+ * baramangaonline.com
+ * mangax.net
+ * zizki.com
+ * milftoon.xxx
+ * ilikecomix.com
+ * yiffer.xyz
+ * porncomix.one
+ * kastalkluch.ru
+ * sexporncomics.com
+ * superhentaicomics.net
+ * eggporncomics.com
+ * world-hentai.com
+ * mangatown.com
+ * yaoihavenreborn.com
+ * porngameshd.com
+ * onlineporngames.xyz
+ * onlinesexgames.cc
+ * gamesofdesired.com
+ * sexyfuckgamers.com
+ * 66games.net
+ * furrysexgame.com
+ * iphonesexgames.com
+ * sexgamesx.com
+ * ipadsexgames.com
+ * porngamesapp.com
+ * porngames.cc
+ * porngames.zone
+ * sexgamescc.com
+ * comicsporn.me
 
 You must pass the URL to the album for the program to download it!
