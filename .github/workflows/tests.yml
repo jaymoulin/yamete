@@ -1,0 +1,23 @@
+name: Tests
+
+on:
+  schedule:
+    - cron:  '0 5 1,15 * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Installing dependencies
+        run: |
+          sudo apt update && sudo apt install make -y
+      - name: CI
+        run: make test
+      - name: Publish Tests artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: Tests
+          path: ./build/junit.xml
