@@ -15,4 +15,4 @@ jobs:
         run: |
           sudo apt update && sudo apt install make -y
       - name: Control
-        run: make test-real
+        run: make build/test-image test-real

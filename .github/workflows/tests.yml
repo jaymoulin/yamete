@@ -15,7 +15,7 @@ jobs:
         run: |
           sudo apt update && sudo apt install make -y
       - name: CI
-        run: make test
+        run: make build/test-image test
       - name: Publish Tests artifacts
         uses: actions/upload-artifact@v1
         with:
