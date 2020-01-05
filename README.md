@@ -55,14 +55,22 @@ Help:
   Download an URL resources
 ```
 
+NOTE : Yamete just downloads what it's asked to. If you want to download the same URL multiple times, assets will be downloaded multiple times. The output name could be the same depending on how the driver is coded (All drivers provided with Yametee are designed to give the same output name each time run IF the source file has the same name)
+
 ### Mandatory parameter
+
 `-u` or `--url` : the URL to download assets from
+
 OR
+
 `-l` or `--list` : the path to a file containing all URLs to download from on each line
+
 OR
+
 `-i` or `--interactive` : each url entry must be sent separately in the STDIN input. EOF or ^C (<kbd>CTRL</kbd> + <kbd>C</kbd>)
 
 ### Optional parameter
+
  - `-d` or `--drivers`: the path to custom drivers to handle some URL
  - `-p` or `--pdf`: Add this parameter to download a single PDF file instead of multiple images
  - `-e` or `--errors`: Add this parameter to put all urls that failed in another file 
@@ -85,6 +93,7 @@ see usage to complete *\[...\]*
 with *\</path/to/downloads>* the path where downloaded assets will be downloaded to.
 
 Note: Use the `-u $(id -u)` part for yamete to run as a specific user. It's recommanded to use static values (see: https://docs.docker.com/engine/reference/commandline/exec/#options)
+
 Note: Add `--init` parameter before `jaymoulin/yamete` if you intend to use interactive mode (`-i` parameter of Yamete), this is mandatory with `-ti` parameter.
 Otherwise, you will not be able to quit interactive mode. If you forgot the `--init` parameter or this parameter is not before the image, use (<kbd>CTRL</kbd>+<kbd>P</kbd> then <kbd>CTRL</kbd>+<kbd>Q</kbd> to detach your running container)
 
