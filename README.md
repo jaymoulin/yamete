@@ -142,7 +142,6 @@ Here's is the list of supported sites for now:
  * hentaifr.net
  * myreadingmanga.info
  * hentai4manga.com
- * erolord.com
  * pururin.io
  * hentaiporn.pics
  * warcraftporn.pro
