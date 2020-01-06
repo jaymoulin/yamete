@@ -17,6 +17,15 @@ class AllkomsRu extends \Yamete\DriverAbstract
     }
 
     /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+    }
+
+    /**
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -37,8 +46,8 @@ class AllkomsRu extends \Yamete\DriverAbstract
                 $this->aMatches['album'],
             ]
         );
-        $oRes = $this->getClient()->request('GET', $sUrl);
-        $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('.king-q-view-content img');
+        $oResult = $this->getClient()->request('GET', $sUrl);
+        $oPages = $this->getDomParser()->load((string)$oResult->getBody())->find('.king-q-view-content img');
         $index = 0;
         $aReturn = [];
         foreach ($oPages as $oLink) {
@@ -48,10 +57,5 @@ class AllkomsRu extends \Yamete\DriverAbstract
             $aReturn[$sBasename] = $sFilename;
         }
         return array_merge(array_slice($aReturn, -1, 1), array_slice($aReturn, 0, $index - 1));
-    }
-
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

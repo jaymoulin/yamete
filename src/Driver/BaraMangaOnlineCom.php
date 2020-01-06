@@ -34,17 +34,12 @@ class BaraMangaOnlineCom extends \Yamete\DriverAbstract
         $index = 0;
         $aReturn = [];
         foreach ($oImgs as $oUrl) {
-            $sFilename = 'https://' . self::DOMAIN . $oUrl->getAttribute('href');
+            $sFileToDown = 'https://' . self::DOMAIN . $oUrl->getAttribute('href');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                . '-' . basename($sFilename);
-            $aReturn[$sBasename] = $sFilename;
+                . '-' . basename($sFileToDown);
+            $aReturn[$sBasename] = $sFileToDown;
         }
         return $aReturn;
-    }
-
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 
     /**
@@ -66,5 +61,14 @@ class BaraMangaOnlineCom extends \Yamete\DriverAbstract
         $oHandler->remove('cloudflare');
         $oHandler->push(Middleware::create(), 'cloudflare');
         return $oClient;
+    }
+
+    /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

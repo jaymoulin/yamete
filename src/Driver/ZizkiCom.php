@@ -35,14 +35,18 @@ class ZizkiCom extends \Yamete\DriverAbstract
         $index = 0;
         $aReturn = [];
         foreach ($oPages as $oLink) {
-            $sFilename = $oLink->getAttribute('href');
+            $sFileToDownload = $oLink->getAttribute('href');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                . '-' . basename($sFilename);
-            $aReturn[$sBasename] = $sFilename;
+                . '-' . basename($sFileToDownload);
+            $aReturn[$sBasename] = $sFileToDownload;
         }
         return $aReturn;
     }
 
+    /**
+     * Where to download files
+     * @return string
+     */
     private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);

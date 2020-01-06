@@ -28,13 +28,17 @@ class SexComicOrg extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sFilename = $oImg->getAttribute('src');
-            $sFilename = strpos($sFilename, 'https:') !== false ? $sFilename : 'https:' . $sFilename;
-            $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
+            $sFileToDown = $oImg->getAttribute('src');
+            $sFileToDown = strpos($sFileToDown, 'https:') !== false ? $sFileToDown : 'https:' . $sFileToDown;
+            $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFileToDown)] = $sFileToDown;
         }
         return $aReturn;
     }
 
+    /**
+     * Where to download
+     * @return string
+     */
     private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
