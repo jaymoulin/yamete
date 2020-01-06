@@ -15,10 +15,27 @@ jobs:
       - name: Installing dependencies
         run: |
           sudo apt update && sudo apt install make -y
+      - name: Preparing Test Image
+        run: make build/test-image
       - name: CI
-        run: make build/test-image ci
-      - name: Publish build artifacts
+        run: make ci
+      - name: Publish CPD artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: build
-          path: build
+          name: CPD
+          path: ./build/logs/cpd.xml
+      - name: Publish MESS artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: Mess
+          path: ./build/logs/mess.xml
+      - name: Publish PHPLocs artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: PHPLoc
+          path: ./build/logs/phploc.csv
+      - name: Publish PHPCS artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: CodeStyle
+          path: ./build/logs/checkstyle.xml

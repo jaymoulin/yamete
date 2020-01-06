@@ -14,5 +14,7 @@ jobs:
       - name: Installing dependencies
         run: |
           sudo apt update && sudo apt install make -y
-      - name: Control
-        run: make build/test-image test-real
+      - name: Preparing Test Image
+        run: make build/test-image
+      - name: Control Tests
+        run: make test-real

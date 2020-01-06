@@ -14,8 +14,10 @@ jobs:
       - name: Installing dependencies
         run: |
           sudo apt update && sudo apt install make -y
-      - name: CI
-        run: make build/test-image test
+      - name: Preparing Image
+        run: make build/test-image
+      - name: Tests
+        run: make test
       - name: Publish Tests artifacts
         uses: actions/upload-artifact@v1
         with:
