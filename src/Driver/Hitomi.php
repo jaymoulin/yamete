@@ -10,7 +10,8 @@ class Hitomi extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/galleries/(?<album>[^.]+).html$~',
+            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) .
+            '/(?<category>cg|manga|doujinshi|gamecg|galleries)/(?<album>.+)\.html$~',
             $this->sUrl,
             $this->aMatches
         );
@@ -22,8 +23,9 @@ class Hitomi extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $sAlbum = $this->aMatches['album'];
-        $oRes = $this->getClient()->request('GET', "https://ltn.hitomi.la/galleries/${sAlbum}.js");
+        preg_match('~(?<iAlbumId>[0-9]+)(\.html)?$~', $this->aMatches['album'], $aMatch);
+        $iAlbumId = (int)$aMatch['iAlbumId'];
+        $oRes = $this->getClient()->request('GET', "https://ltn.hitomi.la/galleries/${iAlbumId}.js");
         $aReturn = [];
         $index = 0;
         $sJson = str_replace('var galleryinfo = ', '', (string)$oRes->getBody());
@@ -32,7 +34,7 @@ class Hitomi extends \Yamete\DriverAbstract
                 /**
                  * @var \PHPHtmlParser\Dom\HtmlNode $oImg
                  */
-                $sFilename = "https://${cCdn}a." . self::DOMAIN . "/galleries/${sAlbum}/${aItem['name']}";
+                $sFilename = "https://${cCdn}a." . self::DOMAIN . "/galleries/${iAlbumId}/${aItem['name']}";
                 $oRes = $this->getClient()->request('GET', $sFilename, ["http_errors" => false]);
                 if ($oRes->getStatusCode() !== 200) {
                     continue;
