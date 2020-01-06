@@ -10,7 +10,7 @@ class Doujins extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/hentai-magazine-chapters/(?<album>[^/]+)$~',
+            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<category>[^/]+)/(?<album>[^/]+)$~',
             $this->sUrl,
             $this->aMatches
         );
