@@ -88,7 +88,9 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             $output->writeln("<question>/!\ INTERACTIVE MODE /!\\\n\nSend ^C or EOF to end process</question>");
             $aUrl = [];
         } else {
-            throw new Exception('Required parameter : ' . implode(' or ', [self::URL, self::LIST_FILE, self::INTERACTIVE]));
+            throw new Exception(
+                'Required parameter : ' . implode(' or ', [self::URL, self::LIST_FILE, self::INTERACTIVE])
+            );
         }
         $oParser = new Parser();
         if ($input->getOption(self::DRIVERS)) {
