@@ -40,7 +40,7 @@ class MintManga extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sChapterUrl = $sBaseUrl . $oLink->getAttribute('value');
-            $oRes = $this->getClient()->request('GET', $sChapterUrl . '1?mtr=1');
+            $oRes = $this->getClient()->request('GET', $sChapterUrl);
             $sRegExp = '~rm_h.init\((?<json>[^\)]+)\)~';
             if (preg_match($sRegExp, (string)$oRes->getBody(), $aMatches)) {
                 $sJsonClean = implode(',', array_slice(explode(',', trim($aMatches['json'])), 0, -2));
