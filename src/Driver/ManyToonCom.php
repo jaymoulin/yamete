@@ -39,9 +39,8 @@ class ManyToonCom extends \Yamete\DriverAbstract
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.reading-content img') as $oImg) {
                 $sFilename = trim($oImg->getAttribute('src'));
                 $iPos = strpos($sFilename, '?');
-                $sFilename = substr($sFilename, 0, $iPos);
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                    . '-' . basename($sFilename);
+                    . '-' . basename(substr($sFilename, 0, $iPos));
                 $aReturn[$sBasename] = $sFilename;
             }
         }
