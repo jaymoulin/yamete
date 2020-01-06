@@ -2,10 +2,10 @@
 
 namespace Yamete\Driver;
 
-class KastalkluchRu extends \Yamete\DriverAbstract
+class AllkomsRu extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'kastalkluch.ru';
+    const DOMAIN = 'allkoms.ru';
 
     public function canHandle(): bool
     {

@@ -293,7 +293,7 @@ Here's is the list of supported sites for now:
  * ilikecomix.com
  * yiffer.xyz
  * porncomix.one
- * kastalkluch.ru
+ * allkoms.ru
  * sexporncomics.com
  * superhentaicomics.net
  * eggporncomics.com
