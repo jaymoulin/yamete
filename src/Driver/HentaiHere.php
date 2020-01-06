@@ -30,6 +30,7 @@ class HentaiHere extends \Yamete\DriverAbstract
         for ($iChapter = 1; $iChapter <= $iNbChapter; $iChapter++) {
             $oRes = $this->getClient()->request('GET', $this->sUrl . '/' . $iChapter . '/1/');
             $sRegExp = '~<a href="https://' . self::DOMAIN . '/report/(?<chapterName>[^"]+)">~';
+            $aMatch = [];
             if (!preg_match($sRegExp, (string)$oRes->getBody(), $aMatch)) {
                 continue;
             }

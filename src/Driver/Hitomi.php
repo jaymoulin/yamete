@@ -23,6 +23,7 @@ class Hitomi extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
+        $aMatch = [];
         preg_match('~(?<iAlbumId>[0-9]+)(\.html)?$~', $this->aMatches['album'], $aMatch);
         $iAlbumId = (int)$aMatch['iAlbumId'];
         $oRes = $this->getClient()->request('GET', "https://ltn.hitomi.la/galleries/${iAlbumId}.js");

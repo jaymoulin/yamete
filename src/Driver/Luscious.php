@@ -38,8 +38,9 @@ class Luscious extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        preg_match('~([0-9]+)$~', $this->aMatches['album'], $sAlbumId);
-        $this->iAlbumId = (int)$sAlbumId[1];
+        $aAlbumId = [];
+        preg_match('~([0-9]+)$~', $this->aMatches['album'], $aAlbumId);
+        $this->iAlbumId = (int)$aAlbumId[1];
         $this->iPage = (int)0;
         return $this->download(
             (string)$this->getClient()->request(

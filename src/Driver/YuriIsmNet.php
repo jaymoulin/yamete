@@ -32,6 +32,7 @@ class YuriIsmNet extends \Yamete\DriverAbstract
         $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('.title a');
         foreach ($oChapters as $oLink) {
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
+            $aMatch = [];
             if (!preg_match('~var pages = (?<json>[^;]+)~', (string)$oRes->getBody(), $aMatch)) {
                 continue;
             }

@@ -38,6 +38,8 @@ class HentaiRead extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $sUrl);
         $bFound = false;
+        $index = 0;
+        $aMatches = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('li.wp-manga-chapter a') as $oLink) {
             /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
             $this->getLinks($oLink->getAttribute('href'));
@@ -47,15 +49,16 @@ class HentaiRead extends \Yamete\DriverAbstract
             return;
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
-        if (preg_match('~var chapter_preloaded_images = ([^]]+])~', (string)$oRes->getBody(), $aMatches)) {
-            $aPages = \GuzzleHttp\json_decode($aMatches[1], true);
-            foreach ($aPages as $sFilename) {
-                $iPos = strpos($sFilename, '?');
-                $sFilename = substr($sFilename, 0, $iPos);
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($i, 5, '0', STR_PAD_LEFT)
-                    . '-' . basename($sFilename);
-                $this->aReturn[$sBasename] = $sFilename;
-            }
+        if (!preg_match('~var chapter_preloaded_images = ([^]]+])~', (string)$oRes->getBody(), $aMatches)) {
+            return;
+        }
+        $aPages = \GuzzleHttp\json_decode($aMatches[1], true);
+        foreach ($aPages as $sFilename) {
+            $iPos = strpos($sFilename, '?');
+            $sFilename = substr($sFilename, 0, $iPos);
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
+                . '-' . basename($sFilename);
+            $this->aReturn[$sBasename] = $sFilename;
         }
     }
 

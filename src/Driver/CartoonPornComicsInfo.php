@@ -24,6 +24,7 @@ class CartoonPornComicsInfo extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
+        $aMatches = [];
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.my-gallery figure a') as $oLink) {
             /**

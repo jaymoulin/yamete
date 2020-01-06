@@ -43,6 +43,7 @@ class MangaParkNet extends \Yamete\DriverAbstract
         foreach ($aChapters as $oLink) {
             $sChapUrl = substr("https://{$this->getDomain()}{$oLink->getAttribute('href')}", 0, -2);
             $oRes = $this->getClient()->request('GET', $sChapUrl);
+            $aMatch = [];
             if (!preg_match('~var _load_pages = (?<json>[^;]+)~', (string)$oRes->getBody(), $aMatch)) {
                 continue;
             }

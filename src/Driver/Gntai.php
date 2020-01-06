@@ -31,13 +31,15 @@ class Gntai extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $sBody = (string)$oRes->getBody();
         $aReturn = [];
+        $aMatch = [];
         $sRegExp = '~<script>pages=(?<json>[^;]+);~';
-        if (preg_match($sRegExp, $sBody, $aMatch)) {
-            $aList = \GuzzleHttp\json_decode($aMatch['json'], true);
-            foreach ($aList as $sFilename) {
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
-                $aReturn[$sBasename] = $sFilename;
-            }
+        if (!preg_match($sRegExp, $sBody, $aMatch)) {
+            return [];
+        }
+        $aList = \GuzzleHttp\json_decode($aMatch['json'], true);
+        foreach ($aList as $sFilename) {
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
+            $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
     }

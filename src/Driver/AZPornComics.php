@@ -31,18 +31,20 @@ class AZPornComics extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $sBody = (string)$oRes->getBody();
         $aReturn = [];
+        $aMatches = [];
         $sRegExp = '~href="([^"]+)"~';
         $bIsFirst = true;
-        if (preg_match_all($sRegExp, $sBody, $aMatches)) {
-            foreach ($aMatches[1] as $sFilename) {
-                if (preg_match('~\.jpe?g$~', $sFilename)) {
-                    if ($bIsFirst) {
-                        $bIsFirst = false;
-                        continue;
-                    }
-                    $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
-                    $aReturn[$sBasename] = $sFilename;
+        if (!preg_match_all($sRegExp, $sBody, $aMatches)) {
+            return [];
+        }
+        foreach ($aMatches[1] as $sFilename) {
+            if (preg_match('~\.jpe?g$~', $sFilename)) {
+                if ($bIsFirst) {
+                    $bIsFirst = false;
+                    continue;
                 }
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
+                $aReturn[$sBasename] = $sFilename;
             }
         }
         return $aReturn;

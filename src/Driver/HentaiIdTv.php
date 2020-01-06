@@ -20,6 +20,7 @@ class HentaiIdTv extends \Yamete\DriverAbstract
             $oRes = $this->getClient()->request('GET', $this->sUrl);
             /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
             $oLink = $this->getDomParser()->load((string)$oRes->getBody())->find('.mm2 a')[0];
+            $aMatch = [];
             if (preg_match('~\?s=(?<url>.+)~', $oLink->getAttribute('href'), $aMatch)) {
                 $this->sUrl = $aMatch['url'];
             }

@@ -4,16 +4,25 @@ namespace Yamete\Driver;
 
 class AllPornComicCom extends \Yamete\DriverAbstract
 {
-    private $aMatches = [];
+    protected $aMatches = [];
     const DOMAIN = 'allporncomic.com';
 
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/porncomic/(?<album>[^/]+)~',
+            '~^https?://(' . strtr($this->getDomain(), ['.' => '\.']) . ')/(?<category>porncomic)/(?<album>[^/]+)~',
             $this->sUrl,
             $this->aMatches
         );
+    }
+
+    /**
+     * Domain to download from
+     * @return string
+     */
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
     }
 
     /**
@@ -27,7 +36,8 @@ class AllPornComicCom extends \Yamete\DriverAbstract
          * @var \PHPHtmlParser\Dom\AbstractNode $oChapter
          * @var \PHPHtmlParser\Dom\AbstractNode $oImg
          */
-        $sUrl = 'https://' . self::DOMAIN . '/porncomic/' . $this->aMatches['album'] . '/';
+        $sUrl = 'https://' .
+            implode('/', [$this->getDomain(), $this->aMatches['category'], $this->aMatches['album'], '']);
         $oRes = $this->getClient()->request('GET', $sUrl);
         $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('li.wp-manga-chapter > a');
         $aChapters = iterator_to_array($oChapters);

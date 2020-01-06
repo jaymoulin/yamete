@@ -4,16 +4,25 @@ namespace Yamete\Driver;
 
 class ILikeComixCom extends \Yamete\DriverAbstract
 {
-    private $aMatches = [];
+    protected $aMatches = [];
     const DOMAIN = 'ilikecomix.com';
 
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/porncomix/(?<album>[^/]+)~',
+            '~^https?://(' . strtr($this->getDomain(), ['.' => '\.']) . ')/(?<category>porncomix)/(?<album>[^/]+)~',
             $this->sUrl,
             $this->aMatches
         );
+    }
+
+    /**
+     * Domain to download on
+     * @return string
+     */
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
     }
 
     /**
@@ -26,11 +35,12 @@ class ILikeComixCom extends \Yamete\DriverAbstract
          * @var \Traversable $oPages
          * @var \PHPHtmlParser\Dom\AbstractNode $oImgs
          */
-        $sUrl = 'https://' . self::DOMAIN . '/porncomix/' . $this->aMatches['album'] . '/';
+        $sUrl = 'https://' .
+            implode('/', [$this->getDomain(), $this->aMatches['category'], $this->aMatches['album'], '']);
         $oRes = $this->getClient()->request('GET', $sUrl);
         $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('figure > a');
-        $index = 0;
         $aReturn = [];
+        $index = 0;
         foreach ($oPages as $oLink) {
             $sFilename = $oLink->getAttribute('href');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

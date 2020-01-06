@@ -37,6 +37,7 @@ class EggPornComicsCom extends \Yamete\DriverAbstract
                 $this->aMatches['album'],
             ]
         );
+        $aMatches = [];
         $oRes = $this->getClient()->request('GET', $sUrl);
         if (!preg_match_all('~<a href="([^"]+)"~', (string)$oRes->getBody(), $aMatches)) {
             return [];

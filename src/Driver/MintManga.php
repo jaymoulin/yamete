@@ -42,15 +42,17 @@ class MintManga extends \Yamete\DriverAbstract
             $sChapterUrl = $sBaseUrl . $oLink->getAttribute('value');
             $oRes = $this->getClient()->request('GET', $sChapterUrl);
             $sRegExp = '~rm_h.init\((?<json>[^\)]+)\)~';
-            if (preg_match($sRegExp, (string)$oRes->getBody(), $aMatches)) {
-                $sJsonClean = implode(',', array_slice(explode(',', trim($aMatches['json'])), 0, -2));
-                foreach (explode('],[', $sJsonClean) as $sString) {
-                    $sFilename = str_replace(['"', '\''], '', implode('', array_slice(explode(',', $sString), 1, 2)));
-                    $sFilename = preg_replace('~\?.*$~', '', $sFilename);
-                    $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                        . '-' . basename($sFilename);
-                    $aReturn[$sBasename] = $sFilename;
-                }
+            $aMatches = [];
+            if (!preg_match($sRegExp, (string)$oRes->getBody(), $aMatches)) {
+                continue;
+            }
+            $sJsonClean = implode(',', array_slice(explode(',', trim($aMatches['json'])), 0, -2));
+            foreach (explode('],[', $sJsonClean) as $sString) {
+                $sFilename = str_replace(['"', '\''], '', implode('', array_slice(explode(',', $sString), 1, 2)));
+                $sFilename = preg_replace('~\?.*$~', '', $sFilename);
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
+                    . '-' . basename($sFilename);
+                $aReturn[$sBasename] = $sFilename;
             }
         }
         return $aReturn;

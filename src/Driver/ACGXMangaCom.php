@@ -28,10 +28,14 @@ class ACGXMangaCom extends \Yamete\DriverAbstract
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
+        $aNbPage = [];
         $index = 0;
-        preg_match('~>([0-9]+)</a> <a [^>]+>下一页</a>~', (string)$oRes->getBody(), $aNbPage);
+        if (!preg_match('~>([0-9]+)</a> <a [^>]+>下一页</a>~', (string)$oRes->getBody(), $aNbPage)) {
+            return [];
+        }
         $iNbPage = (int)$aNbPage[1];
         for ($iPage = 1; $iPage <= $iNbPage; $iPage++) {
+            $aMatch = [];
             $oRes = $this->getClient()->request('GET', str_replace('.html', '-' . $iPage . '.html', $this->sUrl));
             if (!preg_match('~<img.+src="([^"]+)"~', (string)$oRes->getBody(), $aMatch)) {
                 continue;

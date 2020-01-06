@@ -31,6 +31,7 @@ class Pururin extends \Yamete\DriverAbstract
     {
         $sUrl = 'http://' . self::DOMAIN . '/read/' . $this->aMatches['albumId'] . '/01/' . $this->aMatches['album'];
         $oRes = $this->getClient()->request('GET', $sUrl);
+        $aMatches = [];
         if (!preg_match('~<gallery\-read :gallery="([^"]+)"~', (string)$oRes->getBody(), $aMatches)) {
             return [];
         }

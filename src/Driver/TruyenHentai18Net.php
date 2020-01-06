@@ -29,6 +29,7 @@ class TruyenHentai18Net extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
+            $aFilename = [];
             preg_match('~url=(.+)~', $oImg->getAttribute('src'), $aFilename);
             $sFilename = $aFilename[1];
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

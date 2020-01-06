@@ -44,23 +44,23 @@ if (!class_exists(XXXComicPornCom::class)) {
             $sBody = (string)$oRes->getBody();
             $index = 0;
             $oOptions = $this->getDomParser()->load($sBody)->find('.part-select option');
-            if (count($oOptions)) {
-                $aParsed = [];
-                foreach ($oOptions as $oOption) {
-                    /**
-                     * @var \PHPHtmlParser\Dom\AbstractNode $oOption
-                     */
-                    $sUrl = 'http://' . $this->getDomain() . $oOption->getAttribute('value');
-                    if (isset($aParsed[$sUrl])) {
-                        continue;
-                    }
-                    $aParsed[$sUrl] = true;
-                    $sCurrentBody = (string)$this->getClient()->request('GET', $sUrl)->getBody();
-                    list($oCursor, $index) = $this->getForBody($sCurrentBody, $index);
-                    $aReturn->append($oCursor);
-                }
-            } else {
+            if (!count($oOptions)) {
                 list($oCursor) = $this->getForBody($sBody, $index);
+                $aReturn->append($oCursor);
+                return iterator_to_array($aReturn);
+            }
+            $aParsed = [];
+            foreach ($oOptions as $oOption) {
+                /**
+                 * @var \PHPHtmlParser\Dom\AbstractNode $oOption
+                 */
+                $sUrl = 'http://' . $this->getDomain() . $oOption->getAttribute('value');
+                if (isset($aParsed[$sUrl])) {
+                    continue;
+                }
+                $aParsed[$sUrl] = true;
+                $sCurrentBody = (string)$this->getClient()->request('GET', $sUrl)->getBody();
+                list($oCursor, $index) = $this->getForBody($sCurrentBody, $index);
                 $aReturn->append($oCursor);
             }
             return iterator_to_array($aReturn);

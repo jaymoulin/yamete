@@ -28,14 +28,16 @@ class Perveden extends \Yamete\DriverAbstract
             ]) . '/';
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
+        $aJson = [];
         $index = 0;
-        if (preg_match('~var pages = ([^;]+);~s', (string)$oRes->getBody(), $aJson)) {
-            foreach (\GuzzleHttp\json_decode($aJson[1], true) as $aEntity) {
-                $sFilename = "https:" . array_pop($aEntity['resized_images']);
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                    . '-' . basename($sFilename);
-                $aReturn[$sBasename] = $sFilename;
-            }
+        if (!preg_match('~var pages = ([^;]+);~s', (string)$oRes->getBody(), $aJson)) {
+            return [];
+        }
+        foreach (\GuzzleHttp\json_decode($aJson[1], true) as $aEntity) {
+            $sFilename = "https:" . array_pop($aEntity['resized_images']);
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
+                . '-' . basename($sFilename);
+            $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
     }

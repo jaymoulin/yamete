@@ -24,6 +24,7 @@ class MyMangaComicsCom extends \Yamete\DriverAbstract
     {
         $sUrl = 'https://' . self::DOMAIN . '/gallery/thumbnails/' . $this->aMatches['album'];
         $oRes = $this->getClient()->request('GET', $sUrl, ['cleanupInput' => false]);
+        $aMatches = [];
         if (!preg_match_all('~<img src="([^"]+)" alt="">~', (string)$oRes->getBody(), $aMatches)) {
             return [];
         }

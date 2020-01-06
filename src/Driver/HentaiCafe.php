@@ -30,6 +30,7 @@ class HentaiCafe extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $sRegExp = '~href="([^"]+)" title="Read"~';
+        $aMatches = [];
         if (!preg_match($sRegExp, (string)$oRes->getBody(), $aMatches)) {
             return [];
         }

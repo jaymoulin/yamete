@@ -67,19 +67,21 @@ class Hentai2read extends \Yamete\DriverAbstract
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
         $sAccessor = '~var gData = (?<json>\{[^\}]+\});~';
-        if (preg_match($sAccessor, (string)$oRes->getBody(), $aMatches) !== false) {
-            if (!$aMatches['json']) {
-                return $this->aReturn;
-            }
-            $aObj = \GuzzleHttp\json_decode(str_replace('\'', '"', $aMatches['json']), true);
-            foreach ($aObj['images'] as $sPostImage) {
-                $sFilename = 'https://static.hentaicdn.com/hentai' . $sPostImage;
-                $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$this->iPointer, 5, '0', STR_PAD_LEFT) .
-                    '-' . basename($sFilename);
-                $this->aReturn[$sPath] = $sFilename;
-            }
-            $this->parse($aObj['nextURL']);
+        $aMatches = [];
+        if (preg_match($sAccessor, (string)$oRes->getBody(), $aMatches) == false) {
+            return [];
         }
+        if (!$aMatches['json']) {
+            return $this->aReturn;
+        }
+        $aObj = \GuzzleHttp\json_decode(str_replace('\'', '"', $aMatches['json']), true);
+        foreach ($aObj['images'] as $sPostImage) {
+            $sFilename = 'https://static.hentaicdn.com/hentai' . $sPostImage;
+            $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$this->iPointer, 5, '0', STR_PAD_LEFT) .
+                '-' . basename($sFilename);
+            $this->aReturn[$sPath] = $sFilename;
+        }
+        $this->parse($aObj['nextURL']);
         return $this->aReturn;
     }
 

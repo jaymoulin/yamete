@@ -25,6 +25,7 @@ class TnaFlixCom extends \Yamete\DriverAbstract
         $sUrl = "https://www." . self::DOMAIN . '/gallery/' . $this->aMatches['album'];
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
+        $aMatch = [];
         $index = 0;
         $sRegExp = '~<span class="text\-gray">(?<nbElem>[0-9]+) photos?</span></h2>~';
         if (!preg_match($sRegExp, (string)$oRes->getBody(), $aMatch)) {
@@ -35,6 +36,7 @@ class TnaFlixCom extends \Yamete\DriverAbstract
         for ($iPage = 1; $iPage <= $iNbPage; $iPage++) {
             $sPageUrl = $sUrl . '?page=' . $iPage;
             $oRes = $this->getClient()->request('GET', $sPageUrl);
+            $aMatches = [];
             if (!preg_match_all('~<li class="igItem .+?data-src="(?<url>[^"]+)"~', $oRes->getBody(), $aMatches)) {
                 continue;
             }

@@ -24,6 +24,7 @@ class HentaiFox extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
+        $aMatches = [];
         $aFields = [
             '<input type="hidden" name="load_dir" id="load_dir" value="(?<load_dir>[^"]+)" />',
             '<input type="hidden" name="load_id" id="load_id" value="(?<load_id>[^"]+)" />',
