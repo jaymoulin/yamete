@@ -19,6 +19,7 @@ jobs:
       - name: Tests
         run: make test
       - name: Publish Tests artifacts
+        if: failed()
         uses: actions/upload-artifact@v1
         with:
           name: Tests

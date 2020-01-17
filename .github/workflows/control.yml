@@ -19,6 +19,7 @@ jobs:
       - name: Control Tests
         run: make test-real
       - name: Publish artifacts
+        if: failed()
         uses: actions/upload-artifact@v1
         with:
           name: Error
