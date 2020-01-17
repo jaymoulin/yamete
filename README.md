@@ -275,7 +275,6 @@ Here's is the list of supported sites for now:
  * hdhentai.tv
  * truyenhentai18.net
  * hcomic.in
- * hcomic1.com
  * acgxmanga.com
  * d-upp.net
  * a-upp.com
