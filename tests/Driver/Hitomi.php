@@ -28,4 +28,16 @@ class Hitomi extends \PHPUnit\Framework\TestCase
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(22, count($driver->getDownloadables()));
     }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function testDownloadEmojiPlusNewUrl()
+    {
+        $url = 'https://hitomi.la/doujinshi/producer-to-otomarishimasu%E2%99%A5--decensored--english-1550440.html';
+        $driver = new \Yamete\Driver\Hitomi();
+        $driver->setUrl($url);
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(7, count($driver->getDownloadables()));
+    }
 }
