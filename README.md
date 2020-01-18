@@ -314,5 +314,6 @@ Here's is the list of supported sites for now:
  * porngames.zone
  * sexgamescc.com
  * comicsporn.me
+ * hmghmg.xyz
 
 You must pass the URL to the album for the program to download it!
