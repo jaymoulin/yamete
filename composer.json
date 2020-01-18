@@ -9,6 +9,7 @@
     "require": {
         "php": "^7.1",
         "ext-zip": "^1.13",
+        "ext-gd": "*",
         "thesoftwarefanatics/php-html-parser": "^1.8",
         "guzzlehttp/guzzle": "^6.2",
         "jaymoulin/guzzlehttp-cloudflare": "^1.0.0",

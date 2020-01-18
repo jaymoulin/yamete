@@ -175,7 +175,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             foreach ($oResult as $sFileName => $sResource) {
                 $baseName = dirname($sFileName);
                 $bDone = false;
-                foreach (['.jpg', '.jpeg', '.png', '.gif'] as $sSource) {
+                foreach (['.jpg', '.jpeg', '.png', '.gif', '.webp'] as $sSource) {
                     foreach (['.png', '.gif', '.jpg', '.jpeg'] as $sDest) {
                         $bDone = @unlink($sFileName);
                         if (!$bDone) {

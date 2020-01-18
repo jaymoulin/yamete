@@ -72,6 +72,12 @@ class PDF extends \FPDF
                 $sNewFilename = str_replace('.gif', '.png', $sFileName);
                 rename($sFileName, $sNewFilename);
                 $this->Image($sNewFilename, 0, 0, $width, $height);
+            } elseif (strpos($e->getMessage(), 'Unsupported image type: webp') !== false) {
+                $sNewFilename = str_replace('.webp', '.jpg', $sFileName);
+                $oImage = \imagecreatefromwebp($sFileName);
+                \imagejpeg($oImage, $sNewFilename, 100);
+                unlink($sFileName);
+                $this->Image($sNewFilename, 0, 0, $width, $height);
             } else {
                 throw $e;
             }
