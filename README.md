@@ -294,7 +294,6 @@ Here's is the list of supported sites for now:
  * porncomix.one
  * allkoms.ru
  * sexporncomics.com
- * superhentaicomics.net
  * eggporncomics.com
  * world-hentai.com
  * mangatown.com
