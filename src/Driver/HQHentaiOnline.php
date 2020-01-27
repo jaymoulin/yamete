@@ -29,9 +29,14 @@ class HQHentaiOnline extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sUrl);
         $oImages = $this->getDomParser()->load((string)$oRes->getBody())->find('.fotos img');
         $index = 0;
+        $aFound = [];
         $aReturn = [];
         foreach ($oImages as $oImg) {
             $sFilename = $oImg->getAttribute('src');
+            if (isset($aFound[$sFilename]) || !preg_match('~^http~', $sFilename)) {
+                continue;
+            }
+            $aFound[$sFilename] = true;
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
