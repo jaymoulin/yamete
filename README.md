@@ -316,5 +316,6 @@ Here's is the list of supported sites for now:
  * mangahome.com
  * xlecx.com
  * mangahasu.se
+ * kingcomix.com
 
 You must pass the URL to the album for the program to download it!
