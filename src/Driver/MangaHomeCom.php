@@ -44,6 +44,7 @@ class MangaHomeCom extends DriverAbstract
                 if (!$oImage) {
                     continue;
                 }
+                $oImage = $oImage[0];
                 $sFilename = 'https:' . $oImage->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
