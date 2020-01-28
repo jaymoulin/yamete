@@ -322,5 +322,6 @@ Here's is the list of supported sites for now:
  * tenmanga.com
  * 18lhplus.com
  * ninemanga.com
+ * gomanga.xyz
 
 You must pass the URL to the album for the program to download it!
