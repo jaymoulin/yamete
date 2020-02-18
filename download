@@ -5,6 +5,8 @@ $sVersion = getenv('VERSION') ?: '1.11.0';
 define('VERSION', <<<HEREDOC
 Yamete $sVersion - Jay MOULIN <https://twitter.com/MoulinJay>
 
+Special thanks to Patreon : Bijoushin
+
 \e[0;5;37;47m.  .  .  .  .  .  . .\e[0;1;37;47m@:\e[0;5;37;47m  .  .  .  .  .  .  .  .  .  .  .  . \e[0m
 \e[0;5;37;47m.   .   .    .   .\e[0;1;37;47m8\e[0;1;30;47mX\e[0;5;33;40m:\e[0;1;30;47m%\e[0;5;37;47m.   .   .    .  X\e[0;5;33;40m \e[0;1;30;47mX\e[0;1;37;47m%\e[0;5;37;47m;  .    .   .    .\e[0m
 \e[0;5;37;47m. .   .   .   t\e[0;1;30;47m \e[0;5;33;40m .\e[0;5;37;40m8\e[0;1;37;47m;\e[0;5;37;47m:  .    .   .       @\e[0;1;30;47mS\e[0;5;33;40m \e[0;5;37;40m8\e[0;1;30;47mt\e[0;5;37;47mS .    .   .   \e[0m
