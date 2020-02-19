@@ -14,6 +14,6 @@ class KingsMangaNet extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\KingsMangaNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(812, count($driver->getDownloadables()));
+        $this->assertEquals(830, count($driver->getDownloadables()));
     }
 }

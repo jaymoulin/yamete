@@ -14,6 +14,6 @@ class BatoTo extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\BatoTo();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(28 + 36, count($driver->getDownloadables()));
+        $this->assertEquals(256, count($driver->getDownloadables()));
     }
 }
