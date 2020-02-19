@@ -10,10 +10,10 @@ class TruyenHentai18Net extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://truyenhentai18.net/pantsumon-2.html';
+        $url = 'https://truyenhentai18.net/distorted-figures.html';
         $driver = new \Yamete\Driver\TruyenHentai18Net();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(34, count($driver->getDownloadables()));
+        $this->assertEquals(60, count($driver->getDownloadables()));
     }
 }

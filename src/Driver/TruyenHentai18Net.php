@@ -22,19 +22,24 @@ class TruyenHentai18Net extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
+        /**
+         * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.manga-content img') as $oImg) {
-            /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
-             */
-            $aFilename = [];
-            preg_match('~url=(.+)~', $oImg->getAttribute('src'), $aFilename);
-            $sFilename = $aFilename[1];
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                . '-' . basename($sFilename);
-            $aReturn[$sBasename] = $sFilename;
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.list-chapter a') as $oLink) {
+            $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#content-fiximg img') as $oImg) {
+                $sFilename = $oImg->getAttribute('src');
+                if (strpos($sFilename, '.gif') !== false) {
+                    continue;
+                }
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
+                    . '-' . basename($sFilename);
+                $aReturn[$sBasename] = $sFilename;
+            }
         }
         return $aReturn;
     }
