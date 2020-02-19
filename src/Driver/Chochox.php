@@ -30,6 +30,9 @@ class Chochox extends \Yamete\DriverAbstract
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
+            if (strpos($sFilename, 'lazy_placeholder.gif') !== false) {
+                continue;
+            }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
