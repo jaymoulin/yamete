@@ -335,5 +335,6 @@ Here's is the list of supported sites for now:
  * mangahere.online
  * mangahere.cc
  * manganelo.com
+ * mangahub.io
  
 You must pass the URL to the album for the program to download it!
