@@ -330,5 +330,6 @@ Here's is the list of supported sites for now:
  * chaptermanga.com
  * fanfox.net
  * mangaeden.com
+ * elitemangas.top
  
 You must pass the URL to the album for the program to download it!
