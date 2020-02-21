@@ -333,5 +333,6 @@ Here's is the list of supported sites for now:
  * elitemangas.top
  * unionmangas.top
  * mangahere.online
+ * mangahere.cc
  
 You must pass the URL to the album for the program to download it!
