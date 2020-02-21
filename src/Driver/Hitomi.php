@@ -40,7 +40,7 @@ class Hitomi extends \Yamete\DriverAbstract
                 $sSubFolder = substr($aItem['hash'], -3, 2);
                 $bHasWebp = isset($aItem['haswebp']) && $aItem['haswebp'];
                 $sCategory = $bHasWebp ? 'webp' : 'images';
-                $sExt = $bHasWebp ? 'webp' : substr($aItem['name'], strpos($aItem['name'], '.') + 1);
+                $sExt = $bHasWebp ? 'webp' : substr($aItem['name'], strrpos($aItem['name'], '.') + 1);
                 $sFilename = "https://${cCdn}a." . self::DOMAIN . "/$sCategory/$sFolder/$sSubFolder/${sHash}.$sExt";
                 $oRes = $this->getClient()->request('GET', $sFilename, ["http_errors" => false]);
                 if ($oRes->getStatusCode() !== 200) {
