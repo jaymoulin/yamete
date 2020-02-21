@@ -16,4 +16,13 @@ class ILikeComixCom extends \PHPUnit\Framework\TestCase
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(15, count($driver->getDownloadables()));
     }
+
+    public function testDownloadOtherCategory()
+    {
+        $url = 'https://ilikecomix.com/adultcomics/pet-girlfriend-3/';
+        $driver = new \Yamete\Driver\ILikeComixCom();
+        $driver->setUrl($url);
+        $this->assertTrue($driver->canHandle());
+        $this->assertEquals(29, count($driver->getDownloadables()));
+    }
 }

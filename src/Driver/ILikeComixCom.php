@@ -10,7 +10,7 @@ class ILikeComixCom extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr($this->getDomain(), ['.' => '\.']) . ')/(?<category>porncomix)/(?<album>[^/]+)~',
+            '~^https?://(' . strtr($this->getDomain(), ['.' => '\.']) . ')/(?<category>[^/]+)/(?<album>[^/]+)~',
             $this->sUrl,
             $this->aMatches
         );
