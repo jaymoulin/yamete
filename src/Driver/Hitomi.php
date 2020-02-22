@@ -30,8 +30,13 @@ class Hitomi extends \Yamete\DriverAbstract
         $aReturn = [];
         $index = 0;
         $sJson = str_replace('var galleryinfo = ', '', (string)$oRes->getBody());
-        foreach (\GuzzleHttp\json_decode($sJson, true) as $aItem) {
+        $aItems = \GuzzleHttp\json_decode($sJson, true);
+        if (!isset($aItems['files'])) {
+            return [];
+        }
+        foreach ($aItems['files'] as $aItem) {
             foreach (['a', 'b', 'c'] as $cCdn) {
+
                 /**
                  * @var \PHPHtmlParser\Dom\HtmlNode $oImg
                  */
