@@ -43,11 +43,14 @@ class PDF extends \FPDF
      */
     public function createFromList(Iterator $oList): void
     {
+        $iDisplay = ini_get('display_errors');
+        ini_set('display_errors', 0);
         foreach ($oList as $sFilename => $sResource) {
             list($width, $height) = getimagesize($sFilename);
             $this->AddPage($width > $height ? 'L' : 'P');
             $this->fullSizeImage($sFilename);
         }
+        ini_set('display_errors', $iDisplay);
     }
 
     /**
@@ -63,12 +66,18 @@ class PDF extends \FPDF
             if (strpos($e->getMessage(), 'Not a PNG file') !== false) {
                 $sNewFilename = str_replace('.png', '.jpg', $sFileName);
                 rename($sFileName, $sNewFilename);
-                $this->Image($sNewFilename, 0, 0, $width, $height);
+                $this->fullSizeImage($sNewFilename);
             } elseif (strpos($e->getMessage(), 'Not a JPEG file') !== false) {
                 $sNewFilename = str_replace('.jpg', '.gif', $sFileName);
                 rename($sFileName, $sNewFilename);
-                $this->Image($sNewFilename, 0, 0, $width, $height);
-            } elseif (strpos($e->getMessage(), 'Not a GIF file') !== false) {
+                $this->fullSizeImage($sNewFilename);
+            } elseif (
+                strpos($e->getMessage(), 'Not a GIF file') !== false or
+                (
+                    strpos($e->getMessage(), 'Missing or incorrect image file') !== false and
+                    strpos($e->getMessage(), '.gif') !== false
+                )
+            ) {
                 $sNewFilename = str_replace('.gif', '.png', $sFileName);
                 rename($sFileName, $sNewFilename);
                 $this->Image($sNewFilename, 0, 0, $width, $height);
@@ -77,7 +86,7 @@ class PDF extends \FPDF
                 $oImage = \imagecreatefromwebp($sFileName);
                 \imagejpeg($oImage, $sNewFilename, 100);
                 unlink($sFileName);
-                $this->Image($sNewFilename, 0, 0, $width, $height);
+                $this->fullSizeImage($sNewFilename);
             } else {
                 throw $e;
             }
