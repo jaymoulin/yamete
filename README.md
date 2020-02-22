@@ -129,7 +129,6 @@ Here's is the list of supported sites for now:
  * porncomix.info
  * porncomixonline.net
  * porncomix.site
- * shentai.xyz
  * simply-hentai.com
  * xyzcomics.com
  * hentaifantasy.it
@@ -230,7 +229,7 @@ Here's is the list of supported sites for now:
  * megapornpics.com
  * porkyfap.org
  * goodcomix.tk
- * porncomix.re
+ * porncomicszone.net
  * freesexcomics.pro
  * hentai-id.tv
  * superhentais.com

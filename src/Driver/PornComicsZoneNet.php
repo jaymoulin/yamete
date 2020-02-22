@@ -2,15 +2,15 @@
 
 namespace Yamete\Driver;
 
-class PornComixRe extends \Yamete\DriverAbstract
+class PornComicsZoneNet extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'porncomix.re';
+    const DOMAIN = 'porncomicszone.net';
 
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/online/(?<album>[^/]+)/$~',
+            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/22/(?<album>[^/]+)/(?<albumId>[0-9]+)/$~',
             $this->sUrl,
             $this->aMatches
         );
@@ -25,11 +25,11 @@ class PornComixRe extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry-content p a img') as $oImg) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('figure.dgwt-jg-item a') as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sFilename = str_replace('/small/', '/big/', $oImg->getAttribute('src'));
+            $sFilename = $oImg->getAttribute('href');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
