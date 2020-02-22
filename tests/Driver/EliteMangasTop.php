@@ -14,6 +14,6 @@ class EliteMangasTop extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\EliteMangasTop();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(119, count($driver->getDownloadables()));
+        $this->assertEquals(67, count($driver->getDownloadables()));
     }
 }
