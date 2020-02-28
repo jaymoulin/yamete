@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Yamete\Driver;
 
 use Yamete\DriverAbstract;
@@ -13,11 +12,20 @@ class MangaHereCc extends DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/manga/(?<album>[^/]+)~',
+            '~^https?://(www\.)?(' . strtr($this->getDomain(), ['.' => '\.']) . ')/manga/(?<album>[^/]+)~',
             $this->sUrl,
             $this->aMatches
         );
     }
+
+    /**
+     * @return string
+     */
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
 
     public function getDownloadables(): array
     {
@@ -27,7 +35,7 @@ class MangaHereCc extends DriverAbstract
          * @var \PHPHtmlParser\Dom\AbstractNode[] $oPages
          * @var \PHPHtmlParser\Dom\AbstractNode $oImage
          */
-        $sStartUrl = 'https://'. self::DOMAIN;
+        $sStartUrl = 'https://' . $this->getDomain();
         $sUrl = $sStartUrl . '/manga/' . $this->aMatches['album'] . '/';
         $oResponse = $this->getClient()->get($sUrl);
         $oChapters = $this->getDomParser()->load((string)$oResponse->getBody())->find('.detail-main-list li > a');
@@ -64,7 +72,7 @@ class MangaHereCc extends DriverAbstract
 
     private function getFolder(): string
     {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+        return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
     }
 
     public function getClient(array $aOptions = []): \GuzzleHttp\Client
