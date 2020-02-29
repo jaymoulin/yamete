@@ -14,6 +14,6 @@ class MangaHereCc extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MangaHereCc();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(5080, count($driver->getDownloadables()));
+        $this->assertEquals(5099, count($driver->getDownloadables()));
     }
 }

@@ -14,6 +14,6 @@ class MangaHereOnline extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MangaHereOnline();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(4943, count($driver->getDownloadables()));
+        $this->assertEquals(4961, count($driver->getDownloadables()));
     }
 }
