@@ -70,5 +70,4 @@ class TenmangaCom extends \Yamete\DriverAbstract
             ]
         );
     }
-
 }

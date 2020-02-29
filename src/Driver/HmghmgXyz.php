@@ -32,6 +32,7 @@ class HmghmgXyz extends \Yamete\DriverAbstract
         $sBody = (string)$oRes->getBody();
         $sRegExp = '~data-original="([^"]+)"~';
         $aReturn = [];
+        $aMatches = [];
         if (!preg_match_all($sRegExp, $sBody, $aMatches)) {
             return [];
         }

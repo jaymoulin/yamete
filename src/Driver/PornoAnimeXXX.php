@@ -25,7 +25,8 @@ class PornoAnimeXXX extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('img') as $oImg) {
+        $oImgList = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('img');
+        foreach ($oImgList as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */

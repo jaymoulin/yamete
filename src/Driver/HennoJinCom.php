@@ -40,10 +40,9 @@ class HennoJinCom extends DriverAbstract
         if (!$this->bSecondMatch) {
             $sResponse = file_get_contents($this->sUrl);
             $oUrl = $this->getDomParser()->load($sResponse)->find('.col-lg-12 a.btn-primary')[0];
-            $oResponse = $this->getClient()->get('https://' . self::DOMAIN . $oUrl->getAttribute('href'));
-        } else {
-            $oResponse = $this->getClient()->get($this->sUrl);
+            $this->sUrl = 'https://' . self::DOMAIN . $oUrl->getAttribute('href');
         }
+        $oResponse = $this->getClient()->get($this->sUrl);
         $oPages = $this->getDomParser()->load((string)$oResponse->getBody())->find('.mySlides img');
         foreach ($oPages as $oImage) {
             $sFilename = 'https://' . self::DOMAIN . $oImage->getAttribute('src');

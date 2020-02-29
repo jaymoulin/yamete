@@ -2,7 +2,6 @@
 
 namespace Yamete\Driver;
 
-
 class EliteMangasTop extends \Yamete\DriverAbstract
 {
     private $aMatches = [];

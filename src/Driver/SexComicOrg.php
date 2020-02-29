@@ -24,7 +24,10 @@ class SexComicOrg extends \Yamete\DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('img.alignnone') as $oImg) {
+        $oImgList = $this->getDomParser()
+            ->load((string)$oRes->getBody(), ['cleanupInput' => false])
+            ->find('img.alignnone');
+        foreach ($oImgList as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */

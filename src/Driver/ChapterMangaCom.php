@@ -53,19 +53,19 @@ class ChapterMangaCom extends \Yamete\DriverAbstract
             return [];
         }
         $sChaps = (string) $this->getClient()->request(
-                'POST',
-                'https://' . self::DOMAIN . '/get-chapter-list',
-                [
-                    'headers' => [
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'X-CSRF-Token' => $aMatchesCsrf['csrf'],
-                    ],
-                    'form_params' => [
-                        'manga_slug' => $aMatches['slug'],
-                        'manga_id' => $aMatches['id'],
-                    ],
-                ]
-            )->getBody();
+            'POST',
+            'https://' . self::DOMAIN . '/get-chapter-list',
+            [
+                'headers' => [
+                    'X-Requested-With' => 'XMLHttpRequest',
+                    'X-CSRF-Token' => $aMatchesCsrf['csrf'],
+                ],
+                'form_params' => [
+                    'manga_slug' => $aMatches['slug'],
+                    'manga_id' => $aMatches['id'],
+                ],
+            ]
+        )->getBody();
         $sRegExp = '~href="(?<link>[^"]+)"~';
         $aChapters = [];
         if (!preg_match_all($sRegExp, $sChaps, $aChapters)) {

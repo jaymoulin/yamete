@@ -37,6 +37,7 @@ class MangaEdenCom extends \Yamete\DriverAbstract
         foreach ($aChapters as $oChapter) {
             $sLink = 'https://' . self::DOMAIN . $oChapter->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
+            $aMatches = [];
             if (!preg_match('~var pages = (\[[^\]]+\]);~', (string)$oRes->getBody(), $aMatches)) {
                 continue;
             }

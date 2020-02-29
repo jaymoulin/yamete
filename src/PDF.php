@@ -71,8 +71,7 @@ class PDF extends \FPDF
                 $sNewFilename = str_replace('.jpg', '.gif', $sFileName);
                 rename($sFileName, $sNewFilename);
                 $this->fullSizeImage($sNewFilename);
-            } elseif (
-                strpos($e->getMessage(), 'Not a GIF file') !== false or
+            } elseif (strpos($e->getMessage(), 'Not a GIF file') !== false or
                 (
                     strpos($e->getMessage(), 'Missing or incorrect image file') !== false and
                     strpos($e->getMessage(), '.gif') !== false

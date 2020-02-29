@@ -2,7 +2,6 @@
 
 namespace Yamete\Driver;
 
-
 class UnionMangasTop extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -36,6 +35,7 @@ class UnionMangasTop extends \Yamete\DriverAbstract
          * @var \PHPHtmlParser\Dom\AbstractNode $oImg
          */
         $oResult = $this->getClient()->request('GET', $this->sUrl);
+        $aMatches = [];
         if (!preg_match_all('~a href="([^"]+)"~', (string)$oResult->getBody(), $aMatches)) {
             return [];
         }

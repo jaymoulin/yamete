@@ -2,7 +2,6 @@
 
 namespace Yamete\Driver;
 
-
 class MangaHereOnline extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
