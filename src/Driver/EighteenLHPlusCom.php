@@ -44,7 +44,7 @@ class EighteenLHPlusCom extends \Yamete\DriverAbstract
             $oResult = $this->getClient()
                 ->request('GET', 'https://' . self::DOMAIN . '/' . $oChapter->getAttribute('href'));
             foreach ($this->getDomParser()->load((string)$oResult->getBody())->find('img.chapter-img') as $oImg) {
-                $sFilename = $oChapter->getAttribute('src');
+                $sFilename = $oImg->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
