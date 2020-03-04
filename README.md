@@ -10,7 +10,7 @@ Yamete - Hentai downloader in PHP CLI - Easy PHP Site downloader
 [![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png "Buy me a coffee")](https://www.buymeacoffee.com/3Yu8ajd7W)
 [![Become a Patron](https://badgen.net/badge/become/a%20patron/F96854 "Become a Patron")](https://patreon.com/jaymoulin)
 
-Early Releases are available on Patreon : https://www.patreon.com/femtopixel/posts?tag=yamete
+Early Releases are available on Patreon : https://www.patreon.com/jaymoulin/posts?tag=yamete
 
 This image allows you easily download specific assets of a site
 

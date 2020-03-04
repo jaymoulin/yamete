@@ -1,7 +1,7 @@
 FROM php:7.4-alpine
 COPY qemu-*-static /usr/bin/
 ARG VERSION=1.10.0
-LABEL maintainer="Jay MOULIN <https://femtopixel.com/jaymoulin/yamete> <https://twitter.com/MoulinJay>"
+LABEL maintainer="Jay MOULIN <https://jaymoulin.me/me/yamete> <https://twitter.com/MoulinJay>"
 LABEL version=${VERSION}
 
 ENV PATH="/app:$PATH"
