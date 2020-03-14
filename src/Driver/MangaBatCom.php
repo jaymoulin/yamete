@@ -41,14 +41,14 @@ class MangaBatCom extends \Yamete\DriverAbstract
          * @var AbstractNode $oImage
          */
         $oResult = $this->getClient()->request('GET', $this->sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.chapter-list a');
+        $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.row-content-chapter a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];
         $index = 0;
         foreach ($aChapters as $oLink) {
             $oResult = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            foreach ($this->getDomParser()->load((string)$oResult->getBody())->find('.vung_doc img') as $oImage) {
+            foreach ($this->getDomParser()->load((string)$oResult->getBody())->find('.container-chapter-reader img') as $oImage) {
                 $sFilename = $oImage->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
