@@ -13,7 +13,7 @@ class NinemangaCom extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/manga/(?<album>.+)\.html~U',
+            '~^https?://.{2,3}\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/manga/(?<album>.+)\.html~U',
             $this->sUrl,
             $this->aMatches
         );
