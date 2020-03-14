@@ -10,10 +10,10 @@ class MangaHereCc extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://www.mangahere.cc/manga/futari_ecchi/v18/c205/1.html';
+        $url = 'https://www.mangahere.cc/manga/to_love_ru_kentaro_yabuki_20th_anniversary/';
         $driver = new \Yamete\Driver\MangaHereCc();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(5099, count($driver->getDownloadables()));
+        $this->assertEquals(78, count($driver->getDownloadables()));
     }
 }

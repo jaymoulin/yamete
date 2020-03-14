@@ -10,10 +10,10 @@ class MangaHereOnline extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://mangahere.online/manga/futari-ecchi';
+        $url = 'http://mangahere.online/manga/touhou-project-dj-ecchi-na-nekomimi';
         $driver = new \Yamete\Driver\MangaHereOnline();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(4961, count($driver->getDownloadables()));
+        $this->assertEquals(27, count($driver->getDownloadables()));
     }
 }

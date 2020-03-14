@@ -22,10 +22,10 @@ class HMangaSearcherCom extends \PHPUnit\Framework\TestCase
      */
     public function testDownloadChapters()
     {
-        $url = 'http://www.hmangasearcher.com/c/Private%20Be@ch/2';
+        $url = 'http://www.hmangasearcher.com/c/Nue-chan%20Ni%20Dogeza%20Shiteyarasete%20Morau%20Hon/2';
         $driver = new \Yamete\Driver\HMangaSearcherCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(160, count($driver->getDownloadables()));
+        $this->assertEquals(22, count($driver->getDownloadables()));
     }
 }

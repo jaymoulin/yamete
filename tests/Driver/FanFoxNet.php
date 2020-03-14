@@ -10,10 +10,10 @@ class FanFoxNet extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://fanfox.net/manga/ten_count/';
+        $url = 'http://fanfox.net/manga/masturbation_count/';
         $driver = new \Yamete\Driver\FanFoxNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1198, count($driver->getDownloadables()));
+        $this->assertEquals(10, count($driver->getDownloadables()));
     }
 }

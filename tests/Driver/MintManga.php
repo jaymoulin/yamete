@@ -8,12 +8,12 @@ class MintManga extends \PHPUnit\Framework\TestCase
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function testDownload()
+    public function testDownloadMulti()
     {
-        $url = 'https://mintmanga.live/marshal__tvoia_jena_snova_sbejala';
+        $url = 'https://mintmanga.live/pink_de_pink';
         $driver = new \Yamete\Driver\MintManga();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(876, count($driver->getDownloadables()));
+        $this->assertEquals(170, count($driver->getDownloadables()));
     }
 }

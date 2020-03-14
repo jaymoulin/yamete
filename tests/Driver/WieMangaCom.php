@@ -3,7 +3,7 @@
 namespace YameteTests\Driver;
 
 
-class WieMangaComCom extends \PHPUnit\Framework\TestCase
+class WieMangaCom extends \PHPUnit\Framework\TestCase
 {
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException

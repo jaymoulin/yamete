@@ -10,22 +10,10 @@ class CartoonPornComicsInfo extends \PHPUnit\Framework\TestCase
      */
     public function testDownloadSecure()
     {
-        $url = 'https://cartoonporncomics.info/year-1-darkbrain-comics/';
+        $url = 'https://cartoonporncomics.info/bunnie-love-2-between-a-cock-and-a-hard-place-burnt-toast-media-comics/';
         $driver = new \Yamete\Driver\CartoonPornComicsInfo();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(173, count($driver->getDownloadables()));
-    }
-
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function testDownload()
-    {
-        $url = 'http://cartoonporncomics.info/camp-sherwood-various-authors/';
-        $driver = new \Yamete\Driver\CartoonPornComicsInfo();
-        $driver->setUrl($url);
-        $this->assertTrue($driver->canHandle());
-        $this->assertEquals(202, count($driver->getDownloadables()));
+        $this->assertEquals(32, count($driver->getDownloadables()));
     }
 }

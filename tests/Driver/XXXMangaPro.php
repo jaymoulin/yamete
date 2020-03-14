@@ -10,10 +10,10 @@ class XXXMangaPro extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://www.xxxmanga.pro/galleries/rance-10-part-2#&gid=1&pid=1';
+        $url = 'https://www.xxxmanga.pro/galleries/--2496';
         $driver = new \Yamete\Driver\XXXMangaPro();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1195, count($driver->getDownloadables()));
+        $this->assertEquals(280, count($driver->getDownloadables()));
     }
 }

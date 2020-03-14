@@ -10,10 +10,10 @@ class BallBallictCom extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://ballballict.com/galleries12/index.php?/category/275';
+        $url = 'http://ballballict.com/galleries12/index.php?/category/548';
         $driver = new \Yamete\Driver\BallBallictCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(346, count($driver->getDownloadables()));
+        $this->assertEquals(20, count($driver->getDownloadables()));
     }
 }

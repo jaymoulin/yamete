@@ -10,10 +10,10 @@ class YuriIsmNet extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://www.yuri-ism.net/slide/read/mira/en/12/1/page/1';
+        $url = 'https://www.yuri-ism.net/slide/series/magia_record/';
         $driver = new \Yamete\Driver\YuriIsmNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1147, count($driver->getDownloadables()));
+        $this->assertEquals(50, count($driver->getDownloadables()));
     }
 }
