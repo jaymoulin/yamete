@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92c5708923c8be0f2ad0c64abe7adbcc",
+    "content-hash": "860a25aa6c56a547bbd59b9ac5a128bb",
     "packages": [
         {
             "name": "caseyamcl/guzzle_retry_middleware",
@@ -294,24 +294,67 @@
             "time": "2019-07-01T23:21:34+00:00"
         },
         {
-            "name": "jaymoulin/guzzlehttp-cloudflare",
-            "version": "1.0.3",
+            "name": "jaymoulin/cloudflare-bypass",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jaymoulin/guzzlehttp-cloudflare.git",
-                "reference": "69e47f819319465089e22f2ab25cd08d907d0848"
+                "url": "https://github.com/jaymoulin/cloudflare-bypass.git",
+                "reference": "f2a2a8fc4b3a3639df23a8ac7976c97948726621"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jaymoulin/guzzlehttp-cloudflare/zipball/69e47f819319465089e22f2ab25cd08d907d0848",
-                "reference": "69e47f819319465089e22f2ab25cd08d907d0848",
+                "url": "https://api.github.com/repos/jaymoulin/cloudflare-bypass/zipball/f2a2a8fc4b3a3639df23a8ac7976c97948726621",
+                "reference": "f2a2a8fc4b3a3639df23a8ac7976c97948726621",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "ext-curl": "*",
+                "ext-json": "*",
+                "kyranrana/simple-javascript-compilation": "^0.3.1",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CloudflareBypass\\": "src/main"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jay MOULIN",
+                    "email": "jay@femtopixel.com"
+                }
+            ],
+            "description": "A library for helping bypass the cloudflare UAM page.",
+            "time": "2020-03-14T22:08:56+00:00"
+        },
+        {
+            "name": "jaymoulin/guzzlehttp-cloudflare",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jaymoulin/guzzlehttp-cloudflare.git",
+                "reference": "150e90cfdbcf5989c7c4a82b50cb89690ce7c187"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jaymoulin/guzzlehttp-cloudflare/zipball/150e90cfdbcf5989c7c4a82b50cb89690ce7c187",
+                "reference": "150e90cfdbcf5989c7c4a82b50cb89690ce7c187",
                 "shasum": ""
             },
             "require": {
                 "ext-bcmath": "*",
                 "ext-curl": "*",
                 "guzzlehttp/guzzle": "^6.3",
-                "kyranrana/cloudflare-bypass": "^v3.0",
+                "jaymoulin/cloudflare-bypass": "dev-master",
                 "php": "^7.2"
             },
             "require-dev": {
@@ -338,7 +381,29 @@
                 }
             ],
             "description": "Bypass Cloudflare protection using GuzzleHTTP",
-            "time": "2019-10-14T21:17:44+00:00"
+            "funding": [
+                {
+                    "url": "https://streamlabs.com/cursedware/tip",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.buymeacoffee.com/3Yu8ajd7W",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.paypal.me/jaymoulin",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.tipeeestream.com/cursedware/donation",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/jaymoulin",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-03-14T21:48:00+00:00"
         },
         {
             "name": "krowinski/bcmath-extended",
@@ -396,50 +461,6 @@
                 "scientific-notation"
             ],
             "time": "2019-04-15T09:15:39+00:00"
-        },
-        {
-            "name": "kyranrana/cloudflare-bypass",
-            "version": "3.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KyranRana/cloudflare-bypass.git",
-                "reference": "8700b7b70f103c3398951967ffe831619038bc00"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KyranRana/cloudflare-bypass/zipball/8700b7b70f103c3398951967ffe831619038bc00",
-                "reference": "8700b7b70f103c3398951967ffe831619038bc00",
-                "shasum": ""
-            },
-            "require": {
-                "ext-bcmath": "*",
-                "ext-curl": "*",
-                "ext-json": "*",
-                "kyranrana/simple-javascript-compilation": "^0.3.1",
-                "myclabs/php-enum": "^1.6.6",
-                "php": "^7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^6.5.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CloudflareBypass\\": "src/main"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kyran Rana",
-                    "email": "kyranportfolio@gmail.com"
-                }
-            ],
-            "description": "A library for helping bypass the cloudflare UAM page.",
-            "time": "2019-09-17T21:54:46+00:00"
         },
         {
             "name": "kyranrana/simple-javascript-compilation",
@@ -3498,9 +3519,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.1",

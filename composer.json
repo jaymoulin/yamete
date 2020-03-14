@@ -12,12 +12,14 @@
         "ext-gd": "*",
         "thesoftwarefanatics/php-html-parser": "^1.8",
         "guzzlehttp/guzzle": "^6.2",
-        "jaymoulin/guzzlehttp-cloudflare": "^1.0.0",
+        "jaymoulin/guzzlehttp-cloudflare": "^1.1.0",
         "symfony/console": "^5.0",
         "crodas/class-info": "^0.2.3",
         "caseyamcl/guzzle_retry_middleware": "^2.0",
         "setasign/fpdf": "^1.8"
     },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "require-dev": {
         "phpunit/phpunit": "^9.0",
         "phpmd/phpmd": "^2.4",
