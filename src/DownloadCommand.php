@@ -72,8 +72,9 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
      * @param OutputInterface $output
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws Exception
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         ini_set('display_errors', $output->isDebug() ? '1' : '0');
         $aUrl = [];
@@ -134,6 +135,7 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             $progress->finish();
             $output->writeln('');
         }
+        return 0;
     }
 
     private function zip(ResultIterator $oResult, OutputInterface $output): void
