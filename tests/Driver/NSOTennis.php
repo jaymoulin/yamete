@@ -10,10 +10,10 @@ class NSOTennis extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://nsotennis.ru/listmangahentai.html/idolmaster/idol_sister-838/';
+        $url = 'https://x.nsotennis.ru/listmangahentai.html/touhou/alice-cream-mk2-2489/';
         $driver = new \Yamete\Driver\NSOTennis();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(23 + 17 + 15 + 19 + 17 + 18 + 16, count($driver->getDownloadables()));
+        $this->assertEquals(14, count($driver->getDownloadables()));
     }
 }

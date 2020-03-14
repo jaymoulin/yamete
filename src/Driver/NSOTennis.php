@@ -15,7 +15,7 @@ class NSOTennis extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
+            '~^https?://(x.)?(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
             ')/listmangahentai\.html/(?<category>[^/]+)/(?<album>[^/?]+)/~',
             $this->sUrl,
             $this->aMatches
