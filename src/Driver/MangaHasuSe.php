@@ -34,14 +34,17 @@ class MangaHasuSe extends \Yamete\DriverAbstract
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];
-        foreach ($aChapters as $aChapter) {
-            $oRes = $this->getClient()->request('GET', $aChapter->getAttribute('href'));
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#img img') as $oImg) {
+        $index = 0;
+        foreach ($aChapters as $oChapter) {
+            $oRes = $this->getClient()->request('GET', $oChapter->getAttribute('href'));
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.img img') as $oImg) {
                 /**
                  * @var \PHPHtmlParser\Dom\AbstractNode $oImg
                  */
                 $sFilename = $oImg->getAttribute('src');
-                $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
+                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
+                    . '-' . basename(preg_replace('~\?(.*)$~', '', $sFilename));
+                $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . $sBasename] = $sFilename;
             }
         }
         return $aReturn;
