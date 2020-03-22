@@ -5,39 +5,18 @@ namespace Yamete\Driver;
 use \GuzzleCloudflare\Middleware;
 use \GuzzleHttp\Cookie\FileCookieJar;
 
-class HentaiFromHell extends \Yamete\DriverAbstract
+class ImgBox extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'hentaifromhell.org';
+    const DOMAIN = 'imgbox.com';
 
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.']) . '/gallery([0-9]+)/(?<album>.+)\.html~',
+            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.']) . '/g/(?<album>.+)~',
             $this->sUrl,
             $this->aMatches
         );
-    }
-
-    /**
-     * @param array $aOptions
-     * @return \GuzzleHttp\Client
-     */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
-    {
-        $oClient = parent::getClient(
-            [
-                'cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__)),
-                'headers' => ['User-Agent' => self::USER_AGENT],
-            ]
-        );
-        /**
-         * @var \GuzzleHttp\HandlerStack $oHandler
-         */
-        $oHandler = $oClient->getConfig('handler');
-        $oHandler->remove('cloudflare');
-        $oHandler->push(Middleware::create(), 'cloudflare');
-        return $oClient;
     }
 
     /**
@@ -49,13 +28,13 @@ class HentaiFromHell extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('center a') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#gallery-view-content a') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              */
-            $sLink = $oLink->getAttribute('href');
+            $sLink = 'https://' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
-            $sRegexp = '~<meta property="og:image" content="(?<file>[^"]+)"/>~';
+            $sRegexp = '~<img .*id="img" .*src="(?<file>[^"]+)"~u';
             $aMatches = [];
             if (!preg_match($sRegexp, (string)$oRes->getBody(), $aMatches)) {
                 continue;
@@ -63,9 +42,7 @@ class HentaiFromHell extends \Yamete\DriverAbstract
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sLink = $aMatches['file'];
-            $bHasHost = preg_match('~^https?://(?<domain>[^/]+)~', $sLink);
-            $sFilename = $bHasHost ? $sLink : 'http://' . $sLink;
+            $sFilename = $aMatches['file'];
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sPath] = $sFilename;
