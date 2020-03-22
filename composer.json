@@ -18,8 +18,6 @@
         "caseyamcl/guzzle_retry_middleware": "^2.0",
         "setasign/fpdf": "^1.8"
     },
-    "prefer-stable": true,
-    "minimum-stability": "dev",
     "require-dev": {
         "phpunit/phpunit": "^9.0",
         "phpmd/phpmd": "^2.4",
