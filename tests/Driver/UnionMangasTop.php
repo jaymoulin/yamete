@@ -14,6 +14,6 @@ class UnionMangasTop extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\UnionMangasTop();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(415, count($driver->getDownloadables()));
+        $this->assertEquals(405, count($driver->getDownloadables()));
     }
 }
