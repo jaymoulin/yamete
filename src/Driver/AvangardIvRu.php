@@ -2,10 +2,10 @@
 
 namespace Yamete\Driver;
 
-class AllkomsRu extends \Yamete\DriverAbstract
+class AvangardIvRu extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'allkoms.ru';
+    const DOMAIN = 'avangard-iv.ru';
 
     public function canHandle(): bool
     {
@@ -46,8 +46,7 @@ class AllkomsRu extends \Yamete\DriverAbstract
                 $this->aMatches['album'],
             ]
         );
-        $oResult = $this->getClient()->request('GET', $sUrl);
-        $oPages = $this->getDomParser()->load((string)$oResult->getBody())->find('.king-q-view-content img');
+        $oPages = $this->getDomParser()->load(file_get_contents($sUrl))->find('.king-q-view-content img');
         $index = 0;
         $aReturn = [];
         foreach ($oPages as $oLink) {

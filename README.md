@@ -289,7 +289,7 @@ Here's is the list of supported sites for now:
  * ilikecomix.com
  * yiffer.xyz
  * porncomix.one
- * allkoms.ru
+ * avangard-iv.ru
  * sexporncomics.com
  * eggporncomics.com
  * world-hentai.com
