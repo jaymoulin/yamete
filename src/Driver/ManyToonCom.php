@@ -2,7 +2,6 @@
 
 namespace Yamete\Driver;
 
-
 if (!class_exists(ManyToonCom::class)) {
     class ManyToonCom extends \Yamete\DriverAbstract
     {
