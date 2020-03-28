@@ -339,5 +339,6 @@ Here's is the list of supported sites for now:
  * komikstation.com
  * hennojin.com
  * imgbox.com
+ * mangahentai.me
  
 You must pass the URL to the album for the program to download it!
