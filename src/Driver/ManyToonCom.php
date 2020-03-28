@@ -19,8 +19,7 @@ if (!class_exists(ManyToonCom::class)) {
 
         public function canHandle(): bool
         {
-            $sReg = '~^https?://(' . strtr($this->getDomain(), ['.' => '\.']) .
-                ')/(?<category>comic|manga\-hentai)/(?<album>[^/]+)~';
+            $sReg = '~^https?://(' . strtr($this->getDomain(), ['.' => '\.']) . ')/(?<category>[^/]+)/(?<album>[^/]+)~';
             return (bool)preg_match($sReg, $this->sUrl, $this->aMatches);
         }
 
