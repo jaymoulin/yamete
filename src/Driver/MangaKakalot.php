@@ -10,8 +10,13 @@ class MangaKakalot extends \Yamete\DriverAbstract
 
     public function canHandle(): bool
     {
-        return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(manga|chapter)/(?<album>[^/]+)~',
+        $bRead = (bool)preg_match(
+            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/read-(?<album>[^/]+)~',
+            $this->sUrl,
+            $this->aMatches
+        );
+        return $bRead || (bool)preg_match(
+            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/chapter/(?<album>[^/]+)~',
             $this->sUrl,
             $this->aMatches
         );
