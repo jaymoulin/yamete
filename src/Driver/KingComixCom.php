@@ -2,9 +2,6 @@
 
 namespace Yamete\Driver;
 
-use GuzzleCloudflare\Middleware;
-use GuzzleHttp\Cookie\FileCookieJar;
-
 class KingComixCom extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
