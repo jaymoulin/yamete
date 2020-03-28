@@ -342,5 +342,6 @@ Here's is the list of supported sites for now:
  * mangahentai.me
  * manhwahentai.me
  * manhwaraw.com
+ * boyslove.me
  
 You must pass the URL to the album for the program to download it!
