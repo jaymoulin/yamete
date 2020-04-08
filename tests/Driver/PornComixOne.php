@@ -14,6 +14,6 @@ class PornComixOne extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\PornComixOne();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(23, count($driver->getDownloadables()));
+        $this->assertEquals(25, count($driver->getDownloadables()));
     }
 }

@@ -10,10 +10,10 @@ class CartoonTumblrPornCom extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://cartoontumblrporn.com/content/hot-sexy-sissy-femboy-toons-2/index.html';
+        $url = 'http://cartoontumblrporn.com/content/3d-0054-cartoons-hentai-foundry-gallery/index.html';
         $driver = new \Yamete\Driver\CartoonTumblrPornCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(30, count($driver->getDownloadables()));
+        $this->assertEquals(43, count($driver->getDownloadables()));
     }
 }
