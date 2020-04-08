@@ -324,7 +324,6 @@ Here's is the list of supported sites for now:
  * bato.to
  * mangareader.me
  * wiemanga.com
- * chaptermanga.com
  * fanfox.net
  * mangaeden.com
  * elitemangas.top
