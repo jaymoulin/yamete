@@ -269,7 +269,6 @@ Here's is the list of supported sites for now:
  * hentai.tv
  * kingsmanga.net
  * hentai-paradise.fr
- * hdhentai.tv
  * truyenhentai18.net
  * hcomic.in
  * acgxmanga.com
