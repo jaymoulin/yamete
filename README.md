@@ -223,7 +223,6 @@ Here's is the list of supported sites for now:
  * verpornocomic.com
  * hentai-corp.com
  * myhentaigallery.com
- * nsotennis.ru
  * pornocomics.net
  * hdhentaicomics.com
  * cartoonporncomics.info
