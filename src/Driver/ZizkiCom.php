@@ -31,7 +31,7 @@ class ZizkiCom extends \Yamete\DriverAbstract
          */
         $sUrl = 'https://' . self::DOMAIN . '/' . implode('/', [$this->aMatches['author'], $this->aMatches['album']]);
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('.aimage-center a');
+        $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('.xbox-inner a');
         $index = 0;
         $aReturn = [];
         foreach ($oPages as $oLink) {
