@@ -60,6 +60,8 @@ test-clean:
 	docker run --rm -v ${PWD}:/app/ yamete:test rm -Rf composer.phar composerinstall.php .composer
 	docker rmi yamete:test
 	rm build/test-image
+yamete.zip:
+	zip -R yamete.zip vendor docker src tests composer.json composer.lock converter Dockerfile download logo.png Makefile manifest.yml phpunit.xml qemu-mock-static README.md .editorconfig
 ci:
 	mkdir -p build/logs
 	COMPOSER=phpcs make composer || true
