@@ -61,6 +61,9 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
                     ['cleanupInput' => false]
                 )
                     ->find($sSelector)[0];
+                if (!$oImage) {
+                    continue;
+                }
                 $sFilename = $oImage->getAttribute('src');
                 $sFilename = strpos($sFilename, 'http') !== false
                     ? $sFilename
