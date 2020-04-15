@@ -212,7 +212,6 @@ Here's is the list of supported sites for now:
  * sexcomic.org
  * hentaicloud.com
  * nude-moon.net
- * gntai.xyz
  * hentaigratis.biz
  * doujinhentai.net
  * hentai24h.org
