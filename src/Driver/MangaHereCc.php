@@ -36,7 +36,7 @@ if (!class_exists(MangaHereCc::class)) {
              * @var \PHPHtmlParser\Dom\AbstractNode[] $oPages
              * @var \PHPHtmlParser\Dom\AbstractNode $oImage
              */
-            $sStartUrl = 'https://' . $this->getDomain();
+            $sStartUrl = 'https://www.' . $this->getDomain();
             $sUrl = $sStartUrl . '/manga/' . $this->aMatches['album'] . '/';
             $oResponse = $this->getClient()->get($sUrl);
             $oChapters = $this->getDomParser()->load((string)$oResponse->getBody())->find('.detail-main-list li > a');
