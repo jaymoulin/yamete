@@ -25,12 +25,11 @@ class MySexGamerCom extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . "/doujin/{$this->aMatches['album']}");
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.img-responsive') as $oImg) {
-            /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
-            $sFilename = $oImg->getAttribute('data-original');
-            if (!$sFilename) {
-                continue;
-            }
+        $aMatches = [];
+        if (!preg_match_all('~data-original="([^"]+)"~', (string)$oRes->getBody(), $aMatches)) {
+            return [];
+        }
+        foreach (array_slice($aMatches[1], 3, -8) as $sFilename) {
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
