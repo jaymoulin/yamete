@@ -34,12 +34,11 @@ if (!class_exists(OnlinePornGamesXyz::class)) {
             $oRes = $this->getClient()->request('GET', $this->sUrl);
             $aReturn = [];
             $index = 0;
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.img-responsive') as $oImg) {
-                /* @var \PHPHtmlParser\Dom\AbstractNode $oImg */
-                if (!$oImg->getAttribute('data-original')) {
-                    continue;
-                }
-                $sFilename = $oImg->getAttribute('data-original');
+            $aMatches = [];
+            if (!preg_match_all('~data-original="([^"]+)"~', (string)$oRes->getBody(), $aMatches)) {
+                return [];
+            }
+            foreach (array_slice($aMatches[1], 3, -4) as $sFilename) {
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
