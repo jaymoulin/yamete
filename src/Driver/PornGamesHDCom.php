@@ -28,11 +28,12 @@ class PornGamesHDCom extends \Yamete\DriverAbstract
          * @var \PHPHtmlParser\Dom\AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('.a-thumb img.img-responsive');
         $index = 0;
         $aReturn = [];
-        foreach ($oPages as $oLink) {
-            $sFilename = $oLink->getAttribute('data-original');
+        if (!preg_match_all('~data-original="([^"]+)"~', (string)$oRes->getBody(), $aMatches)) {
+            return [];
+        }
+        foreach (array_slice($aMatches[1], 4, -7) as $sFilename) {
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
