@@ -10,10 +10,10 @@ class HentaiItaNet extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://hentai-ita.net/la-figlia-prediletta-1-gallery/';
+        $url = 'https://hentai-ita.net/tette-piu-grandi/';
         $driver = new \Yamete\Driver\HentaiItaNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(25, count($driver->getDownloadables()));
+        $this->assertEquals(26, count($driver->getDownloadables()));
     }
 }

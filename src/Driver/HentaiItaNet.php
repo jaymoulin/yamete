@@ -16,7 +16,7 @@ class HentaiItaNet extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) .
-            ')/(?<album>.+)-gallery/$~',
+            ')/(?<album>.+)/$~',
             $this->sUrl,
             $this->aMatches
         );
@@ -31,14 +31,14 @@ class HentaiItaNet extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery-icon a') as $oLink) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.blocks-gallery-item figure a') as $oLink) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oLink
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
             $sUrl = $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sUrl);
-            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('.entry-attachment .attachment img')[0];
+            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('.entry-attachment img')[0];
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
