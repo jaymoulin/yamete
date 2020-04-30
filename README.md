@@ -338,5 +338,6 @@ Here's is the list of supported sites for now:
  * boyslove.me
  * freecomiconline.me
  * freewebtooncoins.com
+ * mangarockteam.com
  
 You must pass the URL to the album for the program to download it!
