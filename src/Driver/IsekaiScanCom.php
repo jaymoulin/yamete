@@ -57,9 +57,8 @@ if (!class_exists(IsekaiScanCom::class)) {
             $index = 0;
             foreach ($aChapters as $oChapter) {
                 $oResult = $this->getClient()->request('GET', $oChapter->getAttribute('href'));
-                $sRegexp = '~data-src="([^"]+)" class="wp-manga~';
                 $aMatches = [];
-                if (!preg_match_all($sRegexp, (string)$oResult->getBody(), $aMatches)) {
+                if (!preg_match_all($this->getRegexp(), (string)$oResult->getBody(), $aMatches)) {
                     continue;
                 }
                 foreach ($aMatches[1] as $sFilename) {
@@ -70,6 +69,11 @@ if (!class_exists(IsekaiScanCom::class)) {
                 }
             }
             return $aReturn;
+        }
+
+        protected function getRegexp(): string
+        {
+            return '~data-src="([^"]+)" class="wp-manga~';
         }
     }
 }
