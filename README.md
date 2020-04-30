@@ -339,5 +339,6 @@ Here's is the list of supported sites for now:
  * freecomiconline.me
  * freewebtooncoins.com
  * mangarockteam.com
+ * mangabob.com
  
 You must pass the URL to the album for the program to download it!
