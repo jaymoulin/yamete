@@ -279,7 +279,6 @@ Here's is the list of supported sites for now:
  * hentaizone.me
  * mymangacomics.com
  * baramangaonline.com
- * mangax.net
  * zizki.com
  * milftoon.xxx
  * ilikecomix.com
