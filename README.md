@@ -341,5 +341,6 @@ Here's is the list of supported sites for now:
  * mangarockteam.com
  * mangabob.com
  * manganeloteam.com
+ * mangatx.com
  
 You must pass the URL to the album for the program to download it!
