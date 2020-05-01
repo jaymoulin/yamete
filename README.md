@@ -140,6 +140,7 @@ Here's is the list of supported sites for now:
  * hitomi.la
  * comicsmanics.com
  * hentaifr.net
+ * myreadingmanga.info
  * hentai4manga.com
  * pururin.io
  * hentaiporn.pics
