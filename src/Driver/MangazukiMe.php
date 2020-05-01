@@ -17,7 +17,8 @@ class MangazukiMe extends \Yamete\DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(?<domain>(www\.)?' . strtr($this->getDomain(), ['.' => '\.']) . ')/manga/(?<album>[^/]+)~',
+            '~^https?://(?<domain>(www\.)?' . strtr($this->getDomain(), ['.' => '\.'])
+            . ')/(?<cat>mangas?)/(?<album>[^/]+)~',
             $this->sUrl,
             $this->aMatches
         );
@@ -34,7 +35,7 @@ class MangazukiMe extends \Yamete\DriverAbstract
          * @var \PHPHtmlParser\Dom\AbstractNode[] $aChapters
          * @var \PHPHtmlParser\Dom\AbstractNode $oImg
          */
-        $this->sUrl = "https://{$this->aMatches['domain']}/manga/{$this->aMatches['album']}/";
+        $this->sUrl = "https://{$this->aMatches['domain']}/{$this->aMatches['cat']}/{$this->aMatches['album']}/";
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
