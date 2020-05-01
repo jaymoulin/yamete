@@ -227,6 +227,7 @@ Here's is the list of supported sites for now:
  * pornocomics.net
  * hdhentaicomics.com
  * cartoonporncomics.info
+ * hentaischool.com
  * megapornpics.com
  * porkyfap.org
  * goodcomix.tk
