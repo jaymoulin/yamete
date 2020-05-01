@@ -188,6 +188,7 @@ Here's is the list of supported sites for now:
  * hentaifox.com
  * perveden.com
  * chochox.com
+ * lovehentaimanga.com
  * doujin-th.com
  * hentaithai.com
  * doujins.com
