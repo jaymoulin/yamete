@@ -14,7 +14,7 @@ if (!class_exists(IsekaiScanCom::class)) {
         public function canHandle(): bool
         {
             return (bool)preg_match(
-                '~^https?://(' . strtr($this->getdomain(), ['.' => '\.']) . ')/manga/(?<album>[^/]+)~',
+                '~^https?://(' . strtr($this->getDomain(), ['.' => '\.']) . ')/manga/(?<album>[^/]+)~',
                 $this->sUrl,
                 $this->aMatches
             );
