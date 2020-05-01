@@ -229,6 +229,7 @@ Here's is the list of supported sites for now:
  * cartoonporncomics.info
  * megapornpics.com
  * porkyfap.org
+ * goodcomix.tk
  * porncomicszone.net
  * freesexcomics.pro
  * hentai-id.tv
