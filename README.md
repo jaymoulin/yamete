@@ -269,6 +269,7 @@ Here's is the list of supported sites for now:
  * hentai-paradise.fr
  * truyenhentai18.net
  * hcomic.in
+ * doujinshihentai.com
  * acgxmanga.com
  * d-upp.net
  * a-upp.com
