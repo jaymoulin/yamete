@@ -346,5 +346,6 @@ Here's is the list of supported sites for now:
  * toomics.com
  * 365manga.com
  * mangainn.net
+ * loveheaven.net
  
 You must pass the URL to the album for the program to download it!
