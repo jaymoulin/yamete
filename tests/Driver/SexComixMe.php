@@ -10,10 +10,10 @@ class SexComixMe extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'http://www.sexcomix.me/galleries/saving-princess-marco-part-3?code=MjUxeDF4NzI2ODI=#&gid=1&pid=1';
+        $url = 'http://www.sexcomix.me/galleries/ben-10-turning-it-up-to-11-jlullaby#&gid=1&pid=1';
         $driver = new \Yamete\Driver\SexComixMe();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(15, count($driver->getDownloadables()));
+        $this->assertEquals(4, count($driver->getDownloadables()));
     }
 }

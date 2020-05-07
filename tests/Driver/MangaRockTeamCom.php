@@ -10,10 +10,10 @@ class MangaRockTeamCom extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://mangarockteam.com/manga/vampire-academy/';
+        $url = 'https://mangarockteam.com/manga/sweet-guy/';
         $driver = new \Yamete\Driver\MangaRockTeamCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(121, count($driver->getDownloadables()));
+        $this->assertEquals(1822, count($driver->getDownloadables()));
     }
 }
