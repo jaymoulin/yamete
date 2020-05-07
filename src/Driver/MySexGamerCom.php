@@ -29,7 +29,7 @@ class MySexGamerCom extends \Yamete\DriverAbstract
         if (!preg_match_all('~data-original="([^"]+)"~', (string)$oRes->getBody(), $aMatches)) {
             return [];
         }
-        foreach (array_slice($aMatches[1], 3, -8) as $sFilename) {
+        foreach (array_slice($aMatches[1], 3, -5) as $sFilename) {
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
