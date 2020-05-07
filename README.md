@@ -208,7 +208,6 @@ Here's is the list of supported sites for now:
  * hdporncomics.com
  * xcartx.com
  * hentaihand.com
- * comicspornohentai.com
  * poringa.com
  * ver-comics-porno.com
  * sexcomic.org
