@@ -358,5 +358,6 @@ Here's is the list of supported sites for now:
  * niadd.com
  * twhentai.com
  * lectortmo.com
+ * mangazuki.site
  
 You must pass the URL to the album for the program to download it!
