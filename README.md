@@ -361,5 +361,6 @@ Here's is the list of supported sites for now:
  * mangazuki.site
  * mangacrush.com
  * mangairo.com
+ * mangatoon.mobi
  
 You must pass the URL to the album for the program to download it!
