@@ -297,7 +297,6 @@ Here's is the list of supported sites for now:
  * onlineporngames.xyz
  * onlinesexgames.cc
  * gamesofdesired.com
- * sexyfuckgamers.com
  * 66games.net
  * sexgamesx.com
  * ipadsexgames.com
