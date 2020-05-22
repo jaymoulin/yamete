@@ -326,7 +326,6 @@ Here's is the list of supported sites for now:
  * mangaeden.com
  * elitemangas.top
  * unionmangas.top
- * mangahere.online
  * mangahere.cc
  * manganelo.com
  * mangahub.io
