@@ -46,4 +46,21 @@ class ComicspornoxxxCom extends \Yamete\DriverAbstract
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
+
+    /**
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    {
+        $oClient = parent::getClient(
+            [
+                'headers' => ['User-Agent' => self::USER_AGENT],
+            ]
+        );
+        /**
+         * @var \GuzzleHttp\HandlerStack $oHandler
+         */
+        return $oClient;
+    }
 }
