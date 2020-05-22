@@ -268,7 +268,6 @@ Here's is the list of supported sites for now:
  * g6hentai.com
  * naughtyhentai.com
  * hentai.tv
- * kingsmanga.net
  * hentai-paradise.fr
  * truyenhentai18.net
  * hcomic.in
