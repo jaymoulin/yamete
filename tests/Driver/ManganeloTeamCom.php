@@ -14,6 +14,6 @@ class ManganeloTeamCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\ManganeloTeamCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(330, count($driver->getDownloadables()));
+        $this->assertEquals(327, count($driver->getDownloadables()));
     }
 }

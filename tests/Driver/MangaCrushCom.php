@@ -10,7 +10,7 @@ class MangaCrushCom extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://mangacrush.com/manga/first-rate-master/';
+        $url = 'https://mangacrush.com/manga/against-the-gods/';
         $driver = new \Yamete\Driver\MangaCrushCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
