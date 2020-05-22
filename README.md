@@ -301,7 +301,6 @@ Here's is the list of supported sites for now:
  * gamesofdesired.com
  * sexyfuckgamers.com
  * 66games.net
- * iphonesexgames.com
  * sexgamesx.com
  * ipadsexgames.com
  * porngamesapp.com
