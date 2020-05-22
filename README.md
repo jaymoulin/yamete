@@ -319,7 +319,6 @@ Here's is the list of supported sites for now:
  * tenmanga.com
  * 18lhplus.com
  * ninemanga.com
- * gomanga.xyz
  * mangabat.com
  * lewdmanhwa.com
  * isekaiscan.com
