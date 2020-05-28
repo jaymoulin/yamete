@@ -28,12 +28,25 @@ class PornGamesHDCom extends \Yamete\DriverAbstract
          * @var \PHPHtmlParser\Dom\AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $index = 0;
         $aReturn = [];
-        if (!preg_match_all('~data-original="([^"]+)"~', (string)$oRes->getBody(), $aMatches)) {
+        $aMatchesCover = [];
+        $sBody = (string)$oRes->getBody();
+        if (
+            !preg_match_all('~data-original="([^"]+)"~', $sBody, $aMatches) or
+            !preg_match_all('~<img class="img-responsive" src="([^"]+)"~', $sBody, $aMatchesCover)
+        ) {
             return [];
         }
-        foreach (array_slice($aMatches[1], 4, -7) as $sFilename) {
+        $index = 0;
+        foreach ($aMatchesCover[1] as $sFilename) {
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
+                . '-' . basename($sFilename);
+            $aReturn[$sBasename] = $sFilename;
+        }
+        foreach (array_slice($aMatches[1], 4, -7) as $iKey => $sFilename) {
+            if ($iKey % 2 === 0) {
+                continue;
+            }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
