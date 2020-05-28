@@ -66,4 +66,17 @@ class NinemangaCom extends \Yamete\DriverAbstract
         }
         return $aReturn;
     }
+
+    /**
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    {
+        return parent::getClient(
+            [
+                'headers' => ['User-Agent' => self::USER_AGENT, 'Accept-Language' => 'en-US;q=0.8,en;q=0.7'],
+            ]
+        );
+    }
 }
