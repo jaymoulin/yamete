@@ -46,7 +46,7 @@ class MangaCrushCom extends \Yamete\DriverAbstract
             $sHref = $oLink->getAttribute('href');
             $sHref .= strpos($sHref, "?") !== false ? '' : '?style=list';
             $oRes = $this->getClient()->request('GET', $sHref);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.container-chapter-reader img') as $oImg) {
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.reading-content img') as $oImg) {
                 $sFilename = trim($oImg->getAttribute('src'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
