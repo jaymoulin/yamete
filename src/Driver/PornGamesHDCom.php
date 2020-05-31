@@ -38,15 +38,15 @@ class PornGamesHDCom extends \Yamete\DriverAbstract
             return [];
         }
         $index = 0;
-        foreach ($aMatchesCover[1] as $sFilename) {
+        foreach (array_slice($aMatches[1], 3) as $iKey => $sFilename) {
+            if ($iKey % 2 === 0) {
+                continue;
+            }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }
-        foreach (array_slice($aMatches[1], 4, -7) as $iKey => $sFilename) {
-            if ($iKey % 2 === 0) {
-                continue;
-            }
+        foreach ($aMatchesCover[1] as $sFilename) {
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
