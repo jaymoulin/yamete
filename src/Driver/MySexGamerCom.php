@@ -39,7 +39,7 @@ class MySexGamerCom extends \Yamete\DriverAbstract
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }
-        foreach (array_slice($aMatches[1], 3, -4) as $iKey => $sFilename) {
+        foreach (array_slice($aMatches[1], 3) as $iKey => $sFilename) {
             if ($iKey % 2 === 0) {
                 continue;
             }
