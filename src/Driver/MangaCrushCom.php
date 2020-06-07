@@ -2,8 +2,6 @@
 
 namespace Yamete\Driver;
 
-use \GuzzleCloudflare\Middleware;
-
 class MangaCrushCom extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -54,22 +52,6 @@ class MangaCrushCom extends \Yamete\DriverAbstract
             }
         }
         return $aReturn;
-    }
-
-    /**
-     * @param array $aOptions
-     * @return \GuzzleHttp\Client
-     */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
-    {
-        $oClient = parent::getClient();
-        /**
-         * @var \GuzzleHttp\HandlerStack $oHandler
-         */
-        $oHandler = $oClient->getConfig('handler');
-        $oHandler->remove('cloudflare');
-        $oHandler->push(Middleware::create(), 'cloudflare');
-        return $oClient;
     }
 
     private function getFolder(): string
