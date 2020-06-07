@@ -2,9 +2,6 @@
 
 namespace Yamete\Driver;
 
-use \GuzzleCloudflare\Middleware;
-use \GuzzleHttp\Cookie\FileCookieJar;
-
 class PorncomixOnline extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
