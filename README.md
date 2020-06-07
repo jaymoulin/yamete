@@ -253,7 +253,6 @@ Here's is the list of supported sites for now:
  * doujinreader.com
  * myhentaigallery.com
  * manytoon.com
- * mangazuki.online
  * mysexgamer.com
  * lolhentai.net
  * kisshentaitv.com
