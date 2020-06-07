@@ -20,27 +20,6 @@ class PorncomixOnline extends \Yamete\DriverAbstract
     }
 
     /**
-     * @param array $aOptions
-     * @return \GuzzleHttp\Client
-     */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
-    {
-        $oClient = parent::getClient(
-            [
-                'cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__)),
-                'headers' => ['User-Agent' => self::USER_AGENT],
-            ]
-        );
-        /**
-         * @var \GuzzleHttp\HandlerStack $oHandler
-         */
-        $oHandler = $oClient->getConfig('handler');
-        $oHandler->remove('cloudflare');
-        $oHandler->push(Middleware::create(), 'cloudflare');
-        return $oClient;
-    }
-
-    /**
      * @return array|string[]
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
