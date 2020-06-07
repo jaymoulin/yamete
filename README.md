@@ -246,7 +246,6 @@ Here's is the list of supported sites for now:
  * mangapark.net
  * animephile.com
  * yuri-ism.net
- * mangazuki.me
  * readhent.ai
  * tmohentai.com
  * comicsporno.xxx
