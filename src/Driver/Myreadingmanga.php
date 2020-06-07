@@ -2,9 +2,6 @@
 
 namespace Yamete\Driver;
 
-use \GuzzleCloudflare\Middleware;
-use \GuzzleHttp\Cookie\FileCookieJar;
-
 class Myreadingmanga extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
@@ -42,12 +39,6 @@ class Myreadingmanga extends \Yamete\DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $oClient = $this->getClient(['cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__))]);
-        /**
-         * @var \GuzzleHttp\HandlerStack $oHandler
-         */
-        $oHandler = $oClient->getConfig('handler');
-        $oHandler->push(Middleware::create());
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $oPageList = $this->getDomParser()->load((string)$oRes->getBody())->find('.pagination a');
         $aReturn = $this->getImgListForBody((string)$oRes->getBody());
