@@ -134,7 +134,6 @@ Here's is the list of supported sites for now:
  * simply-hentai.com
  * xyzcomics.com
  * hentaifantasy.it
- * hentaivn.net
  * yaoimangaonline.com
  * vercomicsporno.com
  * hitomi.la
