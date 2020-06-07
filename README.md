@@ -281,7 +281,6 @@ Here's is the list of supported sites for now:
  * hqhentai.online
  * hentaizone.me
  * mymangacomics.com
- * baramangaonline.com
  * zizki.com
  * milftoon.xxx
  * ilikecomix.com
