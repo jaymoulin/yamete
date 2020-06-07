@@ -325,7 +325,6 @@ Here's is the list of supported sites for now:
  * imgbox.com
  * mangahentai.me
  * manhwahentai.me
- * manhwaraw.com
  * boyslove.me
  * freecomiconline.me
  * freewebtooncoins.com
