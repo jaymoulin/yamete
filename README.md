@@ -313,7 +313,6 @@ Here's is the list of supported sites for now:
  * 18lhplus.com
  * ninemanga.com
  * mangabat.com
- * lewdmanhwa.com
  * isekaiscan.com
  * mangareader.me
  * wiemanga.com
