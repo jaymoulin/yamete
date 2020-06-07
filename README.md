@@ -305,7 +305,6 @@ Here's is the list of supported sites for now:
  * comicsporn.me
  * mangahome.com
  * xlecx.com
- * mangahasu.se
  * kingcomix.com
  * savitahd.net
  * bestporncomix.com
