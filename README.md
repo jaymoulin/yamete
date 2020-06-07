@@ -316,7 +316,6 @@ Here's is the list of supported sites for now:
  * mangabat.com
  * lewdmanhwa.com
  * isekaiscan.com
- * bato.to
  * mangareader.me
  * wiemanga.com
  * fanfox.net
