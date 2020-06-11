@@ -259,7 +259,6 @@ Here's is the list of supported sites for now:
  * hmangasearcher.com
  * mangaowl.com
  * hentaishark.com
- * ballballict.com
  * 18comic.org
  * g6hentai.com
  * naughtyhentai.com
