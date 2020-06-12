@@ -315,7 +315,6 @@ Here's is the list of supported sites for now:
  * fanfox.net
  * mangaeden.com
  * elitemangas.top
- * unionmangas.top
  * mangahere.cc
  * manganelo.com
  * mangahub.io
