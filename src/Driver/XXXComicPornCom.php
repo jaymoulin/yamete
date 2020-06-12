@@ -82,6 +82,10 @@ if (!class_exists(XXXComicPornCom::class)) {
                 $sFilename = strpos($sFilename, 'http') !== false
                     ? $sFilename
                     : 'http://' . $this->getDomain() . $sFilename;
+                $oRes = $this->getClient()->request('GET', $sFilename, ["http_errors" => false]);
+                if ($oRes->getStatusCode() !== 200) {
+                    continue;
+                }
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($iIndex++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
