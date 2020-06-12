@@ -25,11 +25,11 @@ class VercomicsPorno extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.comicimg .lazy') as $oImg) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.comicimg img') as $oImg) {
             /**
              * @var \PHPHtmlParser\Dom\AbstractNode $oImg
              */
-            $sFilename = $oImg->getAttribute('data-src');
+            $sFilename = $oImg->getAttribute('src');
             if (empty($sFilename) || strpos($sFilename, '.jpg') === false) {
                 continue;
             }

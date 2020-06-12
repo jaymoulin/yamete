@@ -32,18 +32,6 @@ class VercomicsPorno extends \PHPUnit\Framework\TestCase
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function testDownloadBroly()
-    {
-        $url = 'https://vercomicsporno.com/english-brolys-room-accel-artexclusivo';
-        $driver = new \Yamete\Driver\VercomicsPorno();
-        $driver->setUrl($url);
-        $this->assertTrue($driver->canHandle());
-        $this->assertEquals(11, count($driver->getDownloadables()));
-    }
-
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function testDownloadTinkerbell()
     {
         $url = 'https://vercomicsporno.com/milftoon-tinkerfuck-traduccion-exclusiva';
