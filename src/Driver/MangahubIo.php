@@ -35,13 +35,20 @@ class MangahubIo extends DriverAbstract
         $index = 0;
         $aReturn = [];
         foreach ($aChapters as $oLink) {
-            if (strpos($oLink->getAttribute('href'), '/chapter/') === false) {
+            $sUrl = $oLink->getAttribute('href');
+            $aMatches = [];
+            if (!preg_match('~/chapter/(?<name>[^/]+)/chapter-(?<chapter>[0-9]+)~', $sUrl, $aMatches)) {
                 continue;
             }
-            $oResponse = $this->getClient()->get($oLink->getAttribute('href'));
-            $oPages = $this->getDomParser()->load((string)$oResponse->getBody())->find('.container-fluid img');
-            foreach ($oPages as $oImage) {
-                $sFilename = $oImage->getAttribute('src');
+            $oResponse = $this->getClient()->request('POST', "https://api.mghubcdn.com/graphql", [
+                'json' => [
+                    'query' => "{chapter(x:m01,slug:\"${aMatches['name']}\",number:${aMatches['chapter']}){id,title,mangaID,number,slug,date,pages,noAd,manga{id,title,slug,mainSlug,author,isWebtoon,isYaoi,isPorn,isSoftPorn,unauthFile,isLicensed}}}",
+                ],
+            ]);
+            $aChapter = \GuzzleHttp\json_decode((string)$oResponse->getBody(), true);
+            $aPages = \GuzzleHttp\json_decode($aChapter['data']['chapter']['pages'], true);
+            foreach ($aPages as $sFile) {
+                $sFilename = "https://img.mghubcdn.com/file/imghub/" . $sFile;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
