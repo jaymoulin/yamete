@@ -14,6 +14,6 @@ class MangairoCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MangairoCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(29, count($driver->getDownloadables()));
+        $this->assertEquals(31, count($driver->getDownloadables()));
     }
 }

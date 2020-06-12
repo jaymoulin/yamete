@@ -14,6 +14,6 @@ class MangaInnNet extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MangaInnNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(717, count($driver->getDownloadables()));
+        $this->assertEquals(760, count($driver->getDownloadables()));
     }
 }

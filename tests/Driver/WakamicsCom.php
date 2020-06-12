@@ -10,7 +10,7 @@ class WakamicsCom extends \PHPUnit\Framework\TestCase
      */
     public function testDownload()
     {
-        $url = 'https://wakamics.com/manga/my-four-masters/';
+        $url = 'https://wakamics.com/manga/chief-seduction-officer/';
         $driver = new \Yamete\Driver\WakamicsCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());

@@ -14,6 +14,6 @@ class MangatxCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MangatxCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(162, count($driver->getDownloadables()));
+        $this->assertEquals(260, count($driver->getDownloadables()));
     }
 }
