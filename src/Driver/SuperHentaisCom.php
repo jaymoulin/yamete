@@ -39,4 +39,13 @@ class SuperHentaisCom extends \Yamete\DriverAbstract
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
+
+    /**
+     * @param array $aOptions
+     * @return \GuzzleHttp\Client
+     */
+    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    {
+        return parent::getClient(['headers' => ['Accept-Language' => 'en'], 'http_errors' => false]);
+    }
 }

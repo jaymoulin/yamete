@@ -2,10 +2,13 @@
 
 namespace Yamete\Driver;
 
-class FreeComicOnlineMe extends ManyToonCom
+class FreeComicOnlineMe extends MangaHentaiMe
 {
     const DOMAIN = 'freecomiconline.me';
 
+    /**
+     * @return string
+     */
     protected function getDomain(): string
     {
         return self::DOMAIN;

@@ -14,6 +14,6 @@ class CartoonTumblrPornCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\CartoonTumblrPornCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(43, count($driver->getDownloadables()));
+        $this->assertEquals(44, count($driver->getDownloadables()));
     }
 }

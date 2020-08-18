@@ -139,7 +139,6 @@ Here's is the list of supported sites for now:
  * hitomi.la
  * comicsmanics.com
  * hentaifr.net
- * myreadingmanga.info
  * hentai4manga.com
  * pururin.io
  * hentaiporn.pics
@@ -194,7 +193,6 @@ Here's is the list of supported sites for now:
  * erofus.com
  * mangakakalot.com
  * hentaihere.com
- * hentaimangaly.com
  * 9hentai.com
  * mintmanga.live
  * hentai.cafe
@@ -266,7 +264,6 @@ Here's is the list of supported sites for now:
  * hentai-paradise.fr
  * truyenhentai18.net
  * hcomic.in
- * doujinshihentai.com
  * acgxmanga.com
  * d-upp.net
  * a-upp.com
@@ -314,7 +311,6 @@ Here's is the list of supported sites for now:
  * wiemanga.com
  * fanfox.net
  * mangaeden.com
- * elitemangas.top
  * mangahere.cc
  * manganelo.com
  * mangahub.io
@@ -337,7 +333,6 @@ Here's is the list of supported sites for now:
  * loveheaven.net
  * wakamics.com
  * manhuas.net
- * niadd.com
  * twhentai.com
  * lectortmo.com
  * mangacrush.com

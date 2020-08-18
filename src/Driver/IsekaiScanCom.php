@@ -8,7 +8,7 @@ use PHPHtmlParser\Dom\AbstractNode;
 if (!class_exists(IsekaiScanCom::class)) {
     class IsekaiScanCom extends \Yamete\DriverAbstract
     {
-        private $aMatches = [];
+        protected $aMatches = [];
         const DOMAIN = 'isekaiscan.com';
 
         public function canHandle(): bool
@@ -32,7 +32,7 @@ if (!class_exists(IsekaiScanCom::class)) {
          * Where to download
          * @return string
          */
-        private function getFolder(): string
+        protected function getFolder(): string
         {
             return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
         }
