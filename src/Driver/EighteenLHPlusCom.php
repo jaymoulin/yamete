@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class EighteenLHPlusCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
+
+class EighteenLHPlusCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = '18lhplus.com';
@@ -27,14 +32,14 @@ class EighteenLHPlusCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oChapter
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var Traversable $oChapters
+         * @var AbstractNode $oChapter
+         * @var AbstractNode $oImg
          */
         $oResult = $this->getClient()->request('GET', $this->sUrl);
         $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('a.chapter');

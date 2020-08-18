@@ -2,8 +2,13 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Psr\Http\Message\ResponseInterface;
+use Yamete\DriverAbstract;
+
 if (!class_exists(XXXHentaiComixCom::class)) {
-    class XXXHentaiComixCom extends \Yamete\DriverAbstract
+    class XXXHentaiComixCom extends DriverAbstract
     {
         const DOMAIN = 'xxxhentaicomix.com';
         private $aMatches = [];
@@ -32,7 +37,7 @@ if (!class_exists(XXXHentaiComixCom::class)) {
 
         /**
          * @return array|string[]
-         * @throws \GuzzleHttp\Exception\GuzzleException
+         * @throws GuzzleException
          */
         public function getDownloadables(): array
         {
@@ -44,7 +49,7 @@ if (!class_exists(XXXHentaiComixCom::class)) {
             $sSelectorOptions = '.container .part-select option';
             $oOptionsIterator = $this->getDomParser()->load((string)$oRes->getBody())->find($sSelectorOptions);
             foreach ($oOptionsIterator as $oOptionChap) {
-                /* @var \PHPHtmlParser\Dom\AbstractNode $oOptionChap */
+                /* @var AbstractNode $oOptionChap */
                 $sLink = 'http://www.' . $this->getDomain() . $oOptionChap->getAttribute('value');
                 $oRes = $this->getClient()->request('GET', $sLink);
                 $this->findForRes($oRes);
@@ -55,10 +60,10 @@ if (!class_exists(XXXHentaiComixCom::class)) {
             return $this->aReturn;
         }
 
-        private function findForRes(\Psr\Http\Message\ResponseInterface $oRes): void
+        private function findForRes(ResponseInterface $oRes): void
         {
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
-                /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
+                /* @var AbstractNode $oLink */
                 $sFilename = $oLink->getAttribute('data-img') . '.' . trim($oLink->getAttribute('data-ext'), '.');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($this->iPointer++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

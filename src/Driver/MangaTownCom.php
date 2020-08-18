@@ -2,7 +2,13 @@
 
 namespace Yamete\Driver;
 
-class MangaTownCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
+
+class MangaTownCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'mangatown.com';
@@ -23,25 +29,25 @@ class MangaTownCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $aChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $aPages
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var Traversable $oChapters
+         * @var AbstractNode[] $aChapters
+         * @var AbstractNode[] $aPages
+         * @var AbstractNode $oImg
          */
         $sUrl = implode(
-            '/',
-            [
-                'https:/',
-                'www.' . self::DOMAIN,
-                'manga',
-                $this->aMatches['album'],
-            ]
-        ) . '/';
+                '/',
+                [
+                    'https:/',
+                    'www.' . self::DOMAIN,
+                    'manga',
+                    $this->aMatches['album'],
+                ]
+            ) . '/';
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $index = 0;
@@ -74,7 +80,7 @@ class MangaTownCom extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(
             [

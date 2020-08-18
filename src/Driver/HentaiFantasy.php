@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HentaiFantasy extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HentaiFantasy extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaifantasy.it';
@@ -18,7 +22,7 @@ class HentaiFantasy extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +31,7 @@ class HentaiFantasy extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.group .element .title a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sLink = $oLink->getAttribute('href');
             $aMatches = [];
@@ -44,8 +48,8 @@ class HentaiFantasy extends \Yamete\DriverAbstract
             $sSelector = '.topbar_right .dropdown li a';
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oPage) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oPage
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oPage
+                 * @var AbstractNode $oImg
                  */
                 $oRes = $this->getClient()->request('GET', $oPage->getAttribute('href'));
                 $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('img.open')[0];

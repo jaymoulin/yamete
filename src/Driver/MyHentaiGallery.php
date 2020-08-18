@@ -2,7 +2,10 @@
 
 namespace Yamete\Driver;
 
-class MyHentaiGallery extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
+class MyHentaiGallery extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'myhentaigallery.com';
@@ -24,19 +27,21 @@ class MyHentaiGallery extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.comic-thumb img') as $oImg) {
-            /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
-             */
+        $sRegExp = '~<img src="([^"]+)~us';
+        $aMatches = [];
+        if (!preg_match_all($sRegExp, (string)$oRes->getBody(), $aMatches)) {
+            return [];
+        }
+        foreach (array_splice($aMatches[1], 2) as $sImg) {
             $sFilename = html_entity_decode(
-                str_replace('/thumbnail/', '/original/', $oImg->getAttribute('src')),
+                str_replace('/thumbnail/', '/original/', $sImg),
                 ENT_QUOTES
             );
             $iPos = strpos($sFilename, '?');

@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class Freeadultcomix extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class Freeadultcomix extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'freeadultcomix.com';
@@ -18,14 +22,14 @@ class Freeadultcomix extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.aligncenter') as $oImg) {
-            /** @var \PHPHtmlParser\Dom\AbstractNode $oImg */
+            /** @var AbstractNode $oImg */
             $sFilename = $oImg->getAttribute('src');
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }

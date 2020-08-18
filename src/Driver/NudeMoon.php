@@ -2,7 +2,10 @@
 
 namespace Yamete\Driver;
 
-class NudeMoon extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
+class NudeMoon extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'nude-moon.net';
@@ -16,7 +19,7 @@ class NudeMoon extends \Yamete\DriverAbstract
 
     /**
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {

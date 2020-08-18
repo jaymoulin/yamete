@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class Doujins extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class Doujins extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'doujins.com';
@@ -18,7 +22,7 @@ class Doujins extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +31,7 @@ class Doujins extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#image-container img') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = html_entity_decode($oImg->getAttribute('data-file'));
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

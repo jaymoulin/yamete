@@ -2,14 +2,18 @@
 
 namespace Yamete\Driver;
 
-class HentaiIdTv extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HentaiIdTv extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentai-id.tv';
 
     /**
      * @return bool
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function canHandle(): bool
     {
@@ -18,7 +22,7 @@ class HentaiIdTv extends \Yamete\DriverAbstract
             $this->sUrl
         )) {
             $oRes = $this->getClient()->request('GET', $this->sUrl);
-            /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
+            /* @var AbstractNode $oLink */
             $oLink = $this->getDomParser()->load((string)$oRes->getBody())->find('.mm2 a')[0];
             $aMatch = [];
             if (preg_match('~\?s=(?<url>.+)~', $oLink->getAttribute('href'), $aMatch)) {
@@ -37,7 +41,7 @@ class HentaiIdTv extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -48,8 +52,8 @@ class HentaiIdTv extends \Yamete\DriverAbstract
         $sSelector = '#inlineFormCustomSelect option';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oLink
+             * @var AbstractNode $oImg
              */
             $sUrl = "{$sBaseUrl}&p={$oLink->getAttribute('value')}";
             $oRes = $this->getClient()->request('GET', $sUrl);

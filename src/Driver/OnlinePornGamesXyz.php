@@ -2,8 +2,11 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
 if (!class_exists(OnlinePornGamesXyz::class)) {
-    class OnlinePornGamesXyz extends \Yamete\DriverAbstract
+    class OnlinePornGamesXyz extends DriverAbstract
     {
         const DOMAIN = 'onlineporngames.xyz';
         private $aMatches = [];
@@ -25,7 +28,7 @@ if (!class_exists(OnlinePornGamesXyz::class)) {
 
         /**
          * @return array|string[]
-         * @throws \GuzzleHttp\Exception\GuzzleException
+         * @throws GuzzleException
          */
         public function getDownloadables(): array
         {

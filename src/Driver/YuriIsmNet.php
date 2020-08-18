@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class YuriIsmNet extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class YuriIsmNet extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'yuri-ism.net';
@@ -18,12 +22,12 @@ class YuriIsmNet extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $oChapters
+         * @var AbstractNode[] $oChapters
          */
         $this->sUrl = 'https://www.' . self::DOMAIN . "/slide/series/{$this->aMatches['album']}/";
         $oRes = $this->getClient()->request('GET', $this->sUrl);

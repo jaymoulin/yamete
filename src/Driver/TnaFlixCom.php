@@ -2,7 +2,10 @@
 
 namespace Yamete\Driver;
 
-class TnaFlixCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
+class TnaFlixCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'tnaflix.com';
@@ -18,7 +21,7 @@ class TnaFlixCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {

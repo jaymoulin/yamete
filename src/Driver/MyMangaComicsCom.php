@@ -2,7 +2,10 @@
 
 namespace Yamete\Driver;
 
-class MyMangaComicsCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
+class MyMangaComicsCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'mymangacomics.com';
@@ -18,7 +21,7 @@ class MyMangaComicsCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {

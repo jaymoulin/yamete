@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class Hentai2read extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class Hentai2read extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {
@@ -18,7 +21,7 @@ class Hentai2read extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadCollection()
     {

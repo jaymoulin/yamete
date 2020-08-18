@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class KissHentaiTvCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class KissHentaiTvCom extends DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
@@ -25,12 +29,12 @@ class KissHentaiTvCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+         * @var AbstractNode $oLink
          */
         $this->sUrl = "http://www.{$this->getDomain()}/{$this->aMatches['album']}/";
         $oRes = $this->getClient()->request('GET', $this->sUrl);

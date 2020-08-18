@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class UpcomicsOrg extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class UpcomicsOrg extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'upcomics.org';
@@ -11,7 +15,7 @@ class UpcomicsOrg extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<category>[^/]+)/'
-                . '(?<albumId>[0-9]+)\-(?<album>.+)\.html$~',
+            . '(?<albumId>[0-9]+)\-(?<album>.+)\.html$~',
             $this->sUrl,
             $this->aMatches
         );
@@ -19,7 +23,7 @@ class UpcomicsOrg extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -28,7 +32,7 @@ class UpcomicsOrg extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.full2 img') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = str_replace('/th/', '/', $oImg->getAttribute('src'));
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

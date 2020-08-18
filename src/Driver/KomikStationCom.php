@@ -3,6 +3,8 @@
 
 namespace Yamete\Driver;
 
+use iterator;
+use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
 
 class KomikStationCom extends DriverAbstract
@@ -22,9 +24,9 @@ class KomikStationCom extends DriverAbstract
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $aChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $oPages
+         * @var iterator $oChapters
+         * @var AbstractNode[] $aChapters
+         * @var AbstractNode[] $oPages
          */
         $sStartUrl = 'https://' . self::DOMAIN;
         $sUrl = $sStartUrl . '/manga/' . $this->aMatches['album'];

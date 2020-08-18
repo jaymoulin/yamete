@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class ImgBox extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class ImgBox extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'imgbox.com';
@@ -18,7 +22,7 @@ class ImgBox extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +31,7 @@ class ImgBox extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#gallery-view-content a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sLink = 'https://' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
@@ -37,7 +41,7 @@ class ImgBox extends \Yamete\DriverAbstract
                 continue;
             }
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = $aMatches['file'];
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)

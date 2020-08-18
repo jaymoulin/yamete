@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class BestPornComixCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class BestPornComixCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'bestporncomix.com';
@@ -18,7 +22,7 @@ class BestPornComixCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -29,8 +33,8 @@ class BestPornComixCom extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($oPageList as $oHref) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oHref
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImage
+             * @var AbstractNode $oHref
+             * @var AbstractNode $oImage
              */
             $oRes = $this->getClient()->request('GET', $oHref->getAttribute('href'));
             $oImage = $this->getDomParser()->load((string)$oRes->getBody())->find('.attachment-image a')[0];

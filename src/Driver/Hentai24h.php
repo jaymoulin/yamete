@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class Hentai24h extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class Hentai24h extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentai24h.org';
@@ -24,7 +28,7 @@ class Hentai24h extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -34,12 +38,12 @@ class Hentai24h extends \Yamete\DriverAbstract
         $iNbChap = count($this->getDomParser()->load((string)$oRes->getBody())->find('.chapter-nav a.btn-success')) / 2;
         for ($iChap = 1; $iChap <= $iNbChap; $iChap++) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sUrl = "https://" . implode(
-                '/',
-                [$this->getDomain(), $this->aMatches['album'], 'chap-' . $iChap . '.html']
-            );
+                    '/',
+                    [$this->getDomain(), $this->aMatches['album'], 'chap-' . $iChap . '.html']
+                );
             $oRes = $this->getClient()->request('GET', $sUrl);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.content-child p img') as $oImg) {
                 $sFilename = $oImg->getAttribute('src');

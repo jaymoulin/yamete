@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class ThreeSixtyFiveMangaCom extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class ThreeSixtyFiveMangaCom extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {

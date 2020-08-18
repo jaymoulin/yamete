@@ -2,10 +2,13 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use iterator;
 use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
 
-class LoveHeavenNet extends \Yamete\DriverAbstract
+class LoveHeavenNet extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'loveheaven.net';
@@ -30,12 +33,12 @@ class LoveHeavenNet extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
+         * @var iterator $oChapters
          * @var AbstractNode[] $aChapters
          * @var AbstractNode[] $oPages
          * @var AbstractNode $oImg

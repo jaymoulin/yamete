@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class ComicPornoCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class ComicPornoCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'comic-porno.com';
@@ -11,7 +15,7 @@ class ComicPornoCom extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) .
-                ')/(?<category>[^/?]+)/(?<album>[^/?]+)/?~',
+            ')/(?<category>[^/?]+)/(?<album>[^/?]+)/?~',
             $this->sUrl,
             $this->aMatches
         );
@@ -19,7 +23,7 @@ class ComicPornoCom extends \Yamete\DriverAbstract
 
     /**
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +31,7 @@ class ComicPornoCom extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('center p a img') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
             $sFilename = strpos($sFilename, 'http') !== false ? $sFilename : 'https:' . $sFilename;

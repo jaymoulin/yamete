@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class MintManga extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class MintManga extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'mintmanga.live';
@@ -24,7 +28,7 @@ class MintManga extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -36,8 +40,8 @@ class MintManga extends \Yamete\DriverAbstract
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oLink) {
             usleep(1000);
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oLink
+             * @var AbstractNode $oImg
              */
             $sChapterUrl = $sBaseUrl . $oLink->getAttribute('value');
             $oRes = $this->getClient()->request('GET', $sChapterUrl);

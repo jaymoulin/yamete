@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class SavitaHDNet extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class SavitaHDNet extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'savitahd.net';
@@ -18,7 +22,7 @@ class SavitaHDNet extends \Yamete\DriverAbstract
 
     /**
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -30,7 +34,7 @@ class SavitaHDNet extends \Yamete\DriverAbstract
             $oRes = $this->getClient()->request('GET', $this->sUrl . $iPage . '/');
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a') as $oLink) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+                 * @var AbstractNode $oLink
                  */
                 if (strpos($oLink->getAttribute('href'), 'imgfy.net') === false) {
                     continue;
@@ -45,7 +49,7 @@ class SavitaHDNet extends \Yamete\DriverAbstract
             }
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery-item a') as $oLink) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+                 * @var AbstractNode $oLink
                  */
                 $sFilename = $oLink->getAttribute('href');
                 if (!$sFilename) {

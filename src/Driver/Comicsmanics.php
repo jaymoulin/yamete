@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class Comicsmanics extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class Comicsmanics extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'comicsmanics.com';
@@ -18,7 +22,7 @@ class Comicsmanics extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +31,7 @@ class Comicsmanics extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.single-post img.alignnone') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
             $sFilename = preg_match('~^https?://~', $sFilename)
@@ -40,7 +44,7 @@ class Comicsmanics extends \Yamete\DriverAbstract
         if (!$index) {
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.size-large') as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 $sFilename = $oImg->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

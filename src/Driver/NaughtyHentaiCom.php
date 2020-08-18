@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class NaughtyHentaiCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class NaughtyHentaiCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'naughtyhentai.com';
@@ -18,7 +22,7 @@ class NaughtyHentaiCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +31,7 @@ class NaughtyHentaiCom extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.single-post a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sFilename = $oLink->getAttribute('href');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

@@ -2,7 +2,10 @@
 
 namespace Yamete\Driver;
 
-class Pururin extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
+class Pururin extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'pururin.io';
@@ -25,7 +28,7 @@ class Pururin extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {

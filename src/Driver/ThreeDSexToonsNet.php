@@ -2,8 +2,11 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
 if (!class_exists(ThreeDSexToonsNet::class)) {
-    class ThreeDSexToonsNet extends \Yamete\DriverAbstract
+    class ThreeDSexToonsNet extends DriverAbstract
     {
         private $aMatches = [];
         const DOMAIN = '3dsextoons.net';
@@ -25,7 +28,7 @@ if (!class_exists(ThreeDSexToonsNet::class)) {
 
         /**
          * @return array|string[]
-         * @throws \GuzzleHttp\Exception\GuzzleException
+         * @throws GuzzleException
          */
         public function getDownloadables(): array
         {

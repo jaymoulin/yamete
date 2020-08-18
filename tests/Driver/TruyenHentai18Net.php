@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class TruyenHentai18Net extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class TruyenHentai18Net extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {

@@ -3,15 +3,19 @@
 namespace YameteTests\Driver;
 
 
-class FurryPornPicsNet extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+use Yamete\Driver\FurryPornComNet;
+
+class FurryPornPicsNet extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {
         $url = 'http://www.furrypornpics.net/galleries/jay-naylor-sarah';
-        $driver = new \Yamete\Driver\FurryPornComNet();
+        $driver = new FurryPornComNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
         $this->assertEquals(2, count($driver->getDownloadables()));

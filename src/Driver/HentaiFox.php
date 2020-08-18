@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HentaiFox extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HentaiFox extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaifox.com';
@@ -18,7 +22,7 @@ class HentaiFox extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -38,7 +42,7 @@ class HentaiFox extends \Yamete\DriverAbstract
         $oXhr = clone $this->getClient();
         $oQueries = [
             $sBody,
-            (string) $oXhr
+            (string)$oXhr
                 ->request(
                     'POST',
                     'https://' . self::DOMAIN . '/includes/thumbs_loader.php',
@@ -61,7 +65,7 @@ class HentaiFox extends \Yamete\DriverAbstract
         foreach ($oQueries as $sBody) {
             foreach ($this->getDomParser()->load($sBody)->find('.g_thumb img') as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 $sFilename = str_replace('t.jpg', '.jpg', $oImg->getAttribute('src'));
                 $sIndex = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT) .

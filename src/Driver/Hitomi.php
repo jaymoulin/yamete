@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class Hitomi extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\HtmlNode;
+use Yamete\DriverAbstract;
+
+class Hitomi extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hitomi.la';
@@ -19,7 +24,7 @@ class Hitomi extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -38,7 +43,7 @@ class Hitomi extends \Yamete\DriverAbstract
         foreach ($aItems['files'] as $aItem) {
             foreach (['a', 'b', 'c'] as $cCdn) {
                 /**
-                 * @var \PHPHtmlParser\Dom\HtmlNode $oImg
+                 * @var HtmlNode $oImg
                  */
                 $sHash = $aItem['hash'];
                 $sFolder = substr($aItem['hash'], -1, 1);
@@ -69,7 +74,7 @@ class Hitomi extends \Yamete\DriverAbstract
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
     }

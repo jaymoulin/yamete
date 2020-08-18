@@ -241,7 +241,6 @@ Here's is the list of supported sites for now:
  * cartoonporn.pics
  * mangaporno.pro
  * superhq.net
- * mangapark.net
  * animephile.com
  * yuri-ism.net
  * readhent.ai
@@ -322,7 +321,6 @@ Here's is the list of supported sites for now:
  * boyslove.me
  * freecomiconline.me
  * freewebtooncoins.com
- * mangarockteam.com
  * mangabob.com
  * manganeloteam.com
  * mangatx.com
@@ -339,6 +337,9 @@ Here's is the list of supported sites for now:
  * mangairo.com
  * mangatoon.mobi
  * readm.org
- * zinmanga.com
+ * rawdevart.com
+ * readmanhua.co
+ * mangahere.club
+ * readmanhua.online
  
 You must pass the URL to the album for the program to download it!

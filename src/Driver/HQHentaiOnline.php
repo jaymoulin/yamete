@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HQHentaiOnline extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HQHentaiOnline extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hqhentai.online';
@@ -18,12 +22,12 @@ class HQHentaiOnline extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var AbstractNode $oImg
          */
         $sUrl = 'https://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $sUrl);

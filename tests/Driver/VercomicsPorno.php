@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class VercomicsPorno extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class VercomicsPorno extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadFoster()
     {
@@ -18,7 +21,7 @@ class VercomicsPorno extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadBowsette()
     {
@@ -30,7 +33,7 @@ class VercomicsPorno extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadTinkerbell()
     {
@@ -42,7 +45,7 @@ class VercomicsPorno extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadRaven()
     {
@@ -54,7 +57,7 @@ class VercomicsPorno extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadMilf()
     {

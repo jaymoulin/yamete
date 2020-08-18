@@ -3,6 +3,9 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Client;
+use iterator;
+use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
 use Yamete\DriverInterface;
 
@@ -31,9 +34,9 @@ class HennoJinCom extends DriverAbstract
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oUrl
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $oPages
+         * @var iterator $oChapters
+         * @var AbstractNode $oUrl
+         * @var AbstractNode[] $oPages
          */
         $aReturn = [];
         $index = 0;
@@ -60,9 +63,9 @@ class HennoJinCom extends DriverAbstract
 
     /**
      * @param array $aOptions
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT]]);
     }

@@ -4,9 +4,12 @@ namespace Yamete\Driver;
 
 use \AppendIterator;
 use \ArrayIterator;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
 if (!class_exists(XXXComicPornCom::class)) {
-    class XXXComicPornCom extends \Yamete\DriverAbstract
+    class XXXComicPornCom extends DriverAbstract
     {
         private $aMatches = [];
         const DOMAIN = 'xxxcomicporn.com';
@@ -33,7 +36,7 @@ if (!class_exists(XXXComicPornCom::class)) {
 
         /**
          * @return array|string[]
-         * @throws \GuzzleHttp\Exception\GuzzleException
+         * @throws GuzzleException
          */
         public function getDownloadables(): array
         {
@@ -52,7 +55,7 @@ if (!class_exists(XXXComicPornCom::class)) {
             $aParsed = [];
             foreach ($oOptions as $oOption) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oOption
+                 * @var AbstractNode $oOption
                  */
                 $sUrl = 'http://' . $this->getDomain() . $oOption->getAttribute('value');
                 if (isset($aParsed[$sUrl])) {
@@ -76,7 +79,7 @@ if (!class_exists(XXXComicPornCom::class)) {
             $aReturn = [];
             foreach ($this->getDomParser()->load($sBody)->find($this->getSelector()) as $oLink) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+                 * @var AbstractNode $oLink
                  */
                 $sFilename = $oLink->getAttribute('data-img') . $oLink->getAttribute('data-ext');
                 $sFilename = strpos($sFilename, 'http') !== false

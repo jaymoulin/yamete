@@ -2,7 +2,10 @@
 
 namespace Yamete\Driver;
 
-class Hentai2read extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
+class Hentai2read extends DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
@@ -20,7 +23,7 @@ class Hentai2read extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -34,7 +37,7 @@ class Hentai2read extends \Yamete\DriverAbstract
     /**
      * @param string $sUrl
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     private function parse(string $sUrl): array
     {

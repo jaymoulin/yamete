@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class GoodComixTk extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class GoodComixTk extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'goodcomix.tk';
@@ -18,7 +23,7 @@ class GoodComixTk extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +32,7 @@ class GoodComixTk extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry p a img') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = str_replace('_t', '', $oImg->getAttribute('src'));
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
@@ -39,9 +44,9 @@ class GoodComixTk extends \Yamete\DriverAbstract
 
     /**
      * @param array $aOptions
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT],]);
     }

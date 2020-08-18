@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HentaiHere extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HentaiHere extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaihere.com';
@@ -18,7 +22,7 @@ class HentaiHere extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -37,7 +41,7 @@ class HentaiHere extends \Yamete\DriverAbstract
             $sThumbsUrl = str_replace('/m/', '/thumbs/', $this->sUrl) . '/' . $aMatch['chapterName'];
             $oRes = $this->getClient()->request('GET', $sThumbsUrl);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.item img') as $oThumb) {
-                /* @var \PHPHtmlParser\Dom\AbstractNode $oThumb */
+                /* @var AbstractNode $oThumb */
                 $sFilename = strtr($oThumb->getAttribute('src'), ['/thumbnails' => '', 'tmb' => '']);
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

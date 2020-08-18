@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class Porncomix extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class Porncomix extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'porncomix.info';
@@ -18,7 +22,7 @@ class Porncomix extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -26,8 +30,8 @@ class Porncomix extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery dt a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oLink
+             * @var AbstractNode $oImg
              */
             $oImg = $this->getDomParser()
                 ->load((string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody())

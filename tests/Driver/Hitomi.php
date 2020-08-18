@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class Hitomi extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class Hitomi extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {
@@ -18,7 +21,7 @@ class Hitomi extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadThird()
     {
@@ -30,7 +33,7 @@ class Hitomi extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadEmojiPlusNewUrl()
     {

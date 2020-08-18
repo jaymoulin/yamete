@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class CartoonSexComixCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class CartoonSexComixCom extends DriverAbstract
 {
     const DOMAIN = 'cartoonsexcomix.com';
     private $aMatches = [];
@@ -29,23 +33,23 @@ class CartoonSexComixCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         $iParamsPos = strpos($this->sUrl, '?');
         $this->sUrl = $iParamsPos ? substr($this->sUrl, 0, $iParamsPos) : $this->sUrl;
-        $oRes = $this->getClient()->request('GET', $this->sUrl);
+        $oRes = $this->getClient()->request('GET', $this->sUrl, ['http_errors' => false]);
         $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
-            /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
+            /* @var AbstractNode $oLink */
             $sFilename = $oLink->getAttribute('href');
             $sFilename = strpos($sFilename, 'http') !== false
                 ? $sFilename
                 : (
-                    strpos($sFilename, '//') !== false
+                strpos($sFilename, '//') !== false
                     ? $this->aMatches['scheme'] . ':' . $sFilename
                     : $this->aMatches['scheme'] . '://www.' . $this->getDomain() . $sFilename);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

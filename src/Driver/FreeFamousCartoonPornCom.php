@@ -3,9 +3,12 @@
 namespace Yamete\Driver;
 
 use \ArrayIterator;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
 if (!class_exists(FreeFamousCartoonPornCom::class)) {
-    class FreeFamousCartoonPornCom extends \Yamete\DriverAbstract
+    class FreeFamousCartoonPornCom extends DriverAbstract
     {
         private $aMatches = [];
         const DOMAIN = 'freefamouscartoonporn.com';
@@ -34,7 +37,7 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
 
         /**
          * @return array|string[]
-         * @throws \GuzzleHttp\Exception\GuzzleException
+         * @throws GuzzleException
          */
         public function getDownloadables(): array
         {
@@ -51,8 +54,8 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
             }
             foreach ($oIterator as $oLink) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImage
+                 * @var AbstractNode $oLink
+                 * @var AbstractNode $oImage
                  */
                 $sUrl = 'http://' . $this->getDomain() . $oLink->getAttribute('href');
                 $sSelector = '.container-gal-item img';

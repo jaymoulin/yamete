@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class VerComicsPornoCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class VerComicsPornoCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'ver-comics-porno.com';
@@ -18,7 +23,7 @@ class VerComicsPornoCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +32,7 @@ class VerComicsPornoCom extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.wp-content img') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
             if (strpos($oImg->getAttribute('class'), 'size-full') === false) {
@@ -47,9 +52,9 @@ class VerComicsPornoCom extends \Yamete\DriverAbstract
 
     /**
      * @param array $aOptions
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT],]);
     }

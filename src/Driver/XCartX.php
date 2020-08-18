@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class XCartX extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class XCartX extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'xcartx.com';
@@ -24,7 +28,7 @@ class XCartX extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -34,7 +38,7 @@ class XCartX extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load($sBody)->find('.full-text a.highslide') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sFilename = $oLink->getAttribute('href');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

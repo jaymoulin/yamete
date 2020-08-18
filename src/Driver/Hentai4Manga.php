@@ -2,8 +2,12 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
 if (!class_exists(Hentai4Manga::class)) {
-    class Hentai4Manga extends \Yamete\DriverAbstract
+    class Hentai4Manga extends DriverAbstract
     {
         private $aMatches = [];
         const DOMAIN = 'hentai4manga.com';
@@ -25,7 +29,7 @@ if (!class_exists(Hentai4Manga::class)) {
 
         /**
          * @return array|string[]
-         * @throws \GuzzleHttp\Exception\GuzzleException
+         * @throws GuzzleException
          */
         public function getDownloadables(): array
         {
@@ -37,8 +41,8 @@ if (!class_exists(Hentai4Manga::class)) {
             $oRes = $this->getClient()->request('GET', $sMainUrl);
             $aReturn = [];
             $iNbPage = count(
-                $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('#page div')
-            ) - 2;
+                    $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('#page div')
+                ) - 2;
             $this->parse($this->sUrl, $aReturn);
             if ($iNbPage > 1) {
                 for ($page = 2; $page <= $iNbPage; $page++) {
@@ -54,8 +58,8 @@ if (!class_exists(Hentai4Manga::class)) {
             $sSelector = '#thumblist a';
             foreach ($this->getDomParser()->loadFromUrl($sUrl, ['cleanupInput' => false])->find($sSelector) as $oLink) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oLink
+                 * @var AbstractNode $oImg
                  */
                 $sCurrentImg = 'http://' . $this->aMatches['domain'] . $oLink->getAttribute('href');
                 $oImg = $this->getDomParser()->loadFromUrl($sCurrentImg, ['cleanupInput' => false])

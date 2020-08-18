@@ -3,6 +3,8 @@
 
 namespace Yamete\Driver;
 
+use iterator;
+use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
 
 class MangaHomeCom extends DriverAbstract
@@ -22,12 +24,12 @@ class MangaHomeCom extends DriverAbstract
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $aChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $oPages
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImage
+         * @var iterator $oChapters
+         * @var AbstractNode[] $aChapters
+         * @var AbstractNode[] $oPages
+         * @var AbstractNode $oImage
          */
-        $sStartUrl = 'https://www.'. self::DOMAIN;
+        $sStartUrl = 'https://www.' . self::DOMAIN;
         $sUrl = $sStartUrl . '/manga/' . $this->aMatches['album'];
         $oResponse = $this->getClient()->get($sUrl);
         $oChapters = $this->getDomParser()->load((string)$oResponse->getBody())->find('.detail-chlist a');

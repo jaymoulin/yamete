@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class ManhuasNet extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class ManhuasNet extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {
@@ -14,6 +17,6 @@ class ManhuasNet extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\ManhuasNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(234, count($driver->getDownloadables()));
+        $this->assertEquals(277, count($driver->getDownloadables()));
     }
 }

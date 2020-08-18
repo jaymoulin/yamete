@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HentaiCloud extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HentaiCloud extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaicloud.com';
@@ -11,7 +15,7 @@ class HentaiCloud extends \Yamete\DriverAbstract
     {
         return (bool)preg_match(
             '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<category>[^/]+)/(?<subCategory>[^/]+)/' .
-                '(?<albumId>[^/]+)/(?<album>[^/?]+)/?~',
+            '(?<albumId>[^/]+)/(?<album>[^/?]+)/?~',
             $this->sUrl,
             $this->aMatches
         );
@@ -19,7 +23,7 @@ class HentaiCloud extends \Yamete\DriverAbstract
 
     /**
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -28,13 +32,13 @@ class HentaiCloud extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('div.thumbnail a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sLink = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail img') as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 $sFilename = 'https://www.' . self::DOMAIN . $oImg->getAttribute('src');
                 $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($iIndex++, 5, '0', STR_PAD_LEFT) .

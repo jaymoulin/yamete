@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class CartoonPornComicsInfo extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class CartoonPornComicsInfo extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'cartoonporncomics.info';
@@ -18,7 +23,7 @@ class CartoonPornComicsInfo extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -28,8 +33,8 @@ class CartoonPornComicsInfo extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.my-gallery figure a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oLink
+             * @var AbstractNode $oImg
              */
             $oRes = $this->getClient()->request('GET', html_entity_decode($oLink->getAttribute('href')));
             if (preg_match('~"([^"]+bigImages[^"]+)"~', (string)$oRes->getBody(), $aMatches) === false) {
@@ -50,9 +55,9 @@ class CartoonPornComicsInfo extends \Yamete\DriverAbstract
 
     /**
      * @param array $aOptions
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT], 'http_errors' => false]);
     }

@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class LoveHeavenNet extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class LoveHeavenNet extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {
@@ -14,6 +17,6 @@ class LoveHeavenNet extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\LoveHeavenNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(140, count($driver->getDownloadables()));
+        $this->assertEquals(136, count($driver->getDownloadables()));
     }
 }

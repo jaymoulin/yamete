@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class MangairoCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class MangairoCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'mangairo.com';
@@ -18,7 +22,7 @@ class MangairoCom extends \Yamete\DriverAbstract
 
     /**
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -26,12 +30,12 @@ class MangairoCom extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#chapter_list a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.img_content') as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 $sFilename = $oImg->getAttribute('src');
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;

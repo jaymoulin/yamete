@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class MangaBobCom extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class MangaBobCom extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {
@@ -14,6 +17,6 @@ class MangaBobCom extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MangaBobCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(132, count($driver->getDownloadables()));
+        $this->assertEquals(2201, count($driver->getDownloadables()));
     }
 }

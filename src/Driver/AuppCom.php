@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
 
 class AuppCom extends DriverAbstract
@@ -26,12 +28,12 @@ class AuppCom extends DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];

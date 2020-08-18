@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class ReadhentAi extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class ReadhentAi extends DriverAbstract
 {
     private $aMatches = [];
     private $index = 0;
@@ -24,12 +28,12 @@ class ReadhentAi extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $oPages
+         * @var AbstractNode[] $oPages
          */
         $this->sUrl = "https://{$this->getDomain()}/{$this->aMatches['category']}/{$this->aMatches['album']}";
         $oRes = $this->getClient()->request('GET', $this->sUrl);

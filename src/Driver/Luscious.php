@@ -2,9 +2,11 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
 use Yamete\DriverInterface;
 
-class Luscious extends \Yamete\DriverAbstract
+class Luscious extends DriverAbstract
 {
     private $aMatches = [];
     private $iCounter = 0;
@@ -34,7 +36,7 @@ class Luscious extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -54,7 +56,7 @@ class Luscious extends \Yamete\DriverAbstract
      * @param $sBody
      * @param array $aReturn
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     private function download(string $sBody, array $aReturn = []): array
     {

@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HBrowse extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HBrowse extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hbrowse.com';
@@ -18,7 +22,7 @@ class HBrowse extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -28,14 +32,14 @@ class HBrowse extends \Yamete\DriverAbstract
         $sAccessor = '#main .listTable .listMiddle a';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sAccessor) as $oLink) { //chapters
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sLink = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             $oBody = $this->getDomParser()->load((string)$oRes->getBody());
             foreach ($oBody->find('#jsPageList a') as $oImg) { //images
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 $sHref = 'https://www.' . self::DOMAIN . $oImg->getAttribute('href') ?: $sLink . '/00001';
                 $oRes = $this->getClient()->request('GET', $sHref);

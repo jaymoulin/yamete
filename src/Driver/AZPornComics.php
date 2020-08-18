@@ -2,7 +2,10 @@
 
 namespace Yamete\Driver;
 
-class AZPornComics extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
+class AZPornComics extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'azporncomics.com';
@@ -24,7 +27,7 @@ class AZPornComics extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {

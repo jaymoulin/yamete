@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class DoujinHentaiNet extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class DoujinHentaiNet extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'doujinhentai.net';
@@ -24,7 +28,7 @@ class DoujinHentaiNet extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -34,12 +38,12 @@ class DoujinHentaiNet extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('ul.version-chap a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('div#all img') as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 $sFilename = trim($oImg->getAttribute('data-src'));
                 if (!$sFilename) {

@@ -2,9 +2,14 @@
 
 namespace Yamete\Driver;
 
-class AllPornComicCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
+
+class AllPornComicCom extends DriverAbstract
 {
-    protected $aMatches = [];
+    private $aMatches = [];
     const DOMAIN = 'allporncomic.com';
 
     public function canHandle(): bool
@@ -27,14 +32,14 @@ class AllPornComicCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oChapter
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var Traversable $oChapters
+         * @var AbstractNode $oChapter
+         * @var AbstractNode $oImg
          */
         $sUrl = 'https://' .
             implode('/', [$this->getDomain(), $this->aMatches['category'], $this->aMatches['album'], '']);
@@ -58,7 +63,7 @@ class AllPornComicCom extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder(): string
+    protected function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }

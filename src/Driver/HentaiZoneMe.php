@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class HentaiZoneMe extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
+
+class HentaiZoneMe extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaizone.me';
@@ -18,14 +23,14 @@ class HentaiZoneMe extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oChapter
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var Traversable $oChapters
+         * @var AbstractNode $oChapter
+         * @var AbstractNode $oImg
          */
         $sUrl = 'https://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $sUrl);

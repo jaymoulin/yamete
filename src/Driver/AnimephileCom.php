@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class AnimephileCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class AnimephileCom extends DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
@@ -25,14 +30,14 @@ class AnimephileCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oMpg
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var AbstractNode[] $oChapters
+         * @var AbstractNode $oMpg
+         * @var AbstractNode $oImg
          */
         $this->sUrl = "http://www.{$this->getDomain()}/{$this->aMatches['category']}/{$this->aMatches['album']}.html";
         $oRes = $this->getClient()->request('GET', $this->sUrl);
@@ -66,7 +71,7 @@ class AnimephileCom extends \Yamete\DriverAbstract
         return $this->aReturn;
     }
 
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(
             [

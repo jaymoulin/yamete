@@ -2,11 +2,14 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use iterator;
 use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
 
 if (!class_exists(IsekaiScanCom::class)) {
-    class IsekaiScanCom extends \Yamete\DriverAbstract
+    class IsekaiScanCom extends DriverAbstract
     {
         protected $aMatches = [];
         const DOMAIN = 'isekaiscan.com';
@@ -39,12 +42,12 @@ if (!class_exists(IsekaiScanCom::class)) {
 
         /**
          * @return array|string[]
-         * @throws \GuzzleHttp\Exception\GuzzleException
+         * @throws GuzzleException
          */
         public function getDownloadables(): array
         {
             /**
-             * @var \iterator $oChapters
+             * @var iterator $oChapters
              * @var AbstractNode[] $aChapters
              * @var AbstractNode[] $oPages
              */

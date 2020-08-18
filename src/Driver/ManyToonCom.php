@@ -2,8 +2,13 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
+
 if (!class_exists(ManyToonCom::class)) {
-    class ManyToonCom extends \Yamete\DriverAbstract
+    class ManyToonCom extends DriverAbstract
     {
         protected $aMatches = [];
         const DOMAIN = 'manytoon.com';
@@ -24,14 +29,14 @@ if (!class_exists(ManyToonCom::class)) {
 
         /**
          * @return array|string[]
-         * @throws \GuzzleHttp\Exception\GuzzleException
+         * @throws GuzzleException
          */
         public function getDownloadables(): array
         {
             /**
-             * @var \Traversable $oChapters
-             * @var \PHPHtmlParser\Dom\AbstractNode $oChapter
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var Traversable $oChapters
+             * @var AbstractNode $oChapter
+             * @var AbstractNode $oImg
              */
             $sUrl = 'https://' . $this->getDomain() . '/' . $this->aMatches['category']
                 . '/' . $this->aMatches['album'] . '/';

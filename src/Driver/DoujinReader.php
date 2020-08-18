@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class DoujinReader extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class DoujinReader extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'doujinreader.com';
@@ -18,15 +22,15 @@ class DoujinReader extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
 
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-         * @var \PHPHtmlParser\Dom\AbstractNode $oNext
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var AbstractNode $oLink
+         * @var AbstractNode $oNext
+         * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];

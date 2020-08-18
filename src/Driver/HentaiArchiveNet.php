@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HentaiArchiveNet extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HentaiArchiveNet extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentai-archive.net';
@@ -24,7 +28,7 @@ class HentaiArchiveNet extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -33,7 +37,7 @@ class HentaiArchiveNet extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('figure.dgwt-jg-item a img') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $aUrls = explode(',', $oImg->getAttribute('data-jg-srcset'));
             $aTmp = [];

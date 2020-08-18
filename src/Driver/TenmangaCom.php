@@ -4,8 +4,12 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Cookie\FileCookieJar;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
 
-class TenmangaCom extends \Yamete\DriverAbstract
+class TenmangaCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'tenmanga.com';
@@ -30,14 +34,14 @@ class TenmangaCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImage
+         * @var Traversable $oChapters
+         * @var AbstractNode $oLink
+         * @var AbstractNode $oImage
          */
         $sUrl = $this->sUrl . (strpos($this->sUrl, '?') ? '&' : '?') . 'waring=1';
         $oResult = $this->getClient()->request('GET', $sUrl);

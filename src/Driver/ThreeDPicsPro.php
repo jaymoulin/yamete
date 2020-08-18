@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class ThreeDPicsPro extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class ThreeDPicsPro extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = '3dpics.pro';
@@ -18,7 +22,7 @@ class ThreeDPicsPro extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -26,7 +30,7 @@ class ThreeDPicsPro extends \Yamete\DriverAbstract
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#thumbTable a') as $oLink) {
-            /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
+            /* @var AbstractNode $oLink */
             $sFilename = str_replace('index.php', $oLink->getAttribute('href'), $this->sUrl);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

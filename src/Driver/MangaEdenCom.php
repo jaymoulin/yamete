@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class MangaEdenCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use iterator;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class MangaEdenCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'mangaeden.com';
@@ -18,15 +23,15 @@ class MangaEdenCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $aChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oPage
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var iterator $oChapters
+         * @var AbstractNode[] $aChapters
+         * @var AbstractNode $oPage
+         * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('a.chapterLink');

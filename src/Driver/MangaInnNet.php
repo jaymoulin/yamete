@@ -2,10 +2,13 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use iterator;
 use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
 
-class MangaInnNet extends \Yamete\DriverAbstract
+class MangaInnNet extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'mangainn.net';
@@ -30,12 +33,12 @@ class MangaInnNet extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
+         * @var iterator $oChapters
          * @var AbstractNode[] $aChapters
          * @var AbstractNode[] $oPages
          * @var AbstractNode $oImg
@@ -50,6 +53,7 @@ class MangaInnNet extends \Yamete\DriverAbstract
         foreach ($aChapters as $oChapter) {
             $oResult = $this->getClient()->request('GET', $oChapter->getAttribute('href'));
             $sRegExp = '~var images = ([^;]+);~';
+            $aMatches = [];
             if (!preg_match($sRegExp, (string)$oResult->getBody(), $aMatches)) {
                 return [];
             }

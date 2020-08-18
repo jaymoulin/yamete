@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class MangatoonMobi extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class MangatoonMobi extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'mangatoon.mobi';
@@ -18,13 +22,13 @@ class MangatoonMobi extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var AbstractNode $oLink
+         * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . "/en/detail/{$this->aMatches['album']}");
         $aReturn = [];

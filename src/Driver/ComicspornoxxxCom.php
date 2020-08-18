@@ -2,7 +2,13 @@
 
 namespace Yamete\Driver;
 
-class ComicspornoxxxCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\HandlerStack;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class ComicspornoxxxCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'comicspornoxxx.com';
@@ -18,7 +24,7 @@ class ComicspornoxxxCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -26,14 +32,14 @@ class ComicspornoxxxCom extends \Yamete\DriverAbstract
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sLink = $oLink->getAttribute('href');
             $aUrlInfo = parse_url($sLink);
             $oRes = $this->getClient()->request('GET', $sLink);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#center .text-center img') as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 $sFilename = $aUrlInfo['scheme'] . '://' . $aUrlInfo['host'] . '/' . $oImg->getAttribute('src');
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
@@ -49,9 +55,9 @@ class ComicspornoxxxCom extends \Yamete\DriverAbstract
 
     /**
      * @param array $aOptions
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         $oClient = parent::getClient(
             [
@@ -59,7 +65,7 @@ class ComicspornoxxxCom extends \Yamete\DriverAbstract
             ]
         );
         /**
-         * @var \GuzzleHttp\HandlerStack $oHandler
+         * @var HandlerStack $oHandler
          */
         return $oClient;
     }

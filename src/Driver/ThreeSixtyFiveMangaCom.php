@@ -2,10 +2,13 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use iterator;
 use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
 
-class ThreeSixtyFiveMangaCom extends \Yamete\DriverAbstract
+class ThreeSixtyFiveMangaCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = '365manga.com';
@@ -30,12 +33,12 @@ class ThreeSixtyFiveMangaCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
+         * @var iterator $oChapters
          * @var AbstractNode[] $aChapters
          * @var AbstractNode[] $oPages
          */

@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HentaiItaNet extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HentaiItaNet extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentai-ita.net';
@@ -24,7 +28,7 @@ class HentaiItaNet extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -33,8 +37,8 @@ class HentaiItaNet extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.blocks-gallery-item figure a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oLink
+             * @var AbstractNode $oImg
              */
             $sUrl = $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sUrl);

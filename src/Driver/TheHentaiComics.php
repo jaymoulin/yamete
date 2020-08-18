@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class TheHentaiComics extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class TheHentaiComics extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'thehentaicomics.com';
@@ -18,7 +22,7 @@ class TheHentaiComics extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -26,7 +30,7 @@ class TheHentaiComics extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.size-full') as $oImg) {
-            /* @var \PHPHtmlParser\Dom\AbstractNode $oImg */
+            /* @var AbstractNode $oImg */
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 3, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

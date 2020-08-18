@@ -2,10 +2,12 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
 use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
 
-class ToomicsCom extends \Yamete\DriverAbstract
+class ToomicsCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'toomics.com';
@@ -31,7 +33,7 @@ class ToomicsCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {

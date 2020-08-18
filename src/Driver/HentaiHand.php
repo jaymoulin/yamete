@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HentaiHand extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HentaiHand extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaihand.com';
@@ -18,7 +22,7 @@ class HentaiHand extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -32,7 +36,7 @@ class HentaiHand extends \Yamete\DriverAbstract
             $sRule = '#image-container .item img';
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sRule) as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 $sFilename = $oImg->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

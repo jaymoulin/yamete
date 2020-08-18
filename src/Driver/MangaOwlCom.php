@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class MangaOwlCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class MangaOwlCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'mangaowl.com';
@@ -18,7 +22,7 @@ class MangaOwlCom extends \Yamete\DriverAbstract
 
     /**
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,8 +31,8 @@ class MangaOwlCom extends \Yamete\DriverAbstract
         $index = 1;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#selectChapter option') as $oOption) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oOption
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oOption
+             * @var AbstractNode $oImg
              */
             $oRes = $this->getClient()->request('GET', trim($oOption->getAttribute('url')));
             $aChap = [];

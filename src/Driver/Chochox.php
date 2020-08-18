@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class Chochox extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class Chochox extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'chochox.com';
@@ -18,7 +22,7 @@ class Chochox extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +31,7 @@ class Chochox extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.alignnone') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
             if (strpos($sFilename, 'lazy_placeholder.gif') !== false) {

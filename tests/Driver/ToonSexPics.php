@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class ToonSexPics extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class ToonSexPics extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadSerie()
     {

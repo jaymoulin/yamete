@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class Hentaifr extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class Hentaifr extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaifr.net';
@@ -18,7 +22,7 @@ class Hentaifr extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +31,7 @@ class Hentaifr extends \Yamete\DriverAbstract
         $index = 0;
         $oPageList = $this->getDomParser()->load((string)$oRes->getBody())->find('.rl-gallery-item a');
         foreach ($oPageList as $oHref) {
-            /** @var \PHPHtmlParser\Dom\AbstractNode $oHref */
+            /** @var AbstractNode $oHref */
             $sFilename = $oHref->getAttribute('href');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

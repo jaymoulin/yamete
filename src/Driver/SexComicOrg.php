@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class SexComicOrg extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class SexComicOrg extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'sexcomic.org';
@@ -18,7 +22,7 @@ class SexComicOrg extends \Yamete\DriverAbstract
 
     /**
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -29,7 +33,7 @@ class SexComicOrg extends \Yamete\DriverAbstract
             ->find('img.alignnone');
         foreach ($oImgList as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFileToDown = $oImg->getAttribute('src');
             $sFileToDown = strpos($sFileToDown, 'https:') !== false ? $sFileToDown : 'https:' . $sFileToDown;

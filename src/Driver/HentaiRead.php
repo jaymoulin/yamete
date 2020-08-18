@@ -2,9 +2,12 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 use Yamete\DriverInterface;
 
-class HentaiRead extends \Yamete\DriverAbstract
+class HentaiRead extends DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
@@ -21,7 +24,7 @@ class HentaiRead extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -32,7 +35,7 @@ class HentaiRead extends \Yamete\DriverAbstract
 
     /**
      * @param string $sUrl
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     private function getLinks(string $sUrl): void
     {
@@ -41,7 +44,7 @@ class HentaiRead extends \Yamete\DriverAbstract
         $index = 0;
         $aMatches = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('li.wp-manga-chapter a') as $oLink) {
-            /* @var \PHPHtmlParser\Dom\AbstractNode $oLink */
+            /* @var AbstractNode $oLink */
             $this->getLinks($oLink->getAttribute('href'));
             $bFound = true;
         }

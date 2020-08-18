@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HMangaSearcherCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HMangaSearcherCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hmangasearcher.com';
@@ -18,7 +22,7 @@ class HMangaSearcherCom extends \Yamete\DriverAbstract
 
     /**
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -29,9 +33,9 @@ class HMangaSearcherCom extends \Yamete\DriverAbstract
         do {
             $bHasNext = false;
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oNextPage
-             * @var \PHPHtmlParser\Dom\AbstractNode $oNextChapter
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oNextPage
+             * @var AbstractNode $oNextChapter
+             * @var AbstractNode $oImg
              */
             $oRes = $this->getClient()
                 ->request(

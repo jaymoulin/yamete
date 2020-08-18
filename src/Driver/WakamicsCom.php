@@ -2,6 +2,8 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use iterator;
 use Yamete\DriverAbstract;
 
 class WakamicsCom extends DriverAbstract
@@ -25,12 +27,12 @@ class WakamicsCom extends DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
+         * @var iterator $oChapters
          * @var AbstractNode[] $aChapters
          * @var AbstractNode[] $oPages
          */

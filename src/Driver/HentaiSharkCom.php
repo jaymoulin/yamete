@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HentaiSharkCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HentaiSharkCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaishark.com';
@@ -18,7 +22,7 @@ class HentaiSharkCom extends \Yamete\DriverAbstract
 
     /**
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -29,13 +33,13 @@ class HentaiSharkCom extends \Yamete\DriverAbstract
         $oParser = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false]);
         foreach ($oParser->find('ul.chapters a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
             $oParser = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false]);
             foreach ($oParser->find('#all img') as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 $sFilename = trim($oImg->getAttribute('data-src'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

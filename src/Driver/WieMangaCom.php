@@ -2,10 +2,13 @@
 
 namespace Yamete\Driver;
 
-use GuzzleHttp\Cookie\FileCookieJar;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
 
-class WieMangaCom extends \Yamete\DriverAbstract
+class WieMangaCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'wiemanga.com';
@@ -30,14 +33,14 @@ class WieMangaCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImage
+         * @var Traversable $oChapters
+         * @var AbstractNode $oLink
+         * @var AbstractNode $oImage
          */
         $oResult = $this->getClient()->request('GET', $this->sUrl);
         $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.chapterlist .col1 a');

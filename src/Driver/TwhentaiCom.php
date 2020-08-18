@@ -2,10 +2,13 @@
 
 namespace Yamete\Driver;
 
-use GuzzleHttp\Cookie\FileCookieJar;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
 
-class TwhentaiCom extends \Yamete\DriverAbstract
+class TwhentaiCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'twhentai.com';
@@ -30,14 +33,14 @@ class TwhentaiCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImage
+         * @var Traversable $oChapters
+         * @var AbstractNode $oLink
+         * @var AbstractNode $oImage
          */
         $sUrl = 'https://' . self::DOMAIN . "/hentai_{$this->aMatches['type']}/{$this->aMatches['album']}/";
         $oResult = $this->getClient()->request('GET', $sUrl);
@@ -46,9 +49,9 @@ class TwhentaiCom extends \Yamete\DriverAbstract
         $iChapter = 1;
         $index = 1;
         if (preg_match('~<li><a href=".+_p([^"]+)">末頁</a></li>~', (string)$oResult->getBody(), $aMatches)) {
-            $iChapter = (int) $aMatches[1];
+            $iChapter = (int)$aMatches[1];
         }
-        for ($iCurrentChapter = 1; $iCurrentChapter < ($iChapter + 1);  $iCurrentChapter++) {
+        for ($iCurrentChapter = 1; $iCurrentChapter < ($iChapter + 1); $iCurrentChapter++) {
             $sUrl = 'https://' . self::DOMAIN
                 . "/hentai_{$this->aMatches['type']}/{$this->aMatches['album']}_p${iCurrentChapter}/";
             if ($iCurrentChapter === 1) {

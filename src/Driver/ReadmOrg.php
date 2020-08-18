@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class ReadmOrg extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class ReadmOrg extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'readm.org';
@@ -18,13 +22,13 @@ class ReadmOrg extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $aChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var AbstractNode[] $aChapters
+         * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . "/manga/{$this->aMatches['album']}");
         $aReturn = [];

@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class MangaCrushCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
+
+class MangaCrushCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'mangacrush.com';
@@ -24,14 +29,14 @@ class MangaCrushCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $aChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var Traversable $oChapters
+         * @var AbstractNode[] $aChapters
+         * @var AbstractNode $oImg
          */
         $this->sUrl = "https://{$this->aMatches['domain']}/{$this->aMatches['cat']}/{$this->aMatches['album']}/";
         $oRes = $this->getClient()->request('GET', $this->sUrl);

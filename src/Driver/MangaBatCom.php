@@ -2,11 +2,13 @@
 
 namespace Yamete\Driver;
 
-use GuzzleHttp\Cookie\FileCookieJar;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use iterator;
 use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
-class MangaBatCom extends \Yamete\DriverAbstract
+class MangaBatCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'mangabat.com';
@@ -31,12 +33,12 @@ class MangaBatCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
+         * @var iterator $oChapters
          * @var AbstractNode[] $aChapters
          * @var AbstractNode $oImage
          */

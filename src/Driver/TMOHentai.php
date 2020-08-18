@@ -2,9 +2,13 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Client;
 use \GuzzleHttp\Cookie\FileCookieJar;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
-class TMOHentai extends \Yamete\DriverAbstract
+class TMOHentai extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'tmohentai.com';
@@ -25,9 +29,9 @@ class TMOHentai extends \Yamete\DriverAbstract
 
     /**
      * @param array $aOptions
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(
             [
@@ -39,7 +43,7 @@ class TMOHentai extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -49,8 +53,8 @@ class TMOHentai extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.panel-body .well a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oLink
+             * @var AbstractNode $oImg
              */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
             $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('img.content-image')[0];

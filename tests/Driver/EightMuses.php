@@ -3,7 +3,9 @@
 namespace YameteTests\Driver;
 
 
-class EightMuses extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class EightMuses extends TestCase
 {
     public function testDownload()
     {

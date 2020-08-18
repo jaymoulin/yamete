@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class Hentaiporns extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class Hentaiporns extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaiporns.net';
@@ -18,7 +22,7 @@ class Hentaiporns extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -30,7 +34,7 @@ class Hentaiporns extends \Yamete\DriverAbstract
             ->find('.gallery-icon a');
         foreach ($oCollection as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('href');
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR .

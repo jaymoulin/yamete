@@ -2,6 +2,9 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use iterator;
+
 class MangatxCom extends IsekaiScanCom
 {
     const DOMAIN = 'mangatx.com';
@@ -13,12 +16,12 @@ class MangatxCom extends IsekaiScanCom
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
+         * @var iterator $oChapters
          * @var AbstractNode[] $aChapters
          * @var AbstractNode[] $oPages
          */

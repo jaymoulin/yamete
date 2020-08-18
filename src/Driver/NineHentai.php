@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class NineHentai extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
+class NineHentai extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = '9hentai.com';
@@ -24,7 +28,7 @@ class NineHentai extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -49,9 +53,9 @@ class NineHentai extends \Yamete\DriverAbstract
 
     /**
      * @param array $aOptions
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['Content-Type' => 'application/json'],]);
     }

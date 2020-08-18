@@ -3,8 +3,10 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
 
-class SimplyHentai extends \Yamete\DriverAbstract
+class SimplyHentai extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'simply-hentai.com';
@@ -18,7 +20,7 @@ class SimplyHentai extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {

@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class EHentai extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class EHentai extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'e-hentai.org';
@@ -18,7 +22,7 @@ class EHentai extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -31,8 +35,8 @@ class EHentai extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gdtm a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oLink
+             * @var AbstractNode $oImg
              */
             $oImg = $this->getDomParser()
                 ->load((string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody())

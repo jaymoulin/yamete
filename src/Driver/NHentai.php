@@ -2,10 +2,14 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\HandlerStack;
 use \GuzzleRetry\GuzzleRetryMiddleware;
 use \GuzzleHttp\Cookie\FileCookieJar;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
-class NHentai extends \Yamete\DriverAbstract
+class NHentai extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'nhentai.net';
@@ -21,13 +25,13 @@ class NHentai extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         $oClient = $this->getClient(['cookies' => new FileCookieJar(tempnam('/tmp', __CLASS__))]);
         /**
-         * @var \GuzzleHttp\HandlerStack $oHandler
+         * @var HandlerStack $oHandler
          */
         $oHandler = $oClient->getConfig('handler');
         $oHandler->push(GuzzleRetryMiddleware::factory());
@@ -36,7 +40,7 @@ class NHentai extends \Yamete\DriverAbstract
         $iTotal = count($this->getDomParser()->load((string)$oRes->getBody())->find('a.gallerythumb'));
         $oImgBase = $this->getDomParser()->load((string)$oRes->getBody())->find('#cover img')[0];
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImgBase
+         * @var AbstractNode $oImgBase
          */
         $sBasePath = $oImgBase->getAttribute('data-src');
         for ($index = 1; $index <= $iTotal; $index++) {

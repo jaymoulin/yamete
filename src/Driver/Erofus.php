@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class Erofus extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class Erofus extends DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
@@ -19,7 +23,7 @@ class Erofus extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -30,7 +34,7 @@ class Erofus extends \Yamete\DriverAbstract
 
     /**
      * @param string $sUrl
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     private function getLinks(string $sUrl): void
     {
@@ -38,7 +42,7 @@ class Erofus extends \Yamete\DriverAbstract
         $bFound = false;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.row-content a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sHref = $oLink->getAttribute('href');
             if (!$oLink->getAttribute('title')) {
@@ -52,7 +56,7 @@ class Erofus extends \Yamete\DriverAbstract
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var AbstractNode $oImg
          */
         $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#picture-full img')[0];
         $sFilename = 'https://www.' . self::DOMAIN . $oImg->getAttribute('src');

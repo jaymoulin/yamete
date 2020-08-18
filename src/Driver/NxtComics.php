@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class NxtComics extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class NxtComics extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'nxt-comics.net';
@@ -18,7 +22,7 @@ class NxtComics extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -28,7 +32,7 @@ class NxtComics extends \Yamete\DriverAbstract
         $sRule = '.entry-content figure.dgwt-jg-item a';
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sRule) as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sFilename = $oLink->getAttribute('href');
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT) . '-'

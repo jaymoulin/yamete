@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class LolHentaiNet extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class LolHentaiNet extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'lolhentai.net';
@@ -18,13 +22,13 @@ class LolHentaiNet extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oHref
+         * @var AbstractNode[] $oChapters
+         * @var AbstractNode $oHref
          */
         $sUrl = 'https://www.' . self::DOMAIN . "/index?/collections/view/{$this->aMatches['album']}";
         $oRes = $this->getClient()->request('GET', "$sUrl&start=0");

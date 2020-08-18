@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class MangaKakalot extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class MangaKakalot extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {
@@ -14,11 +17,11 @@ class MangaKakalot extends \PHPUnit\Framework\TestCase
         $driver = new \Yamete\Driver\MangaKakalot();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(813, count($driver->getDownloadables()));
+        $this->assertEquals(838, count($driver->getDownloadables()));
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadChapter()
     {

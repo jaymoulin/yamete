@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class HentaiSchoolCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class HentaiSchoolCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentaischool.com';
@@ -18,12 +22,12 @@ class HentaiSchoolCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode $oIframe
+         * @var AbstractNode $oIframe
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];

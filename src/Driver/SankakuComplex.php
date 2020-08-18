@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class SankakuComplex extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class SankakuComplex extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'sankakucomplex.com';
@@ -24,7 +29,7 @@ class SankakuComplex extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -33,7 +38,7 @@ class SankakuComplex extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry-content a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sFilename = $oLink->getAttribute('href');
             if (!preg_match('~\.jpe?g$~', $sFilename)) {
@@ -44,6 +49,16 @@ class SankakuComplex extends \Yamete\DriverAbstract
             $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
+    }
+
+
+    /**
+     * @param array $aOptions
+     * @return Client
+     */
+    public function getClient(array $aOptions = []): Client
+    {
+        return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT],]);
     }
 
     private function getFolder(): string

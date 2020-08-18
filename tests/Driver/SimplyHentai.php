@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class SimplyHentai extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class SimplyHentai extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadOriginal()
     {
@@ -18,7 +21,7 @@ class SimplyHentai extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadSeries()
     {

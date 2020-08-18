@@ -2,7 +2,10 @@
 
 namespace Yamete\Driver;
 
-class HentaiCafe extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use Yamete\DriverAbstract;
+
+class HentaiCafe extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'hentai.cafe';
@@ -24,7 +27,7 @@ class HentaiCafe extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {

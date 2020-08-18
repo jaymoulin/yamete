@@ -2,6 +2,9 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Client;
+use iterator;
+use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
 
 if (!class_exists(MangaHereCc::class)) {
@@ -31,10 +34,10 @@ if (!class_exists(MangaHereCc::class)) {
         public function getDownloadables(): array
         {
             /**
-             * @var \iterator $oChapters
-             * @var \PHPHtmlParser\Dom\AbstractNode[] $aChapters
-             * @var \PHPHtmlParser\Dom\AbstractNode[] $oPages
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImage
+             * @var iterator $oChapters
+             * @var AbstractNode[] $aChapters
+             * @var AbstractNode[] $oPages
+             * @var AbstractNode $oImage
              */
             $sStartUrl = 'https://www.' . $this->getDomain();
             $sUrl = $sStartUrl . '/manga/' . $this->aMatches['album'] . '/';
@@ -76,7 +79,7 @@ if (!class_exists(MangaHereCc::class)) {
             return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
         }
 
-        public function getClient(array $aOptions = []): \GuzzleHttp\Client
+        public function getClient(array $aOptions = []): Client
         {
             return parent::getClient(
                 [

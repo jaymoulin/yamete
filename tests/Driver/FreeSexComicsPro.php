@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class FreeSexComicsPro extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class FreeSexComicsPro extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadParams()
     {

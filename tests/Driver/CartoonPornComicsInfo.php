@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class CartoonPornComicsInfo extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class CartoonPornComicsInfo extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadSecure()
     {

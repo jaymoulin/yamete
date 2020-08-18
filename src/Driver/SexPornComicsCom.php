@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class SexPornComicsCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
+
+class SexPornComicsCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'sexporncomics.com';
@@ -18,14 +23,14 @@ class SexPornComicsCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oPages
-         * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+         * @var Traversable $oPages
+         * @var AbstractNode $oLink
+         * @var AbstractNode $oImg
          */
         $sUrl = implode(
             '/',

@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class PornoAnimeXXX extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class PornoAnimeXXX extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'pornoanimexxx.com';
@@ -18,7 +22,7 @@ class PornoAnimeXXX extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -28,7 +32,7 @@ class PornoAnimeXXX extends \Yamete\DriverAbstract
         $oImgList = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('img');
         foreach ($oImgList as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
             if (strpos($oImg->getAttribute('class'), 'size-full') === false) {

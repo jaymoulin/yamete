@@ -3,8 +3,10 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
 
-class EightMuses extends \Yamete\DriverAbstract
+class EightMuses extends DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
@@ -45,7 +47,7 @@ class EightMuses extends \Yamete\DriverAbstract
         $oParser = $this->getDomParser()->load($this->getBody($sUrl));
         foreach ($oParser->find('a.c-tile') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $sDomain = self::DOMAIN;
             $sHref = $oLink->getAttribute('href');
@@ -59,7 +61,7 @@ class EightMuses extends \Yamete\DriverAbstract
             }
             foreach ($oParser->find('.image img.lazyload') as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 $sFilename = str_replace('/th/', '/fm/', "https://www.$sDomain" . $oImg->getAttribute('data-src'));
                 $sPath = $this->getFolder() . DIRECTORY_SEPARATOR

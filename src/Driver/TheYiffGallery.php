@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class TheYiffGallery extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class TheYiffGallery extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'theyiffgallery.com';
@@ -24,7 +28,7 @@ class TheYiffGallery extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -34,8 +38,8 @@ class TheYiffGallery extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load($sBody)->find('.thumbnails li a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oLink
+             * @var AbstractNode $oImg
              */
             $sUrl = 'https://' . $this->getDomain() . '/' . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sUrl);

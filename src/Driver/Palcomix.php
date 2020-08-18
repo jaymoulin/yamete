@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class Palcomix extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class Palcomix extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'palcomix.com';
@@ -18,7 +23,7 @@ class Palcomix extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -26,12 +31,12 @@ class Palcomix extends \Yamete\DriverAbstract
             ->request('GET', 'http://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/index.html');
         $aReturn = [];
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail a') as $oLink) {
-            /** @var \PHPHtmlParser\Dom\AbstractNode $oLink */
+            /** @var AbstractNode $oLink */
             $sLink = 'http://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/' . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img') as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oImg
                  */
                 if (strpos($oImg->getAttribute('alt'), 'page') !== 0) {
                     continue;
@@ -44,7 +49,7 @@ class Palcomix extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
     }

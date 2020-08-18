@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class PorkyFapOrg extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class PorkyFapOrg extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'porkyfap.org';
@@ -18,7 +23,7 @@ class PorkyFapOrg extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,8 +32,8 @@ class PorkyFapOrg extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery figure a') as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oLink
+             * @var AbstractNode $oImg
              */
             $sUrl = $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sUrl);
@@ -43,9 +48,9 @@ class PorkyFapOrg extends \Yamete\DriverAbstract
 
     /**
      * @param array $aOptions
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT, 'Referer' => $this->sUrl],]);
     }

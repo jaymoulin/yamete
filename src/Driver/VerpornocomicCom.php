@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class VerpornocomicCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class VerpornocomicCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'verpornocomic.com';
@@ -18,7 +22,7 @@ class VerpornocomicCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -27,7 +31,7 @@ class VerpornocomicCom extends \Yamete\DriverAbstract
         $index = 0;
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('p img') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
             if ($oImg->getAttribute('class') !== null) {

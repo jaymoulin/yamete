@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class ILikeComixCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
+
+class ILikeComixCom extends DriverAbstract
 {
     protected $aMatches = [];
     const DOMAIN = 'ilikecomix.com';
@@ -27,13 +32,13 @@ class ILikeComixCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oPages
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImgs
+         * @var Traversable $oPages
+         * @var AbstractNode $oImgs
          */
         $sUrl = 'https://' .
             implode('/', [$this->getDomain(), $this->aMatches['category'], $this->aMatches['album'], '']);

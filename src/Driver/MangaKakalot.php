@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class MangaKakalot extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class MangaKakalot extends DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
@@ -16,15 +20,15 @@ class MangaKakalot extends \Yamete\DriverAbstract
             $this->aMatches
         );
         return $bRead || (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/chapter/(?<album>[^/]+)~',
-            $this->sUrl,
-            $this->aMatches
-        );
+                '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/chapter/(?<album>[^/]+)~',
+                $this->sUrl,
+                $this->aMatches
+            );
     }
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -35,7 +39,7 @@ class MangaKakalot extends \Yamete\DriverAbstract
 
     /**
      * @param string $sUrl
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     private function getLinks(string $sUrl): void
     {
@@ -45,7 +49,7 @@ class MangaKakalot extends \Yamete\DriverAbstract
         krsort($aChapters);
         foreach ($aChapters as $oLink) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oLink
+             * @var AbstractNode $oLink
              */
             $this->getLinks($oLink->getAttribute('href'));
             $bFound = true;
@@ -56,7 +60,7 @@ class MangaKakalot extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sUrl);
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#vungdoc img') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR

@@ -2,8 +2,12 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
 if (!class_exists(HComicIn::class)) {
-    class HComicIn extends \Yamete\DriverAbstract
+    class HComicIn extends DriverAbstract
     {
         private $aMatches = [];
         const DOMAIN = 'hcomic.in';
@@ -24,7 +28,7 @@ if (!class_exists(HComicIn::class)) {
 
         /**
          * @return array|string[]
-         * @throws \GuzzleHttp\Exception\GuzzleException
+         * @throws GuzzleException
          */
         public function getDownloadables(): array
         {
@@ -33,8 +37,8 @@ if (!class_exists(HComicIn::class)) {
             $index = 0;
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('ul.img_list img') as $oImg) {
                 /**
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-                 * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+                 * @var AbstractNode $oLink
+                 * @var AbstractNode $oImg
                  */
                 $sFilename = str_replace('pic.', 'img.', $oImg->getAttribute('src'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

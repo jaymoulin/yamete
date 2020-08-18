@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class ZizkiCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class ZizkiCom extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'zizki.com';
@@ -18,13 +22,13 @@ class ZizkiCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $oPages
+         * @var AbstractNode $oLink
+         * @var AbstractNode[] $oPages
          */
         $sUrl = 'https://' . self::DOMAIN . '/' . implode('/', [$this->aMatches['author'], $this->aMatches['album']]);
         $oRes = $this->getClient()->request('GET', $sUrl);
