@@ -265,7 +265,6 @@ Here's is the list of supported sites for now:
  * hcomic.in
  * acgxmanga.com
  * d-upp.net
- * a-upp.com
  * xxxmanga.pro
  * hentaixxxcomics.com
  * allporncomic.com
