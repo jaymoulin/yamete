@@ -223,7 +223,6 @@ Here's is the list of supported sites for now:
  * cartoonporncomics.info
  * hentaischool.com
  * megapornpics.com
- * goodcomix.tk
  * porncomicszone.net
  * freesexcomics.pro
  * hentai-id.tv
