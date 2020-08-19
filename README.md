@@ -260,7 +260,6 @@ Here's is the list of supported sites for now:
  * hentai-paradise.fr
  * truyenhentai18.net
  * acgxmanga.com
- * d-upp.net
  * xxxmanga.pro
  * hentaixxxcomics.com
  * allporncomic.com
