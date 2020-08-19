@@ -47,12 +47,20 @@ if (!class_exists(OnlinePornGamesXyz::class)) {
                 return [];
             }
             foreach ($aMatchesCover[1] as $sFilename) {
+                $sFilename = str_replace('/smalls/', '/originals/', $sFilename);
+                if (strpos($sFilename, '/originals/') === false) {
+                    continue;
+                }
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }
-            foreach (array_slice($aMatches[1], 3) as $iKey => $sFilename) {
+            foreach ($aMatches[1] as $iKey => $sFilename) {
                 if ($iKey % 2 === 0) {
+                    continue;
+                }
+                $sFilename = str_replace('/smalls/', '/originals/', $sFilename);
+                if (strpos($sFilename, '/originals/') === false) {
                     continue;
                 }
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
