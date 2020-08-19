@@ -13,10 +13,10 @@ class ReadmanhuaOnline extends TestCase
      */
     public function testDownload()
     {
-        $url = 'https://www.readmanhua.online/comic/tonikaku-kawaii';
+        $url = 'https://www.readmanhua.online/comic/seiken-gakuen-no-maken-tsukai';
         $driver = new \Yamete\Driver\ReadmanhuaOnline();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1196, count($driver->getDownloadables()));
+        $this->assertEquals(434, count($driver->getDownloadables()));
     }
 }

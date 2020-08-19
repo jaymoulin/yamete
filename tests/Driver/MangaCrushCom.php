@@ -17,6 +17,6 @@ class MangaCrushCom extends TestCase
         $driver = new \Yamete\Driver\MangaCrushCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1959, count($driver->getDownloadables()));
+        $this->assertEquals(2156, count($driver->getDownloadables()));
     }
 }

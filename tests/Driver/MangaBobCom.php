@@ -17,6 +17,6 @@ class MangaBobCom extends TestCase
         $driver = new \Yamete\Driver\MangaBobCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(2201, count($driver->getDownloadables()));
+        $this->assertEquals(391, count($driver->getDownloadables()));
     }
 }

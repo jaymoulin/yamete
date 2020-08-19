@@ -13,10 +13,10 @@ class MangaEdenCom extends TestCase
      */
     public function testDownload()
     {
-        $url = 'https://www.mangaeden.com/en/en-manga/ase-to-sekken/';
+        $url = 'https://www.mangaeden.com/en/en-manga/whats-going-on/';
         $driver = new \Yamete\Driver\MangaEdenCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(226, count($driver->getDownloadables()));
+        $this->assertEquals(110, count($driver->getDownloadables()));
     }
 }
