@@ -140,7 +140,6 @@ Here's is the list of supported sites for now:
  * comicsmanics.com
  * hentaifr.net
  * hentai4manga.com
- * pururin.io
  * hentaiporn.pics
  * warcraftporn.pro
  * 3dsexpictures.net
