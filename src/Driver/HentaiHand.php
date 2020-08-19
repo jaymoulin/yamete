@@ -14,7 +14,7 @@ class HentaiHand extends DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/comic/(?<album>[0-9]+)/?~',
+            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/[^/]{2}/comic/(?<album>[^/]+)/?~',
             $this->sUrl,
             $this->aMatches
         );
@@ -26,23 +26,17 @@ class HentaiHand extends DriverAbstract
      */
     public function getDownloadables(): array
     {
-        $oRes = $this->getClient()->request('GET', $this->sUrl);
+        $sUrl = 'https://' . self::DOMAIN . '/api/comics/' . $this->aMatches['album'] . '?nsfw=true';
+        $oRes = $this->getClient()->request('GET', $sUrl);
+        $aInfos = \GuzzleHttp\json_decode((string)$oRes->getBody(), true);
         $aReturn = [];
         $index = 0;
-        $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('a.gallerythumb'));
+        $iNbPages = $aInfos['pages'];
         for ($iPage = 1; $iPage <= $iNbPages; $iPage++) {
-            $oRes = $this->getClient()
-                ->request('GET', 'https://' . implode('/', [self::DOMAIN, 'viewc', $this->aMatches['album'], $iPage]));
-            $sRule = '#image-container .item img';
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sRule) as $oImg) {
-                /**
-                 * @var AbstractNode $oImg
-                 */
-                $sFilename = $oImg->getAttribute('src');
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                    . '-' . basename($sFilename);
-                $aReturn[$sBasename] = $sFilename;
-            }
+            $sFilename = 'https://cdn.' . self::DOMAIN . "/assets/thumbnails/${aInfos['id']}/${iPage}.png";
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
+                . '-' . basename($sFilename);
+            $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
     }
