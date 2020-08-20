@@ -1,7 +1,12 @@
-![logo](logo.png)
 
-Yamete - Hentai downloader in PHP CLI - Easy PHP Site downloader
-================================================================
+<div class="parent">
+    <div class="centered">
+        <img align="right" src=logo.png>
+        <br>
+            <h1 align="left" >Yamete - Hentai downloader in PHP CLI - Easy PHP Site downloader</h1>
+        </br>
+    <div>
+</div>
 
 [![latest release](https://img.shields.io/github/release/jaymoulin/yamete.svg "latest release")](http://github.com/jaymoulin/yamete/releases)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jaymoulin/yamete.svg)](https://hub.docker.com/r/jaymoulin/yamete/)
