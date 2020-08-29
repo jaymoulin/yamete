@@ -15,4 +15,9 @@ class ManganeloTeamCom extends IsekaiScanCom
     {
         return '~src="([^"]+)" class="wp-manga-chapter-img~';
     }
+
+    protected function getChapterRule(): string
+    {
+        return '.wp-manga-chapter a';
+    }
 }
