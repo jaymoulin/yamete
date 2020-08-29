@@ -209,7 +209,6 @@ Here's is the list of supported sites for now:
  * nude-moon.net
  * hentaigratis.biz
  * doujinhentai.net
- * hentai24h.org
  * hentaiworld.fr
  * vercomicsporno.xxx
  * pornoanimexxx.com
