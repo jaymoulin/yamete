@@ -29,20 +29,23 @@ class AsmHentai extends DriverAbstract
         $oRes = $this->getClient()
             ->request('GET', 'https://' . self::DOMAIN . '/gallery/' . $this->aMatches['album'] . '/1/');
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#jumpto_down option') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             */
-            if (empty($oLink->getAttribute('value'))) {
-                continue;
-            }
-            $sLink = 'https://' . self::DOMAIN . $oLink->getAttribute('value');
+        $aMatches = [];
+        if (!preg_match('~Page 1 of ([0-9]+)~', (string)$oRes->getBody(), $aMatches)) {
+            return [];
+        }
+        $iNbPages = (int)$aMatches[1];
+        for ($iPage = 1; $iPage <= $iNbPages; $iPage++) {
+            $sLink = 'https://' . self::DOMAIN . '/gallery/' . $this->aMatches['album'] . '/' . $iPage . '/';
             $oRes = $this->getClient()->request('GET', $sLink);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#img img') as $oImg) {
-                /**
-                 * @var AbstractNode $oImg
-                 */
-                $sFilename = 'https:' . $oImg->getAttribute('src');
+            $aMatches = [];
+            if (!preg_match_all('~src="([^"]+)"~', (string)$oRes->getBody(), $aMatches)) {
+                return [];
+            }
+            foreach ($aMatches[1] as $sImg) {
+                $sFilename = 'https:' . $sImg;
+                if (strpos($sFilename, 'images.') === false) {
+                    continue;
+                }
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
             }
         }
