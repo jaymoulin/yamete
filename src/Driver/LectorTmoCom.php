@@ -67,4 +67,11 @@ class LectorTmoCom extends DriverAbstract
         }
         return $aReturn;
     }
+
+    public function getClient(array $aOptions = []): Client
+    {
+        return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT]]);
+    }
+
+
 }
