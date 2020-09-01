@@ -61,7 +61,7 @@ test-clean:
 	docker rmi yamete:test
 	rm build/test-image
 yamete.zip:
-	zip -R yamete.zip vendor docker src tests composer.json composer.lock converter Dockerfile download logo.png Makefile manifest.yml phpunit.xml qemu-mock-static README.md .editorconfig
+	zip -R yamete.zip vendor/* docker/* src/* tests/* composer.json composer.lock converter Dockerfile download logo.png Makefile manifest.yml phpunit.xml qemu-mock-static README.md .editorconfig vendor/**/* src/**/* tests/**/*
 ci:
 	mkdir -p build/logs
 	COMPOSER=phpcs make composer || true
