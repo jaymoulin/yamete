@@ -334,5 +334,6 @@ Here's is the list of supported sites for now:
  * mangahere.club
  * readmanhua.online
  * the-simpsonsporn.com
+ * bobsvagene.club
  
 You must pass the URL to the album for the program to download it!
