@@ -17,6 +17,6 @@ class XXXMangaPro extends TestCase
         $driver = new \Yamete\Driver\XXXMangaPro();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(280, count($driver->getDownloadables()));
+        $this->assertEquals(260, count($driver->getDownloadables()));
     }
 }

@@ -17,6 +17,6 @@ class LoveHeavenNet extends TestCase
         $driver = new \Yamete\Driver\LoveHeavenNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(168, count($driver->getDownloadables()));
+        $this->assertEquals(173, count($driver->getDownloadables()));
     }
 }

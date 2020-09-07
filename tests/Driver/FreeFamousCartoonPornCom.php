@@ -17,6 +17,6 @@ class FreeFamousCartoonPornCom extends TestCase
         $driver = new \Yamete\Driver\FreeFamousCartoonPornCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(60, count($driver->getDownloadables()));
+        $this->assertEquals(58, count($driver->getDownloadables()));
     }
 }

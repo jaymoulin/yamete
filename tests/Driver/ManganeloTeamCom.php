@@ -13,10 +13,10 @@ class ManganeloTeamCom extends TestCase
      */
     public function testDownload()
     {
-        $url = 'https://manganeloteam.com/manga/dungeon-reset/';
+        $url = 'https://manganeloteam.com/manga/seijo-no-maryoku-wa-bannou-desu/';
         $driver = new \Yamete\Driver\ManganeloTeamCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(412, count($driver->getDownloadables()));
+        $this->assertEquals(736, count($driver->getDownloadables()));
     }
 }

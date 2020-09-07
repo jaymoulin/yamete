@@ -17,6 +17,6 @@ class ManhuasNet extends TestCase
         $driver = new \Yamete\Driver\ManhuasNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(327, count($driver->getDownloadables()));
+        $this->assertEquals(348, count($driver->getDownloadables()));
     }
 }
