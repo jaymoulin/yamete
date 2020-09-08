@@ -7,15 +7,15 @@ use PHPHtmlParser\Dom\AbstractNode;
 use Traversable;
 use Yamete\DriverAbstract;
 
-class ReadMngCom extends DriverAbstract
+class KissLoveNet extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'readmng.com';
+    const DOMAIN = 'kisslove.net';
 
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://www\.(' . strtr($this->getDomain(), ['.' => '\.']) . ')/(?<album>[^/]+)~',
+            '~^https?://(' . strtr($this->getDomain(), ['.' => '\.']) . ')/manga-(?<album>[^.]+).html$~',
             $this->sUrl,
             $this->aMatches
         );
@@ -41,24 +41,22 @@ class ReadMngCom extends DriverAbstract
          * @var AbstractNode $oChapter
          * @var AbstractNode $oImg
          */
-        $sUrl = 'https://www.' . implode('/', [$this->getDomain(), $this->aMatches['album'], '']);
-        $oRes = $this->getClient()->request('GET', $sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('.chp_lst > li > a');
+        $oRes = $this->getClient()->request('GET', $this->sUrl);
+        $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('a.chapter');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $index = 0;
         $aReturn = [];
         foreach ($aChapters as $oChapter) {
-            $sHref = $oChapter->getAttribute('href') . '/all-pages';
+            $sHref = 'https://' . $this->getDomain() . '/' . $oChapter->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sHref);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.page_chapter img') as $oImg) {
-                $sFilename = trim($oImg->getAttribute('src'));
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.chapter-img') as $oImg) {
+                $sFilename = trim($oImg->getAttribute('data-original'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }
         }
-        var_dump($aReturn);
         return $aReturn;
     }
 
