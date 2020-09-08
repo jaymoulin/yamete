@@ -337,5 +337,6 @@ Here's is the list of supported sites for now:
  * bobsvagene.club
  * readmng.com
  * kisslove.net
+ * manganelo.today
  
 You must pass the URL to the album for the program to download it!
