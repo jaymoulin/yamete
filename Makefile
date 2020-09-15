@@ -9,7 +9,8 @@ qemu-arm-static:
 	cp /usr/bin/qemu-arm-static .
 qemu-aarch64-static:
 	cp /usr/bin/qemu-aarch64-static .
-build: qemu-aarch64-static qemu-arm-static
+build: qemu-aarch64-static qemu-arm-static build/test-image
+	docker run --rm -v ${PWD}:/app/ yamete:test php composer.phar install --no-dev -o; \
 	$(foreach arch,$(archs), \
 		cat docker/Dockerfile | sed "s/FROM php/FROM ${arch}\/php/g" > Dockerfile; \
 		docker build -t jaymoulin/yamete:${VERSION}-$(arch) --build-arg VERSION=${VERSION} ${CACHE} .;\
