@@ -288,7 +288,6 @@ Here's is the list of supported sites for now:
  * porngames.zone
  * sexgamescc.com
  * comicsporn.me
- * mangahome.com
  * xlecx.com
  * kingcomix.com
  * savitahd.net
