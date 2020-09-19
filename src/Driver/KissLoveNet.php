@@ -2,6 +2,7 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPHtmlParser\Dom\AbstractNode;
 use Traversable;
@@ -63,5 +64,10 @@ class KissLoveNet extends DriverAbstract
     protected function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+    }
+
+    public function getClient(array $aOptions = []): Client
+    {
+        return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
     }
 }
