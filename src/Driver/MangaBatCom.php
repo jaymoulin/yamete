@@ -60,4 +60,9 @@ class MangaBatCom extends DriverAbstract
         }
         return $aReturn;
     }
+
+    public function getClient(array $aOptions = []): Client
+    {
+        return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
+    }
 }
