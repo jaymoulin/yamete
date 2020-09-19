@@ -3,6 +3,7 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Client;
 use iterator;
 use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
@@ -52,5 +53,10 @@ class ManganeloCom extends DriverAbstract
     private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+    }
+
+    public function getClient(array $aOptions = []): Client
+    {
+        return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
     }
 }
