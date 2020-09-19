@@ -71,7 +71,8 @@ class MangaTownCom extends DriverAbstract
                     ->find('#image')[0];
                 $sFilename = $oImg->getAttribute('src');
                 $iPos = strpos($sFilename, '?');
-                $sFilename = substr($sFilename, 0, $iPos);
+                $sFilename = substr($sFilename, 0, $iPos ?: strlen($sFilename));
+                $sFilename = strpos('http', $sFilename) === false ? 'https:' . $sFilename : $sFilename;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
