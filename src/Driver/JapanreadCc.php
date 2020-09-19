@@ -43,15 +43,14 @@ class JapanreadCc extends DriverAbstract
             $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . $oChapter->getAttribute('href'));
             $aMatches = [];
             if (!preg_match('~data-chapter-id="(?<iChapId>[0-9]+)"~U', (string)$oRes->getBody(), $aMatches)) {
-                return [];
+                continue;
             }
             $iChapId = (int)$aMatches['iChapId'];
             $sApiUrl = "https://www.japanread.cc/api/?id=${iChapId}&type=chapter";
             $oRes = $this->getClient()->request('GET', $sApiUrl);
             $aJson = \GuzzleHttp\json_decode((string)$oRes->getBody(), true);
             foreach ($aJson['page_array'] as $sPageUrl) {
-                $sFilename = 'https://www.' . self::DOMAIN . $aJson['baseImagesUrl']
-                    . $iChapId . '/' . $sPageUrl;
+                $sFilename = 'https://www.' . self::DOMAIN . $aJson['baseImagesUrl'] . '/' . $sPageUrl;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($iPage++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
