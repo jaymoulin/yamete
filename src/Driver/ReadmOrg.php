@@ -39,7 +39,8 @@ class ReadmOrg extends DriverAbstract
         foreach ($aChapters as $oChapter) {
             $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . $oChapter->getAttribute('href'));
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.ch-images img') as $oImg) {
-                $sFilename = $oImg->getAttribute('src');
+                $sSrc = $oImg->getAttribute('src');
+                $sFilename = strpos('http', $sSrc) === false ? 'https://' . self::DOMAIN . $sSrc : $sSrc;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename(preg_replace('~\?(.*)$~', '', $sFilename));
                 $aReturn[$sBasename] = $sFilename;
