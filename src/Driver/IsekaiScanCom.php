@@ -2,6 +2,7 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use iterator;
 use PHPHtmlParser\Dom\AbstractNode;
@@ -86,6 +87,11 @@ if (!class_exists(IsekaiScanCom::class)) {
         protected function getRegexp(): string
         {
             return '~data-src="([^"]+)" class="wp-manga~';
+        }
+        
+        public function getClient(array $aOptions = []): Client
+        {
+            return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
         }
     }
 }
