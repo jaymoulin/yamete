@@ -41,6 +41,15 @@ if (!class_exists(IsekaiScanCom::class)) {
         }
 
         /**
+         * Rule to get all chapters links
+         * @return string
+         */
+        protected function getChapterRule(): string
+        {
+            return '.chapter a';
+        }
+
+        /**
          * @return array|string[]
          * @throws GuzzleException
          */
@@ -53,7 +62,7 @@ if (!class_exists(IsekaiScanCom::class)) {
              */
             $sUrl = 'https://' . $this->getDomain() . '/manga/' . $this->aMatches['album'] . '/';
             $oResult = $this->getClient()->request('GET', $sUrl);
-            $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.wp-manga-chapter a');
+            $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find($this->getChapterRule());
             $aChapters = iterator_to_array($oChapters);
             krsort($aChapters);
             $aReturn = [];

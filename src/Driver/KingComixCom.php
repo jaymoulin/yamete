@@ -33,6 +33,9 @@ class KingComixCom extends DriverAbstract
              * @var AbstractNode $oImg
              */
             $sFilename = $oImg->getAttribute('src');
+            if (strpos($sFilename, 'http') !== 0) {
+                continue;
+            }
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
         return $aReturn;

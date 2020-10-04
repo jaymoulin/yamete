@@ -134,13 +134,11 @@ Here's is the list of supported sites for now:
  * simply-hentai.com
  * xyzcomics.com
  * hentaifantasy.it
- * yaoimangaonline.com
  * vercomicsporno.com
  * hitomi.la
  * comicsmanics.com
  * hentaifr.net
  * hentai4manga.com
- * pururin.io
  * hentaiporn.pics
  * warcraftporn.pro
  * 3dsexpictures.net
@@ -211,7 +209,6 @@ Here's is the list of supported sites for now:
  * nude-moon.net
  * hentaigratis.biz
  * doujinhentai.net
- * hentai24h.org
  * hentaiworld.fr
  * vercomicsporno.xxx
  * pornoanimexxx.com
@@ -224,8 +221,6 @@ Here's is the list of supported sites for now:
  * cartoonporncomics.info
  * hentaischool.com
  * megapornpics.com
- * porkyfap.org
- * goodcomix.tk
  * porncomicszone.net
  * freesexcomics.pro
  * hentai-id.tv
@@ -262,10 +257,7 @@ Here's is the list of supported sites for now:
  * hentai.tv
  * hentai-paradise.fr
  * truyenhentai18.net
- * hcomic.in
  * acgxmanga.com
- * d-upp.net
- * a-upp.com
  * xxxmanga.pro
  * hentaixxxcomics.com
  * allporncomic.com

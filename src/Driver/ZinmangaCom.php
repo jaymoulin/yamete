@@ -10,4 +10,9 @@ class ZinmangaCom extends IsekaiScanCom
     {
         return self::DOMAIN;
     }
+
+    protected function getChapterRule(): string
+    {
+        return '.wp-manga-chapter a';
+    }
 }

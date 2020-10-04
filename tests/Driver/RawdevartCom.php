@@ -17,6 +17,6 @@ class RawdevartCom extends TestCase
         $driver = new \Yamete\Driver\RawdevartCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(194, count($driver->getDownloadables()));
+        $this->assertEquals(221, count($driver->getDownloadables()));
     }
 }
