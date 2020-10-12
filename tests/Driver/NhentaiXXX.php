@@ -13,10 +13,10 @@ class NhentaiXXX extends TestCase
      */
     public function testDownload()
     {
-        $url = 'https://nhentai.xxx/manga/193780/';
+        $url = 'https://nhentai.xxx/g/6781';
         $driver = new \Yamete\Driver\NhentaiXXX();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(24, count($driver->getDownloadables()));
+        $this->assertEquals(22, count($driver->getDownloadables()));
     }
 }
