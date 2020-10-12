@@ -12,7 +12,7 @@ Yamete - Hentai downloader in PHP CLI - Easy PHP Site downloader
 
 (This product is available under a free and permissive license, but needs financial support to sustain its continued improvements. In addition to maintenance and stability there are many desirable features yet to be added.)
 
-Early Releases are available on Patreon : https://www.patreon.com/jaymoulin/posts?tag=yamete
+Early Releases are available on https://www.japanread.cc/manga/mutedPatreon : https://www.patreon.com/jaymoulin/posts?tag=yamete
 
 This image allows you easily download specific assets of a site
 
@@ -344,6 +344,5 @@ Here's is the list of supported sites for now:
  * nhentai.io
  * wakascan.com
  * hentai.desi
- * japanread.cc
  
 You must pass the URL to the album for the program to download it!
