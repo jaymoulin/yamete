@@ -324,7 +324,6 @@ Here's is the list of supported sites for now:
  * manhuas.net
  * twhentai.com
  * lectortmo.com
- * mangacrush.com
  * mangairo.com
  * mangatoon.mobi
  * readm.org
