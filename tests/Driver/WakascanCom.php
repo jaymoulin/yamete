@@ -17,6 +17,6 @@ class WakascanCom extends TestCase
         $driver = new \Yamete\Driver\WakascanCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(376, count($driver->getDownloadables()));
+        $this->assertEquals(669, count($driver->getDownloadables()));
     }
 }

@@ -17,7 +17,7 @@ class MangaKakalot extends TestCase
         $driver = new \Yamete\Driver\MangaKakalot();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(855, count($driver->getDownloadables()));
+        $this->assertEquals(875, count($driver->getDownloadables()));
     }
 
     /**

@@ -17,6 +17,6 @@ class MangahubIo extends TestCase
         $driver = new \Yamete\Driver\MangahubIo();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(886, count($driver->getDownloadables()));
+        $this->assertEquals(945, count($driver->getDownloadables()));
     }
 }
