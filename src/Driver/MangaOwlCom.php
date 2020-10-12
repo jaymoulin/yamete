@@ -34,7 +34,9 @@ class MangaOwlCom extends DriverAbstract
              * @var AbstractNode $oOption
              * @var AbstractNode $oImg
              */
-            $oRes = $this->getClient()->request('GET', trim($oOption->getAttribute('url')));
+            $sUrl = trim($oOption->getAttribute('url'));
+            $sUrl = strpos($sUrl, '://') === false ? 'https://' . self::DOMAIN . $sUrl : $sUrl;
+            $oRes = $this->getClient()->request('GET', $sUrl);
             $aChap = [];
             foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.owl-lazy') as $oImg) {
                 $sFilename = $oImg->getAttribute('data-src');
