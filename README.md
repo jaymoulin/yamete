@@ -344,5 +344,6 @@ Here's is the list of supported sites for now:
  * xxxmilftoon.com
  * xxxcartoonpic.com
  * overwatchporn.pro
+ * porncomix.pro
 
 You must pass the URL to the album for the program to download it!
