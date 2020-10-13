@@ -29,7 +29,7 @@ class Comicsmanics extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.single-post img.alignnone') as $oImg) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.post-texto img.alignnone') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */
