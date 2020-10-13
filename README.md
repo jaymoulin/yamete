@@ -342,5 +342,6 @@ Here's is the list of supported sites for now:
  * wakascan.com
  * hentai.desi
  * xxxmilftoon.com
+ * xxxcartoonpic.com
  
 You must pass the URL to the album for the program to download it!
