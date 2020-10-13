@@ -13,7 +13,7 @@ class NineHentai extends TestCase
      */
     public function testDownload()
     {
-        $url = 'https://9hentai.com/g/52203/';
+        $url = 'https://9hentai.ru/g/52203/';
         $driver = new \Yamete\Driver\NineHentai();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());

@@ -191,7 +191,7 @@ Here's is the list of supported sites for now:
  * erofus.com
  * mangakakalot.com
  * hentaihere.com
- * 9hentai.com
+ * 9hentai.ru
  * mintmanga.live
  * hentai.cafe
  * hentai-archive.net
