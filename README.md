@@ -329,7 +329,6 @@ Here's is the list of supported sites for now:
  * rawdevart.com
  * readmanhua.co
  * mangahere.club
- * readmanhua.online
  * the-simpsonsporn.com
  * bobsvagene.club
  * readmng.com
