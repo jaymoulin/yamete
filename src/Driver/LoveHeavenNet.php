@@ -56,7 +56,10 @@ class LoveHeavenNet extends DriverAbstract
             $oResult = $this->getClient()->request('GET', $sUrl);
             $oPages = $this->getDomParser()->load((string)$oResult->getBody())->find('img.chapter-img');
             foreach ($oPages as $oPage) {
-                $sFilename = base64_decode($oPage->getAttribute('data-src'));
+                $sFilename = $oPage->getAttribute('data-src');
+                if (strpos($sFilename, 'http') === false) {
+                    $sFilename = base64_decode($sFilename);
+                }
                 if (strpos($sFilename, 'http') === false) {
                     continue;
                 }
