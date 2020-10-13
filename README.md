@@ -145,7 +145,7 @@ Here's is the list of supported sites for now:
  * hentaimanga.pro
  * sexcartoonpics.com
  * xsexcomics.com
- * sexy3dcomix.com
+ * sexy3dcomics.club
  * xxxtooncomics.com
  * toonsex.pics
  * toonpornpics.com
