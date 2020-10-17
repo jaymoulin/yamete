@@ -6,17 +6,17 @@ namespace YameteTests\Driver;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\TestCase;
 
-class ThreeSixtyFiveMangaCom extends TestCase
+class TheSimpsonsPornCom extends TestCase
 {
     /**
      * @throws GuzzleException
      */
     public function testDownload()
     {
-        $url = 'https://365manga.com/manga/i-was-born-as-the-demon-lords-daughter/';
-        $driver = new \Yamete\Driver\ThreeSixtyFiveMangaCom();
+        $url = 'https://the-simpsonsporn.com/sexy-sleep-walking/';
+        $driver = new \Yamete\Driver\TheSimpsonsPornCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1038, count($driver->getDownloadables()));
+        $this->assertEquals(7, count($driver->getDownloadables()));
     }
 }

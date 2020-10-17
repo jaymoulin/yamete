@@ -1,4 +1,4 @@
-VERSION ?= 1.16.1
+VERSION ?= 1.17.0
 CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 arm64v8 i386
@@ -62,7 +62,7 @@ test-clean:
 	docker rmi yamete:test
 	rm build/test-image
 yamete.zip:
-	zip -R yamete.zip vendor docker src tests composer.json composer.lock converter Dockerfile download logo.png Makefile manifest.yml phpunit.xml qemu-mock-static README.md .editorconfig
+	zip -R yamete.zip vendor/* docker/* src/* tests/* composer.json composer.lock converter Dockerfile download logo.png Makefile manifest.yml phpunit.xml qemu-mock-static README.md .editorconfig vendor/**/* src/**/* tests/**/*
 ci:
 	mkdir -p build/logs
 	COMPOSER=phpcs make composer || true

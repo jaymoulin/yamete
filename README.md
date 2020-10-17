@@ -333,5 +333,18 @@ Here's is the list of supported sites for now:
  * readmanhua.co
  * mangahere.club
  * readmanhua.online
+ * the-simpsonsporn.com
+ * bobsvagene.club
+ * readmng.com
+ * kisslove.net
+ * manganelo.today
+ * mangarock.site
+ * taadd.com
+ * hentaikun.com
+ * nhentai.xxx
+ * nhentai.io
+ * wakascan.com
+ * hentai.desi
+ * japanread.cc
  
 You must pass the URL to the album for the program to download it!

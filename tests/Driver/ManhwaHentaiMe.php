@@ -17,6 +17,6 @@ class ManhwaHentaiMe extends TestCase
         $driver = new \Yamete\Driver\ManhwaHentaiMe();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1486, count($driver->getDownloadables()));
+        $this->assertEquals(1487, count($driver->getDownloadables()));
     }
 }

@@ -17,6 +17,6 @@ class CartoonPornComicsInfo extends TestCase
         $driver = new \Yamete\Driver\CartoonPornComicsInfo();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(32, count($driver->getDownloadables()));
+        $this->assertEquals(30, count($driver->getDownloadables()));
     }
 }

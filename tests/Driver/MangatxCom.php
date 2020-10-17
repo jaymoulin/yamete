@@ -17,6 +17,6 @@ class MangatxCom extends TestCase
         $driver = new \Yamete\Driver\MangatxCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(431, count($driver->getDownloadables()));
+        $this->assertEquals(403, count($driver->getDownloadables()));
     }
 }
