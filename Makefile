@@ -1,4 +1,4 @@
-VERSION ?= 1.17.1
+VERSION ?= 1.18.0
 CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 arm64v8 i386
@@ -13,7 +13,7 @@ build: qemu-aarch64-static qemu-arm-static build/test-image
 	docker run --rm -v ${PWD}:/app/ yamete:test php composer.phar install --no-dev -o; \
 	$(foreach arch,$(archs), \
 		cat docker/Dockerfile | sed "s/FROM php/FROM ${arch}\/php/g" > Dockerfile; \
-		docker build -t jaymoulin/yamete:${VERSION}-$(arch) --build-arg VERSION=${VERSION} ${CACHE} .;\
+		docker build -t jaymoulin/yamete-${VERSION}-$(arch) --build-arg VERSION=${VERSION} ${CACHE} .;\
 	)
 publish:
 	docker push jaymoulin/yamete
