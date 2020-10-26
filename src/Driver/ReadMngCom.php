@@ -51,7 +51,7 @@ class ReadMngCom extends DriverAbstract
         foreach ($aChapters as $oChapter) {
             $sHref = $oChapter->getAttribute('href') . '/all-pages';
             $oRes = $this->getClient()->request('GET', $sHref);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.page_chapter img') as $oImg) {
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.page_chapter img.img-responsive') as $oImg) {
                 $sFilename = trim($oImg->getAttribute('src'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
