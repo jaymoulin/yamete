@@ -35,7 +35,7 @@ class NhentaiXXX extends DriverAbstract
             /**
              * @var AbstractNode $oImg
              */
-            $sFilename = $oImg->getAttribute('data-src');
+            $sFilename = $oImg->getAttribute('src');
             if (!$sFilename || isset($aFound[$sFilename])) {
                 continue;
             }
