@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class HeavenToonCom extends TestCase
 {
-    const NUMBER_OF_PAGE = 64;
+    const NUMBER_OF_PAGE = 76;
     /**
      * @throws GuzzleException
      */

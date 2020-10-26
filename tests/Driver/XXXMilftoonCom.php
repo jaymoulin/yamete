@@ -17,6 +17,6 @@ class XXXMilftoonCom extends TestCase
         $driver = new \Yamete\Driver\XXXMilftoonCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(13, count($driver->getDownloadables()));
+        $this->assertEquals(14, count($driver->getDownloadables()));
     }
 }
