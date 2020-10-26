@@ -13,7 +13,7 @@ class PorncomixOnline extends TestCase
      */
     public function testDownload()
     {
-        $url = 'https://www.porncomixonline.net/ilikemy-friend/';
+        $url = 'https://www.porncomixonline.net/xxxcomics/ilikemy-friend/';
         $driver = new \Yamete\Driver\PorncomixOnline();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
@@ -25,7 +25,7 @@ class PorncomixOnline extends TestCase
      */
     public function testDownloadNew()
     {
-        $url = 'https://www.porncomixonline.net/the-earth-chapter-1/';
+        $url = 'https://www.porncomixonline.net/xxxcomics/the-earth-chapter-1/';
         $driver = new \Yamete\Driver\PorncomixOnline();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());

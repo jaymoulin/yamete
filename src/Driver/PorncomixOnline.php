@@ -14,7 +14,7 @@ class PorncomixOnline extends DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.']) . '/(?<album>[^/]+)/$~',
+            '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.']) . '/(?<category>[^/]+)/(?<album>[^/]+)/$~',
             $this->sUrl,
             $this->aMatches
         );
