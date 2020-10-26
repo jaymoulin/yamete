@@ -317,7 +317,7 @@ Here's is the list of supported sites for now:
  * 365manga.com
  * mangainn.net
  * loveheaven.net
- * wakamics.com
+ * manga3s.com
  * manhuas.net
  * twhentai.com
  * lectortmo.com

@@ -6,10 +6,10 @@ use GuzzleHttp\Exception\GuzzleException;
 use iterator;
 use Yamete\DriverAbstract;
 
-class WakamicsCom extends DriverAbstract
+class Manga3sCom extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'wakamics.com';
+    const DOMAIN = 'manga3s.com';
 
     protected function getDomain(): string
     {
