@@ -88,7 +88,7 @@ if (!class_exists(IsekaiScanCom::class)) {
         {
             return '~data-src="([^"]+)" class="wp-manga~';
         }
-        
+
         public function getClient(array $aOptions = []): Client
         {
             return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);

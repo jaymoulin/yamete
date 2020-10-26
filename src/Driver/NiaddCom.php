@@ -2,9 +2,6 @@
 
 namespace Yamete\Driver;
 
-use GuzzleHttp\Cookie\FileCookieJar;
-use GuzzleHttp\Client;
-
 class NiaddCom extends \Yamete\DriverAbstract
 {
     private $aMatches = [];

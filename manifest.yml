@@ -1,23 +1,19 @@
 image: jaymoulin/yamete:$FULLVERSION
 manifests:
-  -
-    image: jaymoulin/yamete:$VERSION-arm32v6
+  - image: jaymoulin/yamete:$VERSION-arm32v6
     platform:
       architecture: arm
       variant: v6
       os: linux
-  -
-    image: jaymoulin/yamete:$VERSION-arm64v8
+  - image: jaymoulin/yamete:$VERSION-arm64v8
     platform:
       architecture: arm64
       os: linux
-  -
-    image: jaymoulin/yamete:$VERSION-amd64
+  - image: jaymoulin/yamete:$VERSION-amd64
     platform:
       architecture: amd64
       os: linux
-  -
-    image: jaymoulin/yamete:$VERSION-i386
+  - image: jaymoulin/yamete:$VERSION-i386
     platform:
       architecture: 386
       os: linux

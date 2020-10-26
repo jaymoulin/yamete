@@ -2,13 +2,13 @@
 
 namespace Yamete;
 
+use DomainException;
+use Exception;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\ProgressBar;
-use \Exception;
-use \DomainException;
-use \ZipArchive;
+use ZipArchive;
 
 class DownloadCommand extends \Symfony\Component\Console\Command\Command
 {
@@ -70,9 +70,9 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws Exception
      * @return int
+     * @throws Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

@@ -2,7 +2,6 @@
 
 namespace Yamete\Driver;
 
-use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
 
 class MilfToonXXX extends DriverAbstract

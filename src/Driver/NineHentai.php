@@ -34,7 +34,7 @@ class NineHentai extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $sBody = (string)$oRes->getBody();
-        $aMatches= [];
+        $aMatches = [];
         if (preg_match('~name="csrf-token" content="(?<csrf>[^"]+)~', $sBody, $aMatches) === false) {
             return [];
         }

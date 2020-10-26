@@ -3,7 +3,6 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
 
 class VercomicsPornoXXX extends DriverAbstract

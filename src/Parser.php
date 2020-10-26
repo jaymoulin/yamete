@@ -2,9 +2,9 @@
 
 namespace Yamete;
 
-use \UnexpectedValueException;
-use \crodas\ClassInfo\ClassInfo;
-use \RuntimeException;
+use crodas\ClassInfo\ClassInfo;
+use RuntimeException;
+use UnexpectedValueException;
 
 class Parser
 {

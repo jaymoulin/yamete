@@ -2,8 +2,8 @@
 
 namespace Yamete\Driver;
 
-use GuzzleHttp\Cookie\FileCookieJar;
 use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\FileCookieJar;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPHtmlParser\Dom\AbstractNode;
 use Traversable;

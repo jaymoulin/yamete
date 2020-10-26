@@ -2,10 +2,10 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Cookie\FileCookieJar;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
-use \GuzzleRetry\GuzzleRetryMiddleware;
-use \GuzzleHttp\Cookie\FileCookieJar;
+use GuzzleRetry\GuzzleRetryMiddleware;
 use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
 

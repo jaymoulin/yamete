@@ -2,7 +2,6 @@
 
 namespace Yamete\Driver;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPHtmlParser\Dom\AbstractNode;
 use Traversable;

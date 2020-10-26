@@ -2,8 +2,8 @@
 
 namespace Yamete;
 
-use \Exception;
-use \Iterator;
+use Exception;
+use Iterator;
 
 class PDF extends \FPDF
 {

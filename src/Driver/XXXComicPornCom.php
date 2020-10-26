@@ -2,8 +2,8 @@
 
 namespace Yamete\Driver;
 
-use \AppendIterator;
-use \ArrayIterator;
+use AppendIterator;
+use ArrayIterator;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;

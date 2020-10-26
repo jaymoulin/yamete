@@ -9,31 +9,31 @@ interface DriverInterface
      * @param string $sUrl
      * @return $this
      */
-    public function setUrl(string $sUrl) : DriverInterface;
+    public function setUrl(string $sUrl): DriverInterface;
 
     /**
      * Tells if driver can handle defined URL (with setUrl)
-     * @uses self::setUrl
      * @return bool
+     * @uses self::setUrl
      */
-    public function canHandle() : bool;
+    public function canHandle(): bool;
 
     /**
      * Returns URLs that can be downloaded (indexed by optional file name) for specified URL (with setUrl)
-     * @uses self::setUrl
      * @return string[]
+     * @uses self::setUrl
      */
-    public function getDownloadables() : array;
+    public function getDownloadables(): array;
 
     /**
      * Returns Guzzle client that will be used to download resources
      * @return \GuzzleHttp\Client
      */
-    public function getClient() : \GuzzleHttp\Client;
+    public function getClient(): \GuzzleHttp\Client;
 
     /**
      * Clean the current instance (free memory)
      * @return $this
      */
-    public function clean() : DriverInterface;
+    public function clean(): DriverInterface;
 }

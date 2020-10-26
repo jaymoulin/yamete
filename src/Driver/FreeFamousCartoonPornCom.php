@@ -2,7 +2,7 @@
 
 namespace Yamete\Driver;
 
-use \ArrayIterator;
+use ArrayIterator;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;

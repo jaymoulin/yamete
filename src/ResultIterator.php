@@ -2,7 +2,7 @@
 
 namespace Yamete;
 
-use \ArrayIterator;
+use ArrayIterator;
 
 /**
  * Class ResultIterator

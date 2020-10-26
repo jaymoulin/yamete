@@ -2,11 +2,11 @@
 
 namespace Yamete;
 
+use ArrayIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use \RecursiveIteratorIterator;
-use \RecursiveDirectoryIterator;
-use \ArrayIterator;
 
 class ConvertCommand extends \Symfony\Component\Console\Command\Command
 {
