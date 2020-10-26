@@ -29,14 +29,11 @@ class VercomicsPornoXXX extends DriverAbstract
         $sContent = file_get_contents($this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load($sContent)->find('p img') as $oImg) {
-            /**
-             * @var AbstractNode $oImg
-             */
-            $sFilename = $oImg->getAttribute('src');
-            if (strpos($oImg->getAttribute('class'), 'size-full') === false) {
-                continue;
-            }
+        $aMatches = [];
+        if (!preg_match_all('~src=([^ ]+) alt></figure~', $sContent, $aMatches)) {
+            return [];
+        }
+        foreach ($aMatches[1] as $sFilename) {
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
