@@ -220,7 +220,6 @@ Here's is the list of supported sites for now:
  * cartoonporncomics.info
  * hentaischool.com
  * megapornpics.com
- * porncomicszone.net
  * freesexcomics.pro
  * hentai-id.tv
  * superhentais.com
