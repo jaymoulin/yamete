@@ -43,9 +43,10 @@ class MySexGamerCom extends DriverAbstract
             $aReturn[$sBasename] = $sFilename;
         }
         foreach (array_slice($aMatches[1], 3) as $iKey => $sFilename) {
-            if ($iKey % 2 === 0) {
+            if ($iKey % 2 === 0 or strpos($sFilename, 'upload') === false) {
                 continue;
             }
+            $sFilename = str_replace('/smalls/', '/originals/', $sFilename);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
