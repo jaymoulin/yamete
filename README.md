@@ -128,7 +128,6 @@ Here's is the list of supported sites for now:
  * luscious.net
  * myhentaicomics.com
  * nxt-comics.net
- * porncomix.info
  * porncomixonline.net
  * porncomix.site
  * simply-hentai.com
