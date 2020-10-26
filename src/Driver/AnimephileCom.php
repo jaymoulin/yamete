@@ -12,7 +12,7 @@ class AnimephileCom extends DriverAbstract
     private $aMatches = [];
     private $aReturn = [];
     private $index = 0;
-    const DOMAIN = 'animephile.com';
+    private const DOMAIN = 'animephile.com';
 
     public function canHandle(): bool
     {

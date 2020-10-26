@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class HComicBookCom extends Hentai4Manga
 {
-    const DOMAIN = 'hcomicbook.com';
+    private const DOMAIN = 'hcomicbook.com';
 
     protected function getDomain(): string
     {

@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class FreeSexComicsPro extends XXXComicPornCom
 {
-    const DOMAIN = 'freesexcomics.pro';
+    private const DOMAIN = 'freesexcomics.pro';
 
     protected function getDomain(): string
     {

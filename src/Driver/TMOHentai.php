@@ -11,7 +11,7 @@ use Yamete\DriverAbstract;
 class TMOHentai extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'tmohentai.com';
+    private const DOMAIN = 'tmohentai.com';
 
     public function canHandle(): bool
     {

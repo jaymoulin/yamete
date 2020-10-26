@@ -11,7 +11,7 @@ use Yamete\DriverAbstract;
 class MangaInnNet extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'mangainn.net';
+    private const DOMAIN = 'mangainn.net';
 
     public function canHandle(): bool
     {

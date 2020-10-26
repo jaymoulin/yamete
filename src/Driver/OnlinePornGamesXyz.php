@@ -8,7 +8,7 @@ use Yamete\DriverAbstract;
 if (!class_exists(OnlinePornGamesXyz::class)) {
     class OnlinePornGamesXyz extends DriverAbstract
     {
-        const DOMAIN = 'onlineporngames.xyz';
+        private const DOMAIN = 'onlineporngames.xyz';
         private $aMatches = [];
 
         protected function getDomain(): string

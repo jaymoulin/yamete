@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class EightMusesDownload extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = '8muses.download';
+    private const DOMAIN = '8muses.download';
 
     public function canHandle(): bool
     {

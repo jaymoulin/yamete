@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class XXXMangaPro extends XXXHentaiComixCom
 {
-    const DOMAIN = 'xxxmanga.pro';
+    private const DOMAIN = 'xxxmanga.pro';
 
     protected function getDomain(): string
     {

@@ -12,7 +12,7 @@ use Yamete\DriverAbstract;
 class WakascanCom extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'wakascan.com';
+    private const DOMAIN = 'wakascan.com';
 
     public function canHandle(): bool
     {

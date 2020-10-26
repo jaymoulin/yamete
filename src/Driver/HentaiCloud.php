@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class HentaiCloud extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'hentaicloud.com';
+    private const DOMAIN = 'hentaicloud.com';
 
     public function canHandle(): bool
     {

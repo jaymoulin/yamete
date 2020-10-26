@@ -6,7 +6,7 @@ use Yamete\DriverAbstract;
 
 class MilfToonXXX extends DriverAbstract
 {
-    const DOMAIN = 'milftoon.xxx';
+    private const DOMAIN = 'milftoon.xxx';
     private $aMatches = [];
 
     public function canHandle(): bool

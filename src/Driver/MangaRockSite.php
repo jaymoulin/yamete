@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 class MangaRockSite extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'mangarock.site';
+    private const DOMAIN = 'mangarock.site';
 
     public function canHandle(): bool
     {

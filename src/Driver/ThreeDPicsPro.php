@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class ThreeDPicsPro extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = '3dpics.pro';
+    private const DOMAIN = '3dpics.pro';
 
     public function canHandle(): bool
     {

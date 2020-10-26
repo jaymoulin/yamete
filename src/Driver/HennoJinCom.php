@@ -14,7 +14,7 @@ class HennoJinCom extends DriverAbstract
     private $aMatches = [];
     private $bSecondMatch = false;
 
-    const DOMAIN = 'hennojin.com';
+    private const DOMAIN = 'hennojin.com';
 
     public function canHandle(): bool
     {

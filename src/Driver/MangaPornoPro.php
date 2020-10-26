@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class MangaPornoPro extends XXXComicPornCom
 {
-    const DOMAIN = 'mangaporno.pro';
+    private const DOMAIN = 'mangaporno.pro';
 
     protected function getDomain(): string
     {

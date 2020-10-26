@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class HDPornComics extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'hdporncomics.com';
+    private const DOMAIN = 'hdporncomics.com';
 
     protected function getDomain(): string
     {

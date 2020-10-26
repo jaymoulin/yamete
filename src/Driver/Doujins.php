@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class Doujins extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'doujins.com';
+    private const DOMAIN = 'doujins.com';
 
     public function canHandle(): bool
     {

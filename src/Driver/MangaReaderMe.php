@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 class MangaReaderMe extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'mangareader.me';
+    private const DOMAIN = 'mangareader.me';
 
     public function canHandle(): bool
     {

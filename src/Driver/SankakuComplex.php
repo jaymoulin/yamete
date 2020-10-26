@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 class SankakuComplex extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'sankakucomplex.com';
+    private const DOMAIN = 'sankakucomplex.com';
 
     protected function getDomain(): string
     {

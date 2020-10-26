@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class ImgBox extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'imgbox.com';
+    private const DOMAIN = 'imgbox.com';
 
     public function canHandle(): bool
     {

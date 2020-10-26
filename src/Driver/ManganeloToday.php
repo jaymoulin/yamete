@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 class ManganeloToday extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'manganelo.today';
+    private const DOMAIN = 'manganelo.today';
 
     public function canHandle(): bool
     {

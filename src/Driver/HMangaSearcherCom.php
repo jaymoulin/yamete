@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class HMangaSearcherCom extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'hmangasearcher.com';
+    private const DOMAIN = 'hmangasearcher.com';
 
     public function canHandle(): bool
     {

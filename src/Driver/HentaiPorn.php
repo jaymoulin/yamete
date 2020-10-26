@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class HentaiPorn extends XXXComicPornCom
 {
-    const DOMAIN = 'hentaiporn.pics';
+    private const DOMAIN = 'hentaiporn.pics';
 
     protected function getDomain(): string
     {

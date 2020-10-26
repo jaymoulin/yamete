@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class Chochox extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'chochox.com';
+    private const DOMAIN = 'chochox.com';
 
     public function canHandle(): bool
     {

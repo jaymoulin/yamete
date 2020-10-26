@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class ManganeloTeamCom extends IsekaiScanCom
 {
-    const DOMAIN = 'manganeloteam.com';
+    private const DOMAIN = 'manganeloteam.com';
 
     protected function getDomain(): string
     {

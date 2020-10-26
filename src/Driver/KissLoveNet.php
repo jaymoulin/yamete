@@ -11,7 +11,7 @@ use Yamete\DriverAbstract;
 class KissLoveNet extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'kisslove.net';
+    private const DOMAIN = 'kisslove.net';
 
     public function canHandle(): bool
     {

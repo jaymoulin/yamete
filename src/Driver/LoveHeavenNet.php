@@ -12,7 +12,7 @@ use Yamete\DriverAbstract;
 class LoveHeavenNet extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'loveheaven.net';
+    private const DOMAIN = 'loveheaven.net';
 
     public function canHandle(): bool
     {

@@ -10,7 +10,7 @@ class ReadhentAi extends DriverAbstract
 {
     private $aMatches = [];
     private $index = 0;
-    const DOMAIN = 'readhent.ai';
+    private const DOMAIN = 'readhent.ai';
 
     public function canHandle(): bool
     {

@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class OverwatchPornPro extends XXXComicPornCom
 {
-    const DOMAIN = 'overwatchporn.pro';
+    private const DOMAIN = 'overwatchporn.pro';
 
     protected function getDomain(): string
     {

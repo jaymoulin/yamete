@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class FanFoxNet extends MangaHereCc
 {
-    const DOMAIN = 'fanfox.net';
+    private const DOMAIN = 'fanfox.net';
 
     /**
      * @return string

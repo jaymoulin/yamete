@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class MyMangaComics extends MyHentaiGallery
 {
-    const DOMAIN = 'mymangacomics.com';
+    private const DOMAIN = 'mymangacomics.com';
 
     protected function getDomain(): string
     {

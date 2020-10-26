@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class TheYiffGallery extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'theyiffgallery.com';
+    private const DOMAIN = 'theyiffgallery.com';
 
     protected function getDomain(): string
     {

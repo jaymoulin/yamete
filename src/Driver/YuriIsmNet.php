@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class YuriIsmNet extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'yuri-ism.net';
+    private const DOMAIN = 'yuri-ism.net';
 
     public function canHandle(): bool
     {

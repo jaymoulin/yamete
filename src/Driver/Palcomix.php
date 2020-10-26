@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 class Palcomix extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'palcomix.com';
+    private const DOMAIN = 'palcomix.com';
 
     public function canHandle(): bool
     {

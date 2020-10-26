@@ -8,7 +8,7 @@ use Yamete\DriverAbstract;
 class HentaiCafe extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'hentai.cafe';
+    private const DOMAIN = 'hentai.cafe';
 
     protected function getDomain(): string
     {

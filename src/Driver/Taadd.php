@@ -12,7 +12,7 @@ use Yamete\DriverAbstract;
 class Taadd extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'taadd.com';
+    private const DOMAIN = 'taadd.com';
 
     public function canHandle(): bool
     {

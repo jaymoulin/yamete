@@ -11,7 +11,7 @@ use Yamete\DriverAbstract;
 class NinemangaCom extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'ninemanga.com';
+    private const DOMAIN = 'ninemanga.com';
 
     public function canHandle(): bool
     {

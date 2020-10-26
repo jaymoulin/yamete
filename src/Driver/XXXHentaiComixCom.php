@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 if (!class_exists(XXXHentaiComixCom::class)) {
     class XXXHentaiComixCom extends DriverAbstract
     {
-        const DOMAIN = 'xxxhentaicomix.com';
+        private const DOMAIN = 'xxxhentaicomix.com';
         private $aMatches = [];
         private $aReturn = [];
         private $iPointer = 0;

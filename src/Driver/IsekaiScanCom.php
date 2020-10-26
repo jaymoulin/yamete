@@ -13,7 +13,7 @@ if (!class_exists(IsekaiScanCom::class)) {
     class IsekaiScanCom extends DriverAbstract
     {
         protected $aMatches = [];
-        const DOMAIN = 'isekaiscan.com';
+        private const DOMAIN = 'isekaiscan.com';
 
         public function canHandle(): bool
         {

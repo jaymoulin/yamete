@@ -12,7 +12,7 @@ if (!class_exists(XXXComicPornCom::class)) {
     class XXXComicPornCom extends DriverAbstract
     {
         private $aMatches = [];
-        const DOMAIN = 'xxxcomicporn.com';
+        private const DOMAIN = 'xxxcomicporn.com';
 
         protected function getDomain(): string
         {

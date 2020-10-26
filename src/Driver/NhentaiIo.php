@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 class NhentaiIo extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'nhentai.io';
+    private const DOMAIN = 'nhentai.io';
 
     public function canHandle(): bool
     {

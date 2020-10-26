@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class SuperHQNet extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'superhq.net';
+    private const DOMAIN = 'superhq.net';
 
     public function canHandle(): bool
     {

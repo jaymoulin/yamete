@@ -7,7 +7,7 @@ use iterator;
 
 class MangatxCom extends IsekaiScanCom
 {
-    const DOMAIN = 'mangatx.com';
+    private const DOMAIN = 'mangatx.com';
 
     protected function getDomain(): string
     {

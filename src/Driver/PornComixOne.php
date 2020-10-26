@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class PornComixOne extends ILikeComixCom
 {
-    const DOMAIN = 'porncomix.one';
+    private const DOMAIN = 'porncomix.one';
 
     public function canHandle(): bool
     {

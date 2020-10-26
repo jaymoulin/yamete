@@ -11,7 +11,7 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
     class FreeFamousCartoonPornCom extends DriverAbstract
     {
         private $aMatches = [];
-        const DOMAIN = 'freefamouscartoonporn.com';
+        private const DOMAIN = 'freefamouscartoonporn.com';
 
         protected function getDomain(): string
         {

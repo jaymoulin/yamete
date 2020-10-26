@@ -8,7 +8,7 @@ use Yamete\DriverAbstract;
 class PornoComics extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'pornocomics.net';
+    private const DOMAIN = 'pornocomics.net';
 
     public function canHandle(): bool
     {

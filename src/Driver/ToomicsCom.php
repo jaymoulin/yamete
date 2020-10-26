@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 class ToomicsCom extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'toomics.com';
+    private const DOMAIN = 'toomics.com';
 
     public function canHandle(): bool
     {

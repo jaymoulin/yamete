@@ -11,7 +11,7 @@ use Yamete\DriverAbstract;
 class MangaBatCom extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'mangabat.com';
+    private const DOMAIN = 'mangabat.com';
 
     public function canHandle(): bool
     {

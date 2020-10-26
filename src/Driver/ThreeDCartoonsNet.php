@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class ThreeDCartoonsNet extends ThreeDSexToonsNet
 {
-    const DOMAIN = '3dcartoons.net';
+    private const DOMAIN = '3dcartoons.net';
 
     protected function getDomain(): string
     {

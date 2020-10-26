@@ -11,7 +11,7 @@ class KissHentaiTvCom extends DriverAbstract
     private $aMatches = [];
     private $aReturn = [];
     private $index = 0;
-    const DOMAIN = 'kisshentaitv.com';
+    private const DOMAIN = 'kisshentaitv.com';
 
     public function canHandle(): bool
     {

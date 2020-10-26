@@ -5,7 +5,7 @@ namespace Yamete\Driver;
 class MangaParkNet extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'mangapark.net';
+    private const DOMAIN = 'mangapark.net';
 
     public function canHandle(): bool
     {

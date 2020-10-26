@@ -11,7 +11,7 @@ if (!class_exists(MangaHereCc::class)) {
     class MangaHereCc extends DriverAbstract
     {
         private $aMatches = [];
-        const DOMAIN = 'mangahere.cc';
+        private const DOMAIN = 'mangahere.cc';
 
         public function canHandle(): bool
         {

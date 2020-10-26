@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class MangatoonMobi extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'mangatoon.mobi';
+    private const DOMAIN = 'mangatoon.mobi';
 
     public function canHandle(): bool
     {

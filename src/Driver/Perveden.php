@@ -8,7 +8,7 @@ use Yamete\DriverAbstract;
 class Perveden extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'perveden.com';
+    private const DOMAIN = 'perveden.com';
 
     public function canHandle(): bool
     {

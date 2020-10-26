@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 class YifferXyz extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'yiffer.xyz';
+    private const DOMAIN = 'yiffer.xyz';
 
     public function canHandle(): bool
     {

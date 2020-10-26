@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class Poringa extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'poringa.net';
+    private const DOMAIN = 'poringa.net';
 
     public function canHandle(): bool
     {

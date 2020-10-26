@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 class Hitomi extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'hitomi.la';
+    private const DOMAIN = 'hitomi.la';
 
     public function canHandle(): bool
     {

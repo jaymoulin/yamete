@@ -5,7 +5,7 @@ namespace Yamete\Driver;
 
 class XLecXCom extends XCartX
 {
-    const DOMAIN = 'xlecx.com';
+    private const DOMAIN = 'xlecx.com';
 
     protected function getDomain(): string
     {

@@ -10,7 +10,7 @@ class Hentai2read extends DriverAbstract
     private $aMatches = [];
     private $aReturn = [];
     private $iPointer = 0;
-    const DOMAIN = 'hentai2read.com';
+    private const DOMAIN = 'hentai2read.com';
 
     public function canHandle(): bool
     {

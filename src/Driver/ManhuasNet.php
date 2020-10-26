@@ -11,7 +11,7 @@ use Yamete\DriverAbstract;
 class ManhuasNet extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'manhuas.net';
+    private const DOMAIN = 'manhuas.net';
 
     public function canHandle(): bool
     {

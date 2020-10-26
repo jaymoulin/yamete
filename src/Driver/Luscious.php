@@ -13,7 +13,7 @@ class Luscious extends DriverAbstract
     private $iAlbumId = 0;
     private $iPage = 0;
 
-    const DOMAIN = 'luscious.net';
+    private const DOMAIN = 'luscious.net';
     const API = 'https://www.' . self::DOMAIN . '/graphql/nobatch/?id=3&operationName=AlbumListOwnPictures&'
     . 'query=+query+AlbumListOwnPictures%28%24input%3A+PictureListInput%21%29+%7B+picture+%7B+list%28'
     . 'input%3A+%24input%29+%7B+info+%7B+...FacetCollectionInfo+%7D+items+%7B+...PictureStandardWithoutAlbum'

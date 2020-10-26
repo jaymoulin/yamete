@@ -8,7 +8,7 @@ use Yamete\DriverAbstract;
 class HentaiHand extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'hentaihand.com';
+    private const DOMAIN = 'hentaihand.com';
 
     public function canHandle(): bool
     {

@@ -10,7 +10,7 @@ if (!class_exists(Hentai4Manga::class)) {
     class Hentai4Manga extends DriverAbstract
     {
         private $aMatches = [];
-        const DOMAIN = 'hentai4manga.com';
+        private const DOMAIN = 'hentai4manga.com';
 
         protected function getDomain(): string
         {

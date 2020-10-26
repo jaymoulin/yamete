@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class XCartX extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'xcartx.com';
+    private const DOMAIN = 'xcartx.com';
 
     protected function getDomain(): string
     {

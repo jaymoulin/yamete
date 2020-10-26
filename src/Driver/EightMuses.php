@@ -10,7 +10,7 @@ class EightMuses extends DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
-    const DOMAIN = '8muses.com';
+    private const DOMAIN = '8muses.com';
 
     public function canHandle(): bool
     {

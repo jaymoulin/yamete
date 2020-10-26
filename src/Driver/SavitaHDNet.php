@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class SavitaHDNet extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'savitahd.net';
+    private const DOMAIN = 'savitahd.net';
 
     public function canHandle(): bool
     {

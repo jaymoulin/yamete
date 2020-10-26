@@ -11,7 +11,7 @@ class MangaKakalot extends DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
-    const DOMAIN = 'mangakakalot.com';
+    private const DOMAIN = 'mangakakalot.com';
 
     public function canHandle(): bool
     {

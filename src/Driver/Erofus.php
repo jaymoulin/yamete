@@ -10,7 +10,7 @@ class Erofus extends DriverAbstract
 {
     private $aMatches = [];
     private $aReturn = [];
-    const DOMAIN = 'erofus.com';
+    private const DOMAIN = 'erofus.com';
 
     public function canHandle(): bool
     {

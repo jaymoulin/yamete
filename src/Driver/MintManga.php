@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class MintManga extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'mintmanga.live';
+    private const DOMAIN = 'mintmanga.live';
 
     protected function getDomain(): string
     {

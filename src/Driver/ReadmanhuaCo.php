@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 
 class ReadmanhuaCo extends DriverAbstract
 {
-    const DOMAIN = 'readmanhua.co';
+    private const DOMAIN = 'readmanhua.co';
     protected $aMatches = [];
 
     public function canHandle(): bool

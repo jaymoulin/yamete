@@ -10,7 +10,7 @@ use Yamete\DriverAbstract;
 class MangahubIo extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'mangahub.io';
+    private const DOMAIN = 'mangahub.io';
 
     public function canHandle(): bool
     {

@@ -10,7 +10,7 @@ if (!class_exists(HentaiRulesNet::class)) {
     class HentaiRulesNet extends DriverAbstract
     {
         private $aMatches = [];
-        const DOMAIN = 'hentairules.net';
+        private const DOMAIN = 'hentairules.net';
 
         public function canHandle(): bool
         {

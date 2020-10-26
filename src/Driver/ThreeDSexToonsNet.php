@@ -9,7 +9,7 @@ if (!class_exists(ThreeDSexToonsNet::class)) {
     class ThreeDSexToonsNet extends DriverAbstract
     {
         private $aMatches = [];
-        const DOMAIN = '3dsextoons.net';
+        private const DOMAIN = '3dsextoons.net';
 
         protected function getDomain(): string
         {

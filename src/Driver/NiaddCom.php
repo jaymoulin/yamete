@@ -5,7 +5,7 @@ namespace Yamete\Driver;
 class NiaddCom extends \Yamete\DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'niadd.com';
+    private const DOMAIN = 'niadd.com';
 
     public function canHandle(): bool
     {

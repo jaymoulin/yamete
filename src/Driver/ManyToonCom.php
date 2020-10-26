@@ -11,7 +11,7 @@ if (!class_exists(ManyToonCom::class)) {
     class ManyToonCom extends DriverAbstract
     {
         protected $aMatches = [];
-        const DOMAIN = 'manytoon.com';
+        private const DOMAIN = 'manytoon.com';
 
         /**
          * @return string

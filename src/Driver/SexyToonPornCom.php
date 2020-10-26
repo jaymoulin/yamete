@@ -4,7 +4,7 @@ namespace Yamete\Driver;
 
 class SexyToonPornCom extends CartoonSexComixCom
 {
-    const DOMAIN = 'sexytoonporn.com';
+    private const DOMAIN = 'sexytoonporn.com';
 
     protected function getDomain(): string
     {

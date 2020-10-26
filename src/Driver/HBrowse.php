@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class HBrowse extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = 'hbrowse.com';
+    private const DOMAIN = 'hbrowse.com';
 
     public function canHandle(): bool
     {
