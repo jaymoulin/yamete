@@ -2,6 +2,7 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use iterator;
 use PHPHtmlParser\Dom\AbstractNode;
@@ -55,12 +56,20 @@ class LoveHeavenNet extends DriverAbstract
             $oResult = $this->getClient()->request('GET', $sUrl);
             $oPages = $this->getDomParser()->load((string)$oResult->getBody())->find('img.chapter-img');
             foreach ($oPages as $oPage) {
-                $sFilename = $oPage->getAttribute('data-src');
+                $sFilename = base64_decode($oPage->getAttribute('data-src'));
+                if (strpos($sFilename, 'http') === false) {
+                    continue;
+                }
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }
         }
         return $aReturn;
+    }
+
+    public function getClient(array $aOptions = []): Client
+    {
+        return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
     }
 }

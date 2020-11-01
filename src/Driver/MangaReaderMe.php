@@ -55,7 +55,7 @@ class MangaReaderMe extends DriverAbstract
                 continue;
             }
             foreach (explode(',', $aMatches[1]) as $sFilename) {
-                $sFilename = 'https:' . $sFilename;
+                $sFilename = strpos($sFilename, 'http') === false ? 'https:' . $sFilename : $sFilename;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename(substr($sFilename, 0, strpos($sFilename, '?')));
                 $aReturn[$sBasename] = $sFilename;
