@@ -129,7 +129,6 @@ Here's is the list of supported sites for now:
  * myhentaicomics.com
  * nxt-comics.net
  * porncomixonline.net
- * porncomix.site
  * simply-hentai.com
  * xyzcomics.com
  * hentaifantasy.it
