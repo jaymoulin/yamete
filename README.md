@@ -150,7 +150,6 @@ Here's is the list of supported sites for now:
  * toonpornpics.com
  * furrypornpics.net
  * xxxhentaipics.pro
- * lolhentai.pro
  * lolporn.pro
  * 3dsexcomics.pro
  * xxxhentaicomix.com
@@ -337,7 +336,6 @@ Here's is the list of supported sites for now:
  * hentaikun.com
  * nhentai.xxx
  * nhentai.io
- * wakascan.com
  * hentai.desi
  * xxxmilftoon.com
  * xxxcartoonpic.com
