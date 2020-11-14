@@ -29,6 +29,17 @@ Hentai is the top 3 search for both women and men and growing.
 At the beginning, this repo purpose was to download resources from web sites with PHP... It just took a strange turn... (trust me dude, it's named `EZ site downloader` for a reason)
 BUT you can still use it for its former purpose by coding your own drivers! (`-d` parameter exists for this purpose)
 
+Installation
+------------
+Easy install with a single line of code
+
+### Docker
+`docker run --rm -ti -v </path/to/downloads>:/root/downloads jaymoulin/yamete download [...]`
+
+### Composer
+`composer require jaymoulin/yamete`
+
+
 Usage
 -----
 
