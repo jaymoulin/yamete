@@ -9,7 +9,7 @@ use Yamete\DriverAbstract;
 class NineHentai extends DriverAbstract
 {
     private $aMatches = [];
-    const DOMAIN = '9hentai.com';
+    const DOMAIN = '9hentai.ru';
 
     protected function getDomain(): string
     {
@@ -32,10 +32,19 @@ class NineHentai extends DriverAbstract
      */
     public function getDownloadables(): array
     {
+        $oRes = $this->getClient()->request('GET', $this->sUrl);
+        $sBody = (string)$oRes->getBody();
+        $aMatches= [];
+        if (preg_match('~name="csrf-token" content="(?<csrf>[^"]+)~', $sBody, $aMatches) === false) {
+            return [];
+        }
         $aReturn = [];
-        $oRes = $this->getClient()->request('POST', 'https://9hentai.com/api/getBookByID', [
-            'form_params' => [
+        $oRes = $this->getClient()->request('POST', 'https://9hentai.ru/api/getBookByID', [
+            'json' => [
                 "id" => $this->aMatches['album'],
+            ],
+            'headers' => [
+                'x-csrf-token' => $aMatches['csrf'],
             ]
         ]);
         $aJson = \GuzzleHttp\json_decode((string)$oRes->getBody(), true);

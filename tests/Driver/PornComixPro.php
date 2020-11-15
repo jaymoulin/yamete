@@ -6,17 +6,17 @@ namespace YameteTests\Driver;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\TestCase;
 
-class JapanreadCc extends TestCase
+class PornComixPro extends TestCase
 {
     /**
      * @throws GuzzleException
      */
     public function testDownload()
     {
-        $url = 'https://www.japanread.cc/manga/muted';
-        $driver = new \Yamete\Driver\JapanreadCc();
+        $url = 'http://www.porncomix.pro/gallery/os-simpson-chap6';
+        $driver = new \Yamete\Driver\PornComixPro();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(16, count($driver->getDownloadables()));
+        $this->assertEquals(12, count($driver->getDownloadables()));
     }
 }

@@ -29,16 +29,15 @@ class BestPornComixCom extends DriverAbstract
         $sUrl = 'https://' . self::DOMAIN . '/gallery/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
-        $oPageList = $this->getDomParser()->load((string)$oRes->getBody())->find('.gallery-item a');
+        $aMatches = [];
+        $sReg = '~"items":\[([^\]]+)\]~um';
+        if (!preg_match($sReg, (string)$oRes->getBody(), $aMatches)) {
+            return [];
+        }
+        $aJson = \GuzzleHttp\json_decode('[' . $aMatches[1] . ']', true);
         $index = 0;
-        foreach ($oPageList as $oHref) {
-            /**
-             * @var AbstractNode $oHref
-             * @var AbstractNode $oImage
-             */
-            $oRes = $this->getClient()->request('GET', $oHref->getAttribute('href'));
-            $oImage = $this->getDomParser()->load((string)$oRes->getBody())->find('.attachment-image a')[0];
-            $sFilename = $oImage->getAttribute('href');
+        foreach ($aJson as $aItem) {
+            $sFilename = urldecode($aItem['url']);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;

@@ -12,7 +12,7 @@ Yamete - Hentai downloader in PHP CLI - Easy PHP Site downloader
 
 (This product is available under a free and permissive license, but needs financial support to sustain its continued improvements. In addition to maintenance and stability there are many desirable features yet to be added.)
 
-Early Releases are available on Patreon : https://www.patreon.com/jaymoulin/posts?tag=yamete
+Early Releases are available on https://www.japanread.cc/manga/mutedPatreon : https://www.patreon.com/jaymoulin/posts?tag=yamete
 
 This image allows you easily download specific assets of a site
 
@@ -145,7 +145,7 @@ Here's is the list of supported sites for now:
  * hentaimanga.pro
  * sexcartoonpics.com
  * xsexcomics.com
- * sexy3dcomix.com
+ * sexy3dcomics.club
  * xxxtooncomics.com
  * toonsex.pics
  * toonpornpics.com
@@ -191,7 +191,7 @@ Here's is the list of supported sites for now:
  * erofus.com
  * mangakakalot.com
  * hentaihere.com
- * 9hentai.com
+ * 9hentai.ru
  * mintmanga.live
  * hentai.cafe
  * hentai-archive.net
@@ -206,7 +206,6 @@ Here's is the list of supported sites for now:
  * ver-comics-porno.com
  * sexcomic.org
  * hentaicloud.com
- * nude-moon.net
  * hentaigratis.biz
  * doujinhentai.net
  * hentaiworld.fr
@@ -324,14 +323,12 @@ Here's is the list of supported sites for now:
  * manhuas.net
  * twhentai.com
  * lectortmo.com
- * mangacrush.com
  * mangairo.com
  * mangatoon.mobi
  * readm.org
  * rawdevart.com
  * readmanhua.co
  * mangahere.club
- * readmanhua.online
  * the-simpsonsporn.com
  * bobsvagene.club
  * readmng.com
@@ -344,6 +341,10 @@ Here's is the list of supported sites for now:
  * nhentai.io
  * wakascan.com
  * hentai.desi
- * japanread.cc
- 
+ * xxxmilftoon.com
+ * xxxcartoonpic.com
+ * overwatchporn.pro
+ * porncomix.pro
+ * heaventoon.com
+
 You must pass the URL to the album for the program to download it!

@@ -6,17 +6,17 @@ namespace YameteTests\Driver;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\TestCase;
 
-class MangaCrushCom extends TestCase
+class XXXMilftoonCom extends TestCase
 {
     /**
      * @throws GuzzleException
      */
     public function testDownload()
     {
-        $url = 'https://mangacrush.com/manga/against-the-gods/';
-        $driver = new \Yamete\Driver\MangaCrushCom();
+        $url = 'https://www.xxxmilftoon.com/galleries/iron-giant';
+        $driver = new \Yamete\Driver\XXXMilftoonCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(2172, count($driver->getDownloadables()));
+        $this->assertEquals(13, count($driver->getDownloadables()));
     }
 }

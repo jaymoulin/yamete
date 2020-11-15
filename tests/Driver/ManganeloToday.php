@@ -17,6 +17,6 @@ class ManganeloToday extends TestCase
         $driver = new \Yamete\Driver\ManganeloToday();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(147, count($driver->getDownloadables()));
+        $this->assertEquals(190, count($driver->getDownloadables()));
     }
 }
