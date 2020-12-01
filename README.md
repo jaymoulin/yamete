@@ -162,7 +162,6 @@ Here's is the list of supported sites for now:
  * xxxhentaipics.pro
  * lolporn.pro
  * 3dsexcomics.pro
- * xxxhentaicomix.com
  * xxxmangacomix.com
  * sexytoonporn.com
  * cartoonsexcomix.com
