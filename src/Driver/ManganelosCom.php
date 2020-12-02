@@ -7,10 +7,10 @@ use PHPHtmlParser\Dom\AbstractNode;
 use Traversable;
 use Yamete\DriverAbstract;
 
-class MangaRockSite extends DriverAbstract
+class ManganelosCom extends DriverAbstract
 {
     private $aMatches = [];
-    private const DOMAIN = 'mangarock.site';
+    private const DOMAIN = 'manganelos.com';
 
     public function canHandle(): bool
     {
@@ -42,13 +42,17 @@ class MangaRockSite extends DriverAbstract
          * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('.chapter-list a');
-        $aChapters = iterator_to_array($oChapters);
+        $sRegExp = '~<div class="col-xs-9 chapter">[^<]+<h4>[^<]+<a  href="([^"]+)~us';
+        $aMatches = [];
+        if (!preg_match_all($sRegExp, (string)$oRes->getBody(), $aMatches)) {
+            return [];
+        }
+        $aChapters = $aMatches[1];
         krsort($aChapters);
         $index = 0;
         $aReturn = [];
-        foreach ($aChapters as $oChapter) {
-            $oResponse = $this->getClient()->get($oChapter->getAttribute('href'));
+        foreach ($aChapters as $sChapter) {
+            $oResponse = $this->getClient()->get($sChapter);
             $sRegExp = '~<p id=arraydata style=display:none>([^<]+)~us';
             $aMatches = [];
             if (!preg_match($sRegExp, (string)$oResponse->getBody(), $aMatches)) {

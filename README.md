@@ -340,7 +340,6 @@ Here's is the list of supported sites for now:
  * readmng.com
  * kisslove.net
  * manganelo.today
- * mangarock.site
  * taadd.com
  * hentaikun.com
  * nhentai.xxx
