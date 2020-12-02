@@ -44,7 +44,24 @@ class ThreeSixtyFiveMangaCom extends DriverAbstract
          */
         $sUrl = 'https://' . self::DOMAIN . '/manga/' . $this->aMatches['album'] . '/';
         $oResult = $this->getClient()->request('GET', $sUrl);
-        $sResponse = (string)$oResult->getBody();
+        $aMatches = [];
+        if (!preg_match('~"manga_id":"([0-9]+)"~', (string)$oResult->getBody(), $aMatches)) {
+            return [];
+        }
+        $sResponse = (string)$this->getClient()
+            ->request(
+                'POST',
+                'https://' . self::DOMAIN . '/wp-admin/admin-ajax.php',
+                [
+                    'headers' => [
+                        'X-Requested-With' => 'XMLHttpRequest',
+                    ],
+                    'form_params' => [
+                        'action' => 'manga_get_chapters',
+                        'manga' => $aMatches[1],
+                    ],
+                ]
+            )->getBody();
         $oChapters = $this->getDomParser()->load($sResponse)->find('.wp-manga-chapter a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
