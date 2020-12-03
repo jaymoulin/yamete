@@ -334,7 +334,6 @@ Here's is the list of supported sites for now:
  * readm.org
  * rawdevart.com
  * readmanhua.co
- * mangahere.club
  * the-simpsonsporn.com
  * bobsvagene.club
  * readmng.com
