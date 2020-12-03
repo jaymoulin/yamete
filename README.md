@@ -337,7 +337,6 @@ Here's is the list of supported sites for now:
  * bobsvagene.club
  * readmng.com
  * kisslove.net
- * manganelo.today
  * taadd.com
  * hentaikun.com
  * nhentai.xxx
