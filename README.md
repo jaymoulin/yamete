@@ -302,7 +302,6 @@ Here's is the list of supported sites for now:
  * ninemanga.com
  * mangabat.com
  * isekaiscan.com
- * mangareader.me
  * wiemanga.com
  * fanfox.net
  * mangaeden.com
