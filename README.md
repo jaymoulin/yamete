@@ -10,6 +10,8 @@ Yamete - Hentai downloader in PHP CLI - Easy PHP Site downloader
 [![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png "Buy me a coffee")](https://www.buymeacoffee.com/3Yu8ajd7W)
 [![Become a Patron](https://badgen.net/badge/become/a%20patron/F96854 "Become a Patron")](https://patreon.com/jaymoulin)
 
+DISCLAIMER: As-of 2021, this product does not have a free support team anymore. If you want this product to be maintained, please support on Patreon.
+
 (This product is available under a free and permissive license, but needs financial support to sustain its continued improvements. In addition to maintenance and stability there are many desirable features yet to be added.)
 
 Early Releases are available on https://www.japanread.cc/manga/mutedPatreon : https://www.patreon.com/jaymoulin/posts?tag=yamete
