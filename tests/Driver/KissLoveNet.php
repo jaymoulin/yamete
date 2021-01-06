@@ -17,6 +17,6 @@ class KissLoveNet extends TestCase
         $driver = new \Yamete\Driver\KissLoveNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(193, count($driver->getDownloadables()));
+        $this->assertEquals(226, count($driver->getDownloadables()));
     }
 }
