@@ -13,7 +13,7 @@ class Xyzcomics extends TestCase
      */
     public function testDownload()
     {
-        $url = 'http://xyzcomics.com/fop-breaking-rules-4-sexy-alien-town/';
+        $url = 'https://xyzcomics.com/fop-breaking-rules-4-sexy-alien-town/';
         $driver = new \Yamete\Driver\Xyzcomics();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
