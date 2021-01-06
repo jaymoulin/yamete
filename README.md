@@ -222,7 +222,6 @@ Here's is the list of supported sites for now:
  * pornoanimexxx.com
  * comic-porno.com
  * verpornocomic.com
- * hentai-corp.com
  * myhentaigallery.com
  * pornocomics.net
  * hdhentaicomics.com
