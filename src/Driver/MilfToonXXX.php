@@ -51,7 +51,7 @@ class MilfToonXXX extends DriverAbstract
         foreach ($aChapters as $oChapter) {
             $oResult = $this->getClient()->request('GET', $oChapter->getAttribute('href'));
             $aMatches = [];
-            if (!preg_match_all('~src="([^"]+)" class=wp-manga-chapter-img~', (string)$oResult->getBody(), $aMatches)) {
+            if (!preg_match_all('~src="([^"]+)" class="wp-manga-chapter-img"~', (string)$oResult->getBody(), $aMatches)) {
                 continue;
             }
             foreach ($aMatches[1] as $sFilename) {
