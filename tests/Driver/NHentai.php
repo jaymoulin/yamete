@@ -13,10 +13,10 @@ class NHentai extends TestCase
      */
     public function testDownload()
     {
-        $url = 'https://nhentai.net/g/305104/';
+        $url = 'https://nhentai.com/en/comic/toadstool-factory-mimic-aigan-youdo-02-chinese';
         $driver = new \Yamete\Driver\NHentai();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(10, count($driver->getDownloadables()));
+        $this->assertEquals(40, count($driver->getDownloadables()));
     }
 }
