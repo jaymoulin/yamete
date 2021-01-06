@@ -323,7 +323,7 @@ Here's is the list of supported sites for now:
  * toomics.com
  * 365manga.com
  * mangainn.net
- * loveheaven.net
+ * lovehug.net
  * manga3s.com
  * manhuas.net
  * twhentai.com

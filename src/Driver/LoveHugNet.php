@@ -9,15 +9,15 @@ use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
 
 
-class LoveHeavenNet extends DriverAbstract
+class LoveHugNet extends DriverAbstract
 {
     private $aMatches = [];
-    private const DOMAIN = 'loveheaven.net';
+    private const DOMAIN = 'lovehug.net';
 
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<album>[^.]+).html$~',
+            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/(?<category>[0-9]+)/?~',
             $this->sUrl,
             $this->aMatches
         );
@@ -44,19 +44,19 @@ class LoveHeavenNet extends DriverAbstract
          * @var AbstractNode[] $oPages
          * @var AbstractNode $oImg
          */
-        $sUrl = 'https://' . self::DOMAIN . '/' . $this->aMatches['album'] . '.html';
+        $sUrl = 'https://' . implode('/', [self::DOMAIN, $this->aMatches['category'], '']);
         $oResult = $this->getClient()->request('GET', $sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('a.chapter');
+        $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.list-chapters a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];
         $index = 0;
         foreach ($aChapters as $oChapter) {
-            $sUrl = 'https://' . self::DOMAIN . '/' . $oChapter->getAttribute('href');
+            $sUrl = 'https://' . self::DOMAIN . $oChapter->getAttribute('href');
             $oResult = $this->getClient()->request('GET', $sUrl);
             $oPages = $this->getDomParser()->load((string)$oResult->getBody())->find('img.chapter-img');
             foreach ($oPages as $oPage) {
-                $sFilename = $oPage->getAttribute('data-src');
+                $sFilename = $oPage->getAttribute('src');
                 if (strpos($sFilename, 'http') === false) {
                     $sFilename = base64_decode($sFilename);
                 }
