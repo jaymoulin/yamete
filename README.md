@@ -300,7 +300,6 @@ Here's is the list of supported sites for now:
  * savitahd.net
  * bestporncomix.com
  * tenmanga.com
- * 18lhplus.com
  * ninemanga.com
  * mangabat.com
  * isekaiscan.com
