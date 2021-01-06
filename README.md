@@ -332,7 +332,6 @@ Here's is the list of supported sites for now:
  * mangatoon.mobi
  * readm.org
  * rawdevart.com
- * readmanhua.co
  * the-simpsonsporn.com
  * bobsvagene.club
  * readmng.com
