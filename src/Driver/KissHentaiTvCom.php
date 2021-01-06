@@ -36,8 +36,8 @@ class KissHentaiTvCom extends DriverAbstract
         /**
          * @var AbstractNode $oLink
          */
-        $this->sUrl = "http://www.{$this->getDomain()}/{$this->aMatches['album']}/";
-        $oRes = $this->getClient()->request('GET', $this->sUrl);
+        $this->sUrl = "http://{$this->getDomain()}/{$this->aMatches['album']}/";
+        $oRes = $this->getClient()->request('GET', $this->sUrl, ['http_errors' => false]);
         $oContent = $this->getDomParser()->load((string)$oRes->getBody());
         $this->aReturn = [];
         $this->index = 0;

@@ -13,10 +13,10 @@ class KissHentaiTvCom extends TestCase
      */
     public function testDownload()
     {
-        $url = 'https://kisshentaitv.com/nobita-and-shizuka-xxx/';
+        $url = 'https://kisshentaitv.com/nobita-shizuka-sex/';
         $driver = new \Yamete\Driver\KissHentaiTvCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(22, count($driver->getDownloadables()));
+        $this->assertEquals(34, count($driver->getDownloadables()));
     }
 }
