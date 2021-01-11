@@ -353,5 +353,6 @@ Here's is the list of supported sites for now:
  * porncomixinfo.net
  * funmanga.com
  * mangakakalots.com
+ * manga4life.com
 
 You must pass the URL to the album for the program to download it!
