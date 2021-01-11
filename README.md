@@ -357,5 +357,6 @@ Here's is the list of supported sites for now:
  * comixzilla.com
  * mult34.com
  * joyhentai.com
+ * 8muses.com/forum
 
 You must pass the URL to the album for the program to download it!
