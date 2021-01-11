@@ -15,7 +15,7 @@ class EightMuses extends DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://www\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/comi(x|cs)/album/(?<album>[^?]+)~',
+            '~^https?://(comics|www)\.' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/comi(x|cs)/album/(?<album>[^?]+)~',
             $this->sUrl,
             $this->aMatches
         );
@@ -54,7 +54,7 @@ class EightMuses extends DriverAbstract
             if (!$sHref) {
                 continue;
             }
-            $sLink = "https://www.$sDomain$sHref";
+            $sLink = "https://comics.$sDomain$sHref";
             if (!preg_match('~/[0-9]+$~', $sLink)) {
                 $this->prepareLinks($sLink);
                 continue;
