@@ -346,5 +346,6 @@ Here's is the list of supported sites for now:
  * overwatchporn.pro
  * porncomix.pro
  * heaventoon.com
+ * readfreecomics.com
 
 You must pass the URL to the album for the program to download it!
