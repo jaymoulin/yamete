@@ -348,5 +348,6 @@ Here's is the list of supported sites for now:
  * heaventoon.com
  * readfreecomics.com
  * mangaread.co
+ * webtoon.xyz
 
 You must pass the URL to the album for the program to download it!
