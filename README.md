@@ -347,5 +347,6 @@ Here's is the list of supported sites for now:
  * porncomix.pro
  * heaventoon.com
  * readfreecomics.com
+ * mangaread.co
 
 You must pass the URL to the album for the program to download it!
