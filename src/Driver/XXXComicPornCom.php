@@ -23,7 +23,7 @@ if (!class_exists(XXXComicPornCom::class)) {
         {
             return (bool)preg_match(
                 '~^https?://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
-                ')/(?<lang>[a-z]{2}/)?(galleries|images|pictures|gallery)/(?<album>[^/?]+)[/?]?~',
+                ')/(?<lang>[a-z]{2}/)?(galleries|images|pictures|gallery|videos)/(?<album>[^/?]+)[/?]?~',
                 $this->sUrl,
                 $this->aMatches
             );
