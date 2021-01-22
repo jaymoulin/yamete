@@ -19,7 +19,7 @@ class WebtoonXyz extends DriverAbstract
 
     public function canHandle(): bool
     {
-        $sReg = '~^https?://(' . strtr($this->getDomain(), ['.' => '\.']) . ')/(?<category>[^/]+)/(?<album>[^/]+)~';
+        $sReg = '~^https?://www\.(' . strtr($this->getDomain(), ['.' => '\.']) . ')/(?<category>[^/]+)/(?<album>[^/]+)~';
         return (bool)preg_match($sReg, $this->sUrl, $this->aMatches);
     }
 
