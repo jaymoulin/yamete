@@ -59,7 +59,7 @@ class MangaKakalot extends DriverAbstract
             return;
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#vungdoc img') as $oImg) {
+        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.container-chapter-reader img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */
