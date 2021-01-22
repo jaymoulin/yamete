@@ -17,6 +17,6 @@ class LoveHugNet extends TestCase
         $driver = new \Yamete\Driver\LoveHugNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(266, count($driver->getDownloadables()));
+        $this->assertEquals(562, count($driver->getDownloadables()));
     }
 }

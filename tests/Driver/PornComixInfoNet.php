@@ -17,6 +17,6 @@ class PornComixInfoNet extends TestCase
         $driver = new \Yamete\Driver\PornComixInfoNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(125, count($driver->getDownloadables()));
+        $this->assertEquals(126, count($driver->getDownloadables()));
     }
 }
