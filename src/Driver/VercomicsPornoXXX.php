@@ -29,7 +29,7 @@ class VercomicsPornoXXX extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $aMatches = [];
-        if (!preg_match_all('~src=([^ ]+) alt></figure~', $sContent, $aMatches)) {
+        if (!preg_match_all('~src=([^ ]+) alt="" /></figure~', $sContent, $aMatches)) {
             return [];
         }
         foreach ($aMatches[1] as $sFilename) {
