@@ -362,5 +362,6 @@ Here's is the list of supported sites for now:
  * terceiroz.com
  * xxxtoonpic.com
  * hentaihome.net
+ * seuhentai.com
 
 You must pass the URL to the album for the program to download it!
