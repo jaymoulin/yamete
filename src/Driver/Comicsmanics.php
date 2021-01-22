@@ -29,24 +29,23 @@ class Comicsmanics extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.post-texto img.alignnone') as $oImg) {
-            /**
-             * @var AbstractNode $oImg
-             */
-            $sFilename = $oImg->getAttribute('src');
-            $sFilename = preg_match('~^https?://~', $sFilename)
-                ? str_replace('https://', 'http://', $sFilename)
-                : 'http://www.' . self::DOMAIN . $sFilename;
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                . '-' . basename($sFilename);
-            $aReturn[$sBasename] = $sFilename;
-        }
-        if (!$index) {
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.size-large') as $oImg) {
+        $aRules = [
+            '.entry-content img.alignnone',
+            '.post-texto img.wp-post-image',
+            'img.size-large'
+        ];
+        foreach ($aRules as $sRule) {
+            if ($index) {
+                continue;
+            }
+            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sRule) as $oImg) {
                 /**
                  * @var AbstractNode $oImg
                  */
                 $sFilename = $oImg->getAttribute('src');
+                $sFilename = preg_match('~^https?://~', $sFilename)
+                    ? str_replace('https://', 'http://', $sFilename)
+                    : 'http://www.' . self::DOMAIN . $sFilename;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
