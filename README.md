@@ -359,5 +359,6 @@ Here's is the list of supported sites for now:
  * hentaixxxpic.com
  * comicsporn.pro
  * fadadosexo.com
+ * terceiroz.com
 
 You must pass the URL to the album for the program to download it!
