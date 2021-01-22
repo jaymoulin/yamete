@@ -3,8 +3,9 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
-use PHPHtmlParser\Dom\AbstractNode;
 use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
 
 class ManganeloTeamCom extends IsekaiScanCom
 {
@@ -54,7 +55,7 @@ class ManganeloTeamCom extends IsekaiScanCom
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
+         * @var Traversable $oChapters
          * @var AbstractNode $oChapter
          * @var AbstractNode $oImg
          */

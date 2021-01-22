@@ -2,7 +2,11 @@
 
 namespace Yamete\Driver;
 
-class MultPornNet extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Yamete\DriverAbstract;
+
+class MultPornNet extends DriverAbstract
 {
     private $aMatches = [];
     const DOMAIN = 'multporn.net';
@@ -24,7 +28,7 @@ class MultPornNet extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
@@ -40,7 +44,7 @@ class MultPornNet extends \Yamete\DriverAbstract
         $oRes = $this->getClient()->request('GET', $sUrl);
         foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('image') as $oImg) {
             /**
-             * @var \PHPHtmlParser\Dom\AbstractNode $oImg
+             * @var AbstractNode $oImg
              */
             $sFilename = preg_replace('~\?.*$~', '', $oImg->getAttribute('largeimageurl'));
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

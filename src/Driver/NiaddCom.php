@@ -2,7 +2,12 @@
 
 namespace Yamete\Driver;
 
-class NiaddCom extends \Yamete\DriverAbstract
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
+
+class NiaddCom extends DriverAbstract
 {
     private $aMatches = [];
     private const DOMAIN = 'niadd.com';
@@ -27,14 +32,14 @@ class NiaddCom extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode $oLink
-         * @var \PHPHtmlParser\Dom\AbstractNode $oImage
+         * @var Traversable $oChapters
+         * @var AbstractNode $oLink
+         * @var AbstractNode $oImage
          */
 
         $sUrl = 'https://es.' . self::DOMAIN . "/{$this->aMatches['type']}/{$this->aMatches['album']}/chapters.html?warning=1";

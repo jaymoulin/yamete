@@ -2,7 +2,13 @@
 
 namespace Yamete\Driver;
 
-class MangaParkNet extends \Yamete\DriverAbstract
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
+use Yamete\DriverAbstract;
+
+class MangaParkNet extends DriverAbstract
 {
     private $aMatches = [];
     private const DOMAIN = 'mangapark.net';
@@ -23,13 +29,13 @@ class MangaParkNet extends \Yamete\DriverAbstract
 
     /**
      * @return array|string[]
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var \PHPHtmlParser\Dom\AbstractNode[] $aChapters
+         * @var Traversable $oChapters
+         * @var AbstractNode[] $aChapters
          */
         $this->sUrl = "https://{$this->getDomain()}/{$this->aMatches['category']}/{$this->aMatches['album']}";
         $oRes = $this->getClient()->request('GET', $this->sUrl);
@@ -57,7 +63,7 @@ class MangaParkNet extends \Yamete\DriverAbstract
         return $aReturn;
     }
 
-    public function getClient(array $aOptions = []): \GuzzleHttp\Client
+    public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(
             [

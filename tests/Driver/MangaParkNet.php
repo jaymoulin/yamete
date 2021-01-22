@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class MangaParkNet extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class MangaParkNet extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {
@@ -18,7 +21,7 @@ class MangaParkNet extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadMultiVersion()
     {
@@ -30,7 +33,7 @@ class MangaParkNet extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadMature()
     {

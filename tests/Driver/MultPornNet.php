@@ -3,10 +3,13 @@
 namespace YameteTests\Driver;
 
 
-class MultPornNet extends \PHPUnit\Framework\TestCase
+use GuzzleHttp\Exception\GuzzleException;
+use PHPUnit\Framework\TestCase;
+
+class MultPornNet extends TestCase
 {
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownload()
     {
@@ -18,7 +21,7 @@ class MultPornNet extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function testDownloadHentai()
     {

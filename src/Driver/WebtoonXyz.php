@@ -4,6 +4,7 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
 use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
 use Yamete\DriverAbstract;
 
 class WebtoonXyz extends DriverAbstract
@@ -29,7 +30,7 @@ class WebtoonXyz extends DriverAbstract
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
+         * @var Traversable $oChapters
          * @var AbstractNode $oChapter
          * @var AbstractNode $oImg
          */

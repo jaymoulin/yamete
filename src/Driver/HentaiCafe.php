@@ -18,16 +18,16 @@ class HentaiCafe extends DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) .
-            ')/hc.fyi/(?<album>[0-9]+)~',
-            $this->sUrl,
-            $this->aMatches
-        ) or (bool)preg_match(
-            '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) .
-            ')/(?<album>[^/]+)/$~',
-            $this->sUrl,
-            $this->aMatches
-        );
+                '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) .
+                ')/hc.fyi/(?<album>[0-9]+)~',
+                $this->sUrl,
+                $this->aMatches
+            ) or (bool)preg_match(
+                '~^https?://(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-']) .
+                ')/(?<album>[^/]+)/$~',
+                $this->sUrl,
+                $this->aMatches
+            );
     }
 
     /**

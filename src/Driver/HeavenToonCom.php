@@ -2,6 +2,7 @@
 
 namespace Yamete\Driver;
 
+use Generator;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPHtmlParser\Dom\AbstractNode;
 use Traversable;
@@ -33,9 +34,9 @@ class HeavenToonCom extends DriverAbstract
     /**
      * Generator to yield chapter url for a given source code
      * @param string $sBody
-     * @return \Generator
+     * @return Generator
      */
-    private function getChaptersFromSource(string $sBody): \Generator
+    private function getChaptersFromSource(string $sBody): Generator
     {
         $sRegExp = '~<h2 class="chap"><a href="(?<chapter>[^"]+)">~';
         $aMatches = [];

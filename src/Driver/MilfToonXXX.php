@@ -2,6 +2,7 @@
 
 namespace Yamete\Driver;
 
+use iterator;
 use Yamete\DriverAbstract;
 
 class MilfToonXXX extends DriverAbstract
@@ -21,7 +22,7 @@ class MilfToonXXX extends DriverAbstract
     public function getDownloadables(): array
     {
         /**
-         * @var \iterator $oChapters
+         * @var iterator $oChapters
          */
         $sUrl = 'https://' . self::DOMAIN . '/comics/' . $this->aMatches['album'] . '/';
         $oResult = $this->getClient()->request('GET', $sUrl);

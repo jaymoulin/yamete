@@ -3,7 +3,9 @@
 namespace YameteTests\Driver;
 
 
-class OverwatchPornPro extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class OverwatchPornPro extends TestCase
 {
     public function testDownload()
     {
