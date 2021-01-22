@@ -357,5 +357,6 @@ Here's is the list of supported sites for now:
  * joyhentai.com
  * 8muses.com/forum
  * hentaixxxpic.com
+ * comicsporn.pro
 
 You must pass the URL to the album for the program to download it!
