@@ -366,5 +366,6 @@ Here's is the list of supported sites for now:
  * superhentai.blog
  * hentaixxx.me
  * hentai-img.com
+ * hentaipornpic.com
 
 You must pass the URL to the album for the program to download it!
