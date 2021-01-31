@@ -27,6 +27,10 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
             );
         }
 
+        /**
+         * Selectors for the url list
+         * @return string[]
+         */
         protected function getSelectors(): array
         {
             return [
