@@ -30,6 +30,8 @@ class Comicsmanics extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $aRules = [
+            '.post-texto img.alignnone',
+            '.single-post img.alignnone',
             '.entry-content img.alignnone',
             '.post-texto img.wp-post-image',
             'img.size-large'
