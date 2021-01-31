@@ -17,6 +17,6 @@ class Taadd extends TestCase
         $driver = new \Yamete\Driver\Taadd();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1494, count($driver->getDownloadables()));
+        $this->assertEquals(1560, count($driver->getDownloadables()));
     }
 }

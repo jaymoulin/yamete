@@ -13,10 +13,10 @@ class ManhwaHentaiMe extends TestCase
      */
     public function testDownload()
     {
-        $url = 'https://manhwahentai.me/webtoon/tell-me-you-love-me-webtoon-manhwa-hentai/';
+        $url = 'https://manhwahentai.me/webtoon/omoide-no-tsuzuku-saki/';
         $driver = new \Yamete\Driver\ManhwaHentaiMe();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(2840, count($driver->getDownloadables()));
+        $this->assertEquals(43, count($driver->getDownloadables()));
     }
 }

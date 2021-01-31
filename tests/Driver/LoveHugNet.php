@@ -13,10 +13,10 @@ class LoveHugNet extends TestCase
      */
     public function testDownload()
     {
-        $url = 'https://lovehug.net/468/40181/';
+        $url = 'https://lovehug.net/1346/';
         $driver = new \Yamete\Driver\LoveHugNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(562, count($driver->getDownloadables()));
+        $this->assertEquals(105, count($driver->getDownloadables()));
     }
 }

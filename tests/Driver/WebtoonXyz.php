@@ -17,6 +17,6 @@ class WebtoonXyz extends TestCase
         $driver = new \Yamete\Driver\WebtoonXyz();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(1376, count($driver->getDownloadables()));
+        $this->assertEquals(1774, count($driver->getDownloadables()));
     }
 }

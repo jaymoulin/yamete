@@ -17,6 +17,6 @@ class TerceirozCom extends TestCase
         $driver = new \Yamete\Driver\TerceirozCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(14, count($driver->getDownloadables()));
+        $this->assertEquals(23, count($driver->getDownloadables()));
     }
 }
