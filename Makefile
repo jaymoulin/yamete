@@ -16,7 +16,7 @@ build: qemu-aarch64-static qemu-arm-static build/test-image
 		docker build -t jaymoulin/yamete:${VERSION}-$(arch) --build-arg VERSION=${VERSION} ${CACHE} .;\
 	)
 publish:
-	docker push jaymoulin/yamete
+	docker push jaymoulin/yamete -a
 	cat manifest.yml | sed "s/\$$VERSION/${VERSION}/g" > manifest.yaml
 	cat manifest.yaml | sed "s/\$$FULLVERSION/${FULLVERSION}/g" > manifest2.yaml
 	mv manifest2.yaml manifest.yaml
