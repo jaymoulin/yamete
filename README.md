@@ -274,7 +274,6 @@ Here's is the list of supported sites for now:
  * milftoon.xxx
  * ilikecomix.com
  * yiffer.xyz
- * porncomix.one
  * avangard-iv.ru
  * sexporncomics.com
  * eggporncomics.com
