@@ -34,6 +34,7 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
         protected function getSelectors(): array
         {
             return [
+                '.grid-item-content a',
                 '#grid-content a',
                 '#aniimated-thumbnials a',
             ];
