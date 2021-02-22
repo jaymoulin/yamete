@@ -254,7 +254,6 @@ Here's is the list of supported sites for now:
  * manytoon.com
  * mysexgamer.com
  * lolhentai.net
- * kisshentaitv.com
  * hmangasearcher.com
  * mangaowl.com
  * hentaishark.com
