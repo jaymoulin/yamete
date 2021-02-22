@@ -214,7 +214,6 @@ Here's is the list of supported sites for now:
  * hentaihand.com
  * poringa.com
  * ver-comics-porno.com
- * sexcomic.org
  * hentaicloud.com
  * hentaigratis.biz
  * doujinhentai.net
