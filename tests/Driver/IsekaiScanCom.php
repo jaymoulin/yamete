@@ -17,6 +17,6 @@ class IsekaiScanCom extends TestCase
         $driver = new \Yamete\Driver\IsekaiScanCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(249, count($driver->getDownloadables()));
+        $this->assertEquals(497, count($driver->getDownloadables()));
     }
 }

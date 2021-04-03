@@ -29,6 +29,6 @@ class EightMusesComForum extends TestCase
         $driver = new \Yamete\Driver\EightMusesComForum();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(107, count($driver->getDownloadables()));
+        $this->assertEquals(131, count($driver->getDownloadables()));
     }
 }

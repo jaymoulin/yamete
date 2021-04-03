@@ -17,6 +17,6 @@ class KomikStationCom extends TestCase
         $driver = new \Yamete\Driver\KomikStationCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(303, count($driver->getDownloadables()));
+        $this->assertEquals(411, count($driver->getDownloadables()));
     }
 }

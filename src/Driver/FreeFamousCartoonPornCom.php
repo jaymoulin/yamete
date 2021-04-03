@@ -51,7 +51,8 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
             $index = 0;
             $oIterator = new ArrayIterator;
             foreach ($this->getSelectors() as $sSelector) {
-                $oIterator = $this->getDomParser()->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false))
+                $oIterator = $this->getDomParser()
+                    ->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false))
                     ->find($sSelector);
                 if (count($oIterator) !== 0) {
                     break;

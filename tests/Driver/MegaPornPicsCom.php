@@ -17,6 +17,6 @@ class MegaPornPicsCom extends TestCase
         $driver = new \Yamete\Driver\MegaPornPicsCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(23, count($driver->getDownloadables()));
+        $this->assertEquals(288, count($driver->getDownloadables()));
     }
 }

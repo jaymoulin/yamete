@@ -9,7 +9,7 @@ class EightMuses extends TestCase
 {
     public function testDownload()
     {
-        $url = 'https://www.8muses.com/comix/album/JAB-Comics/A-Model-Life/Issue-1';
+        $url = 'https://comics.8muses.com/comics/album/JAB-Comics/A-Model-Life/Issue-1';
         $driver = new \Yamete\Driver\EightMuses();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
@@ -18,7 +18,7 @@ class EightMuses extends TestCase
 
     public function testDownloadSeries()
     {
-        $url = 'https://www.8muses.com/comix/album/JAB-Comics/A-Model-Life';
+        $url = 'https://comics.8muses.com/comics/album/JAB-Comics/A-Model-Life';
         $driver = new \Yamete\Driver\EightMuses();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
