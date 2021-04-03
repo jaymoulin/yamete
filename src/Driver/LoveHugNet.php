@@ -29,7 +29,7 @@ class LoveHugNet extends DriverAbstract
      */
     private function getFolder(): string
     {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['category']]);
     }
 
     /**
@@ -56,7 +56,7 @@ class LoveHugNet extends DriverAbstract
             $oResult = $this->getClient()->request('GET', $sUrl);
             $oPages = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('img.chapter-img');
             foreach ($oPages as $oPage) {
-                $sFilename = $oPage->getAttribute('src');
+                $sFilename = trim($oPage->getAttribute('data-srcset'));
                 if (strpos($sFilename, 'http') === false) {
                     $sFilename = base64_decode($sFilename);
                 }
