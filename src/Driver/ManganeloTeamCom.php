@@ -59,8 +59,7 @@ class ManganeloTeamCom extends IsekaiScanCom
          * @var AbstractNode $oChapter
          * @var AbstractNode $oImg
          */
-        $sUrl = 'https://' . $this->getDomain() . '/' . $this->aMatches['category']
-            . '/' . $this->aMatches['album'] . '/';
+        $sUrl = 'https://' . $this->getDomain() . '/manga/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aMatches = [];
         if (!preg_match('~"manga_id":"([0-9]+)"~', (string)$oRes->getBody(), $aMatches)) {
