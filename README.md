@@ -302,7 +302,6 @@ Here's is the list of supported sites for now:
  * mangaeden.com
  * mangahere.cc
  * manganelo.com
- * mangahub.io
  * komikstation.com
  * hennojin.com
  * imgbox.com
