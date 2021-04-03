@@ -35,11 +35,11 @@ class DoujinReader extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        $oLink = $this->getDomParser()->load((string)$oRes->getBody())->find('.wallpaper_item a')[0];
+        $oLink = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.wallpaper_item a')[0];
         $sLink = $oLink->getAttribute('href');
         do {
             $oRes = $this->getClient()->request('GET', $sLink);
-            $oParser = $this->getDomParser()->load((string)$oRes->getBody());
+            $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody());
             $oNext = $oParser->find('.next_wallpaper')[0];
             $bHasNext = (bool)$oNext;
             $oImg = $oParser->find('img')[0];

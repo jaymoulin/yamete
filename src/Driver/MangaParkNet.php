@@ -42,7 +42,7 @@ class MangaParkNet extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $oChapters = $this->getDomParser()
-            ->load((string)$oRes->getBody(), ['cleanupInput' => false])
+            ->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false))
             ->find('ul.chapter a.ch');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);

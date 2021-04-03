@@ -42,11 +42,11 @@ class HennoJinCom extends DriverAbstract
         $index = 0;
         if (!$this->bSecondMatch) {
             $sResponse = file_get_contents($this->sUrl);
-            $oUrl = $this->getDomParser()->load($sResponse)->find('.col-lg-12 a.btn-primary')[0];
+            $oUrl = $this->getDomParser()->loadStr($sResponse)->find('.col-lg-12 a.btn-primary')[0];
             $this->sUrl = 'https://' . self::DOMAIN . $oUrl->getAttribute('href');
         }
         $oResponse = $this->getClient()->get($this->sUrl);
-        $oPages = $this->getDomParser()->load((string)$oResponse->getBody())->find('.mySlides img');
+        $oPages = $this->getDomParser()->loadStr((string)$oResponse->getBody())->find('.mySlides img');
         foreach ($oPages as $oImage) {
             $sFilename = 'https://' . self::DOMAIN . $oImage->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

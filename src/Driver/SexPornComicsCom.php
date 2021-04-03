@@ -42,7 +42,7 @@ class SexPornComicsCom extends DriverAbstract
             ]
         );
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('.king-q-view-content img');
+        $oPages = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.king-q-view-content img');
         $index = 0;
         $aReturn = [];
         foreach ($oPages as $oLink) {

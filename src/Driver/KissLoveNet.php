@@ -43,7 +43,7 @@ class KissLoveNet extends DriverAbstract
          * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('a.chapter');
+        $oChapters = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('a.chapter');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $index = 0;
@@ -51,7 +51,7 @@ class KissLoveNet extends DriverAbstract
         foreach ($aChapters as $oChapter) {
             $sHref = 'https://' . $this->getDomain() . '/' . $oChapter->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sHref);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.chapter-img') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.chapter-img') as $oImg) {
                 $sFilename = trim($oImg->getAttribute('data-original'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

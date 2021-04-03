@@ -43,7 +43,7 @@ class LectorTmoCom extends DriverAbstract
          * @var AbstractNode $oImage
          */
         $oResult = $this->getClient()->request('GET', $this->sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.list-group-item a.btn-default');
+        $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.list-group-item a.btn-default');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];
@@ -51,14 +51,14 @@ class LectorTmoCom extends DriverAbstract
         foreach ($aChapters as $oLink) {
             $oResult = $this->getClient()->request('GET', $oLink->getAttribute('href'));
             $sBody = (string)$oResult->getBody();
-            $oPages = $this->getDomParser()->load($sBody)->find('#viewer-pages-select option');
+            $oPages = $this->getDomParser()->loadStr($sBody)->find('#viewer-pages-select option');
             $aMatches = [];
             preg_match('~copyToClipboard\(\'([^\']+)\'~', $sBody, $aMatches);
             $sUrl = $aMatches[1];
             foreach ($oPages as $oPage) {
                 usleep(20);
                 $oResult = $this->getClient()->request('GET', $sUrl . '/' . $oPage->getAttribute('value'));
-                $oImage = $this->getDomParser()->load((string)$oResult->getBody())->find('#main-container img')[0];
+                $oImage = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('#main-container img')[0];
                 $sFilename = $oImage->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

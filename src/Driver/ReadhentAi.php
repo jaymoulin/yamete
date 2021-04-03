@@ -37,7 +37,7 @@ class ReadhentAi extends DriverAbstract
          */
         $this->sUrl = "https://{$this->getDomain()}/{$this->aMatches['category']}/{$this->aMatches['album']}";
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $oContent = $this->getDomParser()->load((string)$oRes->getBody());
+        $oContent = $this->getDomParser()->loadStr((string)$oRes->getBody());
         $aReturn = [];
         $this->index = 0;
         $oPages = $oContent->find('.preview_thumb a img');

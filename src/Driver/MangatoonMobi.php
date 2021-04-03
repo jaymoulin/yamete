@@ -32,10 +32,10 @@ class MangatoonMobi extends DriverAbstract
          */
         $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . "/en/detail/{$this->aMatches['album']}");
         $aReturn = [];
-        $oLink = $this->getDomParser()->load((string)$oRes->getBody())->find('.top-button-wrap > a')[0];
+        $oLink = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.top-button-wrap > a')[0];
         $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . $oLink->getAttribute('href'));
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.pictures img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.pictures img') as $oImg) {
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename(preg_replace('~\?(.*)$~', '', $sFilename));

@@ -28,7 +28,7 @@ class HentaiGratisBiz extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.size-full') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.size-full') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

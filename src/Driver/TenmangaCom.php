@@ -45,17 +45,17 @@ class TenmangaCom extends DriverAbstract
          */
         $sUrl = $this->sUrl . (strpos($this->sUrl, '?') ? '&' : '?') . 'waring=1';
         $oResult = $this->getClient()->request('GET', $sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.long a');
+        $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.long a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];
         $index = 0;
         foreach ($aChapters as $oLink) {
             $oResult = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            $oPages = $this->getDomParser()->load((string)$oResult->getBody())->find('.read-cont-foot .sl-page option');
+            $oPages = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.read-cont-foot .sl-page option');
             foreach ($oPages as $oPage) {
                 $oResult = $this->getClient()->request('GET', $oPage->getAttribute('value'));
-                $oImage = $this->getDomParser()->load((string)$oResult->getBody())->find('.pic_box img')[0];
+                $oImage = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.pic_box img')[0];
                 $sFilename = $oImage->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

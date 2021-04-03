@@ -30,13 +30,13 @@ class HentaiCloud extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $iIndex = 0;
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('div.thumbnail a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('div.thumbnail a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */
             $sLink = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail img') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.thumbnail img') as $oImg) {
                 /**
                  * @var AbstractNode $oImg
                  */

@@ -42,11 +42,11 @@ if (!class_exists(XXXHentaiPicsPro::class)) {
         {
             $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;
             $oRes = $this->getClient()->request('GET', $this->sUrl);
-            $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
+            $this->sUrl .= ($this->sUrl[strlen($this->sUrl) - 1] != '/') ? '/' : '';
             $this->aReturn = [];
             $this->iPointer = 0;
             $sSelectorOptions = '.container .part-select option';
-            $oOptionsIterator = $this->getDomParser()->load((string)$oRes->getBody())->find($sSelectorOptions);
+            $oOptionsIterator = $this->getDomParser()->loadStr((string)$oRes->getBody())->find($sSelectorOptions);
             foreach ($oOptionsIterator as $oOptionChap) {
                 /* @var AbstractNode $oOptionChap */
                 $sLink = 'http://www.' . $this->getDomain() . $oOptionChap->getAttribute('value');
@@ -61,7 +61,7 @@ if (!class_exists(XXXHentaiPicsPro::class)) {
 
         private function findForRes(ResponseInterface $oRes): void
         {
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
                 /* @var AbstractNode $oLink */
                 $sFilename = $oLink->getAttribute('data-img') . '.' . trim($oLink->getAttribute('data-ext'), '.');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($this->iPointer++, 5, '0', STR_PAD_LEFT)

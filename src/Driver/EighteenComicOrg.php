@@ -30,7 +30,7 @@ class EighteenComicOrg extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.panel-body .row .lazy_img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.panel-body .row .lazy_img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

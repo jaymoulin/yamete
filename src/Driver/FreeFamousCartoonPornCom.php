@@ -51,7 +51,7 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
             $index = 0;
             $oIterator = new ArrayIterator;
             foreach ($this->getSelectors() as $sSelector) {
-                $oIterator = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])
+                $oIterator = $this->getDomParser()->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false))
                     ->find($sSelector);
                 if (count($oIterator) !== 0) {
                     break;
@@ -64,9 +64,9 @@ if (!class_exists(FreeFamousCartoonPornCom::class)) {
                  */
                 $sUrl = 'http://' . $this->getDomain() . $oLink->getAttribute('href');
                 $sSelector = '.container-gal-item img';
-                $oImage = $this->getDomParser()->load(
+                $oImage = $this->getDomParser()->loadStr(
                     (string)$this->getClient()->request('GET', $sUrl)->getBody(),
-                    ['cleanupInput' => false]
+                    (new \PHPHtmlParser\Options)->setCleanupInput(false)
                 )
                     ->find($sSelector)[0];
                 if (!$oImage) {

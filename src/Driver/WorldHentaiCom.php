@@ -34,7 +34,7 @@ class WorldHentaiCom extends DriverAbstract
          */
         $sUrl = implode('/', ['http:/', self::DOMAIN, $this->aMatches['album'],]);
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('a.highslide');
+        $oPages = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('a.highslide');
         $index = 0;
         $aReturn = [];
         $aDeduplicate = [];

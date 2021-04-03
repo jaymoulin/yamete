@@ -29,7 +29,7 @@ class ThreeDPicsPro extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#thumbTable a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#thumbTable a') as $oLink) {
             /* @var AbstractNode $oLink */
             $sFilename = str_replace('index.php', $oLink->getAttribute('href'), $this->sUrl);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

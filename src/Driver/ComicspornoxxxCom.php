@@ -30,14 +30,14 @@ class ComicspornoxxxCom extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.thumbnail a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */
             $sLink = $oLink->getAttribute('href');
             $aUrlInfo = parse_url($sLink);
             $oRes = $this->getClient()->request('GET', $sLink);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#center .text-center img') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#center .text-center img') as $oImg) {
                 /**
                  * @var AbstractNode $oImg
                  */

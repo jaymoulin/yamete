@@ -26,7 +26,7 @@ class Poringa extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.main-content-post img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.main-content-post img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

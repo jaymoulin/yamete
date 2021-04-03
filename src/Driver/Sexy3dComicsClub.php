@@ -41,14 +41,14 @@ class Sexy3dComicsClub extends DriverAbstract
         $iParamsPos = strpos($this->sUrl, '?');
         $this->sUrl = $iParamsPos ? substr($this->sUrl, 0, $iParamsPos) : $this->sUrl;
         $oRes = $this->getClient()->request('GET', $this->sUrl, ['http_errors' => false]);
-        $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
+        $this->sUrl .= ($this->sUrl[strlen($this->sUrl) - 1] != '/') ? '/' : '';
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
             /* @var AbstractNode $oLink */
             $sLink = "http://" . $this->getDomain() . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink, ["http_errors" => false]);
-            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#main_img a')[0];
+            $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#main_img a')[0];
             $sFilename = $oImg->getAttribute('href');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

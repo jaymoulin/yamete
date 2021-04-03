@@ -55,7 +55,7 @@ class ToomicsCom extends DriverAbstract
             }
             $sUrl = 'https://' . self::DOMAIN . $sUrl;
             $oResult = $this->getClient()->request('GET', $sUrl);
-            foreach ($this->getDomParser()->load((string)$oResult->getBody())->find('#viewer-img img') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oResult->getBody())->find('#viewer-img img') as $oImg) {
                 $sFilename = $oImg->getAttribute('data-original');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

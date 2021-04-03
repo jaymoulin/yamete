@@ -32,13 +32,13 @@ class XXXToonPicCom extends DriverAbstract
             implode('/', ['https://www.' . self::DOMAIN, $this->aMatches['category'], $this->aMatches['album']])
         );
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery-thumb a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.gallery-thumb a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */
             $sUrl = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sUrl);
-            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#image-container img')[0];
+            $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#image-container img')[0];
             $sFilename = $oImg->getAttribute('src');
             $sFilename = strpos($sFilename, 'http') !== false ? $sFilename : 'https:' . $sFilename;
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;

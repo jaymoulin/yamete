@@ -29,7 +29,7 @@ class EightMusesComForum extends DriverAbstract
         $aReturn = [];
         $this->sUrl = 'https://comics.' . self::DOMAIN . '/forum/discussion/' . $this->aMatches['categ'] . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.bbImage') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.bbImage') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */

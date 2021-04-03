@@ -31,7 +31,7 @@ class HQHentaiOnline extends DriverAbstract
          */
         $sUrl = 'https://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $oImages = $this->getDomParser()->load((string)$oRes->getBody())->find('.fotos img');
+        $oImages = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.fotos img');
         $index = 0;
         $aFound = [];
         $aReturn = [];

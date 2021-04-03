@@ -53,12 +53,12 @@ class HentaiWorldFr extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */
             $sChapUrl = $oLink->getAttribute('href');
-            if ($sChapUrl{0} == '/' || $sChapUrl{0} == '?' || preg_match('~^image[0-9]+\.html?$~', $sChapUrl)) {
+            if ($sChapUrl[0] == '/' || $sChapUrl[0] == '?' || preg_match('~^image[0-9]+\.html?$~', $sChapUrl)) {
                 continue;
             }
             $sFilename = $sUrl . $oLink->getAttribute('href');
@@ -66,7 +66,7 @@ class HentaiWorldFr extends DriverAbstract
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$iIndex, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
-            } elseif ($sChapUrl{-1} == '/') {
+            } elseif ($sChapUrl[-1] == '/') {
                 $this->getForUrl($sFilename, $oAppend, $iIndex);
             }
         }

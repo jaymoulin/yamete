@@ -34,7 +34,7 @@ class HentaiZoneMe extends DriverAbstract
          */
         $sUrl = 'https://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('.fg_thumbnail a');
+        $oChapters = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.fg_thumbnail a');
         $index = 0;
         $aReturn = [];
         foreach ($oChapters as $oImg) {

@@ -51,7 +51,7 @@ class AvangardIvRu extends DriverAbstract
                 $this->aMatches['album'],
             ]
         );
-        $oPages = $this->getDomParser()->load(file_get_contents($sUrl))->find('.king-q-view-content img');
+        $oPages = $this->getDomParser()->loadStr(file_get_contents($sUrl))->find('.king-q-view-content img');
         $index = 0;
         $aReturn = [];
         foreach ($oPages as $oLink) {

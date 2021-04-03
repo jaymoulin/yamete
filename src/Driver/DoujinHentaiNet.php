@@ -36,12 +36,12 @@ class DoujinHentaiNet extends DriverAbstract
             implode('/', [$this->aMatches['category'], $this->aMatches['album']]);
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('ul.version-chap a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('ul.version-chap a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('div#all img') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('div#all img') as $oImg) {
                 /**
                  * @var AbstractNode $oImg
                  */

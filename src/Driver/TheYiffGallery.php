@@ -36,7 +36,7 @@ class TheYiffGallery extends DriverAbstract
         $sBody = (string)$oRes->getBody();
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load($sBody)->find('.thumbnails li a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr($sBody)->find('.thumbnails li a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              * @var AbstractNode $oImg
@@ -44,7 +44,7 @@ class TheYiffGallery extends DriverAbstract
             $sUrl = 'https://' . $this->getDomain() . '/' . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sUrl);
             $sBody = (string)$oRes->getBody();
-            $oImg = $this->getDomParser()->load($sBody)->find('#theImage img')[0];
+            $oImg = $this->getDomParser()->loadStr($sBody)->find('#theImage img')[0];
             $sFilename = 'https://' . $this->getDomain() . '/' . $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

@@ -37,7 +37,7 @@ class MintManga extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $sSelector = '#chapterSelectorSelect option';
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($sSelector) as $oLink) {
             usleep(1000);
             /**
              * @var AbstractNode $oLink

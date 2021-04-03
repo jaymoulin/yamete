@@ -36,7 +36,7 @@ class HDPornComics extends DriverAbstract
         $sBody = (string)$oRes->getBody();
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load($sBody)->find('.my-gallery figure a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr($sBody)->find('.my-gallery figure a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */

@@ -44,20 +44,20 @@ class HentaiKunCom extends DriverAbstract
          * @var AbstractNode $oImage
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('a.readchap');
+        $oChapters = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('a.readchap');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];
         foreach ($aChapters as $oLink) {
             $oResult = $this->getClient()->request('GET', trim($oLink->getAttribute('href')));
-            $oPages = $this->getDomParser()->load((string)$oResult->getBody())->find('.form-control option');
+            $oPages = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.form-control option');
             foreach ($oPages as $oPage) {
                 $sOption = $oPage->getAttribute('value');
                 if (strpos($sOption, 'https') === false) {
                     continue;
                 }
                 $oRes = $this->getClient()->request('GET', $sOption);
-                $oImage = $this->getDomParser()->load((string)$oRes->getBody())->find('#con img')[0];
+                $oImage = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#con img')[0];
                 $sFilename = trim($oImage->getAttribute('src'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;

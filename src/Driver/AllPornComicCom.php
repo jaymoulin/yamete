@@ -44,14 +44,14 @@ class AllPornComicCom extends DriverAbstract
         $sUrl = 'https://' .
             implode('/', [$this->getDomain(), $this->aMatches['category'], $this->aMatches['album'], '']);
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('li.wp-manga-chapter > a');
+        $oChapters = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('li.wp-manga-chapter > a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $index = 0;
         $aReturn = [];
         foreach ($aChapters as $oChapter) {
             $oRes = $this->getClient()->request('GET', $oChapter->getAttribute('href'));
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.wp-manga-chapter-img') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.wp-manga-chapter-img') as $oImg) {
                 $sFilename = trim($oImg->getAttribute('src'));
                 $iPos = strpos($sFilename, '?');
                 $sFilename = substr($sFilename, 0, $iPos);

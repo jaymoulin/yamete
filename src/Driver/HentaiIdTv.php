@@ -23,7 +23,7 @@ class HentaiIdTv extends DriverAbstract
         )) {
             $oRes = $this->getClient()->request('GET', $this->sUrl);
             /* @var AbstractNode $oLink */
-            $oLink = $this->getDomParser()->load((string)$oRes->getBody())->find('.mm2 a')[0];
+            $oLink = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.mm2 a')[0];
             $aMatch = [];
             if (preg_match('~\?s=(?<url>.+)~', $oLink->getAttribute('href'), $aMatch)) {
                 $this->sUrl = $aMatch['url'];
@@ -50,14 +50,14 @@ class HentaiIdTv extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $sSelector = '#inlineFormCustomSelect option';
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($sSelector) as $oLink) {
             /**
              * @var AbstractNode $oLink
              * @var AbstractNode $oImg
              */
             $sUrl = "{$sBaseUrl}&p={$oLink->getAttribute('value')}";
             $oRes = $this->getClient()->request('GET', $sUrl);
-            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('img.img-m2')[0];
+            $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.img-m2')[0];
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

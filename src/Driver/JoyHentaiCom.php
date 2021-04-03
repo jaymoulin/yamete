@@ -28,7 +28,7 @@ class JoyHentaiCom extends DriverAbstract
     {
         $aReturn = [];
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.bookview-wrap img.lazyload') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.bookview-wrap img.lazyload') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

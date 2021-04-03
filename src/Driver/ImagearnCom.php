@@ -29,7 +29,7 @@ class ImagearnCom extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $oParser = $this->getDomParser()->load((string)$oRes->getBody());
+        $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody());
         $iNbPage = 1;
         $iPage = 1;
         $aMatch = [];

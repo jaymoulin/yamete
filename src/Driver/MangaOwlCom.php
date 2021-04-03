@@ -29,7 +29,7 @@ class MangaOwlCom extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 1;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#selectChapter option') as $oOption) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#selectChapter option') as $oOption) {
             /**
              * @var AbstractNode $oOption
              * @var AbstractNode $oImg
@@ -38,7 +38,7 @@ class MangaOwlCom extends DriverAbstract
             $sUrl = strpos($sUrl, '://') === false ? 'https://' . self::DOMAIN . $sUrl : $sUrl;
             $oRes = $this->getClient()->request('GET', $sUrl);
             $aChap = [];
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.owl-lazy') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.owl-lazy') as $oImg) {
                 $sFilename = $oImg->getAttribute('data-src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

@@ -28,12 +28,12 @@ class MangairoCom extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', 'https://m.' . self::DOMAIN . '/' . $this->aMatches['album']);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#chapter_list a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#chapter_list a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.img_content') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.img_content') as $oImg) {
                 /**
                  * @var AbstractNode $oImg
                  */

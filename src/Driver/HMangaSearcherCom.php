@@ -43,7 +43,7 @@ class HMangaSearcherCom extends DriverAbstract
                     'http://www.' . self::DOMAIN . '/' .
                     implode('/', ['c', $this->aMatches['album'], $iChapter, $iPage])
                 );
-            $oParser = $this->getDomParser()->load((string)$oRes->getBody());
+            $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody());
             $oNextPage = $oParser->find('ul.pagination .next')[0];
             $oNextChapter = $oParser->find('div.mgch a')[2];
             $oImg = $oParser->find('div.row img.center-block')[0];

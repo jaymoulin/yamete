@@ -31,10 +31,10 @@ class HentaiSchoolCom extends DriverAbstract
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $oIframe = $this->getDomParser()->load((string)$oRes->getBody())->find('iframe#frame-id')[0];
+        $oIframe = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('iframe#frame-id')[0];
         $sUrl = $oIframe->getAttribute('src');
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $iNbPage = count($this->getDomParser()->load((string)$oRes->getBody())->find('select.page-form option'));
+        $iNbPage = count($this->getDomParser()->loadStr((string)$oRes->getBody())->find('select.page-form option'));
         for ($index = 1; $index <= $iNbPage; $index++) {
             $sFilename = $sUrl . $index . '.jpg';
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index, 5, '0', STR_PAD_LEFT)

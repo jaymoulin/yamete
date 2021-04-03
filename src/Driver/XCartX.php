@@ -36,7 +36,7 @@ class XCartX extends DriverAbstract
         $sBody = (string)$oRes->getBody();
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load($sBody)->find('.full-text a.highslide') as $oLink) {
+        foreach ($this->getDomParser()->loadStr($sBody)->find('.full-text a.highslide') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */

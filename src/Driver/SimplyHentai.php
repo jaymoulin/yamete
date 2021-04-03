@@ -25,7 +25,7 @@ class SimplyHentai extends DriverAbstract
     public function getDownloadables(): array
     {
         $sUrl = 'https://' . $this->aMatches['domain'] . '/' . $this->aMatches['album'] .
-            ($this->aMatches['album']{strlen($this->aMatches['album']) - 1} == '/' ? '' : '/') . 'all-pages';
+            ($this->aMatches['album'][strlen($this->aMatches['album']) - 1] == '/' ? '' : '/') . 'all-pages';
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $index = 0;

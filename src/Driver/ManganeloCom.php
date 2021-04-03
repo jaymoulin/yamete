@@ -32,14 +32,14 @@ class ManganeloCom extends DriverAbstract
         $sStartUrl = 'https://' . self::DOMAIN;
         $sUrl = $sStartUrl . '/manga/' . $this->aMatches['album'];
         $oResponse = $this->getClient()->get($sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oResponse->getBody())->find('a.chapter-name');
+        $oChapters = $this->getDomParser()->loadStr((string)$oResponse->getBody())->find('a.chapter-name');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $index = 0;
         $aReturn = [];
         foreach ($aChapters as $oLink) {
             $oResponse = $this->getClient()->get($oLink->getAttribute('href'));
-            $oPages = $this->getDomParser()->load((string)$oResponse->getBody())->find('.container-chapter-reader img');
+            $oPages = $this->getDomParser()->loadStr((string)$oResponse->getBody())->find('.container-chapter-reader img');
             foreach ($oPages as $oImage) {
                 $sFilename = $oImage->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

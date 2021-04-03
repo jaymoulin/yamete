@@ -30,11 +30,11 @@ class Palcomix extends DriverAbstract
         $oRes = $this->getClient()
             ->request('GET', 'http://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/index.html');
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thumbnail a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.thumbnail a') as $oLink) {
             /** @var AbstractNode $oLink */
             $sLink = 'http://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/' . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('img') as $oImg) {
                 /**
                  * @var AbstractNode $oImg
                  */

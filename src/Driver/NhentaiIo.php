@@ -44,7 +44,7 @@ class NhentaiIo extends DriverAbstract
         $sUrl = 'https://' .
             implode('/', [$this->getDomain(), $this->aMatches['album'], 'read', '']);
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('.reading-content img');
+        $oPages = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.reading-content img');
         $aPages = iterator_to_array($oPages);
         krsort($aPages);
         $index = 0;

@@ -40,10 +40,10 @@ class CartoonSexComixCom extends DriverAbstract
         $iParamsPos = strpos($this->sUrl, '?');
         $this->sUrl = $iParamsPos ? substr($this->sUrl, 0, $iParamsPos) : $this->sUrl;
         $oRes = $this->getClient()->request('GET', $this->sUrl, ['http_errors' => false]);
-        $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
+        $this->sUrl .= ($this->sUrl[strlen($this->sUrl) - 1] != '/') ? '/' : '';
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
             /* @var AbstractNode $oLink */
             $sFilename = $oLink->getAttribute('href');
             $sFilename = strpos($sFilename, 'http') !== false

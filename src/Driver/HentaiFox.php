@@ -63,7 +63,7 @@ class HentaiFox extends DriverAbstract
         ];
         $index = 0;
         foreach ($oQueries as $sBody) {
-            foreach ($this->getDomParser()->load($sBody)->find('.g_thumb img') as $oImg) {
+            foreach ($this->getDomParser()->loadStr($sBody)->find('.g_thumb img') as $oImg) {
                 /**
                  * @var AbstractNode $oImg
                  */

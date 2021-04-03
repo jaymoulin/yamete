@@ -29,11 +29,11 @@ class HDHentaiComics extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        $oImgs = $this->getDomParser()->load((string)$oRes->getBody())->find('.my-gallery figure img');
+        $oImgs = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.my-gallery figure img');
         foreach ($oImgs as $oImg) {
             /* @var AbstractNode $oImg */
             $sFilename = strtr($oImg->getAttribute('data-src'), ['/thumbs/' => '/images/']);
-            $sFilename{strrpos($sFilename, '-')} = '/';
+            $sFilename[strrpos($sFilename, '-')] = '/';
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;

@@ -39,7 +39,7 @@ class FadaDoSexoCom extends DriverAbstract
          * @var AbstractNode $oPages
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('#conteudo a img.lazy');
+        $oPages = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#conteudo a img.lazy');
         $index = 0;
         $aReturn = [];
         foreach ($oPages as $oPage) {

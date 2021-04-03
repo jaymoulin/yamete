@@ -34,7 +34,7 @@ class MangaEdenCom extends DriverAbstract
          * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('a.chapterLink');
+        $oChapters = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('a.chapterLink');
         $aChapters = iterator_to_array($oChapters);
         $aReturn = [];
         krsort($aChapters);

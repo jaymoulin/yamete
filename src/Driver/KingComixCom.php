@@ -28,7 +28,7 @@ class KingComixCom extends DriverAbstract
     {
         $aReturn = [];
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.entry-content img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.entry-content img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

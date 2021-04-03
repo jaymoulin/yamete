@@ -29,7 +29,7 @@ class PorncomixOnline extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $bFound = false;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.unite-gallery img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.unite-gallery img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */
@@ -38,7 +38,7 @@ class PorncomixOnline extends DriverAbstract
             $bFound = true;
         }
         if (!$bFound) {
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('figure.dgwt-jg-item a') as $oLink) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('figure.dgwt-jg-item a') as $oLink) {
                 /**
                  * @var AbstractNode $oLink
                  */

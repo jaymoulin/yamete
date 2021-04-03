@@ -29,7 +29,7 @@ class Mult34Com extends DriverAbstract
         $aReturn = [];
         $this->sUrl = 'https://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery-item a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.gallery-item a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */
@@ -39,7 +39,7 @@ class Mult34Com extends DriverAbstract
             }
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.thn_post_wrap p img.lazyload') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.thn_post_wrap p img.lazyload') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */

@@ -56,7 +56,7 @@ class PornComixInfoNet extends DriverAbstract
                     ],
                 ]
             )->getBody();
-        $oChapters = $this->getDomParser()->load($sResponse)->find('.wp-manga-chapter a');
+        $oChapters = $this->getDomParser()->loadStr($sResponse)->find('.wp-manga-chapter a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];

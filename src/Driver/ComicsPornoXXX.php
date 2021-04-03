@@ -29,7 +29,7 @@ class ComicsPornoXXX extends DriverAbstract
         $sContent = file_get_contents($this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load($sContent)->find('p img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr($sContent)->find('p img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

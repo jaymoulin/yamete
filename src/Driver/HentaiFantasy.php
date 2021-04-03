@@ -29,7 +29,7 @@ class HentaiFantasy extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.group .element .title a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.group .element .title a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */
@@ -46,13 +46,13 @@ class HentaiFantasy extends DriverAbstract
             }
             $oRes = $this->getClient()->request('GET', $sLink);
             $sSelector = '.topbar_right .dropdown li a';
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sSelector) as $oPage) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($sSelector) as $oPage) {
                 /**
                  * @var AbstractNode $oPage
                  * @var AbstractNode $oImg
                  */
                 $oRes = $this->getClient()->request('GET', $oPage->getAttribute('href'));
-                $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('img.open')[0];
+                $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.open')[0];
                 $sFilename = $oImg->getAttribute('src');
                 $sPath = $this->getFolder() . DIRECTORY_SEPARATOR
                     . $aMatches['chapters'] . DIRECTORY_SEPARATOR

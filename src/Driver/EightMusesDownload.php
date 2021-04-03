@@ -29,7 +29,7 @@ class EightMusesDownload extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.popup-gallery figure a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.popup-gallery figure a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */

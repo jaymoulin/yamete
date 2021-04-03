@@ -29,7 +29,9 @@ class PornoAnimeXXX extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        $oImgList = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('img');
+        $oImgList = $this->getDomParser()
+            ->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false))
+            ->find('img');
         foreach ($oImgList as $oImg) {
             /**
              * @var AbstractNode $oImg

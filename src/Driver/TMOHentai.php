@@ -51,13 +51,13 @@ class TMOHentai extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.panel-body .well a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.panel-body .well a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              * @var AbstractNode $oImg
              */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('img.content-image')[0];
+            $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.content-image')[0];
 
             $sFilename = "https://www.{$this->getDomain()}{$oImg->getAttribute('data-original')}";
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

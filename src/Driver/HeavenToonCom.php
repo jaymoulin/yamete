@@ -47,7 +47,7 @@ class HeavenToonCom extends DriverAbstract
                 yield $sChapterUrl;
             }
         } else {
-            $oChapters = $this->getDomParser()->load($sBody)->find('.container option');
+            $oChapters = $this->getDomParser()->loadStr($sBody)->find('.container option');
             /** @var Traversable $oChapters */
             $aChapters = iterator_to_array($oChapters);
             foreach ($aChapters as $oChapter) {
@@ -72,7 +72,7 @@ class HeavenToonCom extends DriverAbstract
         $aReturn = [];
         foreach ($this->getChaptersFromSource((string)$oRes->getBody()) as $sChapterUrl) {
             $oRes = $this->getClient()->request('GET', $sChapterUrl);
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.chapter-content-inner img') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.chapter-content-inner img') as $oImg) {
                 $sFilename = trim($oImg->getAttribute('src'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

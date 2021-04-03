@@ -43,7 +43,7 @@ class ILikeComixCom extends DriverAbstract
         $sUrl = 'https://' .
             implode('/', [$this->getDomain(), $this->aMatches['category'], $this->aMatches['album'], '']);
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('figure > a');
+        $oPages = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('figure > a');
         $aReturn = [];
         $index = 0;
         foreach ($oPages as $oLink) {

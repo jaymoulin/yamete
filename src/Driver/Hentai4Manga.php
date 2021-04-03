@@ -41,7 +41,7 @@ if (!class_exists(Hentai4Manga::class)) {
             $oRes = $this->getClient()->request('GET', $sMainUrl);
             $aReturn = [];
             $iNbPage = count(
-                    $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false])->find('#page div')
+                    $this->getDomParser()->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false))->find('#page div')
                 ) - 2;
             $this->parse($this->sUrl, $aReturn);
             if ($iNbPage > 1) {
@@ -56,13 +56,13 @@ if (!class_exists(Hentai4Manga::class)) {
         private function parse(string $sUrl, array &$aReturn): void
         {
             $sSelector = '#thumblist a';
-            foreach ($this->getDomParser()->loadFromUrl($sUrl, ['cleanupInput' => false])->find($sSelector) as $oLink) {
+            foreach ($this->getDomParser()->loadFromUrl($sUrl, (new \PHPHtmlParser\Options)->setCleanupInput(false))->find($sSelector) as $oLink) {
                 /**
                  * @var AbstractNode $oLink
                  * @var AbstractNode $oImg
                  */
                 $sCurrentImg = 'http://' . $this->aMatches['domain'] . $oLink->getAttribute('href');
-                $oImg = $this->getDomParser()->loadFromUrl($sCurrentImg, ['cleanupInput' => false])
+                $oImg = $this->getDomParser()->loadFromUrl($sCurrentImg, (new \PHPHtmlParser\Options)->setCleanupInput(false))
                     ->find('#innerContent div a img, #view_main div a img')[0];
                 $sFilename = 'http://' . $this->aMatches['domain'] . $oImg->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR .

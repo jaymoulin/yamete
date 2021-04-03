@@ -41,14 +41,14 @@ class AnimephileCom extends DriverAbstract
          */
         $this->sUrl = "http://www.{$this->getDomain()}/{$this->aMatches['category']}/{$this->aMatches['album']}.html";
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $oContent = $this->getDomParser()->load((string)$oRes->getBody());
+        $oContent = $this->getDomParser()->loadStr((string)$oRes->getBody());
         $this->aReturn = [];
         $this->index = 0;
         $oChapters = $oContent->find('.folders a');
         foreach ($oChapters as $oLink) {
             $sChapUrl = $this->sUrl . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sChapUrl);
-            $oContent = $this->getDomParser()->load((string)$oRes->getBody());
+            $oContent = $this->getDomParser()->loadStr((string)$oRes->getBody());
             foreach ($oContent->find('.thumbs ul li a img') as $oImg) {
                 $sFilename = str_replace('/thumbs/', '/', $oImg->getAttribute('src'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($this->index++, 5, '0', STR_PAD_LEFT)
@@ -59,7 +59,7 @@ class AnimephileCom extends DriverAbstract
         if (!$this->index) {
             foreach ($oContent->find('select.selectmpg option') as $oMpg) {
                 $oRes = $this->getClient()->request('GET', "{$this->sUrl}?mpg={$oMpg->getAttribute('value')}");
-                $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#mainimage')[0];
+                $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#mainimage')[0];
                 $sFilename = strpos($oImg->getAttribute('src'), 'http://') === false
                     ? "http://www.{$this->getDomain()}{$oImg->getAttribute('src')}"
                     : $oImg->getAttribute('src');

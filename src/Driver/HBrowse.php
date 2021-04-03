@@ -30,20 +30,20 @@ class HBrowse extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $sAccessor = '#main .listTable .listMiddle a';
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sAccessor) as $oLink) { //chapters
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($sAccessor) as $oLink) { //chapters
             /**
              * @var AbstractNode $oLink
              */
             $sLink = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
-            $oBody = $this->getDomParser()->load((string)$oRes->getBody());
+            $oBody = $this->getDomParser()->loadStr((string)$oRes->getBody());
             foreach ($oBody->find('#jsPageList a') as $oImg) { //images
                 /**
                  * @var AbstractNode $oImg
                  */
                 $sHref = 'https://www.' . self::DOMAIN . $oImg->getAttribute('href') ?: $sLink . '/00001';
                 $oRes = $this->getClient()->request('GET', $sHref);
-                $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#mangaImage');
+                $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#mangaImage');
                 $sFilename = $oImg->getAttribute('src');
                 $sFilename = preg_match('~^https?://~', $sFilename)
                     ? $sFilename

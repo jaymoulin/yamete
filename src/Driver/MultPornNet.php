@@ -42,7 +42,7 @@ class MultPornNet extends DriverAbstract
         }
         $sUrl = 'https://' . $this->getDomain() . str_replace('\/', '/', $aMatch[1]);
         $oRes = $this->getClient()->request('GET', $sUrl);
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('image') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('image') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

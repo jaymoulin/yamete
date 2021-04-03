@@ -57,11 +57,11 @@ class HentaiDesi extends DriverAbstract
                 $sUrl = 'https://' . self::DOMAIN . "/hentai_{$this->aMatches['type']}/{$this->aMatches['album']}/";
             }
             $oResult = $this->getClient()->request('GET', $sUrl);
-            $oPages = $this->getDomParser()->load((string)$oResult->getBody())->find('a.thumbnail');
+            $oPages = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('a.thumbnail');
             foreach ($oPages as $oPage) {
                 $oResult = $this->getClient()
                     ->request('GET', 'https://' . self::DOMAIN . $oPage->getAttribute('href'));
-                $oImage = $this->getDomParser()->load((string)$oResult->getBody())->find('img.img-responsive')[0];
+                $oImage = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('img.img-responsive')[0];
                 $sSrc = $oImage->getAttribute('src');
                 $sFilename = strpos('http', $sSrc) === false ? 'https://' . self::DOMAIN . $sSrc : $sSrc;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

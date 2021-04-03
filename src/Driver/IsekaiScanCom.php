@@ -63,7 +63,7 @@ if (!class_exists(IsekaiScanCom::class)) {
              */
             $sUrl = 'https://' . $this->getDomain() . '/manga/' . $this->aMatches['album'] . '/';
             $oResult = $this->getClient()->request('GET', $sUrl);
-            $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find($this->getChapterRule());
+            $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find($this->getChapterRule());
             $aChapters = iterator_to_array($oChapters);
             krsort($aChapters);
             $aReturn = [];

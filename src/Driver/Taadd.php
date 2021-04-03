@@ -54,10 +54,10 @@ class Taadd extends DriverAbstract
         $index = 0;
         foreach ($aChapters as $sLink) {
             $oResult = $this->getClient()->request('GET', 'https://' . self::DOMAIN . $sLink);
-            $oPages = $this->getDomParser()->load((string)$oResult->getBody())->find('#page option');
+            $oPages = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('#page option');
             foreach ($oPages as $oPage) {
                 $oResult = $this->getClient()->request('GET', $oPage->getAttribute('value'));
-                $oImage = $this->getDomParser()->load((string)$oResult->getBody())->find('#comicpic')[0];
+                $oImage = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('#comicpic')[0];
                 $sFilename = $oImage->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

@@ -31,7 +31,7 @@ class SuperhentaiBlog extends DriverAbstract
             implode('/', ['https://' . self::DOMAIN, $this->aMatches['album']])
         );
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery-icon img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.gallery-icon img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

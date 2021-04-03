@@ -30,7 +30,7 @@ class HentaiImgCom extends DriverAbstract
         $this->sUrl = implode('/', ['https://' . self::DOMAIN, 'image', $this->aMatches['album'], 'page/1/']);
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        $oParser = $this->getDomParser()->load((string)$oRes->getBody());
+        $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody());
         $iNbPage = 1;
         $iPage = 1;
         $aMatch = [];
@@ -49,7 +49,7 @@ class HentaiImgCom extends DriverAbstract
             }
             $this->sUrl = str_replace('page/' . $iPage, 'page/' . ++$iPage, $this->sUrl);
             $oRes = $this->getClient()->request('GET', $this->sUrl);
-            $oParser = $this->getDomParser()->load((string)$oRes->getBody());
+            $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody());
         } while ($iPage <= $iNbPage);
         return $aReturn;
     }

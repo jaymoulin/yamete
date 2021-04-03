@@ -43,7 +43,7 @@ class HentaiRead extends DriverAbstract
         $bFound = false;
         $index = 0;
         $aMatches = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('li.wp-manga-chapter a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('li.wp-manga-chapter a') as $oLink) {
             /* @var AbstractNode $oLink */
             $this->getLinks($oLink->getAttribute('href'));
             $bFound = true;

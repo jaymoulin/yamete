@@ -32,7 +32,7 @@ class ComicsArmyCom extends DriverAbstract
             implode('/', ['https://' . self::DOMAIN, $this->aMatches['album'], ''])
         );
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('figure > a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('figure > a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */

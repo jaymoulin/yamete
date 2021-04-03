@@ -35,14 +35,14 @@ class HentaiItaNet extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.blocks-gallery-item figure a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.blocks-gallery-item figure a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              * @var AbstractNode $oImg
              */
             $sUrl = $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sUrl);
-            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('.entry-attachment img')[0];
+            $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.entry-attachment img')[0];
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

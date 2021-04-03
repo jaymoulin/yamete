@@ -29,7 +29,7 @@ class HentaiThai extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.img-fluid img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.img-fluid img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

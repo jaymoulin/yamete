@@ -52,14 +52,14 @@ class MangaTownCom extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $oChapters = $this->getDomParser()
-            ->load((string)$oRes->getBody(), ['cleanupInput' => false])
+            ->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false))
             ->find('ul.chapter_list a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         foreach ($aChapters as $oLink) {
             $sChapUrl = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sChapUrl);
-            $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('.page_select select option');
+            $oPages = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.page_select select option');
             $aPages = iterator_to_array($oPages);
             $aPages = array_slice($aPages, 0, count($aPages) / 2);
             array_pop($aPages);
@@ -67,7 +67,7 @@ class MangaTownCom extends DriverAbstract
                 $sPageUrl = 'https://www.' . self::DOMAIN . $oPageUrl->getAttribute('value');
                 $oRes = $this->getClient()->request('GET', $sPageUrl);
                 $oImg = $this->getDomParser()
-                    ->load((string)$oRes->getBody())
+                    ->loadStr((string)$oRes->getBody())
                     ->find('#image')[0];
                 $sFilename = $oImg->getAttribute('src');
                 $iPos = strpos($sFilename, '?');

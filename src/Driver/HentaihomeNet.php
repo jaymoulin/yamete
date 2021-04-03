@@ -31,7 +31,7 @@ class HentaihomeNet extends DriverAbstract
             implode('/', ['https://www.' . self::DOMAIN, $this->aMatches['album']])
         );
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.fancybox img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('a.fancybox img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

@@ -29,7 +29,7 @@ class TheHentaiComics extends DriverAbstract
         $aReturn = [];
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.size-full') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.size-full') as $oImg) {
             /* @var AbstractNode $oImg */
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 3, '0', STR_PAD_LEFT)

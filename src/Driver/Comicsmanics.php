@@ -40,7 +40,7 @@ class Comicsmanics extends DriverAbstract
             if ($index) {
                 continue;
             }
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sRule) as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($sRule) as $oImg) {
                 /**
                  * @var AbstractNode $oImg
                  */

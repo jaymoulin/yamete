@@ -28,7 +28,7 @@ class XXXMilftoonCom extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a.img-init') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('a.img-init') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */

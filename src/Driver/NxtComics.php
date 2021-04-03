@@ -30,7 +30,7 @@ class NxtComics extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $sRule = '.entry-content figure.dgwt-jg-item a';
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find($sRule) as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($sRule) as $oLink) {
             /**
              * @var AbstractNode $oLink
              */

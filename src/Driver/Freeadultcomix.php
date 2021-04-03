@@ -28,7 +28,7 @@ class Freeadultcomix extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.aligncenter') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.aligncenter') as $oImg) {
             /** @var AbstractNode $oImg */
             $sFilename = $oImg->getAttribute('src');
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;

@@ -31,7 +31,7 @@ if (!class_exists(HentaiRulesNet::class)) {
             $oRes = $this->getClient()->request('GET', $this->sUrl);
             $aReturn = [];
             $index = 0;
-            $iNbPage = count($this->getDomParser()->load((string)$oRes->getBody())->find('.navigationBar > a')) + 1;
+            $iNbPage = count($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.navigationBar > a')) + 1;
             if (!$iNbPage) {
                 $iNbPage = 1;
             }
@@ -39,14 +39,14 @@ if (!class_exists(HentaiRulesNet::class)) {
             for ($page = 0; $page < $iNbPage; $page++) {
                 $sUrl = $sBaseUrl . '/index.php?/category/' . $this->aMatches['album'] . '/start-' . $page . '00';
                 $oRes = $this->getClient()->request('GET', $sUrl);
-                foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#thumbnails li a') as $oLink) {
+                foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#thumbnails li a') as $oLink) {
                     /**
                      * @var AbstractNode $oLink
                      * @var AbstractNode $oImg
                      */
                     $sUrl = $sBaseUrl . '/' . $oLink->getAttribute('href');
                     $oRes = $this->getClient()->request('GET', $sUrl);
-                    $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#theImage img')[0];
+                    $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#theImage img')[0];
                     $sFilename = $sBaseUrl . '/' . $oImg->getAttribute('data-cfsrc');
                     $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                         . '-' . basename($sFilename);

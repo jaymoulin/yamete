@@ -33,7 +33,7 @@ class YuriIsmNet extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        $oChapters = $this->getDomParser()->load((string)$oRes->getBody())->find('.title a');
+        $oChapters = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.title a');
         foreach ($oChapters as $oLink) {
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
             $aMatch = [];

@@ -46,7 +46,7 @@ class LoveHugNet extends DriverAbstract
          */
         $sUrl = 'https://' . implode('/', [self::DOMAIN, $this->aMatches['category'], '']);
         $oResult = $this->getClient()->request('GET', $sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.list-chapters a');
+        $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.list-chapters a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];
@@ -54,7 +54,7 @@ class LoveHugNet extends DriverAbstract
         foreach ($aChapters as $oChapter) {
             $sUrl = 'https://' . self::DOMAIN . $oChapter->getAttribute('href');
             $oResult = $this->getClient()->request('GET', $sUrl);
-            $oPages = $this->getDomParser()->load((string)$oResult->getBody())->find('img.chapter-img');
+            $oPages = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('img.chapter-img');
             foreach ($oPages as $oPage) {
                 $sFilename = $oPage->getAttribute('src');
                 if (strpos($sFilename, 'http') === false) {

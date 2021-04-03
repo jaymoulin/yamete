@@ -28,18 +28,18 @@ class EHentai extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         if ($this->aMatches['mode'] == 's') {
-            $sHref = $this->getDomParser()->load((string)$oRes->getBody())->find('#i5 a')[0]->getAttribute('href');
+            $sHref = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#i5 a')[0]->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sHref);
         }
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gdtm a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.gdtm a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              * @var AbstractNode $oImg
              */
             $oImg = $this->getDomParser()
-                ->load((string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody())
+                ->loadStr((string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody())
                 ->find('#i3 img');
             $sFilename = $oImg->getAttribute('src');
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR

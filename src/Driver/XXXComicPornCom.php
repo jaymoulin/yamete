@@ -42,11 +42,11 @@ if (!class_exists(XXXComicPornCom::class)) {
         {
             $this->sUrl = strpos($this->sUrl, '?') ? substr($this->sUrl, 0, strpos($this->sUrl, '?')) : $this->sUrl;
             $oRes = $this->getClient()->request('GET', $this->sUrl);
-            $this->sUrl .= ($this->sUrl{strlen($this->sUrl) - 1} != '/') ? '/' : '';
+            $this->sUrl .= ($this->sUrl[strlen($this->sUrl) - 1] != '/') ? '/' : '';
             $aReturn = new AppendIterator();
             $sBody = (string)$oRes->getBody();
             $index = 0;
-            $oOptions = $this->getDomParser()->load($sBody)->find('.part-select option');
+            $oOptions = $this->getDomParser()->loadStr($sBody)->find('.part-select option');
             if (!count($oOptions)) {
                 list($oCursor) = $this->getForBody($sBody, $index);
                 $aReturn->append($oCursor);
@@ -77,7 +77,7 @@ if (!class_exists(XXXComicPornCom::class)) {
         private function getForBody(string $sBody, int $iIndex): array
         {
             $aReturn = [];
-            foreach ($this->getDomParser()->load($sBody)->find($this->getSelector()) as $oLink) {
+            foreach ($this->getDomParser()->loadStr($sBody)->find($this->getSelector()) as $oLink) {
                 /**
                  * @var AbstractNode $oLink
                  */

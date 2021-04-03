@@ -28,7 +28,7 @@ class TerceirozCom extends DriverAbstract
     {
         $aReturn = [];
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.post-texto img.alignnone') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.post-texto img.alignnone') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

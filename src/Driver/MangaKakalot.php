@@ -46,7 +46,7 @@ class MangaKakalot extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $sUrl);
         $bFound = false;
-        $aChapters = iterator_to_array($this->getDomParser()->load((string)$oRes->getBody())->find('.chapter-list a'));
+        $aChapters = iterator_to_array($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.chapter-list a'));
         krsort($aChapters);
         foreach ($aChapters as $oLink) {
             /**
@@ -59,7 +59,7 @@ class MangaKakalot extends DriverAbstract
             return;
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.container-chapter-reader img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.container-chapter-reader img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

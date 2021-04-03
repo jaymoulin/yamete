@@ -45,7 +45,7 @@ class MangaInnNet extends DriverAbstract
          */
         $sUrl = 'https://www.' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oResult = $this->getClient()->request('GET', $sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.chapter-list a');
+        $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.chapter-list a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];

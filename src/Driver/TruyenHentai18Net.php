@@ -33,9 +33,9 @@ class TruyenHentai18Net extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.list-chapter a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.list-chapter a') as $oLink) {
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('#content-fiximg img') as $oImg) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#content-fiximg img') as $oImg) {
                 $sFilename = $oImg->getAttribute('src');
                 if (strpos($sFilename, '.gif') !== false) {
                     continue;

@@ -29,7 +29,7 @@ class Hentaifr extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        $oPageList = $this->getDomParser()->load((string)$oRes->getBody())->find('.rl-gallery-item a');
+        $oPageList = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.rl-gallery-item a');
         foreach ($oPageList as $oHref) {
             /** @var AbstractNode $oHref */
             $sFilename = $oHref->getAttribute('href');

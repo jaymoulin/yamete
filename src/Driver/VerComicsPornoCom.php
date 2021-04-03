@@ -30,7 +30,7 @@ class VerComicsPornoCom extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.wp-content img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.wp-content img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

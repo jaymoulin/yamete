@@ -30,7 +30,7 @@ class HentaiParadiseFr extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('img.lazy') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.lazy') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

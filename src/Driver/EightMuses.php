@@ -44,7 +44,7 @@ class EightMuses extends DriverAbstract
 
     private function prepareLinks(string $sUrl): void
     {
-        $oParser = $this->getDomParser()->load($this->getBody($sUrl));
+        $oParser = $this->getDomParser()->loadStr($this->getBody($sUrl));
         foreach ($oParser->find('a.c-tile') as $oLink) {
             /**
              * @var AbstractNode $oLink

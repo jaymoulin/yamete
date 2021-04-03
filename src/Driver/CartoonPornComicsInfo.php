@@ -31,7 +31,7 @@ class CartoonPornComicsInfo extends DriverAbstract
         $aReturn = [];
         $aMatches = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.my-gallery figure a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.my-gallery figure a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              * @var AbstractNode $oImg

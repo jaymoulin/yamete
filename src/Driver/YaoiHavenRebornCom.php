@@ -42,7 +42,7 @@ class YaoiHavenRebornCom extends DriverAbstract
             ]
         );
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $oPages = $this->getDomParser()->load((string)$oRes->getBody())->find('img.img-fluid');
+        $oPages = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.img-fluid');
         $index = 0;
         $aReturn = [];
         foreach ($oPages as $oLink) {

@@ -40,7 +40,7 @@ class Erofus extends DriverAbstract
     {
         $oRes = $this->getClient()->request('GET', $sUrl);
         $bFound = false;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.row-content a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.row-content a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */
@@ -58,7 +58,7 @@ class Erofus extends DriverAbstract
         /**
          * @var AbstractNode $oImg
          */
-        $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('#picture-full img')[0];
+        $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#picture-full img')[0];
         $sFilename = 'https://www.' . self::DOMAIN . $oImg->getAttribute('src');
         $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(count($this->aReturn) + 1, 5, '0', STR_PAD_LEFT)
             . '-' . basename($sFilename);

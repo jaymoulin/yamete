@@ -29,13 +29,13 @@ class G6HentaiCom extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('li .sexythumbs a') as $oLink) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('li .sexythumbs a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              * @var AbstractNode $oImg
              */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            $oImg = $this->getDomParser()->load((string)$oRes->getBody())->find('.galleryblock img')[0];
+            $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.galleryblock img')[0];
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

@@ -29,10 +29,10 @@ class SavitaHDNet extends DriverAbstract
         $aReturn = [];
         $this->sUrl = 'https://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $iNbPages = count($this->getDomParser()->load((string)$oRes->getBody())->find('.page-links a')) + 1;
+        $iNbPages = count($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.page-links a')) + 1;
         for ($iPage = 1; $iPage <= $iNbPages; $iPage++) {
             $oRes = $this->getClient()->request('GET', $this->sUrl . $iPage . '/');
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('a') as $oLink) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('a') as $oLink) {
                 /**
                  * @var AbstractNode $oLink
                  */
@@ -40,14 +40,14 @@ class SavitaHDNet extends DriverAbstract
                     continue;
                 }
                 $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-                $oImage = $this->getDomParser()->load((string)$oRes->getBody())->find('#image-viewer-container img')[0];
+                $oImage = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#image-viewer-container img')[0];
                 if (!$oImage) {
                     continue;
                 }
                 $sFilename = str_replace('.md.', '.', $oImage->getAttribute('src'));
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
             }
-            foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallery-item a') as $oLink) {
+            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.gallery-item a') as $oLink) {
                 /**
                  * @var AbstractNode $oLink
                  */

@@ -31,7 +31,7 @@ class NhentaiXXX extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $aFound = [];
-        foreach ($this->getDomParser()->load((string)$oRes->getBody())->find('.gallerythumb img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.gallerythumb img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */

@@ -43,14 +43,14 @@ class MangaBatCom extends DriverAbstract
          * @var AbstractNode $oImage
          */
         $oResult = $this->getClient()->request('GET', $this->sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.row-content-chapter a');
+        $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.row-content-chapter a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];
         $index = 0;
         foreach ($aChapters as $oLink) {
             $oResult = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            $oImgs = $this->getDomParser()->load((string)$oResult->getBody())->find('.container-chapter-reader img');
+            $oImgs = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.container-chapter-reader img');
             foreach ($oImgs as $oImage) {
                 $sFilename = $oImage->getAttribute('src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

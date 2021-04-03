@@ -42,7 +42,7 @@ if (!class_exists(MangaHereCc::class)) {
             $sStartUrl = 'https://www.' . $this->getDomain();
             $sUrl = $sStartUrl . '/manga/' . $this->aMatches['album'] . '/';
             $oResponse = $this->getClient()->get($sUrl);
-            $oChapters = $this->getDomParser()->load((string)$oResponse->getBody())->find('.detail-main-list li > a');
+            $oChapters = $this->getDomParser()->loadStr((string)$oResponse->getBody())->find('.detail-main-list li > a');
             $aChapters = iterator_to_array($oChapters);
             krsort($aChapters);
             $index = 0;
@@ -54,14 +54,14 @@ if (!class_exists(MangaHereCc::class)) {
                 }
                 $oResponse = $this->getClient()->get($sCurrentUrl);
                 $iPageCount = 0;
-                $oPages = $this->getDomParser()->load((string)$oResponse->getBody())->find('.pager-list-left a');
+                $oPages = $this->getDomParser()->loadStr((string)$oResponse->getBody())->find('.pager-list-left a');
                 foreach ($oPages as $oPage) {
                     $iCurrentPage = $oPage->getAttribute('data-page');
                     $iPageCount = $iCurrentPage >= $iPageCount ? $iCurrentPage : $iPageCount;
                 }
                 for ($iCurrentPage = 1; $iCurrentPage <= $iPageCount; $iCurrentPage++) {
                     $oResponse = $this->getClient()->get(str_replace('/1.html', "/$iCurrentPage.html", $sCurrentUrl));
-                    $oImage = $this->getDomParser()->load((string)$oResponse->getBody())->find('.reader-main-img')[0];
+                    $oImage = $this->getDomParser()->loadStr((string)$oResponse->getBody())->find('.reader-main-img')[0];
                     if (!$oImage) {
                         continue;
                     }

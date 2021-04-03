@@ -30,13 +30,13 @@ class HentaiSharkCom extends DriverAbstract
         $oRes = $this->getClient()
             ->request('GET', 'https://www.' . self::DOMAIN . '/manga/' . $this->aMatches['album']);
         $aReturn = [];
-        $oParser = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false]);
+        $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false));
         foreach ($oParser->find('ul.chapters a') as $oLink) {
             /**
              * @var AbstractNode $oLink
              */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            $oParser = $this->getDomParser()->load((string)$oRes->getBody(), ['cleanupInput' => false]);
+            $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false));
             foreach ($oParser->find('#all img') as $oImg) {
                 /**
                  * @var AbstractNode $oImg

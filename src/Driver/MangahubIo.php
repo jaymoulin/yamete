@@ -31,7 +31,7 @@ class MangahubIo extends DriverAbstract
         $sStartUrl = 'https://' . self::DOMAIN;
         $sUrl = $sStartUrl . '/manga/' . $this->aMatches['album'];
         $oResponse = $this->getClient()->get($sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oResponse->getBody())->find('.tab-content li a');
+        $oChapters = $this->getDomParser()->loadStr((string)$oResponse->getBody())->find('.tab-content li a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $index = 0;

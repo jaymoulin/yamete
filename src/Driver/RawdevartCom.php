@@ -43,7 +43,7 @@ class RawdevartCom extends DriverAbstract
          */
         $sUrl = 'https://' . self::DOMAIN . '/comic/' . $this->aMatches['album'] . '/';
         $oResult = $this->getClient()->request('GET', $sUrl);
-        $oChapters = $this->getDomParser()->load((string)$oResult->getBody())->find('.list-group-item a');
+        $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.list-group-item a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];
@@ -52,7 +52,7 @@ class RawdevartCom extends DriverAbstract
             $sBody = (string)$this->getClient()
                 ->request('GET', 'https://' . self::DOMAIN . $oLink->getAttribute('href'))
                 ->getBody();
-            $oPages = $this->getDomParser()->load($sBody)->find('#img-container img.img-fluid');
+            $oPages = $this->getDomParser()->loadStr($sBody)->find('#img-container img.img-fluid');
             foreach ($oPages as $oPage) {
                 $sFilename = $oPage->getAttribute('data-src');
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

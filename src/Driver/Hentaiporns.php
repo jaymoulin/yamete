@@ -30,7 +30,7 @@ class Hentaiporns extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $oCollection = $this->getDomParser()
-            ->load((string)$oRes->getBody(), ['cleanupInput' => false])
+            ->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false))
             ->find('.gallery-icon a');
         foreach ($oCollection as $oImg) {
             /**
