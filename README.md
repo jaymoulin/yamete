@@ -314,7 +314,6 @@ Here's is the list of supported sites for now:
  * mangabob.com
  * manganeloteam.com
  * mangatx.com
- * hentainexus.com
  * toomics.com
  * 365manga.com
  * mangainn.net
