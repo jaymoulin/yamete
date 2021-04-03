@@ -11,8 +11,8 @@ use Yamete\DriverInterface;
 
 class HennoJinCom extends DriverAbstract
 {
-    private $aMatches = [];
-    private $bSecondMatch = false;
+    private array $aMatches = [];
+    private bool $bSecondMatch = false;
 
     private const DOMAIN = 'hennojin.com';
 
@@ -23,11 +23,13 @@ class HennoJinCom extends DriverAbstract
             $this->sUrl,
             $this->aMatches
         );
-        $this->bSecondMatch = (bool)preg_match(
-            '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/home/manga-reader/\?manga=(?<album>[^&]+)~',
-            $this->sUrl,
-            $this->aMatches
-        );
+        if (!$bFistMatch) {
+            $this->bSecondMatch = (bool)preg_match(
+                '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/home/manga-reader/\?manga=(?<album>[^&]+)~',
+                $this->sUrl,
+                $this->aMatches
+            );
+        }
         return $bFistMatch or $this->bSecondMatch;
     }
 
