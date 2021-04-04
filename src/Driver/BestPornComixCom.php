@@ -5,47 +5,17 @@ namespace Yamete\Driver;
 use GuzzleHttp\Exception\GuzzleException;
 use Yamete\DriverAbstract;
 
-class BestPornComixCom extends DriverAbstract
+class BestPornComixCom extends CartoonSexComixCom
 {
-    private $aMatches = [];
     private const DOMAIN = 'bestporncomix.com';
 
-    public function canHandle(): bool
+    protected function getDomain(): string
     {
-        return (bool)preg_match(
-            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/gallery/(?<album>[^/]+)~',
-            $this->sUrl,
-            $this->aMatches
-        );
+        return self::DOMAIN;
     }
 
-    /**
-     * @return array|string[]
-     * @throws GuzzleException
-     */
-    public function getDownloadables(): array
+    protected function getSelector(): string
     {
-        $sUrl = 'https://' . self::DOMAIN . '/gallery/' . $this->aMatches['album'] . '/';
-        $oRes = $this->getClient()->request('GET', $sUrl);
-        $aReturn = [];
-        $aMatches = [];
-        $sReg = '~"items":\[([^\]]+)\]~um';
-        if (!preg_match($sReg, (string)$oRes->getBody(), $aMatches)) {
-            return [];
-        }
-        $aJson = \GuzzleHttp\json_decode('[' . $aMatches[1] . ']', true);
-        $index = 0;
-        foreach ($aJson as $aItem) {
-            $sFilename = urldecode($aItem['url']);
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
-                . '-' . basename($sFilename);
-            $aReturn[$sBasename] = $sFilename;
-        }
-        return $aReturn;
-    }
-
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
+        return 'figure a';
     }
 }

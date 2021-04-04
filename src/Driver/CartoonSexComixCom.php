@@ -19,7 +19,7 @@ class CartoonSexComixCom extends DriverAbstract
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^(?<scheme>https?)://www\.(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
+            '~^(?<scheme>https?)://(www\.)?(' . strtr($this->getDomain(), ['.' => '\.', '-' => '\-',]) .
             ')/(pictures|gallery|galleries|videos)/(?<album>[^/?]+)[/?]?~',
             $this->sUrl,
             $this->aMatches
