@@ -43,12 +43,15 @@ class FadaDoSexoCom extends DriverAbstract
         $index = 0;
         $aReturn = [];
         foreach ($oPages as $oPage) {
+            if (strpos($oPage->getAttribute('class'), 'wp-image') === false) {
+                continue;
+            }
             $sFilename = trim($oPage->getAttribute('data-src'));
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }
-        return array_slice($aReturn, 0, count($aReturn) - 2);
+        return $aReturn;
     }
 
     protected function getFolder(): string
