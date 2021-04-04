@@ -341,7 +341,6 @@ Here's is the list of supported sites for now:
  * heaventoon.com
  * readfreecomics.com
  * mangaread.co
- * webtoon.xyz
  * porncomixinfo.net
  * funmanga.com
  * mangakakalots.com
