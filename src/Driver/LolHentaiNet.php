@@ -17,6 +17,10 @@ class LolHentaiNet extends DriverAbstract
             '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/index\?/collections/view/(?<album>[^?/]+)~',
             $this->sUrl,
             $this->aMatches
+        ) or (bool)preg_match(
+            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/index\?/category/(?<album>[^?/]+)~',
+            $this->sUrl,
+            $this->aMatches
         );
     }
 
@@ -30,13 +34,13 @@ class LolHentaiNet extends DriverAbstract
          * @var AbstractNode[] $oChapters
          * @var AbstractNode $oHref
          */
-        $sUrl = 'https://www.' . self::DOMAIN . "/index?/collections/view/{$this->aMatches['album']}";
+        $sUrl = $this->sUrl;
         $oRes = $this->getClient()->request('GET', "$sUrl&start=0");
         $oContent = $this->getDomParser()->loadStr((string)$oRes->getBody());
         $aReturn = [];
         $index = 0;
         $oChapters = $oContent->find('.pagination li a');
-        $iMaxPage = 0;
+        $iMaxPage = 1;
         foreach ($oChapters as $oLink) {
             $iMaxPage = $iMaxPage >= (int)$oLink->text ? $iMaxPage : (int)$oLink->text;
         }
