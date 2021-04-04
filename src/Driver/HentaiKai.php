@@ -34,17 +34,24 @@ class HentaiKai extends DriverAbstract
          */
         $sUrl = 'https://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $oChapters = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.post-fotos a');
+        $oChapter = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.post-fotos a')[0];
         $index = 0;
         $aReturn = [];
-        foreach ($oChapters as $oChapter) {
-            $oRes = $this->getClient()->request('GET', $oChapter->getAttribute('href'));
-            foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.galeria-foto img') as $oImg) {
-                $sFilename = $oImg->getAttribute('src');
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                    . '-' . basename($sFilename);
-                $aReturn[$sBasename] = $sFilename;
-            }
+        $oRes = $this->getClient()->request('GET', $oChapter->getAttribute('href'));
+        $sBody = (string)$oRes->getBody();
+        $sRegExp = '~body:after\{content:([^;]+);display:none\}~';
+        $aFound = [];
+        if (!preg_match($sRegExp, $sBody, $aFound)) {
+            return [];
+        }
+        $aMatches = [];
+        if (!preg_match_all('~url\(([^)]+)\)~', $aFound[1], $aMatches)) {
+            return [];
+        }
+        foreach ($aMatches[1] as $sFilename) {
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
+                . '-' . basename($sFilename);
+            $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
     }
