@@ -29,20 +29,19 @@ class SuperHQNet extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.single-post .single img') as $oImg) {
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.single-post .entry a img') as $oImg) {
             /**
              * @var AbstractNode $oImg
              */
-            $sFilename = $oImg->getAttribute('src');
-            if (strpos($sFilename, self::DOMAIN) === false) {
+            $sFilename = $oImg->getAttribute('data-lazy-src');
+            if (!str_contains($sFilename, self::DOMAIN)) {
                 continue;
             }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
-            $aReturn[$sBasename] = $sFilename;
+            $aReturn[$sFilename] = $sBasename;
         }
-        array_shift($aReturn);
-        return $aReturn;
+        return array_flip($aReturn);
     }
 
     private function getFolder(): string

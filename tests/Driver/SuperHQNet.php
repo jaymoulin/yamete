@@ -17,6 +17,6 @@ class SuperHQNet extends TestCase
         $driver = new \Yamete\Driver\SuperHQNet();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(8, count($driver->getDownloadables()));
+        $this->assertEquals(9, count($driver->getDownloadables()));
     }
 }
