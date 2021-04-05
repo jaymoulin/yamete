@@ -4,13 +4,18 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class CartoonPornComicsInfo extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'cartoonporncomics.info';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,8 +27,14 @@ class CartoonPornComicsInfo extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -32,10 +43,6 @@ class CartoonPornComicsInfo extends DriverAbstract
         $aMatches = [];
         $index = 0;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.my-gallery figure a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             * @var AbstractNode $oImg
-             */
             $oRes = $this->getClient()->request('GET', html_entity_decode($oLink->getAttribute('href')));
             if (preg_match('~"([^"]+bigImages[^"]+)"~', (string)$oRes->getBody(), $aMatches) === false) {
                 continue;
@@ -48,11 +55,6 @@ class CartoonPornComicsInfo extends DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
     /**
      * @param array $aOptions
      * @return Client
@@ -60,5 +62,10 @@ class CartoonPornComicsInfo extends DriverAbstract
     public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT], 'http_errors' => false]);
+    }
+
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

@@ -3,14 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 
 class ToomicsCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'toomics.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -23,24 +28,17 @@ class ToomicsCom extends DriverAbstract
     }
 
     /**
-     * Where to download
-     * @return string
-     */
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
-    /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
-        /**
-         * @var AbstractNode $oImg
-         * @var AbstractNode[] $oPages
-         */
         $oResult = $this->getClient()->request('GET', $this->sUrl);
         $sRegExp = '~Webtoon\.chkec\(this\);location\.href=\'([^\']+)\'~';
         $aUrls = [];
@@ -50,7 +48,7 @@ class ToomicsCom extends DriverAbstract
         $index = 0;
         $aReturn = [];
         foreach ($aUrls[1] as $sUrl) {
-            if (strpos($sUrl, '/ep/') === false) {
+            if (!str_contains($sUrl, '/ep/')) {
                 continue;
             }
             $sUrl = 'https://' . self::DOMAIN . $sUrl;
@@ -63,5 +61,14 @@ class ToomicsCom extends DriverAbstract
             }
         }
         return $aReturn;
+    }
+
+    /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

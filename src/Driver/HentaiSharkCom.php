@@ -3,13 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
+use PHPHtmlParser\Options;
 use Yamete\DriverAbstract;
 
 class HentaiSharkCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'hentaishark.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -23,6 +29,12 @@ class HentaiSharkCom extends DriverAbstract
     /**
      * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -30,17 +42,11 @@ class HentaiSharkCom extends DriverAbstract
         $oRes = $this->getClient()
             ->request('GET', 'https://www.' . self::DOMAIN . '/manga/' . $this->aMatches['album']);
         $aReturn = [];
-        $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false));
+        $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody(), (new Options)->setCleanupInput(false));
         foreach ($oParser->find('ul.chapters a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false));
+            $oParser = $this->getDomParser()->loadStr((string)$oRes->getBody(), (new Options)->setCleanupInput(false));
             foreach ($oParser->find('#all img') as $oImg) {
-                /**
-                 * @var AbstractNode $oImg
-                 */
                 $sFilename = trim($oImg->getAttribute('data-src'));
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

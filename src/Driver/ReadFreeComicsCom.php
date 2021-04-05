@@ -3,18 +3,13 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use Traversable;
 use Yamete\DriverAbstract;
 
 class ReadFreeComicsCom extends DriverAbstract
 {
     private const DOMAIN = 'readfreecomics.com';
-    protected $aMatches = [];
-
-    protected function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
+    protected array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,16 +17,19 @@ class ReadFreeComicsCom extends DriverAbstract
         return (bool)preg_match($sReg, $this->sUrl, $this->aMatches);
     }
 
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
-         * @var \Traversable $oChapters
-         * @var AbstractNode $oChapter
-         * @var AbstractNode $oImg
+         * @var Traversable $oChapters
          */
         $sUrl = 'https://' . $this->getDomain() . '/' . $this->aMatches['category']
             . '/' . $this->aMatches['album'] . '/';

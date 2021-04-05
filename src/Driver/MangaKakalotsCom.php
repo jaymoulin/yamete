@@ -4,14 +4,19 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class MangaKakalotsCom extends DriverAbstract
 {
-    private $aMatches = [];
-    private $aReturn = [];
     private const DOMAIN = 'mangakakalots.com';
+    private array $aMatches = [];
+    private array $aReturn = [];
 
     public function canHandle(): bool
     {
@@ -23,8 +28,14 @@ class MangaKakalotsCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -35,7 +46,13 @@ class MangaKakalotsCom extends DriverAbstract
 
     /**
      * @param string $sUrl
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
      * @throws GuzzleException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     private function getLinks(string $sUrl): void
     {
@@ -44,9 +61,6 @@ class MangaKakalotsCom extends DriverAbstract
         $aChapters = iterator_to_array($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.chapter-list a'));
         krsort($aChapters);
         foreach ($aChapters as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             */
             $this->getLinks($oLink->getAttribute('href'));
             $bFound = true;
         }
@@ -55,9 +69,6 @@ class MangaKakalotsCom extends DriverAbstract
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#vungdoc img') as $oImg) {
-            /**
-             * @var AbstractNode $oImg
-             */
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR
                 . str_pad(count($this->aReturn) + 1, 5, '0', STR_PAD_LEFT)
@@ -66,13 +77,13 @@ class MangaKakalotsCom extends DriverAbstract
         }
     }
 
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
     public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
+    }
+
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

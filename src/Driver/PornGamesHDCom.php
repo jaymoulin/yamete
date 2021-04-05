@@ -3,14 +3,13 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
 use Traversable;
 use Yamete\DriverAbstract;
 
 class PornGamesHDCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'porngameshd.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,15 +21,13 @@ class PornGamesHDCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
          * @var Traversable $oPages
-         * @var AbstractNode $oLink
-         * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
@@ -46,7 +43,7 @@ class PornGamesHDCom extends DriverAbstract
         $index = 0;
         foreach (array_slice($aMatches[1], 3) as $iKey => $sFilename) {
             $sFilename = str_replace('/smalls/', '/originals/', $sFilename);
-            if ($iKey % 2 === 0 or strpos($sFilename, '/originals/') === false) {
+            if ($iKey % 2 === 0 or !str_contains($sFilename, '/originals/')) {
                 continue;
             }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
@@ -55,7 +52,7 @@ class PornGamesHDCom extends DriverAbstract
         }
         foreach ($aMatchesCover[1] as $sFilename) {
             $sFilename = str_replace('/smalls/', '/originals/', $sFilename);
-            if (strpos($sFilename, '/originals/') === false) {
+            if (!str_contains($sFilename, '/originals/')) {
                 continue;
             }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

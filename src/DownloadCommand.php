@@ -4,13 +4,16 @@ namespace Yamete;
 
 use DomainException;
 use Exception;
+use Generator;
+use GuzzleHttp\Exception\GuzzleException;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use ZipArchive;
 
-class DownloadCommand extends \Symfony\Component\Console\Command\Command
+class DownloadCommand extends Command
 {
     const URL = 'url';
     const LIST_FILE = 'list';
@@ -48,31 +51,12 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             );
     }
 
-
-    /**
-     * @param $aUrls
-     * @param bool $bIsInteractive
-     * @return \Generator
-     */
-    private function getGenerator(array $aUrls = [], $bIsInteractive = false): \Generator
-    {
-        if (!$bIsInteractive) {
-            foreach ($aUrls as $sUrl) {
-                yield $sUrl;
-            }
-        } else {
-            while ($sLine = fgets(STDIN)) {
-                yield $sLine;
-            }
-        }
-    }
-
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
      * @throws Exception
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -138,77 +122,29 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
         return 0;
     }
 
-    private function zip(ResultIterator $oResult, OutputInterface $output): void
-    {
-        $output->writeln('<comment>Creating zip archive</comment>');
-        $zip = new ZipArchive();
-        $isOpened = false;
-        $baseName = null;
-        foreach ($oResult as $sFileName => $sResource) {
-            $baseName = dirname($sFileName);
-            if (!$isOpened) {
-                $isOpened = true;
-                $zip->open($baseName . '.zip', ZipArchive::CREATE);
-            }
-            $zip->addFile($sFileName);
-        }
-        $zip->close();
-        foreach ($oResult as $sFileName => $sResource) {
-            unlink($sFileName);
-        }
-        rmdir($baseName);
-        $output->writeln("<comment>Zip created $baseName.zip</comment>");
-    }
-
     /**
-     * @param ResultIterator $oResult
-     * @param OutputInterface $output
-     * @throws \Exception
+     * @param array $aUrls
+     * @param bool $bIsInteractive
+     * @return Generator
      */
-    private function pdf(ResultIterator $oResult, OutputInterface $output): void
+    private function getGenerator(array $aUrls = [], $bIsInteractive = false): Generator
     {
-        $iMemoryLimit = ini_set('memory_limit', '2G'); //hack - this is NOT a solution. we better find something for PDF
-        try {
-            $output->writeln('<comment>Converting to PDF</comment>');
-            $pdf = new PDF();
-            $pdf->setMargins(0, 0);
-            $pdf->createFromList($oResult);
-            $baseName = null;
-            foreach ($oResult as $sFileName => $sResource) {
-                $baseName = dirname($sFileName);
-                $bDone = false;
-                foreach (['.jpg', '.jpeg', '.png', '.gif', '.webp'] as $sSource) {
-                    foreach (['.png', '.gif', '.jpg', '.jpeg'] as $sDest) {
-                        $bDone = @unlink($sFileName);
-                        if (!$bDone) {
-                            $bDone = @unlink(str_replace($sSource, $sDest, $sFileName));
-                        }
-                        if ($bDone) {
-                            break;
-                        }
-                    }
-                    if ($bDone) {
-                        break;
-                    }
-                }
+        if (!$bIsInteractive) {
+            foreach ($aUrls as $sUrl) {
+                yield $sUrl;
             }
-            rmdir($baseName);
-            $pdf->Output('F', $baseName . '.pdf');
-            $output->writeln("<comment>PDF created $baseName.pdf</comment>");
-        } catch (Exception $eException) {
-            $sMessage = $eException->getMessage();
-            $output->writeln("<error>PDF errored! : $sMessage</error>");
-            ini_set('memory_limit', $iMemoryLimit);
-            throw $eException;
+        } else {
+            while ($sLine = fgets(STDIN)) {
+                yield $sLine;
+            }
         }
-        ini_set('memory_limit', $iMemoryLimit);
     }
 
     /**
      * @param ResultIterator $oResult
      * @param OutputInterface $output
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Exception
+     * @throws GuzzleException
+     * @throws Exception
      */
     private function download(ResultIterator $oResult, OutputInterface $output): void
     {
@@ -242,5 +178,70 @@ class DownloadCommand extends \Symfony\Component\Console\Command\Command
             $progress->finish();
             $output->writeln('');
         }
+    }
+
+    private function zip(ResultIterator $oResult, OutputInterface $output): void
+    {
+        $output->writeln('<comment>Creating zip archive</comment>');
+        $zip = new ZipArchive();
+        $isOpened = false;
+        $baseName = null;
+        foreach ($oResult as $sFileName => $sResource) {
+            $baseName = dirname($sFileName);
+            if (!$isOpened) {
+                $isOpened = true;
+                $zip->open($baseName . '.zip', ZipArchive::CREATE);
+            }
+            $zip->addFile($sFileName);
+        }
+        $zip->close();
+        foreach ($oResult as $sFileName => $sResource) {
+            unlink($sFileName);
+        }
+        rmdir($baseName);
+        $output->writeln("<comment>Zip created $baseName.zip</comment>");
+    }
+
+    /**
+     * @param ResultIterator $oResult
+     * @param OutputInterface $output
+     * @throws Exception
+     */
+    private function pdf(ResultIterator $oResult, OutputInterface $output): void
+    {
+        $iMemoryLimit = ini_set('memory_limit', '2G'); //hack - this is NOT a solution. we better find something for PDF
+        try {
+            $output->writeln('<comment>Converting to PDF</comment>');
+            $pdf = new PDF();
+            $pdf->setMargins(0, 0);
+            $pdf->createFromList($oResult);
+            $baseName = null;
+            foreach ($oResult as $sFileName => $sResource) {
+                $baseName = dirname($sFileName);
+                foreach (['.jpg', '.jpeg', '.png', '.gif', '.webp'] as $sSource) {
+                    foreach (['.png', '.gif', '.jpg', '.jpeg'] as $sDest) {
+                        $bDone = @unlink($sFileName);
+                        if (!$bDone) {
+                            $bDone = @unlink(str_replace($sSource, $sDest, $sFileName));
+                        }
+                        if ($bDone) {
+                            break;
+                        }
+                    }
+                    if ($bDone) {
+                        break;
+                    }
+                }
+            }
+            rmdir($baseName);
+            $pdf->Output('F', $baseName . '.pdf');
+            $output->writeln("<comment>PDF created $baseName.pdf</comment>");
+        } catch (Exception $eException) {
+            $sMessage = $eException->getMessage();
+            $output->writeln("<error>PDF errored! : $sMessage</error>");
+            ini_set('memory_limit', $iMemoryLimit);
+            throw $eException;
+        }
+        ini_set('memory_limit', $iMemoryLimit);
     }
 }

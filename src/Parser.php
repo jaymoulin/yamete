@@ -11,7 +11,7 @@ class Parser
     /**
      * @var DriverInterface[]
      */
-    private $aDrivers = [];
+    private array $aDrivers = [];
 
     public function __construct()
     {
@@ -48,7 +48,7 @@ class Parser
      * @param string $sUrl Url to parse
      * @return bool|ResultIterator
      */
-    public function parse(string $sUrl)
+    public function parse(string $sUrl): bool|ResultIterator
     {
         foreach ($this->aDrivers as $oDriver) {
             $oDriver->setUrl($sUrl);

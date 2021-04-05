@@ -4,14 +4,20 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
+use PHPHtmlParser\Options;
 use Traversable;
 use Yamete\DriverAbstract;
 
 class MangaTownCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'mangatown.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -28,16 +34,19 @@ class MangaTownCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var Traversable $oChapters
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode[] $aPages
-         * @var AbstractNode $oImg
          */
         $sUrl = implode(
                 '/',
@@ -52,7 +61,7 @@ class MangaTownCom extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $oChapters = $this->getDomParser()
-            ->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false))
+            ->loadStr((string)$oRes->getBody(), (new Options)->setCleanupInput(false))
             ->find('ul.chapter_list a');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
@@ -72,7 +81,7 @@ class MangaTownCom extends DriverAbstract
                 $sFilename = $oImg->getAttribute('src');
                 $iPos = strpos($sFilename, '?');
                 $sFilename = substr($sFilename, 0, $iPos ?: strlen($sFilename));
-                $sFilename = strpos('http', $sFilename) === false ? 'https:' . $sFilename : $sFilename;
+                $sFilename = !str_starts_with('http', $sFilename) ? 'https:' . $sFilename : $sFilename;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;

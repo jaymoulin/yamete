@@ -3,12 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Utils;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class HentaiHand extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'hentaihand.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -20,14 +27,20 @@ class HentaiHand extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         $sUrl = 'https://' . self::DOMAIN . '/api/comics/' . $this->aMatches['album'] . '/images?nsfw=true';
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $aInfos = \GuzzleHttp\json_decode((string)$oRes->getBody(), true);
+        $aInfos = Utils::jsonDecode((string)$oRes->getBody(), true);
         $aReturn = [];
         $index = 0;
         foreach ($aInfos['images'] as $aData) {

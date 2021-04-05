@@ -7,8 +7,8 @@ use Yamete\DriverAbstract;
 
 class AsmHentai extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'asmhentai.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -42,7 +42,7 @@ class AsmHentai extends DriverAbstract
             }
             foreach ($aMatches[1] as $sImg) {
                 $sFilename = 'https:' . $sImg;
-                if (strpos($sFilename, 'images.') === false) {
+                if (!str_contains($sFilename, 'images.')) {
                     continue;
                 }
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;

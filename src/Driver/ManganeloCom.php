@@ -4,14 +4,20 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use iterator;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class ManganeloCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'manganelo.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,12 +28,20 @@ class ManganeloCom extends DriverAbstract
         );
     }
 
+    /**
+     * @return array
+     * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
+     */
     public function getDownloadables(): array
     {
         /**
          * @var iterator $oChapters
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode[] $oPages
          */
         $sStartUrl = 'https://' . self::DOMAIN;
         $sUrl = $sStartUrl . '/manga/' . $this->aMatches['album'];
@@ -50,13 +64,13 @@ class ManganeloCom extends DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
     public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
+    }
+
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

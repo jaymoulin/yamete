@@ -3,14 +3,14 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use GuzzleHttp\Utils;
 use Traversable;
 use Yamete\DriverAbstract;
 
 class YifferXyz extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'yiffer.xyz';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,18 +22,17 @@ class YifferXyz extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
          * @var Traversable $oPages
-         * @var AbstractNode $oImgs
          */
         $sUrl = 'https://' . self::DOMAIN . '/api/comics/' . $this->aMatches['album'];
         $oRes = $this->getClient()->request('GET', $sUrl);
-        $aInfo = \GuzzleHttp\json_decode((string)$oRes->getBody(), true);
+        $aInfo = Utils::jsonDecode((string)$oRes->getBody(), true);
         if (!isset($aInfo['numberOfPages'])) {
             return [];
         }

@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class ReadmOrg extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'readm.org';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,15 +26,17 @@ class ReadmOrg extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
-        /**
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode $oImg
-         */
         $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . "/manga/{$this->aMatches['album']}");
         $aReturn = [];
         $oChapters = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#table-episodes-title a');
@@ -40,7 +47,7 @@ class ReadmOrg extends DriverAbstract
             $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . $oChapter->getAttribute('href'));
             foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.ch-images img') as $oImg) {
                 $sSrc = $oImg->getAttribute('src');
-                $sFilename = strpos('http', $sSrc) === false ? 'https://' . self::DOMAIN . $sSrc : $sSrc;
+                $sFilename = !str_starts_with($sSrc, 'http') ? 'https://' . self::DOMAIN . $sSrc : $sSrc;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename(preg_replace('~\?(.*)$~', '', $sFilename));
                 $aReturn[$sBasename] = $sFilename;

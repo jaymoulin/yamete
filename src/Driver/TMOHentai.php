@@ -5,13 +5,18 @@ namespace Yamete\Driver;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\FileCookieJar;
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class TMOHentai extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'tmohentai.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -20,6 +25,34 @@ class TMOHentai extends DriverAbstract
             $this->sUrl,
             $this->aMatches
         );
+    }
+
+    /**
+     * @return array
+     * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
+     */
+    public function getDownloadables(): array
+    {
+        $this->sUrl = "https://www.{$this->getDomain()}/contents/{$this->aMatches['album']}";
+        $oRes = $this->getClient()->request('GET', $this->sUrl);
+        $aReturn = [];
+        $index = 0;
+        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.panel-body .well a') as $oLink) {
+            $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
+            $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.content-image')[0];
+
+            $sFilename = "https://www.{$this->getDomain()}{$oImg->getAttribute('data-original')}";
+            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
+                . '-' . basename($sFilename);
+            $aReturn[$sBasename] = $sFilename;
+        }
+        return $aReturn;
     }
 
     public function getDomain(): string
@@ -39,32 +72,6 @@ class TMOHentai extends DriverAbstract
                 'headers' => ['User-Agent' => self::USER_AGENT],
             ]
         );
-    }
-
-    /**
-     * @return array|string[]
-     * @throws GuzzleException
-     */
-    public function getDownloadables(): array
-    {
-        $this->sUrl = "https://www.{$this->getDomain()}/contents/{$this->aMatches['album']}";
-        $oRes = $this->getClient()->request('GET', $this->sUrl);
-        $aReturn = [];
-        $index = 0;
-        foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.panel-body .well a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             * @var AbstractNode $oImg
-             */
-            $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
-            $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.content-image')[0];
-
-            $sFilename = "https://www.{$this->getDomain()}{$oImg->getAttribute('data-original')}";
-            $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
-                . '-' . basename($sFilename);
-            $aReturn[$sBasename] = $sFilename;
-        }
-        return $aReturn;
     }
 
     private function getFolder(): string

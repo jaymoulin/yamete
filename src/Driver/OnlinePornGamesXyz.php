@@ -9,7 +9,7 @@ if (!class_exists(OnlinePornGamesXyz::class)) {
     class OnlinePornGamesXyz extends DriverAbstract
     {
         private const DOMAIN = 'onlineporngames.xyz';
-        private $aMatches = [];
+        private array $aMatches = [];
 
         protected function getDomain(): string
         {

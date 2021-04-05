@@ -5,14 +5,19 @@ namespace Yamete\Driver;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use iterator;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 
 if (!class_exists(IsekaiScanCom::class)) {
     class IsekaiScanCom extends DriverAbstract
     {
-        protected $aMatches = [];
+        protected array $aMatches = [];
         private const DOMAIN = 'isekaiscan.com';
 
         public function canHandle(): bool
@@ -51,15 +56,19 @@ if (!class_exists(IsekaiScanCom::class)) {
         }
 
         /**
-         * @return array|string[]
+         * @return array
          * @throws GuzzleException
+         * @throws ChildNotFoundException
+         * @throws CircularException
+         * @throws ContentLengthException
+         * @throws LogicalException
+         * @throws NotLoadedException
+         * @throws StrictException
          */
         public function getDownloadables(): array
         {
             /**
              * @var iterator $oChapters
-             * @var AbstractNode[] $aChapters
-             * @var AbstractNode[] $oPages
              */
             $sUrl = 'https://' . $this->getDomain() . '/manga/' . $this->aMatches['album'] . '/';
             $oResult = $this->getClient()->request('GET', $sUrl);

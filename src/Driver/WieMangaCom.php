@@ -3,14 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Traversable;
 use Yamete\DriverAbstract;
 
 class WieMangaCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'wiemanga.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,24 +27,19 @@ class WieMangaCom extends DriverAbstract
     }
 
     /**
-     * Where to download
-     * @return string
-     */
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
-    /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var Traversable $oChapters
-         * @var AbstractNode $oLink
-         * @var AbstractNode $oImage
          */
         $oResult = $this->getClient()->request('GET', $this->sUrl);
         $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.chapterlist .col1 a');
@@ -65,5 +65,14 @@ class WieMangaCom extends DriverAbstract
             }
         }
         return $aReturn;
+    }
+
+    /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

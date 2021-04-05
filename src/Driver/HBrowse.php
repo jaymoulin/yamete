@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class HBrowse extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'hbrowse.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,8 +26,14 @@ class HBrowse extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -31,16 +42,10 @@ class HBrowse extends DriverAbstract
         $index = 0;
         $sAccessor = '#main .listTable .listMiddle a';
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($sAccessor) as $oLink) { //chapters
-            /**
-             * @var AbstractNode $oLink
-             */
             $sLink = 'https://www.' . self::DOMAIN . $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             $oBody = $this->getDomParser()->loadStr((string)$oRes->getBody());
             foreach ($oBody->find('#jsPageList a') as $oImg) { //images
-                /**
-                 * @var AbstractNode $oImg
-                 */
                 $sHref = 'https://www.' . self::DOMAIN . $oImg->getAttribute('href') ?: $sLink . '/00001';
                 $oRes = $this->getClient()->request('GET', $sHref);
                 $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#mangaImage');

@@ -3,18 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class HentaiItaNet extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'hentai-ita.net';
-
-    protected function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -26,9 +26,20 @@ class HentaiItaNet extends DriverAbstract
         );
     }
 
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -36,10 +47,6 @@ class HentaiItaNet extends DriverAbstract
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.blocks-gallery-item figure a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             * @var AbstractNode $oImg
-             */
             $sUrl = $oLink->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sUrl);
             $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.entry-attachment img')[0];

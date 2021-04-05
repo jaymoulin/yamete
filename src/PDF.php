@@ -3,9 +3,12 @@
 namespace Yamete;
 
 use Exception;
+use FPDF;
 use Iterator;
+use function imagecreatefromwebp;
+use function imagejpeg;
 
-class PDF extends \FPDF
+class PDF extends FPDF
 {
 
     const DPI = 96;
@@ -14,28 +17,6 @@ class PDF extends \FPDF
     const A4_WIDTH = 210;
     const MAX_WIDTH = self::A4_WIDTH;
     const MAX_HEIGHT = self::A4_HEIGHT;
-
-    private function pixelsToMM(int $val): int
-    {
-        return $val * self::MM_IN_INCH / self::DPI;
-    }
-
-    /**
-     * @param string $imgFilename
-     * @return array
-     * @throws \Exception
-     */
-    private function resizeToFit(string $imgFilename): array
-    {
-        list($width, $height) = getimagesize($imgFilename);
-        if (!$width || !$height) {
-            throw new Exception('Not an image file');
-        }
-        $width = $this->pixelsToMM($width);
-        $height = $this->pixelsToMM($height);
-        $iScale = $width < $height ? self::MAX_WIDTH : self::MAX_HEIGHT;
-        return [$iScale, $height * $iScale / $width];
-    }
 
     /**
      * @param Iterator $oList
@@ -55,14 +36,14 @@ class PDF extends \FPDF
 
     /**
      * @param string $sFileName
-     * @throws \Exception
+     * @throws Exception
      */
     private function fullSizeImage(string $sFileName): void
     {
         list($width, $height) = $this->resizeToFit($sFileName);
         try {
             $this->Image($sFileName, 0, 0, $width, $height);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             if (strpos($e->getMessage(), 'Not a PNG file') !== false) {
                 $sNewFilename = str_replace('.png', '.jpg', $sFileName);
                 rename($sFileName, $sNewFilename);
@@ -82,13 +63,35 @@ class PDF extends \FPDF
                 $this->Image($sNewFilename, 0, 0, $width, $height);
             } elseif (strpos($e->getMessage(), 'Unsupported image type: webp') !== false) {
                 $sNewFilename = str_replace('.webp', '.jpg', $sFileName);
-                $oImage = \imagecreatefromwebp($sFileName);
-                \imagejpeg($oImage, $sNewFilename, 100);
+                $oImage = imagecreatefromwebp($sFileName);
+                imagejpeg($oImage, $sNewFilename, 100);
                 unlink($sFileName);
                 $this->fullSizeImage($sNewFilename);
             } else {
                 throw $e;
             }
         }
+    }
+
+    /**
+     * @param string $imgFilename
+     * @return array
+     * @throws Exception
+     */
+    private function resizeToFit(string $imgFilename): array
+    {
+        list($width, $height) = getimagesize($imgFilename);
+        if (!$width || !$height) {
+            throw new Exception('Not an image file');
+        }
+        $width = $this->pixelsToMM($width);
+        $height = $this->pixelsToMM($height);
+        $iScale = $width < $height ? self::MAX_WIDTH : self::MAX_HEIGHT;
+        return [$iScale, $height * $iScale / $width];
+    }
+
+    private function pixelsToMM(int $val): int
+    {
+        return $val * self::MM_IN_INCH / self::DPI;
     }
 }

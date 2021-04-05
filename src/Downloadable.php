@@ -2,11 +2,14 @@
 
 namespace Yamete;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
+
 class Downloadable
 {
-    private $oDriver;
-    private $sPath;
-    private $sUrl;
+    private DriverInterface $oDriver;
+    private string $sPath;
+    private string $sUrl;
 
     public function __construct(DriverInterface $oDriver, string $sPath, string $sUrl)
     {
@@ -26,10 +29,10 @@ class Downloadable
     }
 
     /**
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return ResponseInterface
+     * @throws GuzzleException
      */
-    public function download(): \Psr\Http\Message\ResponseInterface
+    public function download(): ResponseInterface
     {
         return $this->oDriver->getClient()
             ->request('GET', $this->sUrl, ['sink' => $this->sPath, 'http_errors' => false]);

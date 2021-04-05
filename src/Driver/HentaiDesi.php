@@ -3,14 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Traversable;
 use Yamete\DriverAbstract;
 
 class HentaiDesi extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'hentai.desi';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,24 +27,19 @@ class HentaiDesi extends DriverAbstract
     }
 
     /**
-     * Where to download
-     * @return string
-     */
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
-    /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var Traversable $oChapters
-         * @var AbstractNode $oLink
-         * @var AbstractNode $oImage
          */
         $sUrl = 'https://' . self::DOMAIN . "/hentai_{$this->aMatches['type']}/{$this->aMatches['album']}/";
         $oResult = $this->getClient()->request('GET', $sUrl);
@@ -52,7 +52,7 @@ class HentaiDesi extends DriverAbstract
         }
         for ($iCurrentChapter = 1; $iCurrentChapter < ($iChapter + 1); $iCurrentChapter++) {
             $sUrl = 'https://' . self::DOMAIN
-                . "/hentai_{$this->aMatches['type']}/{$this->aMatches['album']}_p${iCurrentChapter}/";
+                . "/hentai_{$this->aMatches['type']}/{$this->aMatches['album']}_p$iCurrentChapter/";
             if ($iCurrentChapter === 1) {
                 $sUrl = 'https://' . self::DOMAIN . "/hentai_{$this->aMatches['type']}/{$this->aMatches['album']}/";
             }
@@ -63,12 +63,21 @@ class HentaiDesi extends DriverAbstract
                     ->request('GET', 'https://' . self::DOMAIN . $oPage->getAttribute('href'));
                 $oImage = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('img.img-responsive')[0];
                 $sSrc = $oImage->getAttribute('src');
-                $sFilename = strpos('http', $sSrc) === false ? 'https://' . self::DOMAIN . $sSrc : $sSrc;
+                $sFilename = !str_starts_with('http', $sSrc) ? 'https://' . self::DOMAIN . $sSrc : $sSrc;
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);
                 $aReturn[$sBasename] = $sFilename;
             }
         }
         return $aReturn;
+    }
+
+    /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

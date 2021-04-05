@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class SuperHQNet extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'superhq.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,8 +26,14 @@ class SuperHQNet extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -30,9 +41,6 @@ class SuperHQNet extends DriverAbstract
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.single-post .entry a img') as $oImg) {
-            /**
-             * @var AbstractNode $oImg
-             */
             $sFilename = $oImg->getAttribute('data-lazy-src');
             if (!str_contains($sFilename, self::DOMAIN)) {
                 continue;

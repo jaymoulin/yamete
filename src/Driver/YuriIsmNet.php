@@ -3,13 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use GuzzleHttp\Utils;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class YuriIsmNet extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'yuri-ism.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,14 +27,17 @@ class YuriIsmNet extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
-        /**
-         * @var AbstractNode[] $oChapters
-         */
         $this->sUrl = 'https://www.' . self::DOMAIN . "/slide/series/{$this->aMatches['album']}/";
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
@@ -40,7 +49,7 @@ class YuriIsmNet extends DriverAbstract
             if (!preg_match('~var pages = (?<json>[^;]+)~', (string)$oRes->getBody(), $aMatch)) {
                 continue;
             }
-            foreach (\GuzzleHttp\json_decode($aMatch['json'], true) as $aPage) {
+            foreach (Utils::jsonDecode($aMatch['json'], true) as $aPage) {
                 $sFilename = $aPage['url'];
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

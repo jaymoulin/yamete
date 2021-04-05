@@ -3,14 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class Erofus extends DriverAbstract
 {
-    private $aMatches = [];
-    private $aReturn = [];
     private const DOMAIN = 'erofus.com';
+    private array $aMatches = [];
+    private array $aReturn = [];
 
     public function canHandle(): bool
     {
@@ -22,8 +27,14 @@ class Erofus extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -34,30 +45,30 @@ class Erofus extends DriverAbstract
 
     /**
      * @param string $sUrl
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
      * @throws GuzzleException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     private function getLinks(string $sUrl): void
     {
         $oRes = $this->getClient()->request('GET', $sUrl);
         $bFound = false;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.row-content a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             */
             $sHref = $oLink->getAttribute('href');
             if (!$oLink->getAttribute('title')) {
                 continue;
             }
-            $this->getLinks(strpos($sHref, '://') !== false ? $sHref : 'https://www.' . self::DOMAIN . $sHref);
+            $this->getLinks(str_contains($sHref, '://') ? $sHref : 'https://www.' . self::DOMAIN . $sHref);
             $bFound = true;
         }
         if ($bFound) {
             return;
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
-        /**
-         * @var AbstractNode $oImg
-         */
         $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#picture-full img')[0];
         $sFilename = 'https://www.' . self::DOMAIN . $oImg->getAttribute('src');
         $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(count($this->aReturn) + 1, 5, '0', STR_PAD_LEFT)

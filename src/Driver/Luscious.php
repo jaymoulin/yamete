@@ -3,16 +3,12 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Utils;
 use Yamete\DriverAbstract;
 use Yamete\DriverInterface;
 
 class Luscious extends DriverAbstract
 {
-    private $aMatches = [];
-    private $iCounter = 0;
-    private $iAlbumId = 0;
-    private $iPage = 0;
-
     private const DOMAIN = 'luscious.net';
     const API = 'https://www.' . self::DOMAIN . '/graphql/nobatch/?id=3&operationName=AlbumListOwnPictures&'
     . 'query=+query+AlbumListOwnPictures%28%24input%3A+PictureListInput%21%29+%7B+picture+%7B+list%28'
@@ -24,6 +20,10 @@ class Luscious extends DriverAbstract
     . 'url_to_video+is_animated+position+tags+%7B+id+category+text+url+%7D+permissions+url+thumbnails+'
     . '%7B+width+height+size+url+%7D+%7D+&variables=%7B"input"%3A%7B"filters"%3A%5B%7B"name"%3A"'
     . 'album_id"%2C"value"%3A"#ALBUM#"%7D%5D%2C"display"%3A"position"%2C"page"%3A#PAGE#%7D%7D';
+    private array $aMatches = [];
+    private int $iCounter = 0;
+    private int $iAlbumId = 0;
+    private int $iPage = 0;
 
     public function canHandle(): bool
     {
@@ -35,7 +35,7 @@ class Luscious extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
@@ -43,7 +43,7 @@ class Luscious extends DriverAbstract
         $aAlbumId = [];
         preg_match('~([0-9]+)$~', $this->aMatches['album'], $aAlbumId);
         $this->iAlbumId = (int)$aAlbumId[1];
-        $this->iPage = (int)0;
+        $this->iPage = 0;
         return $this->download(
             (string)$this->getClient()->request(
                 'GET',
@@ -53,14 +53,14 @@ class Luscious extends DriverAbstract
     }
 
     /**
-     * @param $sBody
+     * @param string $sBody
      * @param array $aReturn
      * @return array
      * @throws GuzzleException
      */
     private function download(string $sBody, array $aReturn = []): array
     {
-        $aInfo = \GuzzleHttp\json_decode($sBody, true);
+        $aInfo = Utils::jsonDecode($sBody, true);
         foreach ($aInfo['data']['picture']['list']['items'] as $aItemData) {
             $sFilename = $aItemData['url_to_original'];
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR

@@ -4,14 +4,19 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Traversable;
 use Yamete\DriverAbstract;
 
 class KissLoveNet extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'kisslove.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -32,15 +37,19 @@ class KissLoveNet extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var Traversable $oChapters
-         * @var AbstractNode $oChapter
-         * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $oChapters = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('a.chapter');
@@ -61,13 +70,13 @@ class KissLoveNet extends DriverAbstract
         return $aReturn;
     }
 
-    protected function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
     public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
+    }
+
+    protected function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

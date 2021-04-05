@@ -3,14 +3,14 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Utils;
 use iterator;
-use PHPHtmlParser\Dom\AbstractNode;
 use Yamete\DriverAbstract;
 
 class Manga4LifeCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'manga4life.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,27 +22,24 @@ class Manga4LifeCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
          * @var iterator $oChapters
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode $oPage
-         * @var AbstractNode $oImg
          */
         $sAlbumName = $this->aMatches['album'];
-        $sLink = 'https://' . self::DOMAIN . "/read-online/${sAlbumName}-chapter-1-page-1.html";
+        $sLink = 'https://' . self::DOMAIN . "/read-online/$sAlbumName-chapter-1-page-1.html";
         $oRes = $this->getClient()->request('GET', $sLink);
         $aMatches = [];
-        if (!preg_match('~vm\.CHAPTERS = (\[[^\]]+\]);~', (string)$oRes->getBody(), $aMatches)) {
+        if (!preg_match('~vm\.CHAPTERS = (\[[^]]+]);~', (string)$oRes->getBody(), $aMatches)) {
             return [];
         }
         $index = 0;
         $aReturn = [];
-        $aData = \GuzzleHttp\json_decode($aMatches[1], true);
+        $aData = Utils::jsonDecode($aMatches[1], true);
         $iChapter = 1;
         foreach ($aData as $aChapter) {
             $iNbPage = (int)$aChapter['Page'];

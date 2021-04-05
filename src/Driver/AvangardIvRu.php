@@ -2,15 +2,18 @@
 
 namespace Yamete\Driver;
 
-use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
-use Traversable;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class AvangardIvRu extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'avangard-iv.ru';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,25 +25,16 @@ class AvangardIvRu extends DriverAbstract
     }
 
     /**
-     * Where to download
-     * @return string
-     */
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
-    /**
-     * @return array|string[]
-     * @throws GuzzleException
+     * @return array
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
-        /**
-         * @var Traversable $oPages
-         * @var AbstractNode $oLink
-         * @var AbstractNode $oImg
-         */
         $sUrl = implode(
             '/',
             [
@@ -61,5 +55,14 @@ class AvangardIvRu extends DriverAbstract
             $aReturn[$sBasename] = $sFilename;
         }
         return array_merge(array_slice($aReturn, -1, 1), array_slice($aReturn, 0, $index - 1));
+    }
+
+    /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

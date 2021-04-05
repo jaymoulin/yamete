@@ -7,8 +7,8 @@ use Yamete\DriverAbstract;
 
 class TnaFlixCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'tnaflix.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -20,7 +20,7 @@ class TnaFlixCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array

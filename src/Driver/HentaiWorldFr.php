@@ -6,18 +6,18 @@ use AppendIterator;
 use ArrayIterator;
 use GuzzleHttp\Exception\GuzzleException;
 use Iterator;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class HentaiWorldFr extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'hentaiworld.fr';
-
-    protected function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -29,9 +29,20 @@ class HentaiWorldFr extends DriverAbstract
         );
     }
 
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
     /**
-     * @return array|string[]
+     * @return array
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
      * @throws GuzzleException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -44,19 +55,22 @@ class HentaiWorldFr extends DriverAbstract
 
     /**
      * @param $sUrl
-     * @param $oAppend
+     * @param AppendIterator $oAppend
      * @param int $iIndex
      * @return Iterator
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
      * @throws GuzzleException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     private function getForUrl($sUrl, AppendIterator $oAppend, $iIndex = 0): Iterator
     {
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aReturn = [];
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             */
             $sChapUrl = $oLink->getAttribute('href');
             if ($sChapUrl[0] == '/' || $sChapUrl[0] == '?' || preg_match('~^image[0-9]+\.html?$~', $sChapUrl)) {
                 continue;

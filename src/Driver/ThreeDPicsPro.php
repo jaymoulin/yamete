@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class ThreeDPicsPro extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = '3dpics.pro';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,8 +26,14 @@ class ThreeDPicsPro extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -30,7 +41,6 @@ class ThreeDPicsPro extends DriverAbstract
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#thumbTable a') as $oLink) {
-            /* @var AbstractNode $oLink */
             $sFilename = str_replace('index.php', $oLink->getAttribute('href'), $this->sUrl);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

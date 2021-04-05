@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class G6HentaiCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'g6hentai.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,8 +26,14 @@ class G6HentaiCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -30,10 +41,6 @@ class G6HentaiCom extends DriverAbstract
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('li .sexythumbs a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             * @var AbstractNode $oImg
-             */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
             $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.galleryblock img')[0];
             $sFilename = $oImg->getAttribute('src');

@@ -3,17 +3,28 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class HentaiIdTv extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'hentai-id.tv';
+    private array $aMatches = [];
 
     /**
      * @return bool
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
      * @throws GuzzleException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function canHandle(): bool
     {
@@ -22,7 +33,6 @@ class HentaiIdTv extends DriverAbstract
             $this->sUrl
         )) {
             $oRes = $this->getClient()->request('GET', $this->sUrl);
-            /* @var AbstractNode $oLink */
             $oLink = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('.mm2 a')[0];
             $aMatch = [];
             if (preg_match('~\?s=(?<url>.+)~', $oLink->getAttribute('href'), $aMatch)) {
@@ -34,14 +44,15 @@ class HentaiIdTv extends DriverAbstract
         return (bool)preg_match($sMatch, $this->sUrl, $this->aMatches);
     }
 
-    public function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
-
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -51,11 +62,7 @@ class HentaiIdTv extends DriverAbstract
         $index = 0;
         $sSelector = '#inlineFormCustomSelect option';
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($sSelector) as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             * @var AbstractNode $oImg
-             */
-            $sUrl = "{$sBaseUrl}&p={$oLink->getAttribute('value')}";
+            $sUrl = "$sBaseUrl&p={$oLink->getAttribute('value')}";
             $oRes = $this->getClient()->request('GET', $sUrl);
             $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.img-m2')[0];
             $sFilename = $oImg->getAttribute('src');
@@ -64,6 +71,11 @@ class HentaiIdTv extends DriverAbstract
             $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
+    }
+
+    public function getDomain(): string
+    {
+        return self::DOMAIN;
     }
 
     private function getFolder(): string

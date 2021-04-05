@@ -3,18 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class MintManga extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'mintmanga.live';
-
-    protected function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -26,9 +26,20 @@ class MintManga extends DriverAbstract
         );
     }
 
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -39,10 +50,6 @@ class MintManga extends DriverAbstract
         $sSelector = '#chapterSelectorSelect option';
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($sSelector) as $oLink) {
             usleep(1000);
-            /**
-             * @var AbstractNode $oLink
-             * @var AbstractNode $oImg
-             */
             $sChapterUrl = $sBaseUrl . $oLink->getAttribute('value');
             $oRes = $this->getClient()->request('GET', $sChapterUrl);
             $sRegExp = '~rm_h.init\((?<json>[^\)]+)\)~';

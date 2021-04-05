@@ -3,26 +3,37 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class EHentai extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'e-hentai.org';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
         return (bool)preg_match(
-            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/(?<mode>s|g)/([^/]+)/(?<album>[^/-]+)~',
+            '~^https?://' . strtr(self::DOMAIN, ['.' => '\.', '-' => '\-']) . '/(?<mode>[sg])/([^/]+)/(?<album>[^/-]+)~',
             $this->sUrl,
             $this->aMatches
         );
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -34,10 +45,6 @@ class EHentai extends DriverAbstract
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.gdtm a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             * @var AbstractNode $oImg
-             */
             $oImg = $this->getDomParser()
                 ->loadStr((string)$this->getClient()->request('GET', $oLink->getAttribute('href'))->getBody())
                 ->find('#i3 img');

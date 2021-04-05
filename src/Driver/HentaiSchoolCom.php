@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class HentaiSchoolCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'hentaischool.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,14 +26,17 @@ class HentaiSchoolCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
-        /**
-         * @var AbstractNode $oIframe
-         */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $oIframe = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('iframe#frame-id')[0];

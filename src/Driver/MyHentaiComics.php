@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class MyHentaiComics extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'myhentaicomics.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,18 +26,20 @@ class MyHentaiComics extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.g-item a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             * @var AbstractNode $oImg
-             */
             $oImg = $this->getDomParser()
                 ->loadStr(
                     (string)$this->getClient()->request('GET', 'http://' . self::DOMAIN . $oLink->getAttribute('href'))

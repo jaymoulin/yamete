@@ -3,24 +3,35 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class RajaHentaiCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'rajahentai.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
         $sMatch = '~^https?://(' . strtr(self::DOMAIN, ['.' => '\.'])
-            . ')/index/__xtblog_entry/(?<albumId>[0-9]+)\-(?<album>[^?]+)~';
+            . ')/index/__xtblog_entry/(?<albumId>[0-9]+)-(?<album>[^?]+)~';
         return (bool)preg_match($sMatch, $this->sUrl, $this->aMatches);
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -28,9 +39,6 @@ class RajaHentaiCom extends DriverAbstract
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.xt_blog_content img') as $oImg) {
-            /**
-             * @var AbstractNode $oImg
-             */
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

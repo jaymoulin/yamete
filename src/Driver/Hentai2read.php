@@ -3,14 +3,21 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Utils;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class Hentai2read extends DriverAbstract
 {
-    private $aMatches = [];
-    private $aReturn = [];
-    private $iPointer = 0;
     private const DOMAIN = 'hentai2read.com';
+    private array $aMatches = [];
+    private array $aReturn = [];
+    private int $iPointer = 0;
 
     public function canHandle(): bool
     {
@@ -22,8 +29,14 @@ class Hentai2read extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -36,24 +49,24 @@ class Hentai2read extends DriverAbstract
 
     /**
      * @param string $sUrl
-     * @return array
+     * @return void
      * @throws GuzzleException
      */
-    private function parse(string $sUrl): array
+    private function parse(string $sUrl): void
     {
         if (!$sUrl) {
-            return $this->aReturn;
+            return;
         }
         $oRes = $this->getClient()->request('GET', $sUrl);
         $sAccessor = '~var gData = (?<json>\{[^\}]+\});~';
         $aMatches = [];
         if (preg_match($sAccessor, (string)$oRes->getBody(), $aMatches) == false) {
-            return [];
+            return;
         }
         if (!$aMatches['json']) {
-            return $this->aReturn;
+            return;
         }
-        $aObj = \GuzzleHttp\json_decode(str_replace('\'', '"', $aMatches['json']), true);
+        $aObj = Utils::jsonDecode(str_replace('\'', '"', $aMatches['json']), true);
         foreach ($aObj['images'] as $sPostImage) {
             $sFilename = 'https://static.hentaicdn.com/hentai' . $sPostImage;
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$this->iPointer, 5, '0', STR_PAD_LEFT) .
@@ -61,7 +74,6 @@ class Hentai2read extends DriverAbstract
             $this->aReturn[$sPath] = $sFilename;
         }
         $this->parse($aObj['nextURL']);
-        return $this->aReturn;
     }
 
     private function getFolder(): string

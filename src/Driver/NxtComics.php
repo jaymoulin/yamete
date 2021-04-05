@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class NxtComics extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'nxt-comics.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,8 +26,14 @@ class NxtComics extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -31,9 +42,6 @@ class NxtComics extends DriverAbstract
         $index = 0;
         $sRule = '.entry-content figure.dgwt-jg-item a';
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($sRule) as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             */
             $sFilename = $oLink->getAttribute('href');
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT) . '-'
                 . basename($sFilename);

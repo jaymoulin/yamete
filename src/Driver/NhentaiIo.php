@@ -3,14 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Traversable;
 use Yamete\DriverAbstract;
 
 class NhentaiIo extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'nhentai.io';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -31,15 +36,19 @@ class NhentaiIo extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var Traversable $oPages
-         * @var AbstractNode $oPage
-         * @var AbstractNode $oImg
          */
         $sUrl = 'https://' .
             implode('/', [$this->getDomain(), $this->aMatches['album'], 'read', '']);

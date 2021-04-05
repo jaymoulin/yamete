@@ -3,37 +3,44 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class LolHentaiNet extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'lolhentai.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
-        return (bool)preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/index\?/collections/view/(?<album>[^?/]+)~',
-            $this->sUrl,
-            $this->aMatches
-        ) or (bool)preg_match(
-            '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/index\?/category/(?<album>[^?/]+)~',
-            $this->sUrl,
-            $this->aMatches
-        );
+        return preg_match(
+                '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/index\?/collections/view/(?<album>[^?/]+)~',
+                $this->sUrl,
+                $this->aMatches
+            ) or preg_match(
+                '~^https?://www\.(' . strtr(self::DOMAIN, ['.' => '\.']) . ')/index\?/category/(?<album>[^?/]+)~',
+                $this->sUrl,
+                $this->aMatches
+            );
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
-        /**
-         * @var AbstractNode[] $oChapters
-         * @var AbstractNode $oHref
-         */
         $sUrl = $this->sUrl;
         $oRes = $this->getClient()->request('GET', "$sUrl&start=0");
         $oContent = $this->getDomParser()->loadStr((string)$oRes->getBody());

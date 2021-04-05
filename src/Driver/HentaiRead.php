@@ -3,15 +3,21 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use GuzzleHttp\Utils;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 use Yamete\DriverInterface;
 
 class HentaiRead extends DriverAbstract
 {
-    private $aMatches = [];
-    private $aReturn = [];
     private const DOMAIN = 'hentairead.com';
+    private array $aMatches = [];
+    private array $aReturn = [];
 
     public function canHandle(): bool
     {
@@ -23,8 +29,14 @@ class HentaiRead extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -35,7 +47,13 @@ class HentaiRead extends DriverAbstract
 
     /**
      * @param string $sUrl
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
      * @throws GuzzleException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     private function getLinks(string $sUrl): void
     {
@@ -44,7 +62,6 @@ class HentaiRead extends DriverAbstract
         $index = 0;
         $aMatches = [];
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('li.wp-manga-chapter a') as $oLink) {
-            /* @var AbstractNode $oLink */
             $this->getLinks($oLink->getAttribute('href'));
             $bFound = true;
         }
@@ -55,7 +72,7 @@ class HentaiRead extends DriverAbstract
         if (!preg_match('~var chapter_preloaded_images = ([^]]+])~', (string)$oRes->getBody(), $aMatches)) {
             return;
         }
-        $aPages = \GuzzleHttp\json_decode($aMatches[1], true);
+        $aPages = Utils::jsonDecode($aMatches[1], true);
         foreach ($aPages as $sFilename) {
             $iPos = strpos($sFilename, '?');
             $sFilename = substr($sFilename, 0, $iPos);

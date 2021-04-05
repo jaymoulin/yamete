@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class FadaDoSexoCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'fadadosexo.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -30,20 +35,23 @@ class FadaDoSexoCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
-        /**
-         * @var AbstractNode $oPages
-         */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $oPages = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#conteudo a img.lazy');
         $index = 0;
         $aReturn = [];
         foreach ($oPages as $oPage) {
-            if (strpos($oPage->getAttribute('class'), 'wp-image') === false) {
+            if (!str_contains($oPage->getAttribute('class'), 'wp-image')) {
                 continue;
             }
             $sFilename = trim($oPage->getAttribute('data-src'));

@@ -4,17 +4,13 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Utils;
 use Yamete\DriverAbstract;
 
 class NineHentai extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = '9hentai.ru';
-
-    protected function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -26,8 +22,13 @@ class NineHentai extends DriverAbstract
         );
     }
 
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
@@ -47,7 +48,7 @@ class NineHentai extends DriverAbstract
                 'x-csrf-token' => $aMatches['csrf'],
             ]
         ]);
-        $aJson = \GuzzleHttp\json_decode((string)$oRes->getBody(), true);
+        $aJson = Utils::jsonDecode((string)$oRes->getBody(), true);
         if ($aJson['status'] !== true) {
             return [];
         }

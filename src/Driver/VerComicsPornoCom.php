@@ -4,13 +4,18 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class VerComicsPornoCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'ver-comics-porno.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,8 +27,14 @@ class VerComicsPornoCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -32,23 +43,15 @@ class VerComicsPornoCom extends DriverAbstract
         $index = 0;
         $sBody = str_replace('<meta charset="VerComicsPorno" />', '', (string)$oRes->getBody());
         foreach ($this->getDomParser()->loadStr($sBody)->find('.wp-content img') as $oImg) {
-            /**
-             * @var AbstractNode $oImg
-             */
             $sFilename = $oImg->getAttribute('src');
-            if (strpos($oImg->getAttribute('class'), 'size-full') === false) {
+            if (!str_contains($oImg->getAttribute('class'), 'size-full')) {
                 continue;
             }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
-            $aReturn[$sBasename] = strpos($sFilename, 'http') === 0 ? $sFilename : 'https:' . $sFilename;
+            $aReturn[$sBasename] = str_starts_with($sFilename, 'http') ? $sFilename : 'https:' . $sFilename;
         }
         return $aReturn;
-    }
-
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 
     /**
@@ -58,5 +61,10 @@ class VerComicsPornoCom extends DriverAbstract
     public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT],]);
+    }
+
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

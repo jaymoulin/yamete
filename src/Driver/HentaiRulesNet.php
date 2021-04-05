@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 if (!class_exists(HentaiRulesNet::class)) {
     class HentaiRulesNet extends DriverAbstract
     {
-        private $aMatches = [];
+        private array $aMatches = [];
         private const DOMAIN = 'hentairules.net';
 
         public function canHandle(): bool
@@ -23,8 +28,14 @@ if (!class_exists(HentaiRulesNet::class)) {
         }
 
         /**
-         * @return array|string[]
+         * @return array
          * @throws GuzzleException
+         * @throws ChildNotFoundException
+         * @throws CircularException
+         * @throws ContentLengthException
+         * @throws LogicalException
+         * @throws NotLoadedException
+         * @throws StrictException
          */
         public function getDownloadables(): array
         {
@@ -40,10 +51,6 @@ if (!class_exists(HentaiRulesNet::class)) {
                 $sUrl = $sBaseUrl . '/index.php?/category/' . $this->aMatches['album'] . '/start-' . $page . '00';
                 $oRes = $this->getClient()->request('GET', $sUrl);
                 foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#thumbnails li a') as $oLink) {
-                    /**
-                     * @var AbstractNode $oLink
-                     * @var AbstractNode $oImg
-                     */
                     $sUrl = $sBaseUrl . '/' . $oLink->getAttribute('href');
                     $oRes = $this->getClient()->request('GET', $sUrl);
                     $oImg = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#theImage img')[0];

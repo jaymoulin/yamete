@@ -3,12 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 if (!class_exists(ThreeDSexToonsNet::class)) {
     class ThreeDSexToonsNet extends DriverAbstract
     {
-        private $aMatches = [];
+        private array $aMatches = [];
         private const DOMAIN = '3dsextoons.net';
 
         protected function getDomain(): string
@@ -27,8 +33,14 @@ if (!class_exists(ThreeDSexToonsNet::class)) {
         }
 
         /**
-         * @return array|string[]
+         * @return array
          * @throws GuzzleException
+         * @throws ChildNotFoundException
+         * @throws CircularException
+         * @throws ContentLengthException
+         * @throws LogicalException
+         * @throws NotLoadedException
+         * @throws StrictException
          */
         public function getDownloadables(): array
         {

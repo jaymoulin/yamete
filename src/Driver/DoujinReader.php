@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class DoujinReader extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'doujinreader.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,17 +26,17 @@ class DoujinReader extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
-
-        /**
-         * @var AbstractNode $oLink
-         * @var AbstractNode $oNext
-         * @var AbstractNode $oImg
-         */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;

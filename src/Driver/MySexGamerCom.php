@@ -7,8 +7,8 @@ use Yamete\DriverAbstract;
 
 class MySexGamerCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'mysexgamer.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -20,7 +20,7 @@ class MySexGamerCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
@@ -43,7 +43,7 @@ class MySexGamerCom extends DriverAbstract
             $aReturn[$sBasename] = $sFilename;
         }
         foreach (array_slice($aMatches[1], 3) as $iKey => $sFilename) {
-            if ($iKey % 2 === 0 or strpos($sFilename, 'upload') === false) {
+            if ($iKey % 2 === 0 or !str_contains($sFilename, 'upload')) {
                 continue;
             }
             $sFilename = str_replace('/smalls/', '/originals/', $sFilename);

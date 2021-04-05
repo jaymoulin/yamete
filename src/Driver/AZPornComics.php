@@ -7,13 +7,8 @@ use Yamete\DriverAbstract;
 
 class AZPornComics extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'azporncomics.com';
-
-    protected function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -25,8 +20,13 @@ class AZPornComics extends DriverAbstract
         );
     }
 
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array

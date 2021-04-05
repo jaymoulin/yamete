@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class MangaOwlCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'mangaowl.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -23,6 +28,12 @@ class MangaOwlCom extends DriverAbstract
     /**
      * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -30,12 +41,8 @@ class MangaOwlCom extends DriverAbstract
         $aReturn = [];
         $index = 1;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#selectChapter option') as $oOption) {
-            /**
-             * @var AbstractNode $oOption
-             * @var AbstractNode $oImg
-             */
             $sUrl = trim($oOption->getAttribute('url'));
-            $sUrl = strpos($sUrl, '://') === false ? 'https://' . self::DOMAIN . $sUrl : $sUrl;
+            $sUrl = !str_contains($sUrl, '://') ? 'https://' . self::DOMAIN . $sUrl : $sUrl;
             $oRes = $this->getClient()->request('GET', $sUrl);
             $aChap = [];
             foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.owl-lazy') as $oImg) {

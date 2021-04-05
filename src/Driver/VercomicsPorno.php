@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class VercomicsPorno extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'vercomicsporno.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,8 +26,14 @@ class VercomicsPorno extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -30,16 +41,13 @@ class VercomicsPorno extends DriverAbstract
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.comicimg img') as $oImg) {
-            /**
-             * @var AbstractNode $oImg
-             */
             $sFilename = $oImg->getAttribute('src');
-            if (empty($sFilename) || strpos($sFilename, '.jpg') === false) {
+            if (empty($sFilename) || !str_contains($sFilename, '.jpg')) {
                 continue;
             }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad(++$index, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
-            $aReturn[$sBasename] = strpos($sFilename, 'http') === 0 ? $sFilename : 'https:' . $sFilename;
+            $aReturn[$sBasename] = str_starts_with($sFilename, 'http') ? $sFilename : 'https:' . $sFilename;
         }
         return $aReturn;
     }

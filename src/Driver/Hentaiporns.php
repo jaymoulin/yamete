@@ -3,13 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
+use PHPHtmlParser\Options;
 use Yamete\DriverAbstract;
 
 class Hentaiporns extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'hentaiporns.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,8 +27,14 @@ class Hentaiporns extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -30,12 +42,9 @@ class Hentaiporns extends DriverAbstract
         $aReturn = [];
         $index = 0;
         $oCollection = $this->getDomParser()
-            ->loadStr((string)$oRes->getBody(), (new \PHPHtmlParser\Options)->setCleanupInput(false))
+            ->loadStr((string)$oRes->getBody(), (new Options)->setCleanupInput(false))
             ->find('.gallery-icon a');
         foreach ($oCollection as $oImg) {
-            /**
-             * @var AbstractNode $oImg
-             */
             $sFilename = $oImg->getAttribute('href');
             $sPath = $this->getFolder() . DIRECTORY_SEPARATOR .
                 str_pad(++$index, 5, '0', STR_PAD_LEFT) . '-' . basename($sFilename);

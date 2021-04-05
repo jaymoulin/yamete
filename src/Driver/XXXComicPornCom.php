@@ -5,13 +5,18 @@ namespace Yamete\Driver;
 use AppendIterator;
 use ArrayIterator;
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 if (!class_exists(XXXComicPornCom::class)) {
     class XXXComicPornCom extends DriverAbstract
     {
-        private $aMatches = [];
+        private array $aMatches = [];
         private const DOMAIN = 'xxxcomicporn.com';
 
         protected function getDomain(): string
@@ -35,8 +40,14 @@ if (!class_exists(XXXComicPornCom::class)) {
         }
 
         /**
-         * @return array|string[]
+         * @return array
          * @throws GuzzleException
+         * @throws ChildNotFoundException
+         * @throws CircularException
+         * @throws ContentLengthException
+         * @throws LogicalException
+         * @throws NotLoadedException
+         * @throws StrictException
          */
         public function getDownloadables(): array
         {
@@ -54,9 +65,6 @@ if (!class_exists(XXXComicPornCom::class)) {
             }
             $aParsed = [];
             foreach ($oOptions as $oOption) {
-                /**
-                 * @var AbstractNode $oOption
-                 */
                 $sUrl = 'http://' . $this->getDomain() . $oOption->getAttribute('value');
                 if (isset($aParsed[$sUrl])) {
                     continue;
@@ -73,16 +81,20 @@ if (!class_exists(XXXComicPornCom::class)) {
          * @param string $sBody
          * @param int $iIndex
          * @return array
+         * @throws GuzzleException
+         * @throws ChildNotFoundException
+         * @throws CircularException
+         * @throws ContentLengthException
+         * @throws LogicalException
+         * @throws NotLoadedException
+         * @throws StrictException
          */
         private function getForBody(string $sBody, int $iIndex): array
         {
             $aReturn = [];
             foreach ($this->getDomParser()->loadStr($sBody)->find($this->getSelector()) as $oLink) {
-                /**
-                 * @var AbstractNode $oLink
-                 */
                 $sFilename = $oLink->getAttribute('data-img') . $oLink->getAttribute('data-ext');
-                $sFilename = strpos($sFilename, 'http') !== false
+                $sFilename = str_contains($sFilename, 'http')
                     ? $sFilename
                     : 'http://' . $this->getDomain() . $sFilename;
                 $oRes = $this->getClient()->request('GET', $sFilename, ["http_errors" => false]);

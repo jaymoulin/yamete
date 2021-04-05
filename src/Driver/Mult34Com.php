@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class Mult34Com extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'mult34.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -23,6 +28,12 @@ class Mult34Com extends DriverAbstract
     /**
      * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -30,9 +41,6 @@ class Mult34Com extends DriverAbstract
         $this->sUrl = 'https://' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.gallery-item a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             */
             $sFilename = $oLink->getAttribute('href');
             if (!$sFilename) {
                 continue;
@@ -40,9 +48,6 @@ class Mult34Com extends DriverAbstract
             $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
         }
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.thn_post_wrap p img.lazyload') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             */
             $sFilename = $oLink->getAttribute('data-src');
             if (!$sFilename) {
                 continue;

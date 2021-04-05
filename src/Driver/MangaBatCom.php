@@ -5,13 +5,18 @@ namespace Yamete\Driver;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use iterator;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class MangaBatCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'mangabat.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -23,24 +28,19 @@ class MangaBatCom extends DriverAbstract
     }
 
     /**
-     * Where to download
-     * @return string
-     */
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
-    /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var iterator $oChapters
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode $oImage
          */
         $oResult = $this->getClient()->request('GET', $this->sUrl);
         $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.row-content-chapter a');
@@ -64,5 +64,14 @@ class MangaBatCom extends DriverAbstract
     public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
+    }
+
+    /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

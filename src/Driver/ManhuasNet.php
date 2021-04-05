@@ -4,14 +4,19 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
 use iterator;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 
 class ManhuasNet extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'manhuas.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -31,24 +36,19 @@ class ManhuasNet extends DriverAbstract
     }
 
     /**
-     * Where to download
-     * @return string
-     */
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
-    }
-
-    /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var iterator $oChapters
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode[] $oPages
          */
         $sUrl = 'https://' . self::DOMAIN . '/manhua/' . $this->aMatches['album'] . '/';
         $oResult = $this->getClient()->request('GET', $sUrl);
@@ -89,5 +89,14 @@ class ManhuasNet extends DriverAbstract
             }
         }
         return $aReturn;
+    }
+
+    /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
     }
 }

@@ -2,13 +2,12 @@
 
 namespace Yamete\Driver;
 
-use GuzzleHttp\Exception\GuzzleException;
 use Yamete\DriverAbstract;
 
 class VercomicsPornoXXX extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'vercomicsporno.xxx';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -20,8 +19,7 @@ class VercomicsPornoXXX extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
-     * @throws GuzzleException
+     * @return array
      */
     public function getDownloadables(): array
     {

@@ -3,12 +3,15 @@
 namespace Yamete;
 
 use ArrayIterator;
+use Exception;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use SplFileInfo;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ConvertCommand extends \Symfony\Component\Console\Command\Command
+class ConvertCommand extends Command
 {
     protected function configure(): void
     {
@@ -17,10 +20,9 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
     }
 
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int|null|void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
@@ -29,7 +31,7 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
         $aList = [];
         $oIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->getDirectory()));
         foreach ($oIterator as $oFilename) {
-            /** @var \SplFileInfo $oFilename */
+            /** @var SplFileInfo $oFilename */
             if ($oFilename->isFile()) {
                 $sFilename = $oFilename->getRealPath();
                 $sFolderName = basename(dirname($sFilename));
@@ -54,8 +56,7 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
     /**
      * @param array $aList Folder list / all assets path
      * @param OutputInterface $output
-     * @return int|null|void
-     * @throws \Exception
+     * @throws Exception
      */
     private function pdf(array $aList, OutputInterface $output): void
     {
@@ -73,7 +74,7 @@ class ConvertCommand extends \Symfony\Component\Console\Command\Command
             rmdir($baseName);
             $pdf->Output('F', $baseName . '.pdf');
             $output->writeln("<comment>PDF created $baseName.pdf</comment>");
-        } catch (\Exception $eException) {
+        } catch (Exception $eException) {
             $sMessage = $eException->getMessage();
             $output->writeln("<error>PDF errored! : $sMessage</error>");
             ini_set('memory_limit', $iMemoryLimit);

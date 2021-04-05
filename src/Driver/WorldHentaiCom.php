@@ -3,14 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Traversable;
 use Yamete\DriverAbstract;
 
 class WorldHentaiCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'world-hentai.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,15 +27,19 @@ class WorldHentaiCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var Traversable $oPages
-         * @var AbstractNode $oLink
-         * @var AbstractNode $oImg
          */
         $sUrl = implode('/', ['http:/', self::DOMAIN, $this->aMatches['album'],]);
         $oRes = $this->getClient()->request('GET', $sUrl);

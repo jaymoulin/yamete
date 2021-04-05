@@ -3,14 +3,19 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Traversable;
 use Yamete\DriverAbstract;
 
 class EggPornComicsCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'eggporncomics.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,15 +27,19 @@ class EggPornComicsCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var Traversable $oPages
-         * @var AbstractNode $oLink
-         * @var AbstractNode $oImg
          */
         $sUrl = implode(
             '/',
@@ -50,7 +59,7 @@ class EggPornComicsCom extends DriverAbstract
         $index = 0;
         $aReturn = [];
         foreach ($aMatches[1] as $sLink) {
-            if (strpos($sLink, '?page=') === false) {
+            if (!str_contains($sLink, '?page=')) {
                 continue;
             }
             $oRes = $this->getClient()->request('GET', 'https://' . self::DOMAIN . $sLink);

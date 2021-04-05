@@ -7,8 +7,8 @@ use Yamete\DriverAbstract;
 
 class MyMangaComicsCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'mymangacomics.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -20,7 +20,7 @@ class MyMangaComicsCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array

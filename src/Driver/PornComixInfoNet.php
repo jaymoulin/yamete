@@ -3,18 +3,20 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Utils;
 use iterator;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class PornComixInfoNet extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'porncomixinfo.net';
-
-    protected function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -25,16 +27,25 @@ class PornComixInfoNet extends DriverAbstract
         );
     }
 
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var iterator $oChapters
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode[] $oPages
          */
         $sUrl = 'https://' . $this->getDomain() . '/chapter/' . $this->aMatches['album'] . '/';
         $oResult = $this->getClient()->request('GET', $sUrl);
@@ -67,7 +78,7 @@ class PornComixInfoNet extends DriverAbstract
             if (!preg_match('~var chapter_preloaded_images = ([^]]+])~', (string)$oResult->getBody(), $aMatches)) {
                 return [];
             }
-            $aPages = \GuzzleHttp\json_decode($aMatches[1], true);
+            $aPages = Utils::jsonDecode($aMatches[1], true);
             foreach ($aPages as $sFilename) {
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

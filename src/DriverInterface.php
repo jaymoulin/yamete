@@ -2,6 +2,8 @@
 
 namespace Yamete;
 
+use GuzzleHttp\Client;
+
 interface DriverInterface
 {
     /**
@@ -14,22 +16,20 @@ interface DriverInterface
     /**
      * Tells if driver can handle defined URL (with setUrl)
      * @return bool
-     * @uses self::setUrl
      */
     public function canHandle(): bool;
 
     /**
      * Returns URLs that can be downloaded (indexed by optional file name) for specified URL (with setUrl)
      * @return string[]
-     * @uses self::setUrl
      */
     public function getDownloadables(): array;
 
     /**
      * Returns Guzzle client that will be used to download resources
-     * @return \GuzzleHttp\Client
+     * @return Client
      */
-    public function getClient(): \GuzzleHttp\Client;
+    public function getClient(): Client;
 
     /**
      * Clean the current instance (free memory)

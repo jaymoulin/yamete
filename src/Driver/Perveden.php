@@ -3,12 +3,13 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Utils;
 use Yamete\DriverAbstract;
 
 class Perveden extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'perveden.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,7 +22,7 @@ class Perveden extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
@@ -36,7 +37,7 @@ class Perveden extends DriverAbstract
         if (!preg_match('~var pages = ([^;]+);~s', (string)$oRes->getBody(), $aJson)) {
             return [];
         }
-        foreach (\GuzzleHttp\json_decode($aJson[1], true) as $aEntity) {
+        foreach (Utils::jsonDecode($aJson[1], true) as $aEntity) {
             $sFilename = "https:" . array_pop($aEntity['resized_images']);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);

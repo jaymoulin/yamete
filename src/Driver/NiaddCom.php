@@ -3,14 +3,13 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
 use Traversable;
 use Yamete\DriverAbstract;
 
 class NiaddCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'niadd.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,24 +21,13 @@ class NiaddCom extends DriverAbstract
     }
 
     /**
-     * Where to download
-     * @return string
-     */
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
-    /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
     {
         /**
          * @var Traversable $oChapters
-         * @var AbstractNode $oLink
-         * @var AbstractNode $oImage
          */
 
         $sUrl = 'https://es.' . self::DOMAIN . "/{$this->aMatches['type']}/{$this->aMatches['album']}/chapters.html?warning=1";
@@ -77,5 +65,14 @@ class NiaddCom extends DriverAbstract
             }
         }
         return $aReturn;
+    }
+
+    /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

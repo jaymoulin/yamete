@@ -4,13 +4,18 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class MegaPornPicsCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'megapornpics.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,8 +27,14 @@ class MegaPornPicsCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -31,20 +42,12 @@ class MegaPornPicsCom extends DriverAbstract
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('article p a img') as $oImg) {
-            /**
-             * @var AbstractNode $oImg
-             */
             $sFilename = $oImg->getAttribute('src');
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                 . '-' . basename($sFilename);
             $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
-    }
-
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 
     /**
@@ -54,5 +57,10 @@ class MegaPornPicsCom extends DriverAbstract
     public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT],]);
+    }
+
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

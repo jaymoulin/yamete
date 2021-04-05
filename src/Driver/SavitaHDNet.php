@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class SavitaHDNet extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'savitahd.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -23,6 +28,12 @@ class SavitaHDNet extends DriverAbstract
     /**
      * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -33,10 +44,7 @@ class SavitaHDNet extends DriverAbstract
         for ($iPage = 1; $iPage <= $iNbPages; $iPage++) {
             $oRes = $this->getClient()->request('GET', $this->sUrl . $iPage . '/');
             foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('a') as $oLink) {
-                /**
-                 * @var AbstractNode $oLink
-                 */
-                if (strpos($oLink->getAttribute('href'), 'imgfy.net') === false) {
+                if (!str_contains($oLink->getAttribute('href'), 'imgfy.net')) {
                     continue;
                 }
                 $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
@@ -48,9 +56,6 @@ class SavitaHDNet extends DriverAbstract
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
             }
             foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.gallery-item a') as $oLink) {
-                /**
-                 * @var AbstractNode $oLink
-                 */
                 $sFilename = $oLink->getAttribute('href');
                 if (!$sFilename) {
                     continue;

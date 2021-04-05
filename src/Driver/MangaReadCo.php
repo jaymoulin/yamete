@@ -3,18 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class MangaReadCo extends DriverAbstract
 {
     private const DOMAIN = 'mangaread.co';
-    protected $aMatches = [];
-
-    protected function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
+    protected array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,17 +22,23 @@ class MangaReadCo extends DriverAbstract
         return (bool)preg_match($sReg, $this->sUrl, $this->aMatches);
     }
 
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
+    }
+
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
-        /**
-         * @var iterator $oChapters
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode[] $oPages
-         */
         $sUrl = 'https://' . $this->getDomain() . '/manga/' . $this->aMatches['album'] . '/';
         $oResult = $this->getClient()->request('GET', $sUrl);
         $aMatches = [];

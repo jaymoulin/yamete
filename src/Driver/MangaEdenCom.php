@@ -3,14 +3,20 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Utils;
 use iterator;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class MangaEdenCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'mangaeden.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -22,16 +28,19 @@ class MangaEdenCom extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var iterator $oChapters
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode $oPage
-         * @var AbstractNode $oImg
          */
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $oChapters = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('a.chapterLink');
@@ -43,10 +52,10 @@ class MangaEdenCom extends DriverAbstract
             $sLink = 'https://' . self::DOMAIN . $oChapter->getAttribute('href');
             $oRes = $this->getClient()->request('GET', $sLink);
             $aMatches = [];
-            if (!preg_match('~var pages = (\[[^\]]+\]);~', (string)$oRes->getBody(), $aMatches)) {
+            if (!preg_match('~var pages = (\[[^]]+]);~', (string)$oRes->getBody(), $aMatches)) {
                 continue;
             }
-            foreach (\GuzzleHttp\json_decode($aMatches[1], true) as $aInfo) {
+            foreach (Utils::jsonDecode($aMatches[1], true) as $aInfo) {
                 $sFilename = 'http:' . $aInfo['fs'];
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
                     . '-' . basename($sFilename);

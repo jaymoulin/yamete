@@ -4,17 +4,22 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use iterator;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 use Yamete\DriverInterface;
 
 class HennoJinCom extends DriverAbstract
 {
+    private const DOMAIN = 'hennojin.com';
     private array $aMatches = [];
     private bool $bSecondMatch = false;
-
-    private const DOMAIN = 'hennojin.com';
 
     public function canHandle(): bool
     {
@@ -33,12 +38,20 @@ class HennoJinCom extends DriverAbstract
         return $bFistMatch or $this->bSecondMatch;
     }
 
+    /**
+     * @return array
+     * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
+     */
     public function getDownloadables(): array
     {
         /**
          * @var iterator $oChapters
-         * @var AbstractNode $oUrl
-         * @var AbstractNode[] $oPages
          */
         $aReturn = [];
         $index = 0;
@@ -58,11 +71,6 @@ class HennoJinCom extends DriverAbstract
         return $aReturn;
     }
 
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
     /**
      * @param array $aOptions
      * @return Client
@@ -70,6 +78,11 @@ class HennoJinCom extends DriverAbstract
     public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT]]);
+    }
+
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 
     public function clean(): DriverInterface

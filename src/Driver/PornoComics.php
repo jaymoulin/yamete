@@ -7,8 +7,8 @@ use Yamete\DriverAbstract;
 
 class PornoComics extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'pornocomics.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -20,7 +20,7 @@ class PornoComics extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
@@ -34,7 +34,7 @@ class PornoComics extends DriverAbstract
             return [];
         }
         foreach ($aImgs['filename'] as $sFilename) {
-            if (strpos($sFilename, '.js') !== false) {
+            if (str_contains($sFilename, '.js')) {
                 continue;
             }
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)

@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class HentaiFox extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'hentaifox.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -21,8 +26,14 @@ class HentaiFox extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -64,9 +75,6 @@ class HentaiFox extends DriverAbstract
         $index = 0;
         foreach ($oQueries as $sBody) {
             foreach ($this->getDomParser()->loadStr($sBody)->find('.g_thumb img') as $oImg) {
-                /**
-                 * @var AbstractNode $oImg
-                 */
                 $sFilename = str_replace('t.jpg', '.jpg', $oImg->getAttribute('src'));
                 $sIndex = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT) .
                     '-' . basename($sFilename);

@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class MangairoCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'mangairo.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -23,20 +28,20 @@ class MangairoCom extends DriverAbstract
     /**
      * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         $oRes = $this->getClient()->request('GET', 'https://m.' . self::DOMAIN . '/' . $this->aMatches['album']);
         $aReturn = [];
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#chapter_list a') as $oLink) {
-            /**
-             * @var AbstractNode $oLink
-             */
             $oRes = $this->getClient()->request('GET', $oLink->getAttribute('href'));
             foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.img_content') as $oImg) {
-                /**
-                 * @var AbstractNode $oImg
-                 */
                 $sFilename = $oImg->getAttribute('src');
                 $aReturn[$this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename)] = $sFilename;
             }

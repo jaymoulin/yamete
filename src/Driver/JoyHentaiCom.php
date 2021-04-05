@@ -3,13 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class JoyHentaiCom extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'joyhentai.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -23,15 +28,18 @@ class JoyHentaiCom extends DriverAbstract
     /**
      * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         $aReturn = [];
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.bookview-wrap img.lazyload') as $oImg) {
-            /**
-             * @var AbstractNode $oImg
-             */
             $sFilename = $oImg->getAttribute('data-src');
             if (!$sFilename) {
                 continue;

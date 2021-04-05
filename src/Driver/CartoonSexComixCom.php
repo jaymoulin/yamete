@@ -3,18 +3,18 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 class CartoonSexComixCom extends DriverAbstract
 {
     private const DOMAIN = 'cartoonsexcomix.com';
-    private $aMatches = [];
-
-    protected function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -26,14 +26,20 @@ class CartoonSexComixCom extends DriverAbstract
         );
     }
 
-    protected function getSelector(): string
+    protected function getDomain(): string
     {
-        return '.my-gallery figure a';
+        return self::DOMAIN;
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -44,12 +50,11 @@ class CartoonSexComixCom extends DriverAbstract
         $aReturn = [];
         $index = 0;
         foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find($this->getSelector()) as $oLink) {
-            /* @var AbstractNode $oLink */
             $sFilename = $oLink->getAttribute('href');
-            $sFilename = strpos($sFilename, 'http') !== false
+            $sFilename = str_contains($sFilename, 'http')
                 ? $sFilename
                 : (
-                strpos($sFilename, '//') !== false
+                str_contains($sFilename, '//')
                     ? $this->aMatches['scheme'] . ':' . $sFilename
                     : $this->aMatches['scheme'] . '://www.' . $this->getDomain() . $sFilename);
             $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
@@ -57,6 +62,11 @@ class CartoonSexComixCom extends DriverAbstract
             $aReturn[$sBasename] = $sFilename;
         }
         return $aReturn;
+    }
+
+    protected function getSelector(): string
+    {
+        return '.my-gallery figure a';
     }
 
     private function getFolder(): string

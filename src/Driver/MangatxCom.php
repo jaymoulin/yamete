@@ -4,19 +4,26 @@ namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
 use iterator;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 
 class MangatxCom extends IsekaiScanCom
 {
     private const DOMAIN = 'mangatx.com';
 
-    protected function getDomain(): string
-    {
-        return self::DOMAIN;
-    }
-
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
@@ -64,5 +71,10 @@ class MangatxCom extends IsekaiScanCom
             }
         }
         return $aReturn;
+    }
+
+    protected function getDomain(): string
+    {
+        return self::DOMAIN;
     }
 }

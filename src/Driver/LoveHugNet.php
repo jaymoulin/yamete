@@ -5,14 +5,19 @@ namespace Yamete\Driver;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use iterator;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 
 class LoveHugNet extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'lovehug.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -24,25 +29,19 @@ class LoveHugNet extends DriverAbstract
     }
 
     /**
-     * Where to download
-     * @return string
-     */
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['category']]);
-    }
-
-    /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var iterator $oChapters
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode[] $oPages
-         * @var AbstractNode $oImg
          */
         $sUrl = 'https://' . implode('/', [self::DOMAIN, $this->aMatches['category'], '']);
         $oResult = $this->getClient()->request('GET', $sUrl);
@@ -57,10 +56,10 @@ class LoveHugNet extends DriverAbstract
             $oPages = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('img.chapter-img');
             foreach ($oPages as $oPage) {
                 $sFilename = trim($oPage->getAttribute('data-srcset'));
-                if (strpos($sFilename, 'http') === false) {
+                if (!str_contains($sFilename, 'http')) {
                     $sFilename = base64_decode($sFilename);
                 }
-                if (strpos($sFilename, 'http') === false) {
+                if (!str_contains($sFilename, 'http')) {
                     continue;
                 }
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
@@ -74,5 +73,14 @@ class LoveHugNet extends DriverAbstract
     public function getClient(array $aOptions = []): Client
     {
         return parent::getClient(['headers' => ['Referer' => $this->sUrl]]);
+    }
+
+    /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['category']]);
     }
 }

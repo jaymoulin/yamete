@@ -3,15 +3,21 @@
 namespace Yamete\Driver;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Utils;
 use iterator;
-use PHPHtmlParser\Dom\AbstractNode;
+use PHPHtmlParser\Exceptions\ChildNotFoundException;
+use PHPHtmlParser\Exceptions\CircularException;
+use PHPHtmlParser\Exceptions\ContentLengthException;
+use PHPHtmlParser\Exceptions\LogicalException;
+use PHPHtmlParser\Exceptions\NotLoadedException;
+use PHPHtmlParser\Exceptions\StrictException;
 use Yamete\DriverAbstract;
 
 
 class MangaInnNet extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'mangainn.net';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -23,25 +29,19 @@ class MangaInnNet extends DriverAbstract
     }
 
     /**
-     * Where to download
-     * @return string
-     */
-    private function getFolder(): string
-    {
-        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
-    }
-
-    /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
+     * @throws ChildNotFoundException
+     * @throws CircularException
+     * @throws ContentLengthException
+     * @throws LogicalException
+     * @throws NotLoadedException
+     * @throws StrictException
      */
     public function getDownloadables(): array
     {
         /**
          * @var iterator $oChapters
-         * @var AbstractNode[] $aChapters
-         * @var AbstractNode[] $oPages
-         * @var AbstractNode $oImg
          */
         $sUrl = 'https://www.' . self::DOMAIN . '/' . $this->aMatches['album'] . '/';
         $oResult = $this->getClient()->request('GET', $sUrl);
@@ -57,7 +57,7 @@ class MangaInnNet extends DriverAbstract
             if (!preg_match($sRegExp, (string)$oResult->getBody(), $aMatches)) {
                 return [];
             }
-            $aObjects = \GuzzleHttp\json_decode($aMatches[1], true);
+            $aObjects = Utils::jsonDecode($aMatches[1], true);
             foreach ($aObjects as $aPage) {
                 $sFilename = trim($aPage['url']);
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . str_pad($index++, 5, '0', STR_PAD_LEFT)
@@ -66,5 +66,14 @@ class MangaInnNet extends DriverAbstract
             }
         }
         return $aReturn;
+    }
+
+    /**
+     * Where to download
+     * @return string
+     */
+    private function getFolder(): string
+    {
+        return implode(DIRECTORY_SEPARATOR, [self::DOMAIN, $this->aMatches['album']]);
     }
 }

@@ -5,13 +5,14 @@ namespace Yamete\Driver;
 use GuzzleHttp\Cookie\FileCookieJar;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Utils;
 use GuzzleRetry\GuzzleRetryMiddleware;
 use Yamete\DriverAbstract;
 
 class NHentai extends DriverAbstract
 {
-    private $aMatches = [];
     private const DOMAIN = 'nhentai.com';
+    private array $aMatches = [];
 
     public function canHandle(): bool
     {
@@ -23,7 +24,7 @@ class NHentai extends DriverAbstract
     }
 
     /**
-     * @return array|string[]
+     * @return array
      * @throws GuzzleException
      */
     public function getDownloadables(): array
@@ -38,7 +39,7 @@ class NHentai extends DriverAbstract
         $oRes = $this->getClient()->request('GET', $this->sUrl);
         $aReturn = [];
         $index = 0;
-        $aJson = \GuzzleHttp\json_decode((string)$oRes->getBody(), true);
+        $aJson = Utils::jsonDecode((string)$oRes->getBody(), true);
         foreach ($aJson['images'] as $aImg) {
             /** @var [] $aImg */
             $sFilename = $aImg['source_url'];
