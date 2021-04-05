@@ -51,7 +51,7 @@ class Parser
     public function parse(string $sUrl): bool|ResultIterator
     {
         foreach ($this->aDrivers as $oDriver) {
-            $oDriver->setUrl($sUrl);
+            $oDriver->clean()->setUrl($sUrl);
             if ($oDriver->canHandle()) {
                 return new ResultIterator($oDriver);
             }

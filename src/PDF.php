@@ -44,24 +44,24 @@ class PDF extends FPDF
         try {
             $this->Image($sFileName, 0, 0, $width, $height);
         } catch (Exception $e) {
-            if (strpos($e->getMessage(), 'Not a PNG file') !== false) {
+            if (str_contains($e->getMessage(), 'Not a PNG file')) {
                 $sNewFilename = str_replace('.png', '.jpg', $sFileName);
                 rename($sFileName, $sNewFilename);
                 $this->fullSizeImage($sNewFilename);
-            } elseif (strpos($e->getMessage(), 'Not a JPEG file') !== false) {
+            } elseif (str_contains($e->getMessage(), 'Not a JPEG file')) {
                 $sNewFilename = str_replace('.jpg', '.gif', $sFileName);
                 rename($sFileName, $sNewFilename);
                 $this->fullSizeImage($sNewFilename);
-            } elseif (strpos($e->getMessage(), 'Not a GIF file') !== false or
+            } elseif (str_contains($e->getMessage(), 'Not a GIF file') or
                 (
-                    strpos($e->getMessage(), 'Missing or incorrect image file') !== false and
-                    strpos($e->getMessage(), '.gif') !== false
+                    str_contains($e->getMessage(), 'Missing or incorrect image file') and
+                    str_contains($e->getMessage(), '.gif')
                 )
             ) {
                 $sNewFilename = str_replace('.gif', '.png', $sFileName);
                 rename($sFileName, $sNewFilename);
                 $this->Image($sNewFilename, 0, 0, $width, $height);
-            } elseif (strpos($e->getMessage(), 'Unsupported image type: webp') !== false) {
+            } elseif (str_contains($e->getMessage(), 'Unsupported image type: webp')) {
                 $sNewFilename = str_replace('.webp', '.jpg', $sFileName);
                 $oImage = imagecreatefromwebp($sFileName);
                 imagejpeg($oImage, $sNewFilename, 100);

@@ -29,8 +29,8 @@ abstract class DriverAbstract implements DriverInterface
      */
     public function clean(): DriverInterface
     {
-        unset($this->oDomParser);
-        unset($this->oClient);
+        $this->oDomParser = null;
+        $this->oClient = null;
         return $this;
     }
 

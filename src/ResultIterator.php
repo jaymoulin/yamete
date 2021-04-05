@@ -13,14 +13,13 @@ use Iterator;
  */
 class ResultIterator implements Iterator, Countable
 {
-    private $oDriver;
-    private $oIterator;
+    private DriverInterface $oDriver;
+    private ArrayIterator $oIterator;
 
     public function __construct(DriverInterface $oDriver)
     {
         $this->oDriver = $oDriver;
         $this->oIterator = new ArrayIterator($oDriver->getDownloadables());
-        $oDriver->clean();
     }
 
     public function current(): Downloadable
