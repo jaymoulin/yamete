@@ -29,6 +29,6 @@ class YifferXyz extends TestCase
         $driver = new \Yamete\Driver\YifferXyz();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(62, count($driver->getDownloadables()));
+        $this->assertEquals(61, count($driver->getDownloadables()));
     }
 }
