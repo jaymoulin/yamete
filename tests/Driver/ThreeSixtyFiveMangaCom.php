@@ -29,6 +29,6 @@ class ThreeSixtyFiveMangaCom extends TestCase
         $driver = new \Yamete\Driver\ThreeSixtyFiveMangaCom();
         $driver->setUrl($url);
         $this->assertTrue($driver->canHandle());
-        $this->assertEquals(999, count($driver->getDownloadables()));
+        $this->assertEquals(2575, count($driver->getDownloadables()));
     }
 }
