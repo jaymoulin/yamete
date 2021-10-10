@@ -14,6 +14,5 @@ docker-php-ext-configure gd --with-webp --with-jpeg && \
 docker-php-ext-install -j$(nproc) gd && \
 docker-php-ext-install -j$(nproc) zip
 
-VOLUME ['/app/downloads']
 
 CMD [ "download" ]
