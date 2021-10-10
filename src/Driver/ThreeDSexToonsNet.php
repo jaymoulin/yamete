@@ -44,10 +44,10 @@ if (!class_exists(ThreeDSexToonsNet::class)) {
          */
         public function getDownloadables(): array
         {
-            $sUrl = str_replace($this->getDomain(), 'page-x.com', $this->sUrl);
+            $sUrl = $this->sUrl;
             $oRes = $this->getClient()->request('GET', $sUrl);
             $aReturn = [];
-            $iNbImg = count($this->getDomParser()->loadStr((string)$oRes->getBody())->find('#gallery2 a'));
+            $iNbImg = count($this->getDomParser()->loadStr((string)$oRes->getBody())->find('.yukkal a.tumb'));
             for ($index = 1; $index <= $iNbImg; $index++) {
                 $sFilename = $sUrl . str_pad($index, 2, '0', STR_PAD_LEFT) . '.jpg';
                 $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
