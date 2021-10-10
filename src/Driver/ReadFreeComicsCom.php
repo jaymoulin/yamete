@@ -2,6 +2,7 @@
 
 namespace Yamete\Driver;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Traversable;
 use Yamete\DriverAbstract;
@@ -35,7 +36,7 @@ class ReadFreeComicsCom extends DriverAbstract
             . '/' . $this->aMatches['album'] . '/';
         $oRes = $this->getClient()->request('GET', $sUrl);
         $aMatches = [];
-        $sRegExp = '~<li class="wp-manga-chapter[^"]+">[^<]+<a href="([^"]+)~us';
+        $sRegExp = '~<li class="wp-manga-chapter[^"]+">[^<]+<a href=([^">]+)~us';
         if (!preg_match_all($sRegExp, (string)$oRes->getBody(), $aMatches)) {
             return [];
         }
@@ -46,7 +47,7 @@ class ReadFreeComicsCom extends DriverAbstract
         foreach ($aChapters as $sChapter) {
             $oRes = $this->getClient()->request('GET', $sChapter);
             $aMatches = [];
-            if (!preg_match_all('~src="([^"]+)" class="wp-manga-chapter-img~', (string)$oRes->getBody(), $aMatches)) {
+            if (!preg_match_all('~src="([^"> ]+)" class=wp-manga-chapter-img~us', (string)$oRes->getBody(), $aMatches)) {
                 continue;
             }
             foreach ($aMatches[1] as $sFilename) {
@@ -62,5 +63,14 @@ class ReadFreeComicsCom extends DriverAbstract
     private function getFolder(): string
     {
         return implode(DIRECTORY_SEPARATOR, [$this->getDomain(), $this->aMatches['album']]);
+    }
+
+    /**
+     * @param array $aOptions
+     * @return Client
+     */
+    public function getClient(array $aOptions = []): Client
+    {
+        return parent::getClient(['headers' => ['User-Agent' => self::USER_AGENT]]);
     }
 }
