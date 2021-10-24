@@ -206,7 +206,6 @@ Here's is the list of supported sites for now:
  * hentai-ita.net
  * sankakucomplex.com
  * multporn.net
- * azporncomics.com
  * theyiffgallery.com
  * hdporncomics.com
  * xcartx.com
