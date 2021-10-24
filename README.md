@@ -218,7 +218,6 @@ Here's is the list of supported sites for now:
  * hentaiworld.fr
  * vercomicsporno.xxx
  * pornoanimexxx.com
- * comic-porno.com
  * verpornocomic.com
  * myhentaigallery.com
  * pornocomics.net
