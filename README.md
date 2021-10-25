@@ -267,7 +267,6 @@ Here's is the list of supported sites for now:
  * mymangacomics.com
  * zizki.com
  * milftoon.xxx
- * ilikecomix.com
  * yiffer.xyz
  * avangard-iv.ru
  * sexporncomics.com
