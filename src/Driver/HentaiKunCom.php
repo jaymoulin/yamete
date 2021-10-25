@@ -56,10 +56,11 @@ class HentaiKunCom extends DriverAbstract
                     continue;
                 }
                 $oRes = $this->getClient()->request('GET', $sOption);
-                $oImage = $this->getDomParser()->loadStr((string)$oRes->getBody())->find('#con img')[0];
-                $sFilename = trim($oImage->getAttribute('src'));
-                $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
-                $aReturn[$sBasename] = $sFilename;
+                foreach ($this->getDomParser()->loadStr((string)$oRes->getBody())->find('img.image_show') as $oImage) {
+                    $sFilename = $oImage->getAttribute('src');
+                    $sBasename = $this->getFolder() . DIRECTORY_SEPARATOR . basename($sFilename);
+                    $aReturn[$sBasename] = $sFilename;
+                }
             }
         }
         return $aReturn;
