@@ -55,14 +55,10 @@ class Manga3sCom extends DriverAbstract
         $sResponse = (string)$this->getClient()
             ->request(
                 'POST',
-                'https://' . self::DOMAIN . '/wp-admin/admin-ajax.php',
+                $sUrl . 'ajax/chapters/',
                 [
                     'headers' => [
                         'X-Requested-With' => 'XMLHttpRequest',
-                    ],
-                    'form_params' => [
-                        'action' => 'manga_get_chapters',
-                        'manga' => $aMatches[1],
                     ],
                 ]
             )->getBody();
@@ -74,7 +70,7 @@ class Manga3sCom extends DriverAbstract
         foreach ($aChapters as $oChapter) {
             $oResult = $this->getClient()->request('GET', $oChapter->getAttribute('href'));
             $aMatches = [];
-            if (!preg_match_all('~src="([^"]+)" class="wp-manga-chapter-img~', (string)$oResult->getBody(), $aMatches)) {
+            if (!preg_match_all('~src="?([^"]+)"? class="?wp-manga-chapter-img~', (string)$oResult->getBody(), $aMatches)) {
                 continue;
             }
             foreach ($aMatches[1] as $sFilename) {
