@@ -43,7 +43,7 @@ class MangaBatCom extends DriverAbstract
          * @var iterator $oChapters
          */
         $oResult = $this->getClient()->request('GET', $this->sUrl);
-        $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('.row-content-chapter a');
+        $oChapters = $this->getDomParser()->loadStr((string)$oResult->getBody())->find('a.chapter-name');
         $aChapters = iterator_to_array($oChapters);
         krsort($aChapters);
         $aReturn = [];
