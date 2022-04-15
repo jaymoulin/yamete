@@ -18,8 +18,6 @@ Early Releases are available on https://www.japanread.cc/manga/mutedPatreon : ht
 
 This image allows you easily download specific assets of a site
 
-Interested in hentai? You may like this: https://yametee.vip
-
 But why?
 --------
 
@@ -110,9 +108,6 @@ Note: Use the `-u $(id -u)` part for yamete to run as a specific user. It's reco
 
 Note: Add `--init` parameter before `jaymoulin/yamete` if you intend to use interactive mode (`-i` parameter of Yamete), this is mandatory with `-ti` parameter.
 Otherwise, you will not be able to quit interactive mode. If you forgot the `--init` parameter or this parameter is not before the image, use (<kbd>CTRL</kbd>+<kbd>P</kbd> then <kbd>CTRL</kbd>+<kbd>Q</kbd> to detach your running container)
-
-Merch - https://yametee.vip
----------------------------------
 
 ### Build Docker Image
 
