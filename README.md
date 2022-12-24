@@ -32,6 +32,7 @@ BUT you can still use it for its former purpose by coding your own drivers! (`-d
 Installation
 ------------
 Easy install with a single line of code
+Please note that this package is also hosted on Github Container Registry, just add `ghcr.io/` before the image name (`docker pull ghcr.io/jaymoulin/yamete` instead of `jaymoulin/yamete`)
 
 ### Docker
 `docker run --rm -ti -v </path/to/downloads>:/root/downloads jaymoulin/yamete download [...]`

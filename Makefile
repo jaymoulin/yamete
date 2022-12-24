@@ -13,12 +13,16 @@ build: qemu-aarch64-static qemu-arm-static build/test-image
 	docker run --rm -v ${PWD}:/app/ yamete:test php composer.phar install --no-dev -o; \
 	$(foreach arch,$(archs), \
 		cat docker/Dockerfile | sed "s/FROM php/FROM ${arch}\/php/g" > Dockerfile; \
-		docker build -t jaymoulin/yamete:${VERSION}-$(arch) --build-arg VERSION=${VERSION} ${CACHE} .;\
+		docker build -t jaymoulin/yamete:${VERSION}-$(arch) -t ghcr.io/jaymoulin/yamete:${VERSION}-$(arch) --build-arg VERSION=${VERSION} ${CACHE} .;\
 	)
 publish:
 	docker push jaymoulin/yamete -a
+	docker push ghcr.io/jaymoulin/yamete -a
 	cat manifest.yml | sed "s/\$$VERSION/${VERSION}/g" > manifest.yaml
 	cat manifest.yaml | sed "s/\$$FULLVERSION/${FULLVERSION}/g" > manifest2.yaml
+	mv manifest2.yaml manifest.yaml
+	manifest-tool push from-spec manifest.yaml
+	cat manifest.yaml | sed "s/jaymoulin/ghcr.io\/jaymoulin/g" > manifest2.yaml
 	mv manifest2.yaml manifest.yaml
 	manifest-tool push from-spec manifest.yaml
 latest:
