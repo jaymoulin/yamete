@@ -14,8 +14,6 @@ DISCLAIMER: As-of 2021, this product does not have a free support team anymore. 
 
 (This product is available under a free and permissive license, but needs financial support to sustain its continued improvements. In addition to maintenance and stability there are many desirable features yet to be added.)
 
-Early Releases are available on https://www.japanread.cc/manga/mutedPatreon : https://www.patreon.com/jaymoulin/posts?tag=yamete
-
 This image allows you easily download specific assets of a site
 
 But why?
