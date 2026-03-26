@@ -15,7 +15,7 @@ Coding Standard
 ---------------
 
 Make sure your code changes comply with the PSR-2 coding standard by
-using [PHP Codesniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+using [PHP Codesniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer)
 from within your folder:
 
     composer phpcs
